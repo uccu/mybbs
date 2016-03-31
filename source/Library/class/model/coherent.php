@@ -1,8 +1,9 @@
 <?php
+namespace model;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class model_coherent extends abstract_args{
+class coherent extends \abstracts\model\base{
 
 	protected $thistable;
 	protected $table;
@@ -50,10 +51,10 @@ class model_coherent extends abstract_args{
 		return $this;
 	}
 	protected function table($table=false){
-		if(is_string($table))$this->thistable = table('model_logic')->quote_table($table);
+		if(is_string($table))$this->thistable = table('model\logic')->quote_table($table);
 		elseif(is_array($table))$this->tablemap = $table;
 		if(!$this->tablemap)return $this;
-		$this->table = table('model_logic')->quote_table($this->tablemap);
+		$this->table = table('model\logic')->quote_table($this->tablemap);
 		return $this;
 	}
 	protected function page($page=1,$limit=0){
@@ -82,7 +83,7 @@ class model_coherent extends abstract_args{
 	}
 	protected function where($w=false,$clean=false){
 		if($clean)$this->where = array();
-		if(is_array($w) && $ww = table('model_logic')->implode($w,'AND','=',$this->tablemap)){
+		if(is_array($w) && $ww = table('model\logic')->implode($w,'AND','=',$this->tablemap)){
 			$this->where[] = $ww;
 		}elseif(is_string($w))$this->where[] = $w;
 		return $this;
@@ -98,7 +99,7 @@ class model_coherent extends abstract_args{
 				unset($v['_mapping']);
 				unset($v['_on']);
 				foreach($v as $k0=>$v0){
-					$fields[] = table('model_logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.table('model_logic')->quote_field($v0):'');
+					$fields[] = table('model\logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.table('model\logic')->quote_field($v0):'');
 				}
 			}
 			$sql .= implode(',',$fields);
@@ -119,13 +120,13 @@ class model_coherent extends abstract_args{
 		}
 			
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model_logic')->fetch_all($sql,$keyfield);
+		$this->result = table('model\logic')->fetch_all($sql,$keyfield);
 		$this->zero();
 		return $this->result;
 		
 	}
 	protected function data($data=array()){
-		if($s = table('model_logic')->implode($data,',','=',$this->tablemap))$this->data = $s;
+		if($s = table('model\logic')->implode($data,',','=',$this->tablemap))$this->data = $s;
 		return $this;
 		
 	}
@@ -143,9 +144,9 @@ class model_coherent extends abstract_args{
 		if($this->where){
 			$sql .= ' WHERE ';
 			$sql .= implode('AND',$this->where);
-		}else throw new Exception('can not sava without where');
+		}else throw new \Exception('can not sava without where');
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model_logic')->query($sql);
+		$this->result = table('model\logic')->query($sql);
 		$this->zero();
 		return $this->result;
 	}
@@ -157,7 +158,7 @@ class model_coherent extends abstract_args{
 		if($this-> data)$sql .= $this->data;
 		else return false;
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model_logic')->query($sql);
+		$this->result = table('model\logic')->query($sql);
 		return $this->result;
 	}
 	protected function find($key = false){
@@ -192,7 +193,7 @@ class model_coherent extends abstract_args{
 	}
 	protected function field($field=''){
 		if(is_string($field))$this->field = $field;
-		elseif(is_array($field) && $field = table('model_logic')->quote_field_in($field,$this->tablemap))$this->field = implode(',',$field);
+		elseif(is_array($field) && $field = table('model\logic')->quote_field_in($field,$this->tablemap))$this->field = implode(',',$field);
 		else $this->field = '';
 		return $this;
 	}
@@ -204,7 +205,7 @@ class model_coherent extends abstract_args{
 		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
 		if(!is_array($field))$field=array($field=>$order);
 		foreach($field as $k=>$v)
-			if($oo = table('model_logic')->quote_field_in(is_string($k)?$k:$v,$this->tablemap))
+			if($oo = table('model\logic')->quote_field_in(is_string($k)?$k:$v,$this->tablemap))
 				$fields[$k] = $oo.(is_string($k)?' '.(strtoupper($v) == 'ASC' || !$v ? 'ASC' : 'DESC'):'');
 		if(!$fields){
 			$this->order = '';
@@ -213,15 +214,7 @@ class model_coherent extends abstract_args{
 		$this->order = ' ORDER BY '.implode(',', $fields);
 		return $this;
 	}
-	protected function args_prefix(){
-		return 'z_';
-	}
-	protected function z_multitable($args){
-		
-		print_r(array_values($args));
-		
-		
-	}
+
 	
 	
 	

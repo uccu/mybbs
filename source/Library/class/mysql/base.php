@@ -1,8 +1,9 @@
 <?php
+namespace mysql;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class mysql_base
+class base
 {
 	private $mysqli;
 	private $config;
@@ -24,7 +25,7 @@ class mysql_base
 	}
 	
 	private function _init_config(){
-		require PLAY_ROOT.'/source/config/global.php';
+		require PLAY_ROOT.'/source/config/mysql.php';
 		$this->prefix = $config['prefix']?$config['prefix']:'';
 		$this->config = $config;
 	}

@@ -2,7 +2,13 @@
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class model extends model\coherent{}
+class control {
+	function __call($name,$args) {
+		
+	}
+	
+	
+}
 
 
 ?>

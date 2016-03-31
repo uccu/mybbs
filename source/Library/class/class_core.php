@@ -25,10 +25,14 @@ class core
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 		if(!isset(self::$_tables[$tname])){
-			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,$force)){
-				self::$_tables[$tname] = new $tname($name);
-			}else self::$_tables[$tname] = false;
+			global $_G;
 			
+			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
+				self::$_tables[$tname] = new $tname($name);
+			}elseif(!$plugin && $_G['plugin'] && self::import(($folder?$folder.'\\':'').$name,$type,$_G['plugin'],$force)){
+				$uname = 'plugin\\' . $_G['plugin'] .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
+				self::$_tables[$tname] = new $uname($name);
+			}else self::$_tables[$tname] = false;
 		}
 		return self::$_tables[$tname];
 	}
@@ -60,7 +64,7 @@ class core
 		} elseif(!$force) {
 			return false;
 		} else {
-			throw new Exception('file lost: '.defined('SHOW_ERROR')?$path:$key);
+			throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));
 		}
 	}
 	public static function handleException($exception) {
@@ -74,6 +78,7 @@ class core
 				case 2:
 					if(stristr($errstr,'foreach'))return null;
 					elseif(stristr($errstr,'mysql'))return null;
+					elseif(stristr($errstr,'argument'))return null;
 					//elseif(stristr($errstr,'match'))return null;
 					break;
 				case 8:

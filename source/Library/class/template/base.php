@@ -6,9 +6,6 @@ if(!defined('IN_PLAY')) {
 
 class base
 {
-	function __construct() {
-		
-	}
 	public static function ifexist($tplfile){
 		if(!is_file($tplfile))throw new \Exception('tplfile not exist: ');
 		if($fp = @fopen($tplfile, 'r')){

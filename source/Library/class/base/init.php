@@ -6,6 +6,9 @@ if(!defined('IN_PLAY')) {
 
 class init{
 	function __construct(){
+		global $_G;
+		require PLAY_ROOT.'/source/config/config.php';
+		$_G['config'] = $config;
 		define('IS_AJAX',$_SERVER["HTTP_X_REQUESTED_WITH"]=="XMLHttpRequest" ?1:0);
 		$this->_init_input();
 	}
@@ -24,10 +27,17 @@ class init{
 		if($_G['folder'] && !preg_match('/^[a-z0-9_]+$/i',$_REQUEST['folder'])){
 			header('Location: 404.html');
 		}
-		$_G['template']['baseurl']='http://4moe.com/';
-		if(!control($_G['plugin'].':'.$_G['control'],$_G['folder'])){
-			if($file = template($_G['plugin'].'/'.($_G['folder']?$_G['folder'].'_':'').$_G['control'],false))include $file;
+		$_G['template']['baseurl']=$_G['config']['BASE_URL'];
+		if(!$c = control()){
+			if($file = template(false))include $file;
 			else header('Location: 404.html');
+		}else{
+			if($method = $_REQUEST['method']){
+				if(!method_exists($c,$method))header('Location: 404.html');
+				if(!$getter = $_REQUEST['getter'])$getter = array();
+				else $getter = explode($_G['config']['GETTER_SEPARATOR'],$getter);
+				call_user_func_array(array($c,$method),$getter);
+			}
 		}
 		
 	}

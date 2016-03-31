@@ -13,9 +13,23 @@ function dintval($int, $allowarray = false){
 	}
 	return $ret;
 }
-function template($t,$f=true){return template\base::load($t,$f);}
+function template($t=true,$f=true){
+	global $_G;
+	if(is_bool($t)){
+		$f=$t;$t=$_G['plugin'].'/'.($_G['folder']?$_G['folder'].'_':'').$_G['control'];
+	}
+	return template\base::load($t,$f);
+	
+}
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
-function control($t,$f=''){return C::c($t,$f);}
+function control($t=false,$f=''){
+	global $_G;
+	if(!$t){
+		$t = $_G['plugin'].':'.$_G['control'];$f=$_G['folder'];
+	}
+	//var_dump($t);
+	return C::c($t,$f);
+}
 function model($m,$f=''){return C::m($m,$f);}
 function addcss($t=0,$p=0,$e=true){
 	global $_G;

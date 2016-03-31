@@ -1,12 +1,13 @@
 <?php
+namespace model;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class model_logic{
+class logic{
 	private $mb;
 	private $prefix;
 	function __construct(){
-		$this->mb = table('mysql_base');
+		$this->mb = table('mysql\base');
 		$this->prefix = $this->mb->prefix;
 	}
 	function fetch_all($sql, $keyfield = '') {
@@ -141,7 +142,7 @@ class model_logic{
 				if($mapping = $v['_mapping'])$table .= ' '.$this->quote_field($mapping);
 				$keys = array_keys($tablemap);
 				if($keys[0] !== $k){
-					if(!($on = $v['_on']))throw new Exception('model error');
+					if(!($on = $v['_on']))throw new \Exception('model error');
 					elseif(strpos($on, '='))$table .= ' on '.$on;
 					else $table .= ' USING( '.$this->quote_field($on).' )';
 				}
