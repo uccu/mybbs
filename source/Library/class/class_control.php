@@ -4,7 +4,7 @@ if(!defined('IN_PLAY')) {
 }
 class control {
 	function __call($name,$args) {
-		
+		return null;
 	}
 	
 	
