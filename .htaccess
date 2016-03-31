@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^([a-z0-9_]+)/([a-z0-9_]+)/?$ a.php?plugin=$1&control=$2
+  RewriteRule ^([a-z0-9_]+)/([a-z0-9_]+)/([a-z0-9_]+)/?$ a.php?plugin=$1&control=$2&method=$3
+  RewriteRule ^([a-z0-9_]+)/([a-z0-9_]+)/([a-z0-9_]+)/(.*)$ a.php?plugin=$1&control=$2&method=$3&getter=$4
+  
+</IfModule>

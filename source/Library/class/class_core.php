@@ -48,13 +48,15 @@ class core
 			$class = $pre[count($pre)-1];
 			unset($pre[count($pre)-1]);
 		}
-		$key = ($plugin?$plugin.'_':'').($type?$type.'_':'');
+		$key = ($plugin?'plugin_'.$plugin.'_':'').($type?$type.'_':'');
+		
 		$path = ($plugin?PLUGIN_ROOT.$plugin:LIBRARY_ROOT).'\\class\\'.($type?$type.'\\':($pre?'':'class_'));
 		if($pre)foreach($pre as $v){
 			$key .= $v.'_';
 			$path  .= $v.'\\';
 		}
 		$key .= $class;
+		//echo $key.'<br />'.microtime(get_as_float).'<br />';
 		if(self::$_imports[$key])return true;
 		$path .= $class.($plugin && $type?'.'.$type:'').'.php';
 		if(is_file($path)) {
