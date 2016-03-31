@@ -9,20 +9,25 @@ register_shutdown_function(array('core', 'handleShutdown'));
 spl_autoload_register(array('core', 'autoload'));
 require PLAY_ROOT.'/source/Library/function/core.php';
 $_G['loadtimeset']['start']=microtime(get_as_float);
+C::init();
 class core
 {
 	private static $_tables;
 	private static $_imports;
+	public static function init(){
+		new base\init;
+	}
 	public static function t($name, $type='', $folder='', $force=true){
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);
 			$name = substr($name,strlen($plugin)+1);
 		}
-		$tname = $plugin . $type . $folder .$name;var_dump($plugin,$type,$folder,$name);
+		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 		if(!isset(self::$_tables[$tname])){
-			self::import(($folder?$folder.'\\':'').$name,$type,$plugin,$force);
-			self::$_tables[$tname] = new $tname($name);
+			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,$force)){
+				self::$_tables[$tname] = new $tname($name);
+			}else self::$_tables[$tname] = false;
 			
 		}
 		return self::$_tables[$tname];

@@ -1,23 +1,25 @@
 <?php
+namespace template;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
 
-class template_base
+class base
 {
 	function __construct() {
 		
 	}
 	public static function ifexist($tplfile){
+		if(!is_file($tplfile))throw new \Exception('tplfile not exist: ');
 		if($fp = @fopen($tplfile, 'r')){
 			$template = @fread($fp, filesize($tplfile));
 			fclose($fp);
-		}else throw new Exception('Oops! Template not exist: '.$name);
+		}
 		return $template;
 	}
 	public static function isflesh($name){
 		list($pluginid, $name2) = explode('/',$name);
-		if(!$pluginid || !$name)throw new Exception('Oops! Name error: '.$name);
+		if(!$pluginid || !$name)throw new \Exception('Oops! Name error: '.$name);
 		$tplfile=PLAY_ROOT.'/source/plugin/'.$pluginid.'/template/'.$name2.'.php';
 		$filetime = filemtime($tplfile);
 		$oldfiletime = main_cache::get('template_'.$pluginid.'_'.$name2);
@@ -37,7 +39,7 @@ class template_base
 		//main_cache::add('template_time');
 		// if(!$sub)main_cache::replace('template_last','template_'.$name);
 		list($pluginid, $name2) = explode('/',$name);
-		if(!$pluginid || !$name)throw new Exception('Oops! Name error: '.$name);
+		if(!$pluginid || !$name)throw new \Exception('Oops! Name error: '.$name);
 		$tplfile=PLAY_ROOT.'/source/plugin/'.$pluginid.'/template/'.$name2.'.php';
 		$template=self::ifexist($tplfile);
 		while(preg_match("/<\!--\{template (.*?)\}-->/",$template,$pr))$template=preg_replace("/<\!--\{template (.*?)\}-->/",self::ttoc($pr[1]),$template,1);
@@ -55,15 +57,19 @@ class template_base
 		}
 		return $template;
 	}
-	public static function load($name){
+	public static function load($name,$force=true){
 		global $_G,$title,$keywords,$description;
 		$_G['loadtimeset']['template']=microtime(get_as_float);
 		$_G['template']['title']=$title;
 		$_G['template']['keywords']=$keywords;
 		$_G['template']['description']=$description;
 		list($pluginid, $name2) = explode('/',$name);
-		if(!$pluginid || !$name)throw new Exception('Oops! Name error: '.$name);
+		if(!$pluginid || !$name)throw new \Exception('Oops! Name error: '.$name);
 		$cfile=PLAY_ROOT.'/source/cache/'.$pluginid.'_'.$name2.'.php';
+		if(!$force){
+			$tplfile=PLUGIN_ROOT.$pluginid.'/template/'.$name2.'.php';
+			if(!is_file($tplfile))return false;
+		}
 		(file_exists($cfile) && self::isflesh($name)) || self::ttoc($name);
 		//self::ttoc($name);
 		return $cfile;

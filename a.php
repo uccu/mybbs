@@ -13,8 +13,8 @@ function compress($buffer) {
 define('SHOW_ERROR',1);
 define('TIMESTAT',1);
 require('source/Library/class/class_core.php');
-table('baka/t');
-include template($_G['plugin'].'/'.$_G['mod']);
+//model('baka/t');
+
 
    
    

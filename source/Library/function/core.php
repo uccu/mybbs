@@ -13,7 +13,7 @@ function dintval($int, $allowarray = false){
 	}
 	return $ret;
 }
-function template($t){return template_base::load($t);}
+function template($t,$f=true){return template\base::load($t,$f);}
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
 function control($t,$f=''){return C::c($t,$f);}
 function model($m,$f=''){return C::m($m,$f);}
