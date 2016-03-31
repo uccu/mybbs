@@ -12,8 +12,8 @@ function compress($buffer) {
 
 define('SHOW_ERROR',1);
 define('TIMESTAT',1);
-require('source/main/class/class_core.php');
-table($_G['plugin'].'_'.$_G['mod']);
+require('source/Library/class/class_core.php');
+table('baka/t');
 include template($_G['plugin'].'/'.$_G['mod']);
 
    

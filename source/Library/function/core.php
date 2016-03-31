@@ -1,6 +1,6 @@
 <?php
 defined('IN_PLAY') || exit('Access Denied');
-function dintval($int, $allowarray = false) {
+function dintval($int, $allowarray = false){
 	$ret = intval($int);
 	if($int == $ret || !$allowarray && is_array($int))return $ret;
 	if($allowarray && is_array($int)) {
@@ -14,8 +14,9 @@ function dintval($int, $allowarray = false) {
 	return $ret;
 }
 function template($t){return template_base::load($t);}
-function table($t){return C::t($t);}
-function model($m){return C::m($m);}
+function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
+function control($t,$f=''){return C::c($t,$f);}
+function model($m,$f=''){return C::m($m,$f);}
 function addcss($t=0,$p=0,$e=true){
 	global $_G;
 	if(!$t)$t=$_G['mod'];

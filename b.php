@@ -19,7 +19,7 @@ function compress($buffer) {//去除文件中的注释
 
 define('SHOW_ERROR',1);
 define('TIMESTAT',1);
-require('source/main/class/class_core.php');
+require('source/Library/class/class_core.php');
 // table($_G['plugin'].'_'.$_G['mod']);
 // include template($_G['plugin'].'/'.$_G['mod']);
 model('static_baka');
