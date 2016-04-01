@@ -3,7 +3,7 @@ namespace model;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class coherent extends \abstracts\model\base{
+class coherent extends base{
 
 	protected $thistable;
 	protected $table;
@@ -51,10 +51,10 @@ class coherent extends \abstracts\model\base{
 		return $this;
 	}
 	protected function table($table=false){
-		if(is_string($table))$this->thistable = table('model\logic')->quote_table($table);
+		if(is_string($table))$this->thistable = model('logic')->quote_table($table);
 		elseif(is_array($table))$this->tablemap = $table;
 		if(!$this->tablemap)return $this;
-		$this->table = table('model\logic')->quote_table($this->tablemap);
+		$this->table = model('logic')->quote_table($this->tablemap);
 		return $this;
 	}
 	protected function page($page=1,$limit=0){
@@ -83,7 +83,7 @@ class coherent extends \abstracts\model\base{
 	}
 	protected function where($w=false,$clean=false){
 		if($clean)$this->where = array();
-		if(is_array($w) && $ww = table('model\logic')->implode($w,'AND','=',$this->tablemap)){
+		if(is_array($w) && $ww = model('logic')->implode($w,'AND','=',$this->tablemap)){
 			$this->where[] = $ww;
 		}elseif(is_string($w))$this->where[] = $w;
 		return $this;
@@ -99,7 +99,7 @@ class coherent extends \abstracts\model\base{
 				unset($v['_mapping']);
 				unset($v['_on']);
 				foreach($v as $k0=>$v0){
-					$fields[] = table('model\logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.table('model\logic')->quote_field($v0):'');
+					$fields[] = model('logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.model('logic')->quote_field($v0):'');
 				}
 			}
 			$sql .= implode(',',$fields);
@@ -120,18 +120,18 @@ class coherent extends \abstracts\model\base{
 		}
 			
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model\logic')->fetch_all($sql,$keyfield);
+		$this->result = model('logic')->fetch_all($sql,$keyfield);
 		$this->zero();
 		return $this->result;
 		
 	}
 	protected function data($data=array()){
-		if($s = table('model\logic')->implode($data,',','=',$this->tablemap))$this->data = $s;
+		if($s = model('logic')->implode($data,',','=',$this->tablemap))$this->data = $s;
 		return $this;
 		
 	}
 	protected function save($key = false){
-		if($key){
+		if($key!==false){
 			if(!$this->tablemap)return false;
 			$this->where(array(reset(reset($this->tablemap))=>$key),true);
 		}
@@ -146,7 +146,7 @@ class coherent extends \abstracts\model\base{
 			$sql .= implode('AND',$this->where);
 		}else throw new \Exception('can not sava without where');
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model\logic')->query($sql);
+		$this->result = model('logic')->query($sql);
 		$this->zero();
 		return $this->result;
 	}
@@ -158,11 +158,11 @@ class coherent extends \abstracts\model\base{
 		if($this-> data)$sql .= $this->data;
 		else return false;
 		if($this->output === 'sql')return $sql;
-		$this->result = table('model\logic')->query($sql);
+		$this->result = model('logic')->query($sql);
 		return $this->result;
 	}
 	protected function find($key = false){
-		if($key){
+		if($key!==false){
 			if(!$this->tablemap)return array();
 			$this->where(array(reset(reset($this->tablemap))=>$key),true);
 		}
@@ -193,7 +193,7 @@ class coherent extends \abstracts\model\base{
 	}
 	protected function field($field=''){
 		if(is_string($field))$this->field = $field;
-		elseif(is_array($field) && $field = table('model\logic')->quote_field_in($field,$this->tablemap))$this->field = implode(',',$field);
+		elseif(is_array($field) && $field = model('logic')->quote_field_in($field,$this->tablemap))$this->field = implode(',',$field);
 		else $this->field = '';
 		return $this;
 	}
@@ -205,7 +205,7 @@ class coherent extends \abstracts\model\base{
 		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
 		if(!is_array($field))$field=array($field=>$order);
 		foreach($field as $k=>$v)
-			if($oo = table('model\logic')->quote_field_in(is_string($k)?$k:$v,$this->tablemap))
+			if($oo = model('logic')->quote_field_in(is_string($k)?$k:$v,$this->tablemap))
 				$fields[$k] = $oo.(is_string($k)?' '.(strtoupper($v) == 'ASC' || !$v ? 'ASC' : 'DESC'):'');
 		if(!$fields){
 			$this->order = '';

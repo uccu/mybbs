@@ -7,7 +7,7 @@ class logic{
 	private $mb;
 	private $prefix;
 	function __construct(){
-		$this->mb = table('mysql\base');
+		$this->mb = table('base','mysql');
 		$this->prefix = $this->mb->prefix;
 	}
 	function fetch_all($sql, $keyfield = '') {

@@ -12,7 +12,7 @@ $config=array(
 	'host'=>'localhost',
 	'user'=>'root',
 	'password'=>'root',
-	'db'=>'sources',
+	'db'=>'ces_db',
 	'prefix'=>'',
 	'charset'=>'utf8'
 );

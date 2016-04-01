@@ -33,7 +33,7 @@ class init{
 			else header('Location: 404.html');
 		}else{
 			if($method = $_REQUEST['method']){
-				if(!method_exists($c,$method))header('Location: 404.html');
+				if(!method_exists($c,$method) || preg_match('/^[^a-z]$/i',$method[0]))header('Location: 404.html');
 				if(!$getter = $_REQUEST['getter'])$getter = array();
 				else $getter = explode($_G['config']['GETTER_SEPARATOR'],$getter);
 				call_user_func_array(array($c,$method),$getter);

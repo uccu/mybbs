@@ -50,7 +50,7 @@ class base
 	}
 	function query($sql){
 		$this->results = $this->mysqli->query($sql);
-		if(!$this->results)throw new Exception($this->mysqli->error);
+		if(!$this->results)throw new \Exception($this->mysqli->error);
 		
 		return $this->results;
 	}
