@@ -1,7 +1,7 @@
 <?php
 namespace plugin\ces\control;
 defined('IN_PLAY') || exit('Access Denied');
-class user extends \control{
+class user extends \control\ajax{
 	
 
 	function getUser($uid=0){
