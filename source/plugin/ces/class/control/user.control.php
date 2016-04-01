@@ -8,7 +8,10 @@ class user extends \control{
 		$info = model('user_info','api')->getUserByUid($uid);
 		var_dump($info);
 	}
-	
+	function insertUser($uid=0){
+		$info = model('user_info','api')->insertUser();
+		var_dump($info);
+	}
 	
 	
 }

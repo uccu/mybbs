@@ -34,14 +34,36 @@ class logic{
 		}
 		return $ret;
 	}
-	function implode($array, $glue = ',',$c='=',$tablemap=false){
+	function auto_filter($data,$auto){
+		foreach($auto as $k=>$v){
+			if(isset($data[$k])){
+				if($v ===false)unset($data[$k]);
+				elseif(is_array($v)){
+					if($v ===false)$data[$k] = $v[1];
+					if(is_string($v[0])){
+						if(preg_match('/^(%[a-z])$/i',$v[0],$tris))
+							$data[$k] = array('logic',$data[$k],$tris[1]);
+					}elseif(is_array($v[0])){
+						$data[$k] = call_user_func_array(array($v[0][0],$v[0][1]),array($data[$k]));
+					}
+				}
+			}else{
+				if(is_array($v))$data[$k] = $v[1];
+				elseif(is_string($v))$data[$k] = $v;
+				
+			}
+			
+		}
+		return $data;
+	}
+	function implode($array, $glue = ',',$c='=',$tablemap=false,$allowarray=true){
 		$sql = $comma = '';
 		$glue = ' ' . trim($glue) . ' ';
 		$c = ' ' . trim($c) . ' ';
 		foreach ($array as $k => $v) {
 			$d = $this->quote_field_in($k,$tablemap);
 			if(!$d)continue;
-			if(is_array($v)){
+			if($allowarray && is_array($v)){
 				if($v[0]==='logic'){
 					if(preg_match('/^%([a-z])$/i',$v[2],$tris)){
 						$v[2]=null;
@@ -57,10 +79,10 @@ class logic{
 							case 'j':
 								$v[1] = json_encode($v[1]);break;
 							default:
-								$v[1] = $this->quote($v[1]);
 								break;
 						}
-						$sql .= $comma . $d . ($v[2]?$v[2]:$c) . $v[1];
+						$v[1] = $this->quote($v[1]);
+						$sql .= $comma . $d . $c . $v[1];
 					}else
 					$sql .= $comma . $d . ($v[2]?$v[2]:$c) . $this->quote($v[1]);
 				}elseif($v[0]==='match'){

@@ -5,29 +5,22 @@ if(!defined('IN_PLAY')) {
 }
 class coherent extends base{
 
-	protected $thistable;
+	protected $thisTable;
 	protected $table;
 	protected $field;
 	protected $order;
 	protected $where = array();
 	protected $offset;
 	protected $limit;
-	protected $tablemap = array();
+	protected $tableMap = array();
 	protected $output;
-	protected $result;
+	protected $result = array();
+	protected $auto;
 	protected $data = array();
 	function __construct(){
 		$this->table(reset(func_get_args()));
-		// $this->tablemap=array(
-			// 'cache'=>array(
-				// 'id','type','des'=>'dess','_mapping'=>'ca'
-			// ),
-			// 'iser'=>array(
-				// 'name','_on'=>'id'
-			// ),
-		// );
-		$this->table();
 		if(method_exists($this,'beginning'))call_user_func_array(array($this,'beginning'),func_get_args());
+		$this->table();
 	}
 	protected function zero(){
 		$this->field = '';
@@ -38,9 +31,13 @@ class coherent extends base{
 		$this->output = false;
 		return $this;
 	}
-	protected function tablefirst(){
-		if(!$this->tablemap)return $this;
-		foreach($this->tablemap as $k =>$v){
+	public function auto($auto){
+		$this->auto = $auto;
+		return $this;
+	}
+	protected function table_first(){
+		if(!$this->tableMap)return $this;
+		foreach($this->tableMap as $k =>$v){
 			$this->table(array($k=>$v));break;
 		}
 		return $this;
@@ -50,11 +47,21 @@ class coherent extends base{
 		$this->output = $sql?'sql':'';
 		return $this;
 	}
+	public function add_table($table=false){
+		if($table && $this->tableMap){
+			$this->tableMap = array_merge($this->tableMap,$table);
+			$this->table = model('logic')->quote_table($this->tableMap);
+		}
+		
+		return this;
+	}
 	protected function table($table=false){
-		if(is_string($table))$this->thistable = model('logic')->quote_table($table);
-		elseif(is_array($table))$this->tablemap = $table;
-		if(!$this->tablemap)return $this;
-		$this->table = model('logic')->quote_table($this->tablemap);
+		if(is_string($table))$this->thisTable = model('logic')->quote_table($table);
+		elseif(is_array($table)){
+			$this->tableMap = $table;$this->table='';
+		}
+		if(!$this->tableMap)return $this;
+		$this->table = model('logic')->quote_table($this->tableMap);
 		return $this;
 	}
 	protected function page($page=1,$limit=0){
@@ -83,7 +90,7 @@ class coherent extends base{
 	}
 	protected function where($w=false,$clean=false){
 		if($clean)$this->where = array();
-		if(is_array($w) && $ww = model('logic')->implode($w,'AND','=',$this->tablemap)){
+		if(is_array($w) && $ww = model('logic')->implode($w,'AND','=',$this->tableMap)){
 			$this->where[] = $ww;
 		}elseif(is_string($w))$this->where[] = $w;
 		return $this;
@@ -92,10 +99,10 @@ class coherent extends base{
 		
 		$sql .= 'SELECT ';
 		if($this->field)$sql .= $this->field;
-		elseif($this->tablemap){
-			$ENABLE_TABLE = count($this->tablemap)>1?1:0;
+		elseif($this->tableMap){
+			$ENABLE_TABLE = count($this->tableMap)>1?1:0;
 			$fields = array();
-			foreach($this->tablemap as $k=>$v){
+			foreach($this->tableMap as $k=>$v){
 				unset($v['_mapping']);
 				unset($v['_on']);
 				foreach($v as $k0=>$v0){
@@ -106,7 +113,7 @@ class coherent extends base{
 		}else $sql .= '*';
 		$sql .=' FROM ';
 		if($this->table)$sql .= $this->table;
-		else $sql .= $this->thistable;
+		else $sql .= $this->thisTable;
 		if($this->where){
 			$sql .= ' WHERE ';
 			$sql .= implode('AND',$this->where);
@@ -118,26 +125,28 @@ class coherent extends base{
 			if($this->offset)$sql .= $this->offset.',';
 			$sql .= $this->limit;
 		}
-			
-		if($this->output === 'sql')return $sql;
-		$this->result = model('logic')->fetch_all($sql,$keyfield);
 		$this->zero();
-		return $this->result;
+		if($this->output === 'sql')return $sql;
+		if(!isset($this->result[$sql]))
+			$this->result[$sql] = model('logic')->fetch_all($sql,$keyfield);
+		
+		return $this->result[$sql];
 		
 	}
 	protected function data($data=array()){
-		if($s = model('logic')->implode($data,',','=',$this->tablemap))$this->data = $s;
+		if($this->auto)$data = model('logic')->auto_filter($data,$this->auto);
+		if($s = model('logic')->implode($data,',','=',$this->tableMap))$this->data = $s;
 		return $this;
 		
 	}
 	protected function save($key = false){
 		if($key!==false){
-			if(!$this->tablemap)return false;
-			$this->where(array(reset(reset($this->tablemap))=>$key),true);
+			if(!$this->tableMap)return false;
+			$this->where(array(reset(reset($this->tableMap))=>$key),true);
 		}
 		$sql .= 'UPDATE ';
 		if($this->table)$sql .= $this->table;
-		else $sql .= $this->thistable;
+		else $sql .= $this->thisTable;
 		$sql .= ' SET ';
 		if($this-> data)$sql .= $this->data;
 		else return false;
@@ -145,33 +154,32 @@ class coherent extends base{
 			$sql .= ' WHERE ';
 			$sql .= implode('AND',$this->where);
 		}else throw new \Exception('can not sava without where');
-		if($this->output === 'sql')return $sql;
-		$this->result = model('logic')->query($sql);
 		$this->zero();
-		return $this->result;
+		if($this->output === 'sql')return $sql;
+		$result = model('logic')->query($sql);
+		return $result;
 	}
 	protected function add($replace = false){
 		$sql .= $replace?'REPLACE INTO ':'INSERT INTO ';
 		if($this->table)$sql .= $this->table;
-		else $sql .= $this->thistable;
+		else $sql .= $this->thisTable;
 		$sql .= ' SET ';
 		if($this-> data)$sql .= $this->data;
 		else return false;
 		if($this->output === 'sql')return $sql;
-		$this->result = model('logic')->query($sql);
-		return $this->result;
+		return model('logic')->query($sql);
 	}
 	protected function find($key = false){
 		if($key!==false){
-			if(!$this->tablemap)return array();
-			$this->where(array(reset(reset($this->tablemap))=>$key),true);
+			if(!$this->tableMap)return array();
+			$this->where(array(reset(reset($this->tableMap))=>$key),true);
 		}
 		$data = $this->limit(1)->select();
 		if($this->output === 'sql')return $data;
 		if(!$data)return array();
 		return $data[0];
 	}
-	protected function getfield($key='count(*)',$format=false){
+	protected function get_field($key='count(*)',$format=false){
 		$data = $this->field($key)->limit(1)->select();
 		if($this->output === 'sql')return $data;
 		if($format && preg_match('/^%([a-z])$/i',$format,$tris))
@@ -193,7 +201,7 @@ class coherent extends base{
 	}
 	protected function field($field=''){
 		if(is_string($field))$this->field = $field;
-		elseif(is_array($field) && $field = model('logic')->quote_field_in($field,$this->tablemap))$this->field = implode(',',$field);
+		elseif(is_array($field) && $field = model('logic')->quote_field_in($field,$this->tableMap))$this->field = implode(',',$field);
 		else $this->field = '';
 		return $this;
 	}
@@ -205,7 +213,7 @@ class coherent extends base{
 		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
 		if(!is_array($field))$field=array($field=>$order);
 		foreach($field as $k=>$v)
-			if($oo = model('logic')->quote_field_in(is_string($k)?$k:$v,$this->tablemap))
+			if($oo = model('logic')->quote_field_in(is_string($k)?$k:$v,$this->tableMap))
 				$fields[$k] = $oo.(is_string($k)?' '.(strtoupper($v) == 'ASC' || !$v ? 'ASC' : 'DESC'):'');
 		if(!$fields){
 			$this->order = '';
