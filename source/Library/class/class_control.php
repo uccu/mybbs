@@ -3,6 +3,9 @@ if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
 class control {
+    function __construct(){
+        if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
+    }
 	function __call($name,$args) {
 		return null;
 	}

@@ -31,6 +31,31 @@ function control($t=false,$f=''){
 	return C::c($t,$f);
 }
 function model($m,$f=''){return C::m($m,$f);}
+function cookie($name,$value='',$expire='',$path='/',$domain=0){
+    if($value){
+        if(!$domain){
+            global $_G;
+            $domain = '.'.$_G['config']['HOST'];
+        }if(!is_int($expire))return $_COOKIE[$name]?$_COOKIE[$name]:$value;
+        return setcookie($name,$value,$expire?$expire+time():0,$path,$domain);
+    }else{
+        return $_COOKIE[$name];
+    }
+}
+function post($s,$r=''){
+    $d = explode('.',$s);
+    switch(count($d)){
+        case 1:
+            $f = $_POST[$d[0]];break;
+        case 2:
+            $f = $_POST[$d[0]][$d[1]];break;
+        case 3:
+            $f = $_POST[$d[0]][$d[1]][$d[2]];break;
+        default:
+            break;
+    }
+    return $f?$f:$r;
+}
 function addcss($t=0,$p=0,$e=true){
 	global $_G;
 	if(!$t)$t=$_G['mod'];

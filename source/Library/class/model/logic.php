@@ -44,7 +44,7 @@ class logic{
 						if(preg_match('/^(%[a-z])$/i',$v[0],$tris))
 							$data[$k] = array('logic',$data[$k],$tris[1]);
 					}elseif(is_array($v[0])){
-						$data[$k] = call_user_func_array(array($v[0][0],$v[0][1]),array($data[$k]));
+						$data[$k] = call_user_func_array($v[0],array($data[$k]));
 					}
 				}
 			}else{

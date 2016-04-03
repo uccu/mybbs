@@ -19,7 +19,7 @@ class coherent extends base{
 	protected $data = array();
 	function __construct(){
 		$this->table(reset(func_get_args()));
-		if(method_exists($this,'beginning'))call_user_func_array(array($this,'beginning'),func_get_args());
+		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
 		$this->table();
 	}
 	protected function zero(){
@@ -65,12 +65,18 @@ class coherent extends base{
 		return $this;
 	}
 	protected function page($page=1,$limit=0){
+         if(is_array($page)){
+           $limit = $page[1]; $page=$page[0];
+        }
 		if(!$limit)$limit = $this->limit;
 		else $this->limit = $limit;
 		$this->offset = ($page-1)*$limit;
 		return $this;
 	}
 	protected function limit($start=0, $limit = 0) {
+        if(is_array($start)){
+           $limit = $start[1]; $start=$start[0];
+        }
 		$limit = intval($limit > 0 ? $limit : 0);
 		$start = intval($start > 0 ? $start : 0);
 		if ($start > 0 && $limit > 0) {
@@ -116,7 +122,7 @@ class coherent extends base{
 		else $sql .= $this->thisTable;
 		if($this->where){
 			$sql .= ' WHERE ';
-			$sql .= implode('AND',$this->where);
+			$sql .= implode(' AND ',$this->where);
 			
 		}
 		if($this->order)$sql .= $this->order;
@@ -124,7 +130,7 @@ class coherent extends base{
 			$sql .= ' LIMIT ';
 			if($this->offset)$sql .= $this->offset.',';
 			$sql .= $this->limit;
-		}
+		}else throw new \Exception('can not select without limit');
 		$this->zero();
 		if($this->output === 'sql')return $sql;
 		if(!isset($this->result[$sql]))
@@ -139,6 +145,23 @@ class coherent extends base{
 		return $this;
 		
 	}
+    protected function delete($key = false){
+		if($key!==false){
+			if(!$this->tableMap)return false;
+			$this->where(array(reset(reset($this->tableMap))=>$key),true);
+		}
+		$sql .= 'DELETE FROM ';
+		if($this->table)$sql .= $this->table;
+		else $sql .= $this->thisTable;
+		if($this->where){
+			$sql .= ' WHERE ';
+			$sql .= implode(' AND ',$this->where);
+		}else throw new \Exception('can not DELETE without where');
+		$this->zero();
+		if($this->output === 'sql')return $sql;
+		$result = model('logic')->query($sql);
+		return $result;
+	}
 	protected function save($key = false){
 		if($key!==false){
 			if(!$this->tableMap)return false;
@@ -152,7 +175,7 @@ class coherent extends base{
 		else return false;
 		if($this->where){
 			$sql .= ' WHERE ';
-			$sql .= implode('AND',$this->where);
+			$sql .= implode(' AND ',$this->where);
 		}else throw new \Exception('can not sava without where');
 		$this->zero();
 		if($this->output === 'sql')return $sql;

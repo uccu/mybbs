@@ -4,6 +4,7 @@ if(!defined('IN_PLAY')) {
 }
 $config=array(
 	'GETTER_SEPARATOR'=>'/',
-	'BASE_URL'=>'http://4moe.com/'
+	'BASE_URL'=>'http://c.baka/',
+    'HOST'=>'c.baka'
 );
 ?>
