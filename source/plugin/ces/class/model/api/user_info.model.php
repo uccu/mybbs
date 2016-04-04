@@ -15,7 +15,7 @@ class user_info{
 		//return model('user_info')->getUserByUid(1);
 		$data['uid']=3;
 		$data['uname']='baka';
-		return model('user_info')->insertUser($data);
+		return model('ces:user_info')->insertUser($data);
 	}
 	
 	

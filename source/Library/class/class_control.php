@@ -9,6 +9,11 @@ class control {
 	function __call($name,$args) {
 		return null;
 	}
+    function __get($name) {
+        $sname = '_get_'.$name;
+	    $this->$name = $this->$sname();
+        return $this->$name;
+	}
 	protected function success($object,$url='') {
 		return $this->_out($object,$url,1);
 	}

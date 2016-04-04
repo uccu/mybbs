@@ -75,16 +75,19 @@ class user extends \control\ajax{
 		echo $this->success('niconiconi~~~');
 	}
     public function get_user_list($page=1){
+        
+        //根据uid
+        //根据uname
+        //根据type
 		$this->_safe_admin();
-        $this->_safe_type(3);
         $page = floor($page);
         $page = $page<1?1:$page;
-        $this->success($this->userModel->get_user_list($data,$page));
+        $this->success($this->userModel->get_user_list($this->type,$data,$page));
         
 	}
     public function get_admin_list($page=1){
 		$this->_safe_admin();
-        $this->_safe_type(3);
+        $this->_safe_type(4);
         $page = floor($page);
         $page = $page<1?1:$page;
         $this->success($this->userModel->get_admin_list($data,$page));
@@ -92,25 +95,23 @@ class user extends \control\ajax{
 	public function add_admin(){
         $uid = post('uid');
 		$this->_safe_admin();
-        $this->_safe_type(3);
+        $this->_safe_type(4);
         $this->success($this->userModel->add_admin($uid));
 	}
     public function del_admin(){
         $uid = post('uid');
 		$this->_safe_admin();
-        $this->_safe_type(3);
+        $this->_safe_type(4);
         $this->_safe_utype($uid);
         $this->success($this->userModel->del_admin($uid));
 	}
     public function user_login(){
+        
+        
+        
         $uname = post('uname');
         $pwd = post('pwd');
-        
-        
-        
         var_dump( $this->type );
-        
-        
         $uid = 1;
         $uname = 'c'; 
         $type = 2;
@@ -144,19 +145,17 @@ class user extends \control\ajax{
         
     }
     public function change_user_email(){
+        $uid = post('uid');
         $this->_safe_admin();
-        
+        $this->_safe_utype($uid);
     }
     public function change_user_password(){
+        $uid = post('uid');
         $this->_safe_admin();
-        
+        $this->_safe_utype($uid);
     }
     public function admin_login(){
-        
-        
-    }
-    public function admin_logout(){
-        $this->_safe_admin();
+        $this->_safe_login();
         
     }
 }
