@@ -60,7 +60,11 @@ class user extends \control\ajax{
     
     
     function _beginning(){
-        $this->userModel = model('user_info','api');
+        //echo file_exists(__DIR__);sca
+        //scandir(__FILE__);
+        var_dump(scandir(__DIR__));
+        //$this->userModel = model('user_info','api');
+        //create_function();
     }
     public function get_my_info(){
         $this->_safe_login();

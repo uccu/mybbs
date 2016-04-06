@@ -3,7 +3,7 @@ namespace model;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-class coherent extends base{
+class coherent{
 
 	protected $thisTable;
 	protected $table;
@@ -21,6 +21,10 @@ class coherent extends base{
 		$this->table(reset(func_get_args()));
 		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
 		$this->table();
+	}
+    function __call($name,$args) {
+		if(!method_exists($this,$name))
+			throw new \Exception('The method "'.get_class($this).'::'.$name.'()" is not defined');	
 	}
 	protected function zero(){
 		$this->field = '';
