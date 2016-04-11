@@ -55,7 +55,10 @@ class base
 		return $this->results;
 	}
 	function insert_id(){
-		if(($id = $this->mysqli->insert_id) >= 0)return $id;
+		if(($id = $this->mysqli->insert_id) >= 0){
+            //var_dump($id);
+            return $id;
+        }
 		$this->query("SELECT last_insert_id()");
 		return $this->result();
 	}

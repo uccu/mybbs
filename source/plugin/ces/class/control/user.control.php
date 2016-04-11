@@ -76,7 +76,8 @@ class user extends \control\ajax{
 		$this->success($this->userModel->get_user_info($uid));
 	}
     public function test(){
-		echo $this->success('niconiconi~~~');
+        echo model('cache')->plus('template_taolun_list2');
+		$this->success('niconiconi~~~');
 	}
     public function get_user_list($page=1){
         

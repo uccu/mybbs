@@ -14,18 +14,18 @@ function dintval($int, $allowarray = false){
 	return $ret;
 }
 function template($t=true,$f=true){
-	global $_G;
+	$config = table('config');
 	if(is_bool($t)){
-		$f=$t;$t=$_G['plugin'].'/'.($_G['folder']?$_G['folder'].'_':'').$_G['control'];
+		$f=$t;$t=$config->plugin.'/'.($config->folder?$config->folder.'_':'').$config->control;
 	}
 	return template\base::load($t,$f);
 	
 }
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
 function control($t=false,$f=''){
-	global $_G;
+	$config = table('config');
 	if(!$t){
-		$t = $_G['plugin'].':'.$_G['control'];$f=$_G['folder'];
+		$t = $config->plugin.':'.$config->control;$f=$config->folder;
 	}
 	//var_dump($t);
 	return C::c($t,$f);
@@ -34,9 +34,10 @@ function model($m,$f=''){return C::m($m,$f);}
 function cookie($name,$value='',$expire='',$path='/',$domain=0){
     if($value){
         if(!$domain){
-            global $_G;
-            $domain = '.'.$_G['config']['HOST'];
-        }if(!is_int($expire))return $_COOKIE[$name]?$_COOKIE[$name]:$value;
+            $config = table('config');
+            $domain = '.'.$config->config['HOST'];
+        }
+        if(!is_int($expire))return strlen($_COOKIE[$name])?$_COOKIE[$name]:$value;
         return setcookie($name,$value,$expire?$expire+time():0,$path,$domain);
     }else{
         return $_COOKIE[$name];

@@ -8,13 +8,16 @@ set_error_handler(array('core','handleError'));
 register_shutdown_function(array('core', 'handleShutdown'));
 spl_autoload_register(array('core', 'autoload'));
 require PLAY_ROOT.'/source/Library/function/core.php';
-$_G['loadtimeset']['start']=microtime(get_as_float);
+
 C::init();
 class core
 {
 	private static $_tables;
 	private static $_imports;
+    private static $config;
 	public static function init(){
+        self::$config = table('config');
+        self::$config->loadtimeset['start']=microtime(get_as_float);
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
@@ -25,15 +28,14 @@ class core
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 		if(!isset(self::$_tables[$tname])){
-			global $_G;
-			
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
-				self::$_tables[$tname] = new $tname($name);
-			}elseif(!$plugin && $_G['plugin'] && self::import(($folder?$folder.'\\':'').$name,$type,$_G['plugin'],$force)){
-				$uname = 'plugin\\' . $_G['plugin'] .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
-				self::$_tables[$tname] = new $uname($name);
+				self::$_tables[$tname] = new $tname;
+			}elseif(!$plugin && self::$config->plugin && self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
+				$uname = 'plugin\\' . self::$config->plugin .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
+				self::$_tables[$tname] = new $uname;
 			}else self::$_tables[$tname] = false;
 		}
+        //var_dump($plugin ,self::$config);
 		return self::$_tables[$tname];
 	}
 	public static function m($name, $folder=''){
@@ -64,6 +66,7 @@ class core
 			self::$_imports[$key] = true;
 			return true;
 		} elseif(!$force) {
+            //var_dump($class);
 			return false;
 		} else {
 			throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));

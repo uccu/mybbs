@@ -6,9 +6,21 @@ if(!defined('IN_PLAY')) {
 class ajax extends \control{
 	function __construct(){
 		if(!IS_AJAX)$this->error('not ajax');
-		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
+		call_user_func_array(array(parent,'__construct'),func_get_args());
 	}
-    
+    protected function success($object,$url='') {
+		return $this->_out($object,$url,1);
+	}
+	protected function error($object,$url='') {
+		return $this->_out($object,$url,0);
+	}
+	private function _out($object,$url='',$code=1) {
+		$data['data'] = $object;
+		$data['url'] = $url;
+		$data['code'] = $code;
+		echo json_encode($data);
+		die();
+	}
     
 }
 

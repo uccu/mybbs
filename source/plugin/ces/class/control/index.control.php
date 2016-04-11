@@ -6,7 +6,7 @@ class index extends \control{
 
 	public function _beginning(){
 		
-        echo '<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>';
+        echo '<base href="'.table('config')->template['baseurl'].'"><script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>';
 	}
   
 }

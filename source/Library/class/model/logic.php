@@ -27,9 +27,9 @@ class logic{
 			if ($cmd === 'SELECT') {
 
 			} elseif ($cmd === 'UPDATE' || $cmd === 'DELETE') {
-				$ret = self::$db->affected_rows();
+				$ret = $this->mb->affected_rows();
 			} elseif ($cmd === 'INSERT') {
-				$ret = self::$db->insert_id();
+				$ret = $this->mb->insert_id();
 			}
 		}
 		return $ret;
@@ -93,7 +93,7 @@ class logic{
 					$sql .= $comma . $d . ($v[2]?$v[2]:$c) .'(' . $tr . ')';
 				}elseif($v[0]==='add'){
 					$d2 = $this->quote_field_in($v[2],$tablemap);
-					$sql .= $comma . $d . ' = ' . $d2?$d2:$d . ' + ' . dintval($v[1]);
+					$sql .= $comma . $d . ' = ' . ($d2?$d2:$d) . ' + ' . dintval($v[1]);
 				}elseif($v[0]==='raw'){
 					$sql .= $comma . $d . ($v[2]?$v[2]:$c) . $v[1];
 				}else continue;
@@ -101,7 +101,6 @@ class logic{
 			
 			$comma = $glue;
 		}
-		
 		return $sql;
 		
 		
