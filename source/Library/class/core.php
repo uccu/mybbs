@@ -1,8 +1,9 @@
 <?php
 define('IN_PLAY', true);
-define('PLAY_ROOT', substr(dirname(__FILE__), 0, -20));
-define('LIBRARY_ROOT', substr(dirname(__FILE__), 0, -6));
-define('PLUGIN_ROOT', substr(dirname(__FILE__), 0, -13).'plugin\\');
+define('PLAY_ROOT', substr(__DIR__, 0, -20));
+define('LIBRARY_ROOT', substr(__DIR__, 0, -6));
+define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin\\');
+define('CACHE_ROOT', substr(__DIR__, 0, -13).'cache\\');
 set_exception_handler(array('core','handleException'));
 set_error_handler(array('core','handleError'));
 register_shutdown_function(array('core', 'handleShutdown'));
@@ -52,7 +53,7 @@ class core
 		}
 		$key = ($plugin?'plugin_'.$plugin.'_':'').($type?$type.'_':'');
 		
-		$path = ($plugin?PLUGIN_ROOT.$plugin:LIBRARY_ROOT).'\\class\\'.($type?$type.'\\':($pre?'':'class_'));
+		$path = ($plugin?PLUGIN_ROOT.$plugin:LIBRARY_ROOT).'\\class\\'.($type?$type.'\\':'');
 		if($pre)foreach($pre as $v){
 			$key .= $v.'_';
 			$path  .= $v.'\\';

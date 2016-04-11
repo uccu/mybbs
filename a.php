@@ -12,7 +12,7 @@ function compress($buffer) {
 
 define('SHOW_ERROR',1);
 define('TIMESTAT',1);
-require('source/Library/class/class_core.php');
+require('source/Library/class/core.php');
 
 
    
