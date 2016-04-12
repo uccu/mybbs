@@ -1,1 +1,1 @@
-<?php defined('IN_PLAY') || exit('Access Denied');?>123
+<?php defined('IN_PLAY') || exit('Access Denied');?>123   <?php echo $g["plugin"];?>

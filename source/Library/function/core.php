@@ -57,19 +57,21 @@ function post($s,$r=''){
     }
     return $f?$f:$r;
 }
-function addcss($t=0,$p=0,$e=true){
-	global $_G;
-	if(!$t)$t=$_G['mod'];
-	if(!$p)$p=$_G['plugin'];
-	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$_G['template']['baseurl']."source/plugin/".$p."/css/".$t.".css?".$_G['cache']['id']."\">";
+function addcss($c=0,$f=0,$p=0,$e=true){
+	$g = table('config');
+	if(!$c)$c = $g->control;
+	if(!$p)$p = $g->plugin;
+    if(!$f)$f = $g->folder;
+	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$g->template['baseurl']."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
 	if($e)echo $r;
 	return $r;
 }
-function addjs($t=0,$p=0,$e=true){
-	global $_G;
-	if(!$t)$t=$_G['mod'];
-	if(!$p)$p=$_G['plugin'];
-	$r = '<script src="'.$_G['template']['baseurl'].'source/plugin/'.$p.'/js/'.$t.'.js?'.$_G['cache']['id'].'" type="text/javascript"></script>';
+function addjs($c=0,$f=0,$p=0,$e=true){
+	$g = table('config');
+	if(!$c)$c = $g->control;
+	if(!$p)$p = $g->plugin;
+    if(!$f)$f = $g->folder;
+	$r = '<script src="'.$g->template['baseurl']."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
 	if($e)echo $r;
 	return $r;
 }

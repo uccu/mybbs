@@ -27,12 +27,13 @@ class init{
 		if($this->config->folder && !preg_match('/^[a-z0-9_]+$/i',$_REQUEST['folder'])){
 			header('Location: /404.html');
 		}
-		$this->config->template['baseurl']=$this->config->config['BASE_URL'];
+		$this->config->template['baseurl'] = $this->config->config['BASE_URL'];
+        $this->config->template['cacheid'] = model('cache')->get('cacheid');
 		if(!$c = control()){
-            
+            $g=(array)$this->config;
 			if($file = template(false))include $file;
-            else{var_dump($c);die();}
-			//else header('Location: /404.html');
+            //else{var_dump($c);die();}
+			else header('Location: /404.html');
 		}else{
 			if($this->config->method = $_REQUEST['method']){
 				if(!method_exists($c,$this->config->method) || preg_match('/^[^a-z]$/i',$this->config->method[0]))header('Location: /404.html');

@@ -19,6 +19,7 @@ class base
 		$tplfile=PLAY_ROOT.'\\source\\plugin\\'.$plugin.'\\template\\'.($folder?$folder.'\\':'').$name.'.php';
 		$filetime = filemtime($tplfile);
 		$oldfiletime = model('cache')->get('template_'.$plugin.'_'.($folder?$folder.'_':'').$name);
+        echo $oldfiletime;
 		if(!$filetime){
 			return true;
 		}
@@ -56,6 +57,8 @@ class base
             "/<\!--\{eval\}-->/",
             "/<\!--\{\/eval\}-->/",
             "/<\!--\{eval (.*?)\}-->/",
+
+
             "/<\!--\{if (.*?)\}-->/",
             "/<\!--\{elseif (.*?)\}-->/",
             "/<\!--\{else\}-->/","/<\!--\{loop (.*?) (.*?)\}-->/",
@@ -64,13 +67,17 @@ class base
             '/\{elseif (.*?)\}/',
             '/\{else\}/',
             '/\{\/if\}/',
-            '/\{(\$.*?)\}/',
+            '/\{G\.\$?([^\.]+)\}/i',
+            '/\{G\.([a-z_0-9]+)\.([a-z_0-9]+)\}/i',
+            '/\{G\.([a-z_0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\}/i',
             '/[\r\n\t]/'
         );
 		$r=array(
             "<?php ",
             " ?>",
             "<?php $1 ?>",
+            
+            
             "<?php if($1){ ?>",
             "<?php }elseif($1){ ?>",
             "<?php }else{ ?>",
@@ -80,7 +87,9 @@ class base
             "<?php }elseif($1){ ?>",
             "<?php }else{ ?>",
             "<?php } ?>",
-            "<?php echo $1;?>",
+            '<?php echo $$1;?>',
+            '<?php echo $$1["$2"];?>',
+            '<?php echo $$1["$2"]["$3"];?>',
             ''
         );
 		$template = preg_replace($p,$r,$template);
