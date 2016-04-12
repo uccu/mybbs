@@ -23,10 +23,6 @@ class init{
 		if(!preg_match('/^[a-z0-9_]+$/i',$_REQUEST['control']) || !$this->config->control = $_REQUEST['control']){
 			header('Location: /404.html');
 		}
-		$this->config->folder = $_REQUEST['folder'];
-		if($this->config->folder && !preg_match('/^[a-z0-9_]+$/i',$_REQUEST['folder'])){
-			header('Location: /404.html');
-		}
 		$this->config->template['baseurl'] = $this->config->config['BASE_URL'];
         $this->config->template['cacheid'] = model('cache')->get('cacheid');
 		if(!$c = control()){
@@ -41,7 +37,9 @@ class init{
 				if(!strlen($getter))$getter = array();
 				else $getter = explode($this->config->config['GETTER_SEPARATOR'],$getter);
 				call_user_func_array(array($c,$this->config->method),$getter);
-			}
+			}else{
+                if(method_exists($c,'_nomethod'))$c->_nomethod();
+            }
 		}
 		
 	}
