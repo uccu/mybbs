@@ -9,9 +9,6 @@ class test extends \model{
 	function beginning(){
 		echo $this->thistable;
 	}
-	public function find($key=false){
-		return parent::find($key);
-	}
 	
 	
 	

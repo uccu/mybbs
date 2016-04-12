@@ -4,7 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class test extends \control{
 	
 	function __construct(){
-		model('test','api')->start();
+		//model('test','api')->start();
 		
 		
 		
