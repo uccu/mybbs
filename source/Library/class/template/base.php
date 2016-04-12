@@ -45,7 +45,7 @@ class base
                 list($folder,$name) = explode('\\', $name);
             }
         }
-		$tplfile=PLAY_ROOT.'source\\plugin\\'.$plugin.'\\template\\'($folder?$folder.'\\':'').$name.'.php';
+		$tplfile = PLAY_ROOT.'source\\plugin\\'.$plugin.'\\template\\'.($folder?$folder.'\\':'').$name.'.php';
 		$template=self::ifexist($tplfile);
 		while(preg_match("/<\!--\{template (.*?)\}-->/",$template,$pr)){
             $template=preg_replace("/<\!--\{template (.*?)\}-->/",self::ttoc($pr[1]),$template,1);
@@ -86,7 +86,7 @@ class base
 		$template = preg_replace($p,$r,$template);
 		if(!$sub){
 			$template ="<?php defined('IN_PLAY') || exit('Access Denied');?>".$template;
-			$cfile=PLAY_ROOT.'/source/cache/'.$pluginid.'_'.$name2.'.php';
+			$cfile=PLAY_ROOT.'/source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$name.'.php';
 			$fp = fopen($cfile, 'w');
 			fwrite($fp, $template);
 			fclose($fp);

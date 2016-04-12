@@ -29,9 +29,10 @@ class init{
 		}
 		$this->config->template['baseurl']=$this->config->config['BASE_URL'];
 		if(!$c = control()){
-            //var_dump($c);die();
+            
 			if($file = template(false))include $file;
-			else header('Location: /404.html');
+            else{var_dump($c);die();}
+			//else header('Location: /404.html');
 		}else{
 			if($this->config->method = $_REQUEST['method']){
 				if(!method_exists($c,$this->config->method) || preg_match('/^[^a-z]$/i',$this->config->method[0]))header('Location: /404.html');

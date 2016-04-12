@@ -16,7 +16,7 @@ function dintval($int, $allowarray = false){
 function template($t=true,$f=true){
 	$config = table('config');
 	if(is_bool($t)){
-		$f=$t;$t=$config->plugin.'/'.($config->folder?$config->folder.'_':'').$config->control;
+		$f=$t;$t=$config->plugin.':'.($config->folder?$config->folder.'/':'').$config->control;
 	}
 	return template\base::load($t,$f);
 	
