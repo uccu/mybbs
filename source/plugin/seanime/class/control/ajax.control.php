@@ -10,6 +10,7 @@ class ajax extends \control\ajax{
         $this->user = new class{};
         $this->user->uid = 1;
         $this->user->right = 99;
+        $this->tran = control('tool:tran','format');
         $this->model = model('seanime:seanime_resource');
         $this->g = table('config');
     }
@@ -23,14 +24,16 @@ class ajax extends \control\ajax{
 		if(is_array($e)){
 			$lis=array();
 			foreach($e as $b){
-				if(!is_array($b))$lis['mod']=$this->_typein($b);
+				if(!is_array($b))$lis['_mod']=$this->_typein($b);
 				elseif(isset($b[0]) && isset($b[1])){
+                    $b[0] = (string)$b[0];
+                    $b[1] = (string)$b[1];
 					if($b[0]=='sname')$b[1]=$lis[$b[0]]=str_ireplace(array('_'),array(' '),$b[1]);
 					$lis[$b[0]]=$this->_typein($b[1]);
 				}
 			}
 			return $lis;
-		}else return str_ireplace(array('&222;','&333;','<','>','"',"'",'\\'),array('(',')','&lt;','&gt;','&quot;','&#39;','\\\\'),$e);
+		}else return $this->tran->t2c(str_ireplace(array('&222;','&333;','<','>','"',"'",'\\'),array('(',')','&lt;','&gt;','&quot;','&#39;','/'),$e));
 	}
     public function resource($w=false){
         $sid = post('sid',0,'%d');
@@ -46,10 +49,35 @@ class ajax extends \control\ajax{
             $t = $this->model->remove($sid);
             return $this->success($t);
 		}
-		$info=post('info',0,array($this,'_typein'));
-        $this->success(array('sid'=>$sid,'info'=>$info));
+		$info=post('info',array(),array($this,'_typein'));
+        //$this->success(array('sid'=>$sid,'info'=>$info));
+        $filter=$this->_check_resource($info,$w=='upd'?true:false);
+        if($w=='upd'){
+            if(!$sid)return $this->error('无参数');
+            if(!is_array($info))return $this->error('无参数');
+			if($this->user->right<8)return $this->error('未授权');
+            unset($info['sid'],$info['_mod']);
+            
+            //++++hash和base32验证
+			$upd = $this->model->auto(
+                array(
+                    'seanime'=>array(
+                        'sid'=>false,
+                        'suid'=>false,
+                        'stimeline'=>false,
+                        'order'=>false,
+                        'sktimeline'=>array(false,time()),
+                        'skuid'=>$this->user->uid,
+                        'sshowtimes'=>false,
+                        'sdowntimes'=>false,
+                    )
+                )
+            )->data($info)->save($sid);
+            $this->success($upd);
+		}
         
-		//$filter=table('seanime')->check_new_resource($info,$w=='upd'?true:false);
+        //---------------------------------------------------------
+		//
 		//if($filter[0]!=200 && $filter!==true)return $this->out($filter[0],$filter[1]);
 		//if($w=='upd'){
 			//if(!$_G['uid'] || $_G['right']<8)return $this->out(777,'未授权');
@@ -61,6 +89,13 @@ class ajax extends \control\ajax{
 			//if($new&&is_array($new))return $this->out($new[0],$new[1]);
 			//else $this->out(500);
 		//}
+	}
+    private function _check_info(&$r,$upd=false){
+		if(!isset($r['mod']))return array('400','MOD不明');
+		unset($r['mod']);
+		if($upd)$this->ResourceFilter=array_merge($this->ResourceFilter,array('sid'));
+		foreach($r as $t=>$v)if(!in_array($t,$this->ResourceFilter))return array('400','未知字段');
+		return true;
 	}
 	public function getanimes($s=false){
 		global $_G;
