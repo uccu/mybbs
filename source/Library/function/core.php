@@ -46,7 +46,7 @@ function cookie($name,$value='',$expire='',$path='/',$domain=0){
 function post($s,$r='',$e=''){
     $f = $_POST[$s];
     if(is_array($e)){
-        return call_user_func_array($e,array($f));
+        $f = call_user_func_array($e,array($f));
     }
     else switch($e){
 		case '%d':
