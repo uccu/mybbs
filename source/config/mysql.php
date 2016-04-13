@@ -11,7 +11,7 @@ if(!defined('IN_PLAY')) {
 $config=array(
 	'host'=>'localhost',
 	'user'=>'root',
-	'password'=>'123',
+	'password'=>'root',
 	'db'=>'sources',
 	'prefix'=>'',
 	'charset'=>'utf8'

@@ -11,7 +11,10 @@ class test extends \control{
 		
 	}
 	function abc($a,$b=0){
-		var_dump($a,$b);
+        model('cache')->replace('cacheid',1);
+		//var_dump($a,$b);
+        $g['plugin']=1234;
+        include template('cache:baka');
 	}
 	
 	

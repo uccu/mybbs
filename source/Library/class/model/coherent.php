@@ -150,7 +150,7 @@ class coherent{
 		return $this;
 		
 	}
-    public function delete($key = false){
+    public function remove($key = false){
 		if($key!==false){
 			if(!$this->tableMap)return false;
 			$this->where(array(reset(reset($this->tableMap))=>$key),true);

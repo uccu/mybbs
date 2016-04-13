@@ -22,14 +22,17 @@ class core
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
+        
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);
 			$name = substr($name,strlen($plugin)+1);
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
+        
 		if(!isset(self::$_tables[$tname])){
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
+                
 				self::$_tables[$tname] = new $tname;
 			}elseif(!$plugin && self::$config->plugin && self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
 				$uname = 'plugin\\' . self::$config->plugin .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
@@ -46,6 +49,7 @@ class core
 		return self::t($name,'control',$folder,false);
 	}
 	public static function import($class, $type= false, $plugin = false, $force = true) {
+        
 		if(strpos($class, '\\')){
 			$pre = explode('\\',$class);
 			$class = $pre[count($pre)-1];
@@ -67,7 +71,7 @@ class core
 			self::$_imports[$key] = true;
 			return true;
 		} elseif(!$force) {
-            //var_dump($class);
+            //var_dump($path);
 			return false;
 		} else {
 			throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));

@@ -7,7 +7,7 @@ if(!defined('IN_PLAY')) {
 class base
 {
 	public static function ifexist($tplfile){
-		if(!is_file($tplfile))throw new \Exception('tplfile not exist: ');
+		if(!is_file($tplfile))throw new \Exception('tplfile not exist: '.basename($tplfile));
 		if($fp = @fopen($tplfile, 'r')){
 			$template = @fread($fp, filesize($tplfile));
 			fclose($fp);
