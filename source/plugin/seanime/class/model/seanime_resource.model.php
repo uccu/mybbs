@@ -30,7 +30,7 @@ class seanime_resource extends \model{
                 'outstation'
         )
     );
-     protected $tableMap2 = array(
+    protected $tableMap2 = array(
          'seanime_resource'=>array(
                 'sid',
                 'aid',

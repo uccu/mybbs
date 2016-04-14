@@ -16,11 +16,20 @@ class ajax extends \control\ajax{
     }
     
     function get_resource($sid=0){
-        $this->success(model('seanime:seanime_resource')->find($sid));
         
     }
+    /*
+    function _test(&$a){
+        return $a = 2;
+    }
+    function test(){
+        $a = 1;
+        echo $this->_test($a);
+        echo $a;
+    }
+    */
+    
     public function _typein($e){
-        echo $e;
 		if(is_array($e)){
 			$lis=array();
 			foreach($e as $b){
@@ -35,6 +44,38 @@ class ajax extends \control\ajax{
 			return $lis;
 		}else return $this->tran->t2c(str_ireplace(array('&222;','&333;','<','>','"',"'",'\\'),array('(',')','&lt;','&gt;','&quot;','&#39;','/'),$e));
 	}
+    public function _typein_sname($s){
+        if(!$s)$this->error('无参数 ： sname');
+        return $s;
+    }
+    private function _typein_addzero($r,$e,$t=4){
+		$r=(string)$r;
+		$re=strlen($r);
+		for($i=0;$i<$t*$e-$re;$i++)$r='0'.$r;
+		return $r;
+	}
+    private function _hashtobase32(&$b,$hash){
+        if(!preg_match('/^[a-z0-9]{40}$/i',$hash))$this->error('HASH不规范');
+        $a='abcdefghijklmnopqrstuvwxyz234567';$p='';
+		for($i=0;$i<4;$i++)$p .= $this->_typein_addzero(base_convert(substr($hash,$i*10,10),16,2),10);
+		$base32='';
+		for($i=0;$i+5<=160;$i+=5)$base32.=$a[base_convert(substr($p,$i,5),2,10)];
+		$b = strtoupper($base32);
+    }
+    private function _base32tohash(&$h,$base32){
+        if(!preg_match('/^[a-z2-7]{40}$/i',$base32))$this->error('BASE32不规范');
+        $a='abcdefghijklmnopqrstuvwxyz234567';
+		$str='';
+		for($i=0;$i<32;$i++)$str.=(string)($this->_typein_addzero(decbin(stripos($a,$base32[$i])),1,5));
+		$hash='';
+		for($i=0;$i+4<=40*4;$i+=4)$hash.=base_convert(substr($str,$i,4),2,16);
+		$h = $hash;
+    }
+    public function _typein_hash($h){
+        if(!$h)$this->error('HASH未定义');
+        if($sid = $this->model->where(array('hash'=>$h))->find(false,false)->get_field('sid'))$this->error('存在HASH : '.$sid);
+        return $h;
+    }
     public function resource($w=false){
         $sid = post('sid',0,'%d');
 		if($w=='get'){
@@ -49,54 +90,45 @@ class ajax extends \control\ajax{
             $t = $this->model->remove($sid);
             return $this->success($t);
 		}
-		$info=post('info',array(),array($this,'_typein'));
+		$info=post('info','',array($this,'_typein'));
         //$this->success(array('sid'=>$sid,'info'=>$info));
         $filter=$this->_check_resource($info,$w=='upd'?true:false);
+        if(!is_array($info))return $this->error('无参数');
+        unset($info['sid'],$info['_mod']);
+        if($info['hash']){
+            $this->_hashtobase32($info['base32'],$info['hash']);
+        }elseif($info['base32']){
+            $this->_base32tohash($info['hash'],$info['base32']);
+        }
+        $auto = array(
+            'sid'=>false,
+            'suid'=>false,
+            'stimeline'=>false,
+            'order'=>false,
+            'sktimeline'=>array(false,time()),
+            'skuid'=>array(false,$this->user->uid),
+            'sshowtimes'=>false,
+            'sdowntimes'=>false,
+        );
         if($w=='upd'){
-            if(!$sid)return $this->error('无参数');
-            if(!is_array($info))return $this->error('无参数');
-			if($this->user->right<8)return $this->error('未授权');
-            unset($info['sid'],$info['_mod']);
             
-            //++++hash和base32验证
-			$upd = $this->model->auto(
-                array(
-                    'seanime'=>array(
-                        'sid'=>false,
-                        'suid'=>false,
-                        'stimeline'=>false,
-                        'order'=>false,
-                        'sktimeline'=>array(false,time()),
-                        'skuid'=>$this->user->uid,
-                        'sshowtimes'=>false,
-                        'sdowntimes'=>false,
-                    )
-                )
-            )->data($info)->save($sid);
+            if(!$sid)return $this->error('无参数 : sid');
+			if($this->user->right<8)return $this->error('未授权');
+            if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
+                $this->error('存在HASH : '.$rsid);
+            }
+			$upd = $this->model->auto($auto)->data($info)->save($sid);
             $this->success($upd);
-		}
-        
-        //---------------------------------------------------------
-		//
-		//if($filter[0]!=200 && $filter!==true)return $this->out($filter[0],$filter[1]);
-		//if($w=='upd'){
-			//if(!$_G['uid'] || $_G['right']<8)return $this->out(777,'未授权');
-			//$upd = table('seanime')->upd_resource($info);
-			//if($upd&&is_array($upd))return $this->out($upd[0],$upd[1]);
-			//else $this->out(500);
-		//}else{
-			//$new = table('seanime')->new_resource($info);
-			//if($new&&is_array($new))return $this->out($new[0],$new[1]);
-			//else $this->out(500);
-		//}
+		}else{
+            $auto['stimeline'] = array(false,time());
+            $auto['suid'] = array(false,$this->user->uid);
+            $auto['sname'] = array(array($this,'_typein_sname'),true);
+            $auto[ 'hash'] = array(array($this,'_typein_hash'),true);
+            $ins = $this->model->auto($auto)->data($info)->add();
+            $this->success($ins);
+        }
 	}
-    private function _check_info(&$r,$upd=false){
-		if(!isset($r['mod']))return array('400','MOD不明');
-		unset($r['mod']);
-		if($upd)$this->ResourceFilter=array_merge($this->ResourceFilter,array('sid'));
-		foreach($r as $t=>$v)if(!in_array($t,$this->ResourceFilter))return array('400','未知字段');
-		return true;
-	}
+
 	public function getanimes($s=false){
 		global $_G;
 		if(!$_G['uid'] || $_G['right']<8)return $this->out(500,'未授权');

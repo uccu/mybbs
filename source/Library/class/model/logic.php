@@ -36,23 +36,18 @@ class logic{
 	}
 	function auto_filter($data,$auto){
 		foreach($auto as $k=>$v){
-			if(isset($data[$k])){
-				if($v ===false)unset($data[$k]);
-				elseif(is_array($v)){
-					if($v ===false)$data[$k] = $v[1];
-					if(is_string($v[0])){
+			if($v ===false)unset($data[$k]);
+			elseif(is_array($v)){
+                if($v[0] === false)$data[$k] = $v[1];
+                if($v[1] === true || isset($data[$k])){
+				    if(is_string($v[0])){
 						if(preg_match('/^(%[a-z])$/i',$v[0],$tris))
 							$data[$k] = array('logic',$data[$k],$tris[1]);
 					}elseif(is_array($v[0])){
 						$data[$k] = call_user_func_array($v[0],array($data[$k]));
 					}
-				}
-			}else{
-				if(is_array($v))$data[$k] = $v[1];
-				elseif(is_string($v))$data[$k] = $v;
-				
-			}
-			
+				}elseif(is_string($v[1])||is_int($v[1]))$data[$k] = $v[1];
+			}elseif(is_string($v)||is_int($v))$data[$k] = $v;
 		}
 		return $data;
 	}

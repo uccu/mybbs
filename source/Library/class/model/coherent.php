@@ -17,6 +17,7 @@ class coherent{
 	protected $result = array();
 	protected $auto;
 	protected $data = array();
+    protected $_gsave;
 	function __construct(){
 		$this->table(basename(get_class($this)));
 		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
@@ -26,6 +27,42 @@ class coherent{
 		if(!method_exists($this,$name))
 			throw new \Exception('The method "'.get_class($this).'::'.$name.'()" is not defined');	
 	}
+    private function _gsave(){
+        $this->_gsave = array(
+            $this->thisTable,
+            $this->table,
+            $this->field,
+            $this->order,
+            $this->where,
+            $this->offset,
+            $this->limit,
+            $this->tableMap,
+            $this->output,
+            $this->result,
+            $this->auto
+        );
+        $this->field = '';
+		$this->order = '';
+		$this->where = array();
+		$this->offset = 0;
+		$this->limit = 0;
+		$this->output = false;
+    }
+    private function _gload(){
+        list(
+            $this->thisTable,
+            $this->table,
+            $this->field,
+            $this->order,
+            $this->where,
+            $this->offset,
+            $this->limit,
+            $this->tableMap,
+            $this->output,
+            $this->result,
+            $this->auto
+        ) = $this->_gsave;
+    }
 	public function zero(){
 		$this->field = '';
 		$this->order = '';
@@ -144,7 +181,9 @@ class coherent{
 		
 	}
 	public function data($data=array()){
+        $this->_gsave();
 		if($this->auto)$data = model('logic')->auto_filter($data,$this->auto);
+        $this->_gload();
 		if($s = model('logic')->implode($data,',','=',$this->tableMap))$this->data = $s;
         //var_dump($data);
 		return $this;
