@@ -10,11 +10,22 @@ class ajax extends \control\ajax{
         $this->user = new class{};
         $this->user->uid = 1;
         $this->user->right = 99;
-        $this->tran = control('tool:tran','format');
-        $this->model = model('seanime:seanime_resource');
-        $this->g = table('config');
     }
-    
+    //function _get_user(){
+    //    return model('user:base','api');
+    //}
+    function _get_g(){
+        return table('config');
+    }
+    function _get_tran(){
+        return control('tool:tran','format');
+    }
+    function _get_model(){
+        return model('seanime:seanime_resource');
+    }
+    function _get_theme(){
+        return model('seanime:seanime_theme');
+    }
     function get_resource($sid=0){
         
     }
@@ -130,43 +141,42 @@ class ajax extends \control\ajax{
 	}
 
 	public function getanimes($s=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(500,'未授权');
+		if($this->user->right<8)return $this->error('未授权');
 		$page=floor($s);$limit=10;
-		$offset=$limit*($page-1);
-		if(preg_match('/http:\/\/4moe\.com\/myinfo\/anime\/(.+)/',$_SERVER['HTTP_REFERER'],$g) && $_G['uid']==1){
+		if(($g = basename($_SERVER['HTTP_REFERER'])) && $g!='anime' && $this->user->uid==1){
 			$maxrow = 0;
-			if(preg_match('/^\d+$/i',$g[1])){
-				$list = table('seanime')->get_themelistbyaid($g[1]);
-				$maxrow=$list?1:0;
-			}else $list = table('seanime')->get_themelistbysearch(urldecode($g[1]));	
+            $where['name'] = preg_match('/^\d+$/i',$g) ? $g : array('logic','%'.urldecode($g).'%',' like ');
+            $list = $this->theme->where($where)->order('aid',1)->page($page,$limit)->select();
 		}else{
-			$list = table('seanime')->get_themelist($offset,$limit);
-			$maxrow = table('seanime')->count_theme();
+			$list = $this->theme->order('aid',1)->page($page,$limit)->select();
+			$maxrow = $this->theme->get_field('count(*)');
 		}
 		$maxpage=floor(($maxrow-1)/$limit)+1;
-		return $this->out(200,array('list'=>$list,'maxrow'=>$maxrow,'maxpage'=>$maxpage));
+		return $this->success(array('list'=>$list,'maxrow'=>$maxrow,'maxpage'=>$maxpage));
 	}
-	private function changeanimeinfo($v,$aid,$d='n'){
-		global $_G;
+    public function _safe_right($r){
+        if($this->user->right<$r)return $this->error('未授权');
+    }
+	public function animedelete($aid=false){
+		$this->_safe_right(8);
+		$t = $this->theme->remove($aid);
+		return $this->success($t);
+	}
+	public function newanime($s=false){
+		$this->_safe_right(8);
+        $data['name'] = 'new_anime';
+        $data['timeline'] = time();
+		$t = $this->theme->data($data)->add();
+		return $this->success($t);
+	}
+    /*--------------------------------------------------*/
+    
+    private function changeanimeinfo($v,$aid,$d='n'){
 		if($d!=='d')$d='n';
 		$aid=floor($aid);
 		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
 		$t = table('seanime')->upd_theme(array($v=>$_POST['des'],'aid'=>$aid));
 		return $this->out(200);
-	}
-	public function animedelete($aid=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		$t =table('seanime')->del_theme($aid);
-		return $this->out($t?200:400);
-	}
-	
-	public function newanime($s=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		$t = table('seanime')->insert_sampletheme();
-		return $this->out($t?200:400);
 	}
 	public function animereturnresource($s=false){
 		global $_G;
