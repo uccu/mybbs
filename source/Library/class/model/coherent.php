@@ -299,7 +299,7 @@ class coherent{
         $key =  model('logic')->quote_field_in($key,$this->tableMap);
         if(is_array($key))$key = implode(',',$key);
         if(!$key || !is_string($data) || !strlen($data))return $this;
-        $cs = model('logic')->split_utf8_str_to_word_array($data);
+        $cs = model('logic')->split_utf8_str_to_words_array($data);
         $sn = model('logic')->quote('+'.implode(' +',$cs));
         $k = "MATCH($key)AGAINST($sn IN BOOLEAN MODE)";
         $this->where($k);

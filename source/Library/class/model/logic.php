@@ -73,6 +73,19 @@ class logic{
 								$v[1] = base64_encode($v[1]);break;
 							case 'j':
 								$v[1] = json_encode($v[1]);break;
+                            case 'm':
+                                $str = $this->split_utf8_str_to_words_array($v[1]);
+                                foreach($str as $v2){
+                                    if(!$v2)continue;
+                                    if(preg_match('/^[a-z0-9]+$/i',$v2)){
+                                        $tag.=$v2.' ';
+                                    }else{
+                                        $s=$this->split_utf8_str_to_word_array($v2);
+                                        $tag.=$this->arraySortString($s).' ';
+                                    }
+                                }
+                                $v[1] = $tag;
+                                break;
 							default:
 								break;
 						}
@@ -81,7 +94,10 @@ class logic{
 					}else
 					$sql .= $comma . $d . ($v[2]?$v[2]:$c) . $this->quote($v[1]);
 				}elseif($v[0]==='match'){
-					$sql .= $comma . 'MATCH('.$d.')AGAINST('.$this->quote($v[1]).($v[2]?' IN BOOLEAN MODE':'').')';
+                    if(!$v[1])continue;
+					$sql .= $comma . 'MATCH('.$d.')AGAINST('.
+                        $this->quote('+'.implode(' +',$this->split_utf8_str_to_words_array($v[1]))).
+                        ($v[2]?'':' IN BOOLEAN MODE').')';
 				}elseif($v[0]==='contain'){
 					$tr = $this->quote($v[1]);
 					if(is_array($tr))$tr = implode(',',$tr);
@@ -168,7 +184,38 @@ class logic{
 		return implode(' JOIN ',$content);
 		
 	}
+    function arraySortString($a,$u=0,$d=array()){
+		$c=count($a);
+		for($i=$u;$i<$c&&$i-$u<10;$i++){
+			$e='';
+			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
+			if(strlen($e)>1)$d[]=$e;
+		}
+		if(count($a)===$u+1){
+			$d=array_unique($d);
+			return implode(" ",$d);
+		}
+		else return $this->arraySortString($a,$u+1,$d);
+	}
     function split_utf8_str_to_word_array($str){
+		$split=1;
+		$array=array();
+		for($u=0;$u<strlen($str);$u+=$split){
+			$value=ord($str[$u]);
+			if($value>127){
+				if($value>=192&&$value<=223)$split=2;
+				elseif($value>=224&&$value<=239)$split=3;
+				elseif($value>=240&&$value<=247)$split=4;
+			}else{
+				$split=1;
+			}
+			$key=NULL;
+			for($j=0;$j<$split;$j++,$i++){$key.=$str[$i];}
+			array_push($array,$key);
+		}
+		return $array;
+	}
+    function split_utf8_str_to_words_array($str){
         //if('  ')die('1');die();
 		$split=1;
 		$array=array();
