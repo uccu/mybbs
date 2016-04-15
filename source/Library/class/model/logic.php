@@ -168,6 +168,53 @@ class logic{
 		return implode(' JOIN ',$content);
 		
 	}
+    function split_utf8_str_to_word_array($str){
+        //if('  ')die('1');die();
+		$split=1;
+		$array=array();
+        $tt = 0;
+        $keys=NULL;
+		for($u=0;$u<strlen($str);$u+=$split){
+			$value=ord($str[$u]);
+			if($value>127){
+				if($value>=192&&$value<=223)$split=2;
+				elseif($value>=224&&$value<=239)$split=3;
+				elseif($value>=240&&$value<=247)$split=4;
+			}else{
+				$split=1;
+			}
+			$key=NULL;
+			for($j=0;$j<$split;$j++,$i++){$key.=$str[$i];}
+            if($split===1 && !preg_match('/^[a-z0-9]$/i',$key) || false !== strpos('【】『』★＜＞《》的之の·，',$key)){
+                if($keys){
+                    array_push($array,$keys);
+                    $keys=NULL;
+                }
+            }else{
+                if($tt){
+                    if($tt!==$split){
+                        if($keys){
+                            array_push($array,$keys);
+                            $keys=NULL;
+                        }
+                    }
+                }
+				if(false !== strpos('第',$key)){
+					if($keys){
+                        array_push($array,$keys);
+                        $keys=NULL;
+                    }
+				}
+                $tt = $split;
+                $keys .= $key;
+            }
+		}
+		if($keys){
+            array_push($array,$keys);
+            $keys=NULL;
+        }
+		return $array;
+	}
 }
 
 ?>

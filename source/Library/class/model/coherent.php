@@ -94,7 +94,7 @@ class coherent{
 			$this->table = model('logic')->quote_table($this->tableMap);
 		}
 		
-		return this;
+		return $this;
 	}
 	public function table($table=false){
 		if(is_string($table))$this->thisTable = model('logic')->quote_table($table);
@@ -106,6 +106,8 @@ class coherent{
 		return $this;
 	}
 	public function page($page=1,$limit=0){
+        $limit = intval($limit > 0 ? $limit : 0);
+		$page = intval($page > 1 ? $page : 1);
          if(is_array($page)){
            $limit = $page[1]; $page=$page[0];
         }
@@ -292,7 +294,17 @@ class coherent{
 		$this->order = ' ORDER BY '.implode(',', $fields);
 		return $this;
 	}
-
+    public function match($key,$data){
+        //var_dump($key);
+        $key =  model('logic')->quote_field_in($key,$this->tableMap);
+        if(is_array($key))$key = implode(',',$key);
+        if(!$key || !is_string($data) || !strlen($data))return $this;
+        $cs = model('logic')->split_utf8_str_to_word_array($data);
+        $sn = model('logic')->quote('+'.implode(' +',$cs));
+        $k = "MATCH($key)AGAINST($sn IN BOOLEAN MODE)";
+        $this->where($k);
+        return $this;
+    }
 	
 	
 	

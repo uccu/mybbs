@@ -17,8 +17,6 @@ class seanime_theme extends \model{
 
         )
     );
-
-    
     
 }
 

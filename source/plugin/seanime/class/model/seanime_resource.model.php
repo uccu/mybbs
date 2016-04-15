@@ -48,8 +48,7 @@ class seanime_resource extends \model{
          )
      );
     
-    
-    
+   
 }
 
 ?>

@@ -2,32 +2,26 @@
 namespace plugin\seanime\control;
 defined('IN_PLAY') || exit('Access Denied');
 class ajax extends \control\ajax{
-    private $g;
-    private $model;
-    private $user;
     function _beginning(){
-        //$this->user = model('user:base','api');
-        $this->user = new class{};
-        $this->user->uid = 1;
-        $this->user->right = 99;
+
     }
-    //function _get_user(){
-    //    return model('user:base','api');
-    //}
-    function _get_g(){
+    function _get_user(){
+        return control('user:base','api');
+    }
+    protected function _get_g(){
         return table('config');
     }
-    function _get_tran(){
+    protected function _get_tran(){
         return control('tool:tran','format');
     }
-    function _get_model(){
+    protected function _get_model(){
         return model('seanime:seanime_resource');
     }
-    function _get_theme(){
-        return model('seanime:seanime_theme');
+    protected function _get_modelTag(){
+        return model('seanime:seanime_resource_tag');
     }
-    function get_resource($sid=0){
-        
+    protected function _get_theme(){
+        return model('seanime:seanime_theme');
     }
     /*
     function _test(&$a){
@@ -39,7 +33,6 @@ class ajax extends \control\ajax{
         echo $a;
     }
     */
-    
     public function _typein($e){
 		if(is_array($e)){
 			$lis=array();
@@ -90,21 +83,21 @@ class ajax extends \control\ajax{
     public function resource($w=false){
         $sid = post('sid',0,'%d');
 		if($w=='get'){
-            if(!$sid)return $this->error('无参数');
+            if(!$sid)$this->error('无参数 sid');
             $o = $this->model->find($sid);
-            return $this->success($o);
+            $this->success($o);
         }
-        if(!$this->user->uid)return $this->error('未登录');
+        $this->user->_safe_login();
         if($w=='del'){
-            if(!$sid)return $this->error('无参数');
-            if($this->user->right<8)return $this->error('未授权');
+            if(!$sid)$this->error('无参数 sid');
+            $this->user->_safe_right(8);
             $t = $this->model->remove($sid);
-            return $this->success($t);
+            $this->success($t);
 		}
 		$info=post('info','',array($this,'_typein'));
         //$this->success(array('sid'=>$sid,'info'=>$info));
         $filter=$this->_check_resource($info,$w=='upd'?true:false);
-        if(!is_array($info))return $this->error('无参数');
+        if(!is_array($info))$this->error('无参数 info');
         unset($info['sid'],$info['_mod']);
         if($info['hash']){
             $this->_hashtobase32($info['base32'],$info['hash']);
@@ -123,8 +116,8 @@ class ajax extends \control\ajax{
         );
         if($w=='upd'){
             
-            if(!$sid)return $this->error('无参数 : sid');
-			if($this->user->right<8)return $this->error('未授权');
+            if(!$sid)$this->error('无参数 : sid');
+			$this->user->_safe_right(8);
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
@@ -141,7 +134,7 @@ class ajax extends \control\ajax{
 	}
 
 	public function getanimes($s=false){
-		if($this->user->right<8)return $this->error('未授权');
+		$this->user->_safe_right(8);
 		$page=floor($s);$limit=10;
 		if(($g = basename($_SERVER['HTTP_REFERER'])) && $g!='anime' && $this->user->uid==1){
 			$maxrow = 0;
@@ -152,98 +145,93 @@ class ajax extends \control\ajax{
 			$maxrow = $this->theme->get_field('count(*)');
 		}
 		$maxpage=floor(($maxrow-1)/$limit)+1;
-		return $this->success(array('list'=>$list,'maxrow'=>$maxrow,'maxpage'=>$maxpage));
+		$this->success(array('list'=>$list,'maxrow'=>$maxrow,'maxpage'=>$maxpage));
 	}
-    public function _safe_right($r){
-        if($this->user->right<$r)return $this->error('未授权');
-    }
+    
 	public function animedelete($aid=false){
-		$this->_safe_right(8);
+		$this->user->_safe_right(8);
 		$t = $this->theme->remove($aid);
-		return $this->success($t);
+		$this->success($t);
 	}
 	public function newanime($s=false){
-		$this->_safe_right(8);
+		$this->user->_safe_right(8);
         $data['name'] = 'new_anime';
         $data['timeline'] = time();
 		$t = $this->theme->data($data)->add();
-		return $this->success($t);
+		$this->success($t);
 	}
     /*--------------------------------------------------*/
     
-    private function changeanimeinfo($v,$aid,$d='n'){
-		if($d!=='d')$d='n';
-		$aid=floor($aid);
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		$t = table('seanime')->upd_theme(array($v=>$_POST['des'],'aid'=>$aid));
-		return $this->out(200);
-	}
+    
 	public function animereturnresource($s=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		$t = table('seanime')->returnresourcetounsortbyaid($s);
-		return $this->out($t?200:400);
+		$this->user->_safe_right(8);
+        $aid = post('aid',0,'%d');
+        if(!$aid)$this->error('无参数');
+        $where['aid'] = $aid;
+        $data['aid'] = 69;
+		$t = $this->model->where($where)->data($data)->save();
+		$this->success($t);
 	}
-	public function animefilterresource($s=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		return $this->out(table('seanime')->sort_resource($_POST['des'],$s)?200:400);
+	public function animefilterresource(){
+		$this->user->_safe_right(8);
+        $f = post('search','');
+        $aid = post('aid',0,'%d');
+        if(!$aid || !$f)$this->error('无参数');
+        $where['aid'] = 69;
+        $data['aid'] = $aid;
+        $plusTable = array('seanime_resource'=>array('aid','_on'=>'sid'));
+        $t = $this->modelTag->add_table($plusTable)->match(array('tag'),$f)->where($where)->data($data)->save();
+        $this->success($t);
 	}
 	public function changeanimename($s=false){
-		return $this->changeanimeinfo('name',$s);
+		return $this->changeanimeinfo('name',post('name'));
 	}
 	public function changeanimetag($s=false){
-		return $this->changeanimeinfo('tag',$s);
+		return $this->changeanimeinfo('tag',post('tag'));
 	}
 	public function changeanimedess($s=false){
-		return $this->changeanimeinfo('dess',$s);
+		return $this->changeanimeinfo('dess',post('dess'));
 	}
 	public function changeanimenewsname($s=false){
-		return $this->changeanimeinfo('newsname',$s);
+		return $this->changeanimeinfo('newname',post('newname'));
 	}
 	public function changeanimelastnum($s=false){
-		return $this->changeanimeinfo('lastnum',$s);
+		return $this->changeanimeinfo('lastnum',post('lastnum'));
 	}
 	public function changeanimeregexp($s=false){
-		return $this->changeanimeinfo('regexp',$s);
+		return $this->changeanimeinfo('regexp',post('regexp'));
 	}
 	public function changeanimeorder($s=false){
-		return $this->changeanimeinfo('order',$s);
+		return $this->changeanimeinfo('order',post('order'));
 	}
-	public function error_report($s=false){
-		if(!$s)return $this->out(400);
-		$s=base64_decode($s);
-		table('seanime')->report_resourceerror($s);
-		return $this->out();
-	}
-	public function fleshthemetags($s=false){
-		global $_G;
-		if(!$_G['uid'] || $_G['right']<8)return $this->out(501,'未授权');
-		$t=table('seanime')->fleshthemetags();
-		return $this->out($t?200:400);
+    private function _changeanimeinfo($k,$v){
+		$this->user->_safe_right(8);
+        $data[$k] = $v;
+        $aid = post('aid',0,'%d');
+        if(!$aid)$this->error('无参数');
+		$t = $this->theme->data($data)->save($aid);
+		$this->success($t);
 	}
 	public function themetags($s=false){
-		$tag=table('seanime')->ThemeTags;
-		$tag2=array();
-		if($s)foreach($tag as $k=>$v){
-			if(stripos($k,$s)!==false)$tag2[]=array($k,$v);
-			if(count($tag2)>5)break;
-		}
-		return json_encode($tag2);
+        $f = post('search','');
+        if(!$f)$this->error('无参数');
+        $tags = $this->theme->field(array('name','tag','aid'))->match(array('match'),$f)->limit(5)->select();
+		$this->success($tags);
 	}
 	public function changesize($s=false){
-		global $_G;
-		if($_G['uid']==217 && $s){
-			$r = M::fetch_first('SELECT * FROM `seanime_sources` WHERE `sid`=%d',array($s));
-			if(!$r)return $this->out(407);
+		if($this->user->uid==217 && $s){
+			$r = $this->model->find($s);
+			if(!$r)$this->error('无资源');
 			if(!$r['size']){
-				if(!$_POST['info'])return $this->out(409,$_POST['info']);
-				$a = M::query('UPDATE `seanime_sources` SET `size`=%d WHERE `sid`=%d',array(floor($_POST['info']/1024/1024),$s));
-				if(!$a)return $this->out(408);
+                $size = post('info',0,'%d');
+				if(!$size)$this->error('参数错误');
+                $data['size'] = floor($size/1024/1024);
+				$a = $this->model->data($data)->save($s);
+				$this->success($a);
 			}
-			return $this->out();
+			$this->success('ok');
 		}else{
-			return $this->out(400);
+			$this->error('无权限');
 		}
 	}
 }
