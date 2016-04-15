@@ -184,18 +184,19 @@ class logic{
 		return implode(' JOIN ',$content);
 		
 	}
-    function arraySortString($a,$u=0,$d=array()){
+    function arraySortString($a,$u=0,$d=array(),$li=0){
+		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);
-		for($i=$u;$i<$c&&$i-$u<10;$i++){
+		for($i=$u;$i<$c&&$i-$u<10&&$i-$u>$li-2;$i++){
 			$e='';
 			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
-			if(strlen($e)>1)$d[]=$e;
+			$d[]=$e;
 		}
-		if(count($a)===$u+1){
+		if(count($a)<=$u+$li){
 			$d=array_unique($d);
 			return implode(" ",$d);
 		}
-		else return $this->arraySortString($a,$u+1,$d);
+		else return $this->arraySortString($a,$u+1,$d,$li);
 	}
     function split_utf8_str_to_word_array($str){
 		$split=1;

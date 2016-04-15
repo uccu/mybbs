@@ -6,6 +6,7 @@ $config=array(
 	'GETTER_SEPARATOR'=>'/',
 	'BASE_URL'=>'http://c.baka/',
     'HOST'=>'c.baka',
-    'LOGIN_SALT'=>'gtiekFamdojga4owied7'
+    'LOGIN_SALT'=>'gtiekFamdojga4owied7',
+	'LIMIT_SORT_LEN'=>2
 );
 ?>

@@ -3,8 +3,7 @@ namespace plugin\seanime\control;
 defined('IN_PLAY') || exit('Access Denied');
 class ajax extends \control\ajax{
     function _beginning(){
-        $this->user->uid = 1;
-        $this->user->right = 9;
+
     }
     function _get_user(){
         return control('user:base','api');
@@ -178,11 +177,10 @@ class ajax extends \control\ajax{
         $f = post('search','');
         $aid = post('aid',0,'%d');
         if(!$aid || !$f)$this->error('无参数');
-        $where['tag'] = array('match',$f);
         $where['aid'] = 69;
         $data['aid'] = $aid;
         $plusTable = array('seanime_resource'=>array('aid','_on'=>'sid'));
-        $t = $this->modelTag->add_table($plusTable)->where($where)->data($data)->save();
+        $t = $this->modelTag->add_table($plusTable)->match(array('tag'),$f)->where($where)->data($data)->save();
         $this->success($t);
 	}
 	public function changeanimename($s=false){

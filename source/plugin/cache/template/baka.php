@@ -5,4 +5,4 @@
 <!--{eval addcss('baka','dd','ss')}-->
    
 
-{G.g.plugin}
+{g.plugin}
