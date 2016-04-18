@@ -22,7 +22,7 @@ class core
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
-        
+        //echo $name.'<br />';
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);

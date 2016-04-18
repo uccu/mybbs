@@ -19,7 +19,7 @@ class base
 		$tplfile=PLAY_ROOT.'\\source\\plugin\\'.$plugin.'\\template\\'.($folder?$folder.'\\':'').$name.'.php';
 		$filetime = filemtime($tplfile);
 		$oldfiletime = model('cache')->get('template_'.$plugin.'_'.($folder?$folder.'_':'').$name);
-        echo $oldfiletime;
+        //echo $oldfiletime;
 		if(!$filetime){
 			return true;
 		}

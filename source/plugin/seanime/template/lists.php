@@ -20,30 +20,39 @@
     <input class="t input-4" />
     <input class="t input-3" disabled="disabled" />
 </div>
-<a id="overlay1" class="overlay nos cd">
+<div id="overlay1" class="overlay nos cd">
+    <div class="overlay_bg overlay_cancel"></div>
     <div class="overlay_box">
-        <div class="box-o1">上买东西吃</div>
+        <div class="box-o1"><i>上买东西吃</i></div>
     </div>
-</a>
-<a id="overlay2" class="overlay overlay_sel nos cd">
+</div>
+<div id="overlay2" class="overlay nos cd">
+    <div class="overlay_bg"></div>
+    <div class="overlay_box ui-draggable">
+        <div class="box-o3 bgc-6">
+            <i>上买东西吃</i>
+            <div>
+                <a class="overlay_cancel t button-1 bgc-1 bgc-h1"><i>www</i></a>
+                <a class="overlay_cancel t button-1 bgc-5 bgc-h5"><i>www</i></a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div id="overlay3" class="overlay overlay_cancel nos cd">
     <div class="overlay_box">
-        <div class="box-o3">上买东西吃</div>
+        <div class="box-o2"><i>上买东西吃</i></div>
     </div>
-</a>
-<a id="overlay3" class="overlay nos cd">
-    <div class="overlay_box">
-        <div class="box-o2">上买东西吃</div>
-    </div>
-</a>
+</div>
 <div class="box-b1">
-    <div class="box-o1">1</div>
+    <div class="box-o1"><i>上买东西吃</i></div>
     
 </div>
 <div class="box-b1">
-    <div class="box-o2">1</div>
+    <div class="box-o2"><i>上买东西吃</i></div>
 </div>
 <div class="box-b1">
-    <div class="box-o3">1</div>
+    <div class="box-o3"><i>上买东西吃</i></div>
 </div>
 <div class="box-b1">
     <div class="box-p1 w-400 tc">
