@@ -63,7 +63,7 @@ input[disabled]{border:2px solid #ccc;opacity:.7}
 
 .box-p1{display:inline-table;margin:10px;position: relative;overflow:hidden}
 .box-p1 i{position: absolute}
-.box-p1.h-180 i{transform: rotate(20deg);font-family: cursive;bottom: 20px;font-size: 35px;right: 10px;}
+.box-p1.h-180 i,.box-p1.h-380 i{transform: rotate(20deg);font-family: cursive;bottom: 20px;font-size: 35px;right: 10px;}
 .box-p1.w-80.h-80 i{transform: rotate(20deg);bottom: 5px;right: 0;font-size: 20px;font-family: cursive;}
 .box-p1.tran-2:target{display:inline-table;animation:tran-2 0.8s;-webkit-animation:tran-2 0.8s}
 .box-p1.tran-2:target~.tran-2{display:none}
