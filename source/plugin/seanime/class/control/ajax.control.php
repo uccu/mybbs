@@ -217,7 +217,8 @@ class ajax extends \control\ajax{
 	public function themetags($s=false){
         $f = post('search','');
         if(!$f)$this->error('无参数');
-        $tags = $this->theme->field(array('name','tag','aid'))->match(array('match'),$f)->limit(5)->select();
+        $where['matchs'] = array('match',$f);
+        $tags = $this->theme->field(array('name','tag','aid'))->where($where)->limit(5)->select();
 		$this->success($tags);
 	}
 	public function changesize($s=false){

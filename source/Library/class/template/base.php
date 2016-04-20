@@ -7,6 +7,7 @@ if(!defined('IN_PLAY')) {
 class base
 {
 	public static function ifexist($tplfile){
+        $tplfile = str_replace('\\','/',$tplfile);
 		if(!is_file($tplfile))throw new \Exception('tplfile not exist: '.basename($tplfile));
 		if($fp = @fopen($tplfile, 'r')){
 			$template = @fread($fp, filesize($tplfile));
@@ -16,7 +17,8 @@ class base
 	}
 	public static function isflesh($name,$folder,$plugin){
 
-		$tplfile=PLAY_ROOT.'\\source\\plugin\\'.$plugin.'\\template\\'.($folder?$folder.'\\':'').$name.'.php';
+		$tplfile=PLAY_ROOT.'source\\plugin\\'.$plugin.'\\template\\'.($folder?$folder.'\\':'').$name.'.php';
+        $tplfile = str_replace('\\','/', $tplfile);
 		$filetime = filemtime($tplfile);
 		$oldfiletime = model('cache')->get('template_'.$plugin.'_'.($folder?$folder.'_':'').$name);
         //echo $oldfiletime;
@@ -95,7 +97,7 @@ class base
 		$template = preg_replace($p,$r,$template);
 		if(!$sub){
 			$template ="<?php defined('IN_PLAY') || exit('Access Denied');?>".$template;
-			$cfile=PLAY_ROOT.'/source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$name.'.php';
+			$cfile=PLAY_ROOT.'source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$name.'.php';
 			$fp = fopen($cfile, 'w');
 			fwrite($fp, $template);
 			fclose($fp);
@@ -117,10 +119,12 @@ class base
 		
 		if(!$force){
 			$tplfile=PLUGIN_ROOT.$plugin.'\\template\\'.$name.'.php';
+            $tplfile = str_replace('\\','/',$tplfile);
 			if(!is_file($tplfile))return false;
 		}
         if(!$plugin || !$kname)throw new \Exception('Oops! Name error: '.$name);
-		$cfile=PLAY_ROOT.'/source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$kname.'.php';
+		$cfile=PLAY_ROOT.'source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$kname.'.php';
+        $cfile = str_replace('\\','/',$cfile);
 		file_exists($cfile) && self::isflesh($kname,$folder,$plugin) || self::ttoc($kname,$folder,$plugin);
 		return $cfile;
 	}

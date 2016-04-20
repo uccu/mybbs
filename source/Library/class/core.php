@@ -66,6 +66,7 @@ class core
 		//echo $key.'<br />'.microtime(get_as_float).'<br />';
 		if(self::$_imports[$key])return true;
 		$path .= $class.($plugin && $type?'.'.$type:'').'.php';
+		$path = str_replace('\\','/',$path);
 		if(is_file($path)) {
 			include $path;
 			self::$_imports[$key] = true;

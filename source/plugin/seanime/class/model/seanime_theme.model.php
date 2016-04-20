@@ -14,7 +14,7 @@ class seanime_theme extends \model{
                 'show',
                 'lastnum',
                 'lasttimeline',
-
+                'matchs'
         )
     );
     

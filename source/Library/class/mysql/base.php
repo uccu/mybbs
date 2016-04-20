@@ -17,7 +17,7 @@ class base
 	private function mysql(){
 		$this->mysqli = mysqli_init();
 		if (!$this->mysqli)die('mysqli_init failed');
-		if (!$this->mysqli->options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 0'))die('Setting MYSQLI_INIT_COMMAND failed');
+		if (!$this->mysqli->options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 1'))die('Setting MYSQLI_INIT_COMMAND failed');
 		if (!$this->mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5))die('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed');
 		if (!$this->mysqli->real_connect($this->config['host'],$this->config['user'],$this->config['password']))die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
 		$this->select_db($this->config['db']);
