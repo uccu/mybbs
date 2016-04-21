@@ -3,7 +3,7 @@ namespace plugin\seanime\model;
 defined('IN_PLAY') || exit('Access Denied');
 class seanime_resource extends \model{
     protected $tableMap = array(
-        'seanime_resource'=>array(
+        'seanime_sources'=>array(
                 'sid',
                 'aid',
                 'subtitle',
@@ -30,22 +30,8 @@ class seanime_resource extends \model{
                 'outstation'
         )
     );
-    protected $tableMap2 = array(
-         'seanime_resource'=>array(
-                'sid',
-                'aid',
-                'subtitle',
-                'sname',
-                'sloc',
-                'sloc_type',
-                'size',
-                'pw',
-                'stimeline',
-                'show',
-                'sdtype',
-                'outlink',
-                'outstation'
-         )
+    public $foreignTagTable = array(
+         'seanime_sources'=>array('subtitle','sname','sloc_type','size','stimeline','sdtype','outstation','outlink','_on'=>'sid')
      );
     
    

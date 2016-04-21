@@ -16,7 +16,20 @@ class lists extends \control{
         $list = $_m->field($this->listField)->where($where)->order($order,$desc)->limit(100)
                 //->sql()
                 ->select();
-        //echo $list;die();1457928139
+        //echo $list;die();
+        $g = (array)table('config');
+        include template();
+    }
+    function search($s=''){
+        if(!$s)$this->all();
+        $where['tag'] = array('match',$s);
+        $_m = model('seanime_resource_tag');
+        $table = model('seanime_resource')->foreignTagTable;
+        $_m->add_table($table);
+        $list = $_m->field($this->listField)->where($where)->limit(100)
+                ->sql()
+                ->select();
+        echo $list;die();
         $g = (array)table('config');
         include template();
     }
