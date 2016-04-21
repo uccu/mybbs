@@ -14,35 +14,35 @@ class lists_ajax extends \control\ajax{
         if(!$data)$this->error('error');
         if($order !== 'size')$order = 'stimeline';
         $where['show'] = 1;
-        $where2[$order] = array('logic',$data,strtoupper($order) == 'ASC' || !$order?'>':'<');
+        $where2[$order] = array('logic',$data,strtoupper($desc) == 'ASC' || !$desc?'>':'<');
         $_m = model('seanime_resource');
         $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,$desc)->limit(50)->select();
         $this->success($list);
     }
-    function subtitle($sub='',$order=0,$desc=0){
+    function subtitle($sub='',$order=0,$desc='DESC'){
         $where=array();
         if($type)$where['subtitle'] = $sub;
         $this->_get_list($where,$order,$desc);
     }
-    function sdtype($type='',$order=0,$desc=0){
+    function sdtype($type='',$order=0,$desc='DESC'){
         $where=array();
         if($type)$where['sdtype'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function all($order=0,$desc=0){
+    function all($order=0,$desc='DESC'){
         $this->_get_list(array(),$order,$desc);
     }
-    function ltype($type='',$order=0,$desc=0){
+    function ltype($type='',$order=0,$desc='DESC'){
         $where=array();
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function today($order=0,$desc=0){
+    function today($order=0,$desc='DESC'){
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function yesterday($order=0,$desc=0){
+    function yesterday($order=0,$desc='DESC'){
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
         $where['stimeline']=array('contain',array($y,$t),'BETWEEN','AND');

@@ -29,16 +29,16 @@
 		<ul class="sourceslist_block" sid="{b.sid}">
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
-				<a href=""><i></i></a>
+				<a class="sdtype" href=""><i>{b.sdtype}</i></a>
 				<a href=""><i>{$b['sname']}</i></a>
 				<!--{if $b['outstation']==1}-->
-				<a target="_blank" href=""><i>[动漫花园]</i></a>
+				<a class="outs" target="_blank" href="#"><i>[动漫花园]</i></a>
 				<!--{elseif $b['subtitle']=='Leopard-Raws'}-->
-				<a target="_blank" href=""><i>[Leopard]</i></a>
+				<a class="outs" target="_blank" href="#"><i>[Leopard]</i></a>
 				<!--{elseif $b['outstation']==2}-->
-				<a target="_blank" href=""><i>[NYAA]</i></a>
+				<a class="outs" target="_blank" href="#"><i>[NYAA]</i></a>
 				<!--{else}-->
-				<i style="color:#9CC !important">[本站]</i>
+				<a class="outs" target="_blank" href="#"><i>[本站]</i></a>
 				<!--{/if}-->
 			</li>
 			<li><a rel="external nofollow" href=""><i>{b.sloc_type}</i></a></li>

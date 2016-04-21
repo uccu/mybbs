@@ -19,8 +19,8 @@ ul.sourceslist_title{background-color: #585}
     background:-webkit-gradient(linear,left top,right top,color-stop(0, #ccc), color-stop(0.3, #fff),
         color-stop(0.5, #999),color-stop(0.8, #999));
     background: -moz-linear-gradient(left, #fff,#fff 20%, #999);}
-.sourceslist_menu li{width:100px;float:left}
-.sourceslist_title li,.sourceslist li{float:left}
+.sourceslist_menu li{width:100px;float:left;list-style: none}
+.sourceslist_title li,.sourceslist li{float:left;list-style: none}
 .sourceslist_title{color:#fff;background-color:#585}
 .sourceslist_body ul:nth-child(even){background-color:antiquewhite}
 
@@ -29,4 +29,6 @@ ul.sourceslist_title{background-color: #585}
 
 .sourceslist li:nth-child(1){width:200px}
 .sourceslist li:nth-child(2){width:500px}
+.sourceslist_block .sdtype i{color:#CC9}
+.sourceslist_block .outs{color:cadetblue}
 .sourceslist li:nth-child(3),.sourceslist li:nth-child(4),.sourceslist li:nth-child(5){width:80px}

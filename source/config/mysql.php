@@ -9,9 +9,9 @@ if(!defined('IN_PLAY')) {
 	// 'db'=>'sources'
 // );
 $config=array(
-	'host'=>'localhost',
-	'user'=>'root',
-	'password'=>'root',
+	'host'=>'56e624c81f46e.sh.cdb.myqcloud.com:5884',
+	'user'=>'cdb_outerroot',
+	'password'=>'qqwwee22zxp',
 	'db'=>'sources',
 	'prefix'=>'',
 	'charset'=>'utf8'

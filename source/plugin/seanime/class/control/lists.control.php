@@ -16,37 +16,37 @@ class lists extends \control{
         $list = $_m->field($this->listField)->where($where)->order($order,$desc)->limit(100)
                 //->sql()
                 ->select();
-        //echo $list;die();
+        //echo $list;die();1457928139
         $g = (array)table('config');
         include template();
     }
-    function subtitle($sub='',$order=0,$desc=0){
+    function subtitle($sub='',$order=0,$desc='DESC'){
         $where=array();
         if($sub)$where['subtitle'] = $sub;
         $this->_get_list($where,$order,$desc);
     }
-    function sdtype($type='',$order=0,$desc=0){
+    function sdtype($type='',$order=0,$desc='DESC'){
         $where=array();
         if($type)$where['sdtype'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function all($order=0,$desc=0){
+    function all($order=0,$desc='DESC'){
         $this->_get_list(array(),$order,$desc);
     }
-    function ltype($type='',$order=0,$desc=0){
+    function ltype($type='',$order=0,$desc='DESC'){
         $where=array();
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function today($order=0,$desc=0){
+    function today($order=0,$desc='DESC'){
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
-    function yesterday($order=0,$desc=0){
+    function yesterday($order=0,$desc='DESC'){
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
-        $where['stimeline']=array('contain',array($y,$t),'BETWEEN','AND');
+        $where['stimeline']=array('between',array($y,$t));
         
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
