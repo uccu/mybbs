@@ -1,7 +1,7 @@
 <?php
 namespace plugin\seanime\control;
 defined('IN_PLAY') || exit('Access Denied');
-class lists extends \control{
+class lists_ajax extends \control\ajax{
     private $listField;
     function _beginning(){
         $this->listField = array('sid','subtitle','sname','sloc_type','size','stimeline','sdtype','outstation','outlink');
@@ -10,19 +10,18 @@ class lists extends \control{
         //include template();
     }
     function _get_list($where=array(),$order=0,$desc=0){
+        $data = post('data','');
+        if(!$data)$this->error('error');
         if($order !== 'size')$order = 'stimeline';
         $where['show'] = 1;
+        $where2[$order] = array('logic',$data,$desc?'>':'<');
         $_m = model('seanime_resource');
-        $list = $_m->field($this->listField)->where($where)->order($order,!$desc)->limit(100)
-                //->sql()
-                ->select();
-        //echo $list;die();
-        $g = (array)table('config');
-        include template();
+        $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,!$desc)->limit(50)->select();
+        $this->success($list);
     }
     function subtitle($sub='',$order=0,$desc=0){
         $where=array();
-        if($sub)$where['subtitle'] = $sub;
+        if($type)$where['subtitle'] = $sub;
         $this->_get_list($where,$order,$desc);
     }
     function sdtype($type='',$order=0,$desc=0){
@@ -50,9 +49,6 @@ class lists extends \control{
         
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
-    }
-    function _nomethod(){
-       $this->all();
     }
 }
 

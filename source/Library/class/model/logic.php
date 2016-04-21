@@ -100,8 +100,8 @@ class logic{
                         ($v[2]?'':' IN BOOLEAN MODE').')';
 				}elseif($v[0]==='contain'){
 					$tr = $this->quote($v[1]);
-					if(is_array($tr))$tr = implode(',',$tr);
-					$sql .= $comma . $d . ($v[2]?$v[2]:$c) .'(' . $tr . ')';
+					if(is_array($tr))$tr = implode(' '.($v[3]?$v[3]:',').' ',$tr);
+					$sql .= $comma . $d .' '. ($v[2]?$v[2]:$c) .' (' . $tr . ')';
 				}elseif($v[0]==='add'){
 					$d2 = $this->quote_field_in($v[2],$tablemap);
 					$sql .= $comma . $d . ' = ' . ($d2?$d2:$d) . ' + ' . dintval($v[1]);

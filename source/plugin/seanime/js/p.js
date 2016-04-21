@@ -23,10 +23,9 @@ window.getpageset=function(p,m,a,f,b,c){
 }
 String.prototype.encodeh=function(){return this.replace(/[()'<>&"]/g,function(c){return {'(':'&222;',')':'&333;',"'":'&#039;','<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];})};
 String.prototype.decodeh=function(){return this.replace(/&222;|&333;|&#039;|&lt;|&gt;|&amp;|&quot;/g,function(c){return {'&222;':'(','&333;':')','&#039;':"'",'&lt;':'<','&gt;':'>','&amp;':'&','&quot;':'"'}[c]})};
-String.prototype.sizechange=function(){
-	return this!=''?(this<1000?this+"MB":((parseInt(this/10.24))/100)+"GB"):"未知";
-};
-Number.prototype.t2=function(){if(this.toString().length===1)return '0'+this;else return this.toString()}
+String.prototype.sizechange=function(){return this!=''?(this<1000?this+"MB":((parseInt(this/10.24))/100)+"GB"):"未知";};
+String.prototype.ltypechange=function(){return {'1':'Torrent','2':'Magnet','3':'Link','4':'Pan'}[this]};
+Number.prototype.t2=function(){if(this.toString().length===1)return '0'+this;else return this.toString()};
 String.prototype.timechange=function(){
 	var g = new Date();
 	g.setTime(this*1000);

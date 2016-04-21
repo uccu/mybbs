@@ -1,104 +1,60 @@
 <!--{subtemplate seanime:header}-->
+<!--{eval addcss()}-->
+<!--{eval addjs()}-->
+
+<div class="box-b1 t">
+<div class="sourceslist_box w-1000">
+	<div class="sourceslist_top"></div>
+	<ul class="sourceslist_menu">
+		<li><a class="" href="seanime/lists"><i>所有资源</i></a></li>
+		<li><a class="" href="seanime/lists/today"><i>今日更新</i></a></li>
+		<li><a class="" href="seanime/lists/yesterday"><i>昨日更新</i></a></li>
+		<li><a class="" href="seanime/lists/ltype/1"><i>种子资源</i></a></li>
+		<li><a class="" href="seanime/lists/ltype/2"><i>磁力资源</i></a></li>
+		<li><a class="" href="seanime/lists/ltype/3"><i>外链资源</i></a></li>
+		<li><a class="" href="seanime/lists/ltype/4"><i>网盘资源</i></a></li>
+	</ul>
+	<ul class="sourceslist_menu sdtype">
+	</ul>
+	<div class="sourceslist">
+	<ul class="sourceslist_title">
+		<li><i>字幕组/压制组</i></li>
+		<li><i>资源名称</i></li>
+		<li><i>下载地址</i></li>
+		<li><i>资源大小</i></li>
+		<li><i>上传时间</i></li>
+	</ul>
+	<div class="sourceslist_body">
+		<!--{loop $list $a=>$b}-->
+		<ul class="sourceslist_block" sid="{b.sid}">
+			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
+			<li style="text-align:left">
+				<a href=""><i></i></a>
+				<a href=""><i>{$b['sname']}</i></a>
+				<!--{if $b['outstation']==1}-->
+				<a target="_blank" href=""><i>[动漫花园]</i></a>
+				<!--{elseif $b['subtitle']=='Leopard-Raws'}-->
+				<a target="_blank" href=""><i>[Leopard]</i></a>
+				<!--{elseif $b['outstation']==2}-->
+				<a target="_blank" href=""><i>[NYAA]</i></a>
+				<!--{else}-->
+				<i style="color:#9CC !important">[本站]</i>
+				<!--{/if}-->
+			</li>
+			<li><a rel="external nofollow" href=""><i>{b.sloc_type}</i></a></li>
+			<li><i>{b.size}</i></li>
+			<li><i>{b.stimeline}</i></li>
+		</ul>
+		<!--{/loop}-->
+	</div>
+	</div>
+	<div class="sourceslist_bottom"></div>
+</div>
+</div>
+	
+	
 
 
 
-<div style="padding:100px">
-    <a class="t button-1 bgc-1 bgc-h1" href="#overlay1"><i>www</i></a>
-    <a class="t button-1 bgc-2 bgc-h2"><i>www</i></a>
-    <a class="t button-1 bgc-3 bgc-h3" href="#overlay2"><i>www</i></a>
-    <a class="t button-1 bgc-4 bgc-h4"><i>www</i></a>
-    <a class="t button-1 bgc-5 bgc-h5" href="#overlay3"><i>www</i></a>
-    <a class="t button-1 bgc-6 bgc-h6"><i>www</i></a>
-    <a class="t button-1 bgc-7 bgc-h7"><i>www</i></a>
-    <a class="t button-1 button-n bgc-7 bgc-h7 "><i>www</i></a>
-    
-</div>
-<div style="padding:100px">
-    <input class="t input-1" />
-    <input class="t input-2" />
-    <input class="t input-3" />
-    <input class="t input-4" />
-    <input class="t input-3" disabled="disabled" />
-</div>
-<div id="overlay1" class="overlay nos cd">
-    <div class="overlay_bg overlay_cancel"></div>
-    <div class="overlay_box">
-        <div class="box-o1"><i>上买东西吃</i></div>
-    </div>
-</div>
-<div id="overlay2" class="overlay nos cd">
-    <div class="overlay_bg"></div>
-    <div class="overlay_box ui-draggable">
-        <div class="box-o3 bgc-6">
-            <i>上买东西吃</i>
-            <div>
-                <a class="overlay_cancel t button-1 bgc-1 bgc-h1"><i>www</i></a>
-                <a class="overlay_cancel t button-1 bgc-5 bgc-h5"><i>www</i></a>
-            </div>
-            
-        </div>
-    </div>
-</div>
-<div id="overlay3" class="overlay overlay_cancel nos cd">
-    <div class="overlay_box">
-        <div class="box-o2"><i>上买东西吃</i></div>
-    </div>
-</div>
-<div class="box-b1">
-    <div class="box-o1"><i>上买东西吃</i></div>
-    
-</div>
-<div class="box-b1">
-    <div class="box-o2"><i>上买东西吃</i></div>
-</div>
-<div class="box-b1">
-    <div class="box-o3"><i>上买东西吃</i></div>
-</div>
-<div class="box-b1">
-    <div class="box-p1 w-400 tc">
-        <div class="t box-p1 w-180 h-380 bgc-1 bgc-h1">1</div>
-        <div class="t box-p1 w-180 h-180 bgc-2 bgc-h2">1</div>
-        <div class="t box-p1 w-180 h-180 bgc-3 bgc-h3">1</div>
-        <div class="t box-p1 w-180 h-180 bgc-4 bgc-h4">1</div>
-        <div class="box-p1 w-180 h-180 bgc-n"></div>
-        
-    </div>
-    <div class="box-p1 w-400 tc">
-        <div class="t box-p1 w-180 h-180 bgc-4 bgc-h4">1</div>
-        <div class="t box-p1 w-180 h-180 bgc-5 bgc-h5">1</div>
-        <div class="t box-p1 w-180 h-180 bgc-6 bgc-h6">1</div>
-        <div class="box-p1 w-180 h-180 bgc-n"></div>
-    </div>
-</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
-<div>1</div>
 
 <!--{subtemplate seanime:footer}-->
