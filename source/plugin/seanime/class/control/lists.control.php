@@ -9,11 +9,11 @@ class lists extends \control{
         
         //include template();
     }
-    function _get_list($where=array(),$order=0,$desc=0){
+    function _get_list($where=array(),$order=0,$desc='DESC'){
         if($order !== 'size')$order = 'stimeline';
         $where['show'] = 1;
         $_m = model('seanime_resource');
-        $list = $_m->field($this->listField)->where($where)->order($order,!$desc)->limit(100)
+        $list = $_m->field($this->listField)->where($where)->order($order,$desc)->limit(100)
                 //->sql()
                 ->select();
         //echo $list;die();

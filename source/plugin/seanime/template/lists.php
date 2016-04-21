@@ -48,7 +48,11 @@
 		<!--{/loop}-->
 	</div>
 	</div>
-	<div class="sourceslist_bottom"></div>
+	<div class="sourceslist_bottom">
+		<a class="t button-1 bgc-1 bgc-h1 resource_gain"><i>加载更多</i></a>
+		
+	</div>
+	
 </div>
 </div>
 	

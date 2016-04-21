@@ -41,6 +41,14 @@
 		j('.sourceslist_body ul').find('li:eq(3) i').text(function(){return j(this).text().sizechange()});
 		j('.sourceslist_body ul').find('li:eq(4) i').text(function(){return j(this).text().timechange()});
 		j('.sourceslist_body ul').find('li:eq(2) i').text(function(){return j(this).text().ltypechange()});
+		
+		j('.resource_gain').bind('click',function(){
+			var sid = j('[sid]:last').attr('sid'),
+			url = 'seanime/lists_ajax/'+l[3]+'/'+l[4]+'/'+l[5];
+			url += l[6]?l[6]:'';
+			j.post(url,{data:sid});
+			
+		});
 		//getpageset(page,maxpage,'href',lpas,lpal)
 		
 		

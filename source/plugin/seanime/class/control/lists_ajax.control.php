@@ -9,14 +9,14 @@ class lists_ajax extends \control\ajax{
         
         //include template();
     }
-    function _get_list($where=array(),$order=0,$desc=0){
+    function _get_list($where=array(),$order=0,$desc='DESC'){
         $data = post('data','');
         if(!$data)$this->error('error');
         if($order !== 'size')$order = 'stimeline';
         $where['show'] = 1;
-        $where2[$order] = array('logic',$data,$desc?'>':'<');
+        $where2[$order] = array('logic',$data,strtoupper($order) == 'ASC' || !$order?'>':'<');
         $_m = model('seanime_resource');
-        $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,!$desc)->limit(50)->select();
+        $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,$desc)->limit(50)->select();
         $this->success($list);
     }
     function subtitle($sub='',$order=0,$desc=0){
