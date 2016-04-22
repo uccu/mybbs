@@ -1,1 +1,0 @@
-<?php defined('IN_PLAY') || exit('Access Denied');?>123<?php addcss('baka','dd','ss') ?>   <?php echo $g["plugin"];?>

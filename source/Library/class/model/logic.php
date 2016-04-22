@@ -75,15 +75,17 @@ class logic{
 								$v[1] = json_encode($v[1]);break;
                             case 'm':
                                 $str = $this->split_utf8_str_to_words_array($v[1]);
+								$tag = array();
                                 foreach($str as $v2){
                                     if(!$v2)continue;
                                     if(preg_match('/^[a-z0-9]+$/i',$v2)){
-                                        $tag.=$v2.' ';
+                                        $tag[]=$v2;
                                     }else{
                                         $s=$this->split_utf8_str_to_word_array($v2);
-                                        $tag.=$this->arraySortString($s).' ';
+                                        $tag = array_merge($tag,$this->arraySortArray($s));
                                     }
                                 }
+								$tag = $tag?implode(' ',$tag):'';
                                 $v[1] = $tag;
                                 break;
 							default:
@@ -96,7 +98,7 @@ class logic{
 				}elseif($v[0]==='match'){
                     if(!$v[1])continue;
 					$sql .= $comma . 'MATCH('.$d.')AGAINST('.
-                        $this->quote('+'.implode(' +',$this->split_utf8_str_to_words_array($v[1]))).
+                        $this->quote('+'.implode(' +',array_slice($this->split_utf8_str_to_words_array($v[1]),0,5))).
                         ($v[2]?'':' IN BOOLEAN MODE').')';
 				}elseif($v[0]==='contain'){
 					$tr = $this->quote($v[1]);
@@ -202,6 +204,19 @@ class logic{
 		}
 		else return $this->arraySortString($a,$u+1,$d,$li);
 	}
+	function arraySortArray($a,$u=0,$d=array(),$li=0){
+		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
+		$c=count($a);
+		for($i=$u;$i<$c&&$i-$u<10&&$i-$u>$li-2;$i++){
+			$e='';
+			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
+			$d[]=$e;
+		}
+		if(count($a)<=$u+$li){
+			return array_unique($d);
+		}
+		else return $this->arraySortArray($a,$u+1,$d,$li);
+	}
     function split_utf8_str_to_word_array($str){
 		$split=1;
 		$array=array();
@@ -265,7 +280,7 @@ class logic{
             array_push($array,$keys);
             $keys=NULL;
         }
-		return $array;
+		return array_unique($array);
 	}
 }
 

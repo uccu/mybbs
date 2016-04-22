@@ -16,7 +16,9 @@ class test extends \control{
         $g['plugin']=1234;
         include template('cache:baka');
 	}
-	
+	function date(){
+        echo date('Y-m-d H:i:s');
+	}
 	
 	
 }

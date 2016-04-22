@@ -50,12 +50,14 @@ class lists_ajax extends \control\ajax{
         $this->_get_list($where,$order,$desc);
     }
     function today($order='time',$desc='DESC'){
+        $where['show'] = 1;
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
         $this->_get_list($where,$order,$desc);
     }
     function yesterday($order='time',$desc='DESC'){
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
+        $where['show'] = 1;
         $where['stimeline']=array('contain',array($y,$t),'BETWEEN','AND');
         $this->_get_list($where,$order,$desc);
     }

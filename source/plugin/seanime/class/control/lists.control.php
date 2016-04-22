@@ -17,8 +17,9 @@ class lists extends \control{
                 //->sql()
                 ->select();
         //echo $list;die();
+        $t = template();
         $g = (array)table('config');
-        include template();
+        include $t;
     }
     function search($s=''){
         if(!$s)$this->all();
@@ -30,8 +31,9 @@ class lists extends \control{
                 //->sql()
                 ->select();
         //echo $list;die();
+        $t = template();
         $g = (array)table('config');
-        include template();
+        include $t;
     }
     function subtitle($sub='',$order=0,$desc='DESC'){
         $where=array();
@@ -57,12 +59,14 @@ class lists extends \control{
         $this->_get_list($where,$order,$desc);
     }
     function today($order=0,$desc='DESC'){
+        $where['show'] = 1;
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
         $this->_get_list($where,$order,$desc);
     }
     function yesterday($order=0,$desc='DESC'){
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
+        $where['show'] = 1;
         $where['stimeline']=array('between',array($y,$t));
         $this->_get_list($where,$order,$desc);
     }

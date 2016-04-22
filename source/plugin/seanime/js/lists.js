@@ -61,7 +61,7 @@
 				for(var d in w['data']){
 					var g = '<ul class="sourceslist_block" sid="'+w['data'][d].sid+'"><li>';
 					g +=w['data'][d].subtitle?'<a href="seanime/lists/subtitle/'+w['data'][d].subtitle+'"><i>'+w['data'][d].subtitle+'</i></a>':'<i>　</i>';
-					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+sdtt[w['data'][d].sdtype]+']</i></a><a href=""><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="#"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href=""><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
+					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+sdtt[w['data'][d].sdtype]+']</i></a><a href="seanime/page/sid/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="'+w['data'][d].outlink+'"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href="seanime/down/straight/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
 					j('.sourceslist_body').append(g);
 					lastsTimeline =w['data'][d].stimeline;
 					lastSize =w['data'][d].size;
@@ -71,12 +71,18 @@
 					j('.sourceslist_bottom').html('<a class="t button-1 button-n bgc-1 bgc-h1"><i>已加载全部 '+ allCount +' 条资源</i></a>');
 				j('.resource_gain').one('click',gain);
 			},'json');
-			
 		};
-		
 		j('.resource_gain').one('click',gain);
-		//getpageset(page,maxpage,'href',lpas,lpal)
+		j('.search').bind('click',function(){
+			var v = j(this).siblings('input').val();
+			if(v)location = 'seanime/lists/search/'+ v;
+			else location = 'seanime/lists';
+		});
 		
+		if(_s.s_a()[3]=='search'){
+			j('.sourceslist_bottom').html('<a class="t button-1 button-n bgc-1 bgc-h1"><i>已加载全部 '+ allCount +' 条资源(搜索模式最多显示100条)</i></a>');
+			j('.search_input').val(decodeURI(l[4]))}
+		j('.search_input').bind('keypress',function(e){if(e.which !== 13)return;j('.search').click()});
 		
 	})
 })()

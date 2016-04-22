@@ -4,6 +4,7 @@ if(!defined('IN_PLAY')) {
 }
 class control {
     function __construct(){
+        table('config')->loadtimeset[__CLASS__]=microtime(get_as_float);
         if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
     }
 	function __call($name,$args) {

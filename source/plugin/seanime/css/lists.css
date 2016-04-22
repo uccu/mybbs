@@ -1,11 +1,4 @@
-.search{padding:50px;background-color:antiquewhite;}
-.searchTags{width: 500px;background-color: #fff;box-shadow: 0 2px 2px #ccc;z-index: 1;left: 285px;display:none}
-.searchTags li{float: none;text-align: left;cursor:pointer;padding:5px}
-.searchTags li:hover{background-color:sienna}
-.searchTags li:hover i{color:#fff}
-.search button{margin:5px 10px}
-.search input{text-align:left;width: 500px;padding: 7px 10px;opacity:0.5}
-.search input:focus{opacity:1}
+
 
 
 body{text-align:center}

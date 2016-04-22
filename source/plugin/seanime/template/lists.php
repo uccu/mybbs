@@ -2,6 +2,12 @@
 <!--{eval addcss()}-->
 <!--{eval addjs()}-->
 
+	<div class="box-b1">
+        <input class="search_input t-1 b-8 o-5 o-f1 b-f1 w-580" style="margin:180px auto" placeholder="多条件请用空格隔开" />
+		<a class="search t button-1 bgc-1 bgc-h1"><i>搜索</i></a>
+    </div>
+
+
 <div class="box-b1 t">
 <div class="sourceslist_box w-1000">
 	<div class="sourceslist_top"></div>
@@ -35,11 +41,12 @@
 					{if $b['outstation']==1}[动漫花园]
 					{elseif $b['outstation']==2}[NYAA]
 					{elseif $b['outstation']==3}[Leopard]
-					{elseif $b['outstation']==0}[本站]
+					{elseif $b['outlink']}[外站]
+					{else}[本站]
 					{/if}
 					</i></a>
 			</li>
-			<li><a rel="external nofollow" href=""><i>{b.sloc_type}</i></a></li>
+			<li><a rel="external nofollow" href="seanime/down/straight/{b.sid}/{b.stimeline}"><i>{b.sloc_type}</i></a></li>
 			<li><i>{b.size}</i></li>
 			<li><i>{b.stimeline}</i></li>
 		</ul>

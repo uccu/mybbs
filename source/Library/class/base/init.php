@@ -10,10 +10,13 @@ class init{
 		require PLAY_ROOT.'/source/config/config.php';
         $this->config = table('config');
 		$this->config->config = $config;
+		date_default_timezone_set($this->config->config['TIMEZONE']);
 		define('IS_AJAX',$_SERVER["HTTP_X_REQUESTED_WITH"]=="XMLHttpRequest" ?1:0);
 		$this->_init_input();
 	}
 	private function _init_input(){
+		$tran = control('tool:tran','format');
+		if($_POST)$_POST = $tran->t2c(str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$_POST));
 		$p=floor($_REQUEST['page']);
 		$this->config->page=$p>0&&$p<101?$p:1;
 		$this->config->maxpage=$this->config->maxrow=1;
@@ -35,7 +38,7 @@ class init{
 				if(!method_exists($c,$this->config->method) || preg_match('/^[^a-z]$/i',$this->config->method[0]))header('Location: /404.html');
                 $getter = $_REQUEST['getter'];
 				if(!strlen($getter))$getter = array();
-				else $getter = explode($this->config->config['GETTER_SEPARATOR'],$getter);
+				else $getter = explode($this->config->config['GETTER_SEPARATOR'],$tran->t2c(str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$getter)));
 				call_user_func_array(array($c,$this->config->method),$getter);
 			}else{
                 if(method_exists($c,'_nomethod'))$c->_nomethod();

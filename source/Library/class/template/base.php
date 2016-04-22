@@ -105,6 +105,7 @@ class base
 		return $template;
 	}
 	public static function load($name,$force=true){
+        table('config')->loadtimeset['template_start']=microtime(get_as_float);
         $name = str_replace('/','\\',$name);
         $config = table('config');
 		if(strpos($name, ':')){
@@ -126,6 +127,7 @@ class base
 		$cfile=PLAY_ROOT.'source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$kname.'.php';
         $cfile = str_replace('\\','/',$cfile);
 		file_exists($cfile) && self::isflesh($kname,$folder,$plugin) || self::ttoc($kname,$folder,$plugin);
+        table('config')->loadtimeset['template_final']=microtime(get_as_float);
 		return $cfile;
 	}
 }
