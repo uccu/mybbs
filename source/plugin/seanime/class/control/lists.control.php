@@ -27,15 +27,20 @@ class lists extends \control{
         $table = model('seanime_resource')->foreignTagTable;
         $_m->add_table($table);
         $list = $_m->field($this->listField)->where($where)->limit(100)
-                ->sql()
+                //->sql()
                 ->select();
-        echo $list;die();
+        //echo $list;die();
         $g = (array)table('config');
         include template();
     }
     function subtitle($sub='',$order=0,$desc='DESC'){
         $where=array();
         if($sub)$where['subtitle'] = $sub;
+        $this->_get_list($where,$order,$desc);
+    }
+    function aid($aid='',$order=0,$desc='DESC'){
+        $where=array();
+        if($aid)$where['aid'] = $aid;
         $this->_get_list($where,$order,$desc);
     }
     function sdtype($type='',$order=0,$desc='DESC'){
@@ -53,15 +58,12 @@ class lists extends \control{
     }
     function today($order=0,$desc='DESC'){
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
-        if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
     function yesterday($order=0,$desc='DESC'){
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
         $where['stimeline']=array('between',array($y,$t));
-        
-        if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
     function _nomethod(){

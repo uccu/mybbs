@@ -29,17 +29,15 @@
 		<ul class="sourceslist_block" sid="{b.sid}">
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
-				<a class="sdtype" href=""><i>{b.sdtype}</i></a>
-				<a href=""><i>{$b['sname']}</i></a>
-				<!--{if $b['outstation']==1}-->
-				<a class="outs" target="_blank" href="#"><i>[动漫花园]</i></a>
-				<!--{elseif $b['subtitle']=='Leopard-Raws'}-->
-				<a class="outs" target="_blank" href="#"><i>[Leopard]</i></a>
-				<!--{elseif $b['outstation']==2}-->
-				<a class="outs" target="_blank" href="#"><i>[NYAA]</i></a>
-				<!--{else}-->
-				<a class="outs" target="_blank" href="#"><i>[本站]</i></a>
-				<!--{/if}-->
+				<a class="sdtype" href="seanime/sdtype/{b.sdtype}"><i>{b.sdtype}</i></a>
+				<a href="seanime/page/sid/{b.sid}/{b.stimeline}"><i>{$b['sname']}</i></a>
+				<a target="_blank" href="{$b['outlink']}"><i class="outs">
+					{if $b['outstation']==1}[动漫花园]
+					{elseif $b['outstation']==2}[NYAA]
+					{elseif $b['outstation']==3}[Leopard]
+					{elseif $b['outstation']==0}[本站]
+					{/if}
+					</i></a>
 			</li>
 			<li><a rel="external nofollow" href=""><i>{b.sloc_type}</i></a></li>
 			<li><i>{b.size}</i></li>
@@ -49,8 +47,12 @@
 	</div>
 	</div>
 	<div class="sourceslist_bottom">
+		<!--{eval $count = count($list)}-->
+		<!--{if $count<100}-->
+		<a class="t button-1 button-n bgc-1 bgc-h1"><i>已加载全部 {count} 条资源</i></a>
+		<!--{else}-->
 		<a class="t button-1 bgc-1 bgc-h1 resource_gain"><i>加载更多</i></a>
-		
+		<!--{/if}-->
 	</div>
 	
 </div>
