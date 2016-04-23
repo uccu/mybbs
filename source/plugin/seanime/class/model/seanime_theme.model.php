@@ -7,13 +7,11 @@ class seanime_theme extends \model{
                 'aid',
                 'name',
                 'newname',
-                'dess',
-                'timeline',
-                'regexp',
-                'tag',
+                'remark',
+                'ctime',
                 'show',
                 'lastnum',
-                'lasttimeline',
+                'utime',
                 'matchs'
         )
     );

@@ -5,8 +5,8 @@ class user_info extends \model{
     protected $tableMap = array(
         'user_info'=>array(
                 'uid',
-                'uanme',
-                'lname',
+                'username'=>'uname',
+                'loginname'=>'lname',
                 'password',
                 'lasttime',
                 'ip',
@@ -18,7 +18,14 @@ class user_info extends \model{
                 'mark',
         )
     );
-
+    public $tableMap_hash = array(
+        'user_info'=>array(
+                'username'=>'uname',
+                'right',
+                '_on'=>'uid'
+        )
+        
+    );
    
 }
 

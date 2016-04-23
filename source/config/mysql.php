@@ -17,6 +17,7 @@ $config=array(
 	'prefix'=>'',
 	'charset'=>'utf8'
 );
+
 // $config=array(
 	// 'host'=>'uugggggggggggggg.yoooo.co',
 	// 'user'=>'baka3',

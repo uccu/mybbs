@@ -29,8 +29,10 @@ class init{
 		$this->config->template['baseurl'] = $this->config->config['BASE_URL'];
         $this->config->template['cacheid'] = model('cache')->get('cacheid');
 		if(!$c = control()){
-            $g=(array)$this->config;
-			if($file = template(false))include $file;
+            
+			if($file = template(false)){
+				$g=(array)$this->config;include $file;
+			}
             //else{var_dump($c);die();}
 			else header('Location: /404.html');
 		}else{

@@ -83,6 +83,9 @@ class logic{
                                     }else{
                                         $s=$this->split_utf8_str_to_word_array($v2);
                                         $tag = array_merge($tag,$this->arraySortArray($s));
+										//$vta = $this->arraySortArray($s);
+										//foreach($vta as $v3)$tag[] = $v3;
+										//foreach($s as $v3)$tag[]=$v3;
                                     }
                                 }
 								$tag = $tag?implode(' ',$tag):'';
@@ -98,7 +101,7 @@ class logic{
 				}elseif($v[0]==='match'){
                     if(!$v[1])continue;
 					$sql .= $comma . 'MATCH('.$d.')AGAINST('.
-                        $this->quote('+'.implode(' +',array_slice($this->split_utf8_str_to_words_array($v[1]),0,5))).
+                        $this->quote('+'.implode(' +',array_slice($this->split_utf8_str_to_words_array($v[1]),0,$v[2]?99:5))).
                         ($v[2]?'':' IN BOOLEAN MODE').')';
 				}elseif($v[0]==='contain'){
 					$tr = $this->quote($v[1]);
@@ -193,7 +196,8 @@ class logic{
     function arraySortString($a,$u=0,$d=array(),$li=0){
 		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);
-		for($i=$u;$i<$c&&$i-$u<10&&$i-$u>$li-2;$i++){
+		for($i=$u;$i<$c&&$i-$u<10;$i++){
+			if($i-$u<$li-1)continue;
 			$e='';
 			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
 			$d[]=$e;
@@ -207,13 +211,15 @@ class logic{
 	function arraySortArray($a,$u=0,$d=array(),$li=0){
 		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);
-		for($i=$u;$i<$c&&$i-$u<10&&$i-$u>$li-2;$i++){
+		for($i=$u;$i<$c && $i-$u<10;$i++){
+			if($i-$u<$li-1)continue;
 			$e='';
 			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
 			$d[]=$e;
 		}
 		if(count($a)<=$u+$li){
-			return array_unique($d);
+			$d = array_unique($d);
+			return $d;
 		}
 		else return $this->arraySortArray($a,$u+1,$d,$li);
 	}

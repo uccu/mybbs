@@ -3,8 +3,7 @@ namespace plugin\seanime\control;
 defined('IN_PLAY') || exit('Access Denied');
 class ajax extends \control\ajax{
     function _beginning(){
-        $this->user->uid = 1;
-        $this->user->right = 9;
+        
     }
     function _get_user(){
         return control('user:base','api');
@@ -96,8 +95,7 @@ class ajax extends \control\ajax{
             $this->success($t);
 		}
 		$info=post('info','',array($this,'_typein'));
-        //$this->success(array('sid'=>$sid,'info'=>$info));
-        $filter=$this->_check_resource($info,$w=='upd'?true:false);
+ 
         if(!is_array($info))$this->error('无参数 info');
         unset($info['sid'],$info['_mod']);
         if($info['hash']){
@@ -122,13 +120,13 @@ class ajax extends \control\ajax{
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
-			$upd = $this->model->auto($auto)->data($info)->save($sid);
+			$upd = $this->model->auto($auto)->data($info)->sql()->save($sid);
             $this->success($upd);
 		}else{
             $auto['stimeline'] = array(false,time());
             $auto['suid'] = array(false,$this->user->uid);
             $auto['sname'] = array(array($this,'_typein_sname'),true);
-            $auto[ 'hash'] = array(array($this,'_typein_hash'),true);
+            if($info['hash'])$auto[ 'hash'] = array(array($this,'_typein_hash'),true);
             $ins = $this->model->auto($auto)->data($info)->add();
             $this->success($ins);
         }
@@ -236,6 +234,23 @@ class ajax extends \control\ajax{
 		}else{
 			$this->error('无权限');
 		}
+	}
+    
+    
+    
+    public function fleshmatchs($s=false){
+		$this->user->_safe_right(8);
+        $r = $this->theme->field(array('aid','matchs'))->limit(9999)->select();
+        $oo = array();
+        foreach($r as $v){
+            $data = array();
+            $data['matchs'] = array('logic',$v['matchs'],'%m');
+            if(!$this->theme->data($data)->save($v['aid'])){
+                $oo[] = $v['aid'];
+            }
+        }
+        
+        $this->success($oo);
 	}
 }
 
