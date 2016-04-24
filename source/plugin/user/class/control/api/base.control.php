@@ -3,6 +3,7 @@ namespace plugin\user\control\api;
 defined('IN_PLAY') || exit('Access Denied');
 class base extends \control\ajax{
     function _beginning(){
+        $this->checkAJAX = 0;
         //var_dump($this->uid);die();
     }
     private function _get_g(){

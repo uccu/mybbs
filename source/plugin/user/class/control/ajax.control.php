@@ -62,7 +62,7 @@ class ajax extends \control\ajax{
         if($this->model->where(array('email'=>$lname))->find())
              $this->error('email错误');
         $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
-        for($i=0;$i<4;$i++)$salt .=$ss[rand(0,35)];
+        for($i=0;$i<5;$i++)$salt .=$ss[rand(0,35)];
         $pwd = md5($pwd.$salt);
         $time = time();
         $data['uname'] = $uanme;
@@ -75,6 +75,7 @@ class ajax extends \control\ajax{
             $this->error('创建失败');
         $this->login();
     }
+    
     
     
     

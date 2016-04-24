@@ -5,7 +5,6 @@ class down extends \control{
     function _beginning(){
         
         
-        
     }
     protected function _get_model(){
         return model('seanime:seanime_resource');
