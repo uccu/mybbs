@@ -6,9 +6,13 @@ if(!defined('IN_PLAY')) {
 class logic{
 	private $mb;
 	private $prefix;
+	private $multi = 0;
 	function __construct(){
 		$this->mb = table('base','mysql');
 		$this->prefix = $this->mb->prefix;
+	}
+	function multi($s=1){
+		$this->multi = $s;
 	}
 	function fetch_all($sql, $keyfield = '') {
 		$data = array();
@@ -21,7 +25,7 @@ class logic{
 		return $data;
 	}
 	function query($sql) {
-		$ret = $this->mb->query($sql);
+		$ret = $multi?$this->mb->multi_query($sql) : $this->mb->query($sql);
 		if ($ret) {
 			$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));
 			if ($cmd === 'SELECT') {

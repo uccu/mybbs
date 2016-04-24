@@ -215,7 +215,7 @@ class ajax extends \control\ajax{
 	public function themetags($s=false){
         $f = post('search','');
         if(!$f)$this->error('无参数');
-        $where['matchs'] = array('match',$f);
+        $where['matchs'] = array('match',$f,1);
         $tags = $this->theme->field(array('name','tag','aid'))->where($where)->limit(5)->select();
 		$this->success($tags);
 	}
@@ -238,20 +238,23 @@ class ajax extends \control\ajax{
     
     
     
-    public function fleshmatchs($s=false){
+    public function flesh_theme_matchs($s=false){
 		$this->user->_safe_right(8);
-        $r = $this->theme->field(array('aid','matchs'))->limit(9999)->select();
+        $r = $this->theme->field(array('aid','name','zh_tag','en_tag','loma_tag','jp_tag'))->limit(9999)->order('aid')->select();
         $oo = array();
         foreach($r as $v){
             $data = array();
-            $data['matchs'] = array('logic',$v['matchs'],'%m');
+            $vf = $v;
+            unset($vf['aid']);
+            $data['matchs'] = array('logic',implode(' ',$v),'%m');
             if(!$this->theme->data($data)->save($v['aid'])){
                 $oo[] = $v['aid'];
             }
         }
-        
-        $this->success($oo);
+        $out['unflesh'] = $oo;
+        $this->success($out);
 	}
+    
 }
 
 ?>

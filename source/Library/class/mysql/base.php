@@ -54,6 +54,11 @@ class base
 		
 		return $this->results;
 	}
+	function multi_query($sql){
+		$this->results = $this->mysqli->multi_query($sql);
+		if(!$this->results)throw new \Exception($this->mysqli->error);
+		return $this->results;
+	}
 	function insert_id(){
 		if(($id = $this->mysqli->insert_id) >= 0){
             //var_dump($id);

@@ -3,7 +3,10 @@
 <!--{eval addjs()}-->
 
 	<div class="box-b1">
-        <input class="search_input t-1 b-8 o-5 o-f1 b-f1 w-580" style="margin:180px auto" placeholder="多条件请用空格隔开" />
+        <span class="search_box t">
+			<input class="search_input t-1 b-8 o-5 o-f1 b-f1 w-580" style="margin:180px auto" placeholder="多条件请用空格隔开" />
+			<div class="search_tags"><ul></ul></div>
+		</span>
 		<a class="search t button-1 bgc-1 bgc-h1"><i>搜索</i></a>
     </div>
 

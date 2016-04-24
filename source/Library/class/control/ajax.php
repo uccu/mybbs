@@ -5,7 +5,6 @@ if(!defined('IN_PLAY')) {
 }
 class ajax extends \control{
 	function __construct(){
-		if(!IS_AJAX)$this->error('not ajax');
 		call_user_func_array(array(parent,'__construct'),func_get_args());
 	}
     protected function success($object,$url='') {

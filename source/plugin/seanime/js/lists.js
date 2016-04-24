@@ -1,5 +1,5 @@
 (function(){
-	var j=jq,lastsTimeline=lastSize=allCount=0,sdt = [
+	var j=jq,lastsTimeline=lastSize=allCount=0,sto,sdt = [
 		["58","新番连载"],["82","完整动画"],["83","BDRIP"],["84","DVDRIP"],["57","OVA/SP"],["64","剧场版"],
 		["67","音乐"],["68","MV/MAD"],["73","漫画"],["74","小说"],["81","图包"],["85","历年更新"],["90","游戏"],["91","RAW"]],sdtt={},
 		l = _s.s_a();if(!l[3])l[3] = 'all';
@@ -73,16 +73,37 @@
 			},'json');
 		};
 		j('.resource_gain').one('click',gain);
-		j('.search').bind('click',function(){
-			var v = j(this).siblings('input').val();
+		j('.search').bind({click:function(){
+			var v = j('.search_input').val();
 			if(v)location = 'seanime/lists/search/'+ v;
 			else location = 'seanime/lists';
-		});
-		
+		}});
 		if(_s.s_a()[3]=='search'){
 			j('.sourceslist_bottom').html('<a class="t button-1 button-n bgc-1 bgc-h1"><i>已加载全部 '+ allCount +' 条资源(搜索模式最多显示100条)</i></a>');
 			j('.search_input').val(decodeURI(l[4]))}
-		j('.search_input').bind('keypress',function(e){if(e.which !== 13)return;j('.search').click()});
+		j('.search_input').bind({keypress:function(e){if(e.which !== 13)return;j('.search').click()},keyup:function(e){
+			if(sto)clearTimeout(sto);
+			var v = j(this).val(),o = j(this).offset();
+			j('.search_tags').css({opacity:0,display:'none',left:o.left,top:o.top+40}).find('ul').html('');
+			
+			if(v.length>1){
+				sto = setTimeout(function(){
+					j.post('seanime/ajax/themetags',{search:v},function(w){
+						if(!w.code)return;
+						var d = w.data;
+						if(d.length)j('.search_tags').css({opacity:1,display:'block'});
+						j('.search_tags ul').html('');
+						for(var a in d){
+							var z = '<a href="seanime/lists/aid/'+d[a].aid+'"><li><i>'+d[a].name+'</i></li></a>'
+							j('.search_tags ul').append(z);
+						}
+					},'json');
+				},500)
+				
+			}
+		},blur:function(){
+			setTimeout(function(){if(d.length)j('.search_tags').css({opacity:0,display:'none'})},1000);
+		}});
 		
 	})
 })()
