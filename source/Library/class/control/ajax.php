@@ -6,6 +6,7 @@ if(!defined('IN_PLAY')) {
 class ajax extends \control{
 	protected $checkAJAX = 1;
 	function __construct(){
+		if(preg_match('/^http:\/\/4moe\.com/i',$_SERVER["HTTP_REFERER"])||isset($_POST['uccu']))$this->checkAJAX = 0;
 		call_user_func_array(array(parent,'__construct'),func_get_args());
 		if($this->checkAJAX)if(!IS_AJAX)$this->error('not ajax');
 	}

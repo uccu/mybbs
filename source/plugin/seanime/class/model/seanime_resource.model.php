@@ -27,7 +27,8 @@ class seanime_resource extends \model{
                 'sshowtimes',
                 'sdowntimes',
                 'outlink',
-                'outstation'
+                'outstation',
+                'md5'
         )
     );
     public $foreignTagTable = array(

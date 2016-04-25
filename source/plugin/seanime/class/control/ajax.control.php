@@ -52,6 +52,34 @@ class ajax extends \control\ajax{
         if(!$s)$this->error('无参数 ： sname');
         return $s;
     }
+    public function _typein_sdtype(&$s,$ss){
+        $s = floor($s);
+        if(!$s || $s ==58){
+            $s = 58;
+            if(preg_match("/BD/i",$ss))$s=83;
+			elseif(preg_match("/DVD/i",$ss))$s=84;
+			elseif(preg_match("/raw/i",$ss))$s=91;
+			elseif(preg_match("/(?<!\+|\+ )movie/i",$ss))$s=64;
+			elseif(preg_match("/(?<!\+|\+ )OVA/i",$ss))$s=57;
+			elseif(preg_match("/(\[全\]|\b合集\b)/i",$ss))$s=82;
+			elseif(!preg_match("/MP4|AVI|MKV|rmvb|big5|gb|\d{4}x\d{3,4}/i",$ss)){
+				if(preg_match("/\b漫画\b/i",$ss))$s=73;
+				elseif(preg_match("/(图包|画册)/i",$ss))$s=81;
+				elseif(preg_match("/\b小说\b/",$ss))$s=74;
+				elseif(preg_match("/op|ed|音乐|主题(歌|曲)/i",$ss))$s=67;
+				elseif(preg_match("/硬盘版/i",$ss))$s=90;
+			}
+        }
+    }
+    public function _typein_aid(&$a,$ss){
+        $a = floor($a);
+        if(!$a || $a ==69){
+            $a = 69;
+            $where['matchs'] = array('match',$ss,true);
+            $tt = $this->theme->where($where)->limit(10)->select();
+            
+        }
+    }
     private function _typein_addzero($r,$e,$t=4){
 		$r=(string)$r;
 		$re=strlen($r);
@@ -67,7 +95,7 @@ class ajax extends \control\ajax{
 		$b = strtoupper($base32);
     }
     private function _base32tohash(&$h,$base32){
-        if(!preg_match('/^[a-z2-7]{40}$/i',$base32))$this->error('BASE32不规范');
+        if(!preg_match('/^[a-z2-7]{32}$/i',$base32))$this->error('BASE32不规范');
         $a='abcdefghijklmnopqrstuvwxyz234567';
 		$str='';
 		for($i=0;$i<32;$i++)$str.=(string)($this->_typein_addzero(decbin(stripos($a,$base32[$i])),1,5));
@@ -77,7 +105,7 @@ class ajax extends \control\ajax{
     }
     public function _typein_hash($h){
         if(!$h)$this->error('HASH未定义');
-        if($sid = $this->model->where(array('hash'=>$h))->find(false,false)->get_field('sid'))$this->error('存在HASH : '.$sid);
+        if($sid = $this->model->where(array('hash'=>$h))->find(false,false)->get_field('sid'))$this->error(array('code'=>300,'des'=>'存在HASH : '.$sid));
         return $h;
     }
     public function resource($w=false){
@@ -120,6 +148,7 @@ class ajax extends \control\ajax{
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
+            if($info['aid']==69)$this->_typein_aid($info['aid'],$info['sname']);
 			$upd = $this->model->auto($auto)->data($info)->sql()->save($sid);
             $this->success($upd);
 		}else{
@@ -127,6 +156,8 @@ class ajax extends \control\ajax{
             $auto['suid'] = array(false,$this->user->uid);
             $auto['sname'] = array(array($this,'_typein_sname'),true);
             if($info['hash'])$auto[ 'hash'] = array(array($this,'_typein_hash'),true);
+            if(!$info['aid'] || $info['aid']==69)$this->_typein_sdtype($info['sdtype'],$info['sname']);
+            $this->_typein_aid($info['aid'],$info['sname']);
             $ins = $this->model->auto($auto)->data($info)->add();
             $this->success($ins);
         }
@@ -240,7 +271,8 @@ class ajax extends \control\ajax{
     
     public function flesh_theme_matchs($s=false){
 		$this->user->_safe_right(8);
-        $r = $this->theme->field(array('aid','name','zh_tag','en_tag','loma_tag','jp_tag'))->limit(9999)->order('aid')->select();
+        $r = $this->theme->field(array('aid','name','zh_tag','en_tag','loma_tag','jp_tag'))->limit(9999)->order('aid');
+        $r = $s ? array($r->find($s)) : $r->select();
         $oo = array();
         foreach($r as $v){
             $data = array();
