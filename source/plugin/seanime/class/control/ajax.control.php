@@ -175,7 +175,7 @@ class ajax extends \control\ajax{
             if($info['hash'])$auto[ 'hash'] = array(array($this,'_typein_hash'),true);
             if(!$info['aid'] || $info['aid']==69)$this->_typein_sdtype($info['sdtype'],$info['sname']);
             $this->_typein_aid($info['aid'],$info['sname']);
-            $ins = $this->model->auto($auto)->data($info)->->add();
+            $ins = $this->model->auto($auto)->data($info)->add();
             $this->success($ins);
         }
 	}
