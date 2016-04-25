@@ -61,11 +61,11 @@ class ajax extends \control\ajax{
 			elseif(preg_match("/raw/i",$ss))$s=91;
 			elseif(preg_match("/(?<!\+|\+ )movie/i",$ss))$s=64;
 			elseif(preg_match("/(?<!\+|\+ )OVA/i",$ss))$s=57;
-			elseif(preg_match("/(\[全\]|\b合集\b)/i",$ss))$s=82;
+			elseif(preg_match("/\[全?\]|(合|全)集|/i",$ss))$s=82;
 			elseif(!preg_match("/MP4|AVI|MKV|rmvb|big5|gb|\d{4}x\d{3,4}/i",$ss)){
-				if(preg_match("/\b漫画\b/i",$ss))$s=73;
+				if(preg_match("/漫画/i",$ss))$s=73;
 				elseif(preg_match("/(图包|画册)/i",$ss))$s=81;
-				elseif(preg_match("/\b小说\b/",$ss))$s=74;
+				elseif(preg_match("/小说/",$ss))$s=74;
 				elseif(preg_match("/op|ed|音乐|主题(歌|曲)/i",$ss))$s=67;
 				elseif(preg_match("/硬盘版/i",$ss))$s=90;
 			}
@@ -76,7 +76,24 @@ class ajax extends \control\ajax{
         if(!$a || $a ==69){
             $a = 69;
             $where['matchs'] = array('match',$ss,true);
-            $tt = $this->theme->where($where)->limit(10)->select();
+            $tt = $this->theme->where($where)->limit(5)->select();
+            if(count($tt)<1)return;
+            elseif(count($tt)==1)return $a = $tt[0]['aid'];
+            elseif(!$tt[0]['vague'])return $a = $tt[0]['aid'];
+            else{
+                $v = $tt[0];
+                $array = array();
+                if($v['zh_tag'])$array = array_merge($array,explode(',',$v['zh_tag'])) ;
+                if($v['en_tag'])$array = array_merge($array,explode(',',$v['en_tag']));
+                if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
+                if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
+                foreach($array as $v){
+                    if(strpos($ss, $v))return $a = $tt[0]['aid'];
+                }
+                foreach($tt as $v){
+                    if($tt[0]['vague'] === $v['aid'])return $tt[0]['vague'];
+                }
+            }
             
         }
     }
@@ -158,7 +175,7 @@ class ajax extends \control\ajax{
             if($info['hash'])$auto[ 'hash'] = array(array($this,'_typein_hash'),true);
             if(!$info['aid'] || $info['aid']==69)$this->_typein_sdtype($info['sdtype'],$info['sname']);
             $this->_typein_aid($info['aid'],$info['sname']);
-            $ins = $this->model->auto($auto)->data($info)->add();
+            $ins = $this->model->auto($auto)->data($info)->->add();
             $this->success($ins);
         }
 	}
