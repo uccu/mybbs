@@ -59,7 +59,7 @@ input[disabled]{border:2px solid #ccc;opacity:.7}
 .box-o1>i::before,.box-o2>i::before,.box-o3>i::before{text-align: center;content: '√';position: relative;border: 2px solid #fff;width: 20px;height: 20px;left: -10px;display: inline-block;border-radius: 50px}
 .box-o2>i::before{content: '!'}.box-o3>i::before{content: '?'}
 .box-b1{margin:10px;padding:10px;text-align:center}
-.box-o0{max-width:none;padding-left: 0;padding-right: 0}
+.box-o0{max-width:80%;padding-left: 0;padding-right: 0;max-height:100%;}
 
 .box-p1{display:inline-table;margin:10px;position: relative;overflow:hidden}
 .box-p1 i{position: absolute}

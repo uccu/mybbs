@@ -74,7 +74,7 @@
 <div id="overlay-2" class="overlay nos cd">
     <div class="overlay_bg"></div>
     <div class="overlay_box">
-        <div class="box-o0"><div></div></div>
+        <div class="box-o0"><iframe style="width:800px;height:70%;background:#fff" src="seanime/lists"></iframe></div>
     </div>
 </div>
 

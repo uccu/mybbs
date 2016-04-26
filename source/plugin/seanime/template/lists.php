@@ -11,7 +11,7 @@
     </div>
 
 
-<div class="box-b1 t">
+<div class="box-b1 t padding-0 margin-auto">
 <div class="sourceslist_box w-1000">
 	<div class="sourceslist_top"></div>
 	<ul class="sourceslist_menu">
