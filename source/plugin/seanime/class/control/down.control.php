@@ -52,7 +52,6 @@ class down extends \control{
             if(!$vr[] = $this->modelTag->data($data)->sql()->add(true)){
                 $oo[] = $v['aid'];
             }
-            
         }
                 foreach($vr as $vv){
                     $ve .= $vv.";\n";

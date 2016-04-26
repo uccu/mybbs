@@ -41,7 +41,7 @@ class ajax extends \control\ajax{
 				elseif(isset($b[0]) && isset($b[1])){
                     $b[0] = (string)$b[0];
                     $b[1] = (string)$b[1];
-					if($b[0]=='sname')$b[1]=$lis[$b[0]]=str_ireplace(array('_'),array(' '),$b[1]);
+					if($b[0]=='sname')$b[1]=$lis[$b[0]]=preg_replace(array('_'),array(' '),$b[1]);
 					$lis[$b[0]]=$this->_typein($b[1]);
 				}
 			}
@@ -61,7 +61,7 @@ class ajax extends \control\ajax{
 			elseif(preg_match("/raw/i",$ss))$s=91;
 			elseif(preg_match("/(?<!\+|\+ )movie/i",$ss))$s=64;
 			elseif(preg_match("/(?<!\+|\+ )OVA/i",$ss))$s=57;
-			elseif(preg_match("/\[全?\]|(合|全)集|/i",$ss))$s=82;
+			elseif(preg_match("/\[全\]|(合|全)集/i",$ss))$s=82;
 			elseif(!preg_match("/MP4|AVI|MKV|rmvb|big5|gb|\d{4}x\d{3,4}/i",$ss)){
 				if(preg_match("/漫画/i",$ss))$s=73;
 				elseif(preg_match("/(图包|画册)/i",$ss))$s=81;
@@ -78,8 +78,8 @@ class ajax extends \control\ajax{
             $where['matchs'] = array('match',$ss,true);
             $tt = $this->theme->where($where)->limit(5)->select();
             if(count($tt)<1)return;
-            elseif(count($tt)==1)return $a = $tt[0]['aid'];
-            elseif(!$tt[0]['vague'])return $a = $tt[0]['aid'];
+            //elseif(count($tt)==1)return $a = $tt[0]['aid'];
+            //elseif(!$tt[0]['vague'])return $a = $tt[0]['aid'];
             else{
                 $v = $tt[0];
                 $array = array();
@@ -87,14 +87,29 @@ class ajax extends \control\ajax{
                 if($v['en_tag'])$array = array_merge($array,explode(',',$v['en_tag']));
                 if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
                 if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
+                //var_dump( $tt[0],$array);die();
+                $ss = preg_replace('/[-_ \/]+/i',' ',$ss);
+                $ss = preg_replace('/[`]+/i','',$ss);
                 foreach($array as $v){
-                    if(strpos($ss, $v))return $a = $tt[0]['aid'];
+                    if(strpos($ss, $v)!==false)return $a = $tt[0]['aid'];
                 }
+                if(!$tt[0]['vague'])return;
                 foreach($tt as $v){
                     if($tt[0]['vague'] === $v['aid'])return $tt[0]['vague'];
                 }
             }
             
+        }
+    }
+    private function _typein_playbill($a,$r,$s){
+        $t = $this->theme->find($a);
+        if(in_array($r,array(58,91))){
+			$l = $t['lastnum']<1?1:$t['lastnum']+1;
+			if(preg_match("/(#|-|第|\[|【|\]|】) ?0".($l<10?"+":"*").$l."( ?(?!月|部|季|章|卷|[a-z0-9])| ?RAW|$)/i",$s) 
+                && !preg_match("/\d(预告|Preview|sp|ova|oad)\d/i",$s)){
+                $data['lastnum'] = $l;$data['utime'] = time();
+                $this->theme->data($data)->save($a);
+            }
         }
     }
     private function _typein_addzero($r,$e,$t=4){
@@ -165,7 +180,8 @@ class ajax extends \control\ajax{
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
-            if($info['aid']==69)$this->_typein_aid($info['aid'],$info['sname']);
+            $this->_typein_aid($info['aid'],$info['sname']);
+            if($info['aid']!=69)$this->_typein_playbill($info['aid'],$info['sdtype'],$info['sname']);
 			$upd = $this->model->auto($auto)->data($info)->sql()->save($sid);
             $this->success($upd);
 		}else{
@@ -175,6 +191,7 @@ class ajax extends \control\ajax{
             if($info['hash'])$auto[ 'hash'] = array(array($this,'_typein_hash'),true);
             if(!$info['aid'] || $info['aid']==69)$this->_typein_sdtype($info['sdtype'],$info['sname']);
             $this->_typein_aid($info['aid'],$info['sname']);
+            if($info['aid']!=69)$this->_typein_playbill($info['aid'],$info['sdtype'],$info['sname']);
             $ins = $this->model->auto($auto)->data($info)->add();
             $this->success($ins);
         }
@@ -295,9 +312,23 @@ class ajax extends \control\ajax{
             $data = array();
             $vf = $v;
             unset($vf['aid']);
-            $data['matchs'] = array('logic',implode(' ',$v),'%m');
+            $data['matchs'] = array('logic',implode(' ',$vf),'%m');
             if(!$this->theme->data($data)->save($v['aid'])){
                 $oo[] = $v['aid'];
+            }
+        }
+        $out['unflesh'] = $oo;
+        $this->success($out);
+	}
+    public function flesh_resource_matchs($page=1,$limit=100){
+		$this->user->_safe_right(8);
+        $r = $this->model->field(array('sid','sname'))->page($page,$limit)->order('sid')->select();
+        $oo = array();
+        foreach($r as $v){
+            $data = array();
+            $data['tag'] = array('logic',$v['sname'],'%m');
+            if(!$this->modelTag->data($data)->save($v['sid'])){
+                $oo[] = $v['sid'];
             }
         }
         $out['unflesh'] = $oo;

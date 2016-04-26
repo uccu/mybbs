@@ -82,7 +82,7 @@ class logic{
 								$tag = array();
                                 foreach($str as $v2){
                                     if(!$v2)continue;
-                                    if(preg_match('/^[a-z0-9]+$/i',$v2)){
+                                    if(preg_match('/^[a-z_0-9]+$/i',$v2)){
                                         $tag[]=$v2;
                                     }else{
                                         $s=$this->split_utf8_str_to_word_array($v2);
@@ -92,6 +92,7 @@ class logic{
 										//foreach($s as $v3)$tag[]=$v3;
                                     }
                                 }
+								$tag = array_unique($tag);
 								$tag = $tag?implode(' ',$tag):'';
                                 $v[1] = $tag;
                                 break;
@@ -201,8 +202,11 @@ class logic{
 		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);
 		for($i=$u;$i<$c&&$i-$u<10;$i++){
-			if($i-$u<$li-1)continue;
 			$e='';
+			if($i-$u<$li-1){
+				for($j=0;$j<$li-1-$i+$u;$j++)$e.='_';
+			}
+			
 			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
 			$d[]=$e;
 		}
@@ -216,8 +220,8 @@ class logic{
 		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);
 		for($i=$u;$i<$c && $i-$u<10;$i++){
-			if($i-$u<$li-1)continue;
 			$e='';
+			if($i-$u<$li-1)continue;
 			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
 			$d[]=$e;
 		}
@@ -264,6 +268,9 @@ class logic{
 			for($j=0;$j<$split;$j++,$i++){$key.=$str[$i];}
             if($split===1 && !preg_match('/^[a-z0-9]$/i',$key) || false !== strpos('【】『』★＜＞《》的之の·，',$key)){
                 if($keys){
+					if(preg_match('/^[a-z0-9]$/i',$keys)){
+						$keys = '_'.$keys;
+					}
                     array_push($array,$keys);
                     $keys=NULL;
                 }
@@ -271,6 +278,9 @@ class logic{
                 if($tt){
                     if($tt!==$split){
                         if($keys){
+							if(preg_match('/^[a-z0-9]$/i',$keys)){
+								$keys = '_'.$keys;
+							}
                             array_push($array,$keys);
                             $keys=NULL;
                         }
@@ -278,6 +288,9 @@ class logic{
                 }
 				if(false !== strpos('第',$key)){
 					if($keys){
+						if(preg_match('/^[a-z0-9]$/i',$keys)){
+							$keys = '_'.$keys;
+						}
                         array_push($array,$keys);
                         $keys=NULL;
                     }
@@ -287,6 +300,9 @@ class logic{
             }
 		}
 		if($keys){
+			if(preg_match('/^[a-z0-9]$/i',$keys)){
+				$keys = '_'.$keys;
+			}
             array_push($array,$keys);
             $keys=NULL;
         }

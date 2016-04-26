@@ -12,7 +12,11 @@ class seanime_theme extends \model{
                 'show',
                 'lastnum',
                 'utime',
-                'matchs'
+                'matchs',
+                'zh_tag',
+                'en_tag',
+                'loma_tag',
+                'jp_tag'
         )
     );
     
