@@ -16,8 +16,8 @@
             <a href="seanime/index#box-4" class="t box-p1 w-80 h-80 bgc-5 bgc-h5"><i>签到</i></a>
             <a href="seanime/index#box-5" class="t box-p1 w-80 h-80 bgc-6 bgc-h6"><i>讨论</i></a>
             <a href="seanime/index#box-6" class="t box-p1 w-80 h-80 bgc-7 bgc-h7"><i>发布</i></a>
-            <a href="seanime/index#overlay-2" class="t box-p1 w-80 h-80 bgc-4 bgc-h4"><i>ceshi</i></a>
             <a href="seanime/index#overlay-1" class="t box-p1 w-80 h-80 bgc-4 bgc-h4"><i>ceshi</i></a>
+            <a href="seanime/index#overlay-2" class="t box-p1 w-80 h-80 bgc-4 bgc-h4"><i>ceshi</i></a>
         </div>
         
         <div id="box-1" class="box-p1 w-400 tran-2 dn">
@@ -74,6 +74,7 @@
 <div id="overlay-2" class="overlay nos cd">
     <div class="overlay_bg"></div>
     <div class="overlay_box">
+        <div class="box-o0"><div></div></div>
     </div>
 </div>
 
