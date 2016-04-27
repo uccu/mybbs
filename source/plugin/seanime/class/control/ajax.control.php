@@ -142,11 +142,11 @@ class ajax extends \control\ajax{
         return $h;
     }
     public function _typein_outlink($o){
-        if(!preg_match('/^(\/\/|https?:/i',$o))$this->error('outlink不正确');
+        if(!preg_match('/^(\/\/|https?:)/i',$o))$this->error('outlink不正确');
         return $o;
     }
     public function _typein_sloc($o){
-        if(!preg_match('/^(\/\/|https?:|magnet:/i',$o))$this->error('sloc不正确');
+        if(!preg_match('/^(\/\/|https?:|magnet:)/i',$o))$this->error('sloc不正确');
         return $o;
     }
     public function resource($w=false){
