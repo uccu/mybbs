@@ -15,6 +15,9 @@ class control {
 	    $this->$name = $this->$sname();
         return $this->$name;
 	}
+    protected function error() {
+		header('Location: /404.html');
+	}
 	
 }
 

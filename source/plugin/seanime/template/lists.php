@@ -39,7 +39,7 @@
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
 				<a class="sdtype" href="seanime/sdtype/{b.sdtype}"><i>{b.sdtype}</i></a>
-				<a href="seanime/page/sid/{b.sid}/{b.stimeline}"><i>{$b['sname']}</i></a>
+				<a class="overlay-in2" href="seanime/page/sid/{b.sid}/{b.stimeline}" target="overlay-2"><i>{$b['sname']}</i></a>
 				<a target="_blank" href="{$b['outlink']}"><i class="outs">
 					{if $b['outstation']==1}[动漫花园]
 					{elseif $b['outstation']==2}[NYAA]
@@ -67,7 +67,12 @@
 	
 </div>
 </div>
-	
+<div id="overlay-2" class="overlay nos cd">
+    <div class="overlay_bg overlay_cancel"></div>
+    <div class="overlay_box">
+        <div class="box-o0"><iframe id="overlay-2" name="overlay-2" style="width:800px;height:70%;background:#fff"></iframe></div>
+    </div>
+</div>	
 	
 
 

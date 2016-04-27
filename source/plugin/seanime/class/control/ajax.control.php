@@ -108,6 +108,7 @@ class ajax extends \control\ajax{
 			if(preg_match("/(#|-|第|\[|【|\]|】) ?0".($l<10?"+":"*").$l."( ?(?!月|部|季|章|卷|[a-z0-9])| ?RAW|$)/i",$s) 
                 && !preg_match("/\d(预告|Preview|sp|ova|oad)\d/i",$s)){
                 $data['lastnum'] = $l;$data['utime'] = time();
+                $data['remark'] = '最后更新时间:'.date('Y-m-d H:i:s');
                 $this->theme->data($data)->save($a);
             }
         }
@@ -139,6 +140,10 @@ class ajax extends \control\ajax{
         if(!$h)$this->error('HASH未定义');
         if($sid = $this->model->where(array('hash'=>$h))->find(false,false)->get_field('sid'))$this->error(array('code'=>300,'des'=>'存在HASH : '.$sid));
         return $h;
+    }
+    public function _typein_outlink($o){
+        if(!preg_match('/^(\/\/|https?:/i',$o))$this->error('outlink不正确');
+        return $o;
     }
     public function resource($w=false){
         $sid = post('sid',0,'%d');
@@ -172,6 +177,7 @@ class ajax extends \control\ajax{
             'skuid'=>array(false,$this->user->uid),
             'sshowtimes'=>false,
             'sdowntimes'=>false,
+            'outlink'=>array(array($this,'_typein_outlink'))
         );
         if($w=='upd'){
             

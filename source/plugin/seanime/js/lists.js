@@ -16,6 +16,9 @@
 		
 		
 		allCount=j('.sourceslist_body ul').length;
+		j('.overlay-in2').bind({clcik:function(){
+			location.hash='#overlay-2';
+		}});
 		j('.sourceslist_title li:eq(3) i').css('cursor','pointer').bind('click',function(){
 			if(['subtitle','ltype','sdtype','aid'].indexOf(l[3])>-1){
 				if(!l[4]){location = 'seanime/lists/all/size/DESC';return}
