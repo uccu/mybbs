@@ -16,9 +16,7 @@
 		
 		
 		allCount=j('.sourceslist_body ul').length;
-		j('.overlay-in2').bind({clcik:function(){
-			location.hash='#overlay-2';
-		}});
+		
 		j('.sourceslist_title li:eq(3) i').css('cursor','pointer').bind('click',function(){
 			if(['subtitle','ltype','sdtype','aid'].indexOf(l[3])>-1){
 				if(!l[4]){location = 'seanime/lists/all/size/DESC';return}
@@ -64,7 +62,7 @@
 				for(var d in w['data']){
 					var g = '<ul class="sourceslist_block" sid="'+w['data'][d].sid+'"><li>';
 					g +=w['data'][d].subtitle?'<a href="seanime/lists/subtitle/'+w['data'][d].subtitle+'"><i>'+w['data'][d].subtitle+'</i></a>':'<i>　</i>';
-					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+sdtt[w['data'][d].sdtype]+']</i></a><a href="seanime/page/sid/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="'+w['data'][d].outlink+'"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href="seanime/down/straight/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
+					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+sdtt[w['data'][d].sdtype]+']</i></a><a href="seanime/page/sid/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'" target="overlay-iframe-2"  class="overlay-in2"><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="'+w['data'][d].outlink+'"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href="seanime/down/straight/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
 					j('.sourceslist_body').append(g);
 					lastsTimeline =w['data'][d].stimeline;
 					lastSize =w['data'][d].size;

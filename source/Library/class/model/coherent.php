@@ -27,6 +27,11 @@ class coherent{
 		if(!method_exists($this,$name))
 			throw new \Exception('The method "'.get_class($this).'::'.$name.'()" is not defined');	
 	}
+	function __get($name) {
+        $sname = '_get_'.$name;
+	    $this->$name = $this->$sname();
+        return $this->$name;
+	}
     private function _gsave(){
         $this->_gsave = array(
             $this->thisTable,

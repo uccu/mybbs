@@ -15,7 +15,7 @@ class control {
 	    $this->$name = $this->$sname();
         return $this->$name;
 	}
-    protected function error() {
+    protected function error($object, $url = '') {
 		header('Location: /404.html');
 	}
 	

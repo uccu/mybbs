@@ -1,5 +1,7 @@
 
 
 
-body{text-align:left;background:none;padding:20px}
+body{text-align:left;background:none;padding:20px;}
 .sname i{font-size: 17.5px;font-weight:bold;color: blueviolet; }
+ul{padding:0;list-style-type: none;}
+ul li{float:left;width:300px}

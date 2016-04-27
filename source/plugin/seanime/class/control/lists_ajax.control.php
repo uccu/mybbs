@@ -9,6 +9,9 @@ class lists_ajax extends \control\ajax{
         
         //include template();
     }
+    function _get_sort(){
+        return model('seanime:seanime_sort');
+    }
     function _get_list($where=array(),$order='time',$desc='DESC'){
         $data = post('data','');
         if(!strlen($data))$this->error('error');
@@ -21,7 +24,9 @@ class lists_ajax extends \control\ajax{
                 ->select();
         //var_dump($desc);die();
         $station =array('本站','动漫花园','NYAA','Leopard');
+        $sd = $this->sort->sdtype;
         foreach($list as &$v){
+            $v['sdtypename'] =$sd[$v['sdtype']]['name'];
             $v['outstation'] =$station[$v['outstation']];
         }
         $this->success($list);

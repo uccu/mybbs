@@ -8,7 +8,9 @@
 	j(function(){
 		
 		j('.sdtype.change').text(function(){return sdtr[j(this).text()]});
-		j('.size.change').text(function(){return j(this).text().sizechange()})
+		j('.size.change').text(function(){return j(this).text().sizechange()});
+		window.parent.location.hash="overlay-2";
+		j('img[data-original]').lazyload({effect : "fadeIn" });
 	})
 	
 		

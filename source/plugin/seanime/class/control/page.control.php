@@ -13,9 +13,20 @@ class page extends \control{
         $table2 = array('user_info'=>array('username'=>'uname','_on'=>'seanime_sources.suid = user_info.uid'));
         $r = $this->model->add_table($table)->add_table($table2)->find($sid);
         //echo $r ;die();
-        if(!$r||$time!=$r['stimeline'])$this->error();
+        if(!$r||$time!=$r['stimeline']){
+            var_dump($r,$time);die();
+            $this->error();
+        }
         $r['date'] = date('Y-m-d H:i:s',$r['stimeline']);
-        include template();
+        $img = 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==';
+        $rr=array('/\[img_s\](.*\/.{16})[st]?\.(jpg|png|gif)\[\/img\]/','/\[img(_s)?\](.*?)\[\/img\]/');
+		$p=array("<div><a href='$1.$2' target='_blank' class='plusshow'><img src='$img' data-original='$1t.jpg' /></a></div>",
+        "<img src='$img' data-original='$2' style='max-width:80%' />");
+        if($r['subtitle']=='Leopard-Raws'&&!$r['sdes'])$r['sdes'] = '[img]http://i4.piimg.com/1f2422a328733ab9.png[/img]';
+		$r['sdes']=preg_replace($rr,$p,$r['sdes']);
+        $t = template();
+        $g = (array)table('config');
+        include $t;
     }
 }
 

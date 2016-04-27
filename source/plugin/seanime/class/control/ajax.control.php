@@ -145,6 +145,10 @@ class ajax extends \control\ajax{
         if(!preg_match('/^(\/\/|https?:/i',$o))$this->error('outlink不正确');
         return $o;
     }
+    public function _typein_sloc($o){
+        if(!preg_match('/^(\/\/|https?:|magnet:/i',$o))$this->error('sloc不正确');
+        return $o;
+    }
     public function resource($w=false){
         $sid = post('sid',0,'%d');
 		if($w=='get'){
@@ -177,7 +181,8 @@ class ajax extends \control\ajax{
             'skuid'=>array(false,$this->user->uid),
             'sshowtimes'=>false,
             'sdowntimes'=>false,
-            'outlink'=>array(array($this,'_typein_outlink'))
+            'outlink'=>array(array($this,'_typein_outlink')),
+            'sloc'=>array(array($this,'_typein_sloc'))
         );
         if($w=='upd'){
             

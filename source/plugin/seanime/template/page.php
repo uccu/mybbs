@@ -18,10 +18,10 @@
 	</i></a>{/if}
 </div>
 <hr />
-<div class="t">
+<div class="t" style=" overflow: hidden;margin: 10px;">
 	<ul>
 	<li><i>up： {r.uname}</i></li>
-	{if $r['hash']}<li><i>hash： {r.hash}</i></li>{/if}
+	{if $r['hash']}<li><i>hash(sha1)： {r.hash}</i></li>{/if}
 	{if $r['base32']}<li><i>hash(base32)： {r.base32}</i></li>{/if}
 	{if $r['size']}<li>size： <i class="size change">{r.size}</i></li>{/if}
 	<li><i>date： {r.date}</i></li>
@@ -38,13 +38,13 @@
 	{elseif $r['sloc_type']==3}
 	<a class="button-1 bgc-7 bgc-h7" href="seanime/down/straight/{r.sid}/{r.stimeline}" target="_top"><i>站外打开</i></a>
 	{elseif $r['sloc_type']==4}
-	<a class="button-1 bgc-6 bgc-h6" href="seanime/down/straight/{r.sid}/{r.stimeline}" target="_top"><i>网盘 {if $r['pw']==1}密码:{r.pw}{/if}</i></a>
+	<a class="button-1 bgc-6 bgc-h6" href="seanime/down/straight/{r.sid}/{r.stimeline}" target="_top"><i>网盘 {if $r['pw']}密码:{r.pw}{/if}</i></a>
 	
 	{/if}
 </div>
 {if $r['sdes']}
 <hr />
-<div class="t">
+<div class="t" style=" overflow: hidden;margin: 10px;">
 	{r.sdes}
 	
 	

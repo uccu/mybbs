@@ -10,7 +10,7 @@ function compress($buffer) {
 	return $buffer;
 }
 header("Access-Control-Allow-Origin: http://4moe.com");
-define('SHOW_ERROR',1);
+//define('SHOW_ERROR',1);
 define('TIMESTAT',1);
 require('source/Library/class/core.php');
 

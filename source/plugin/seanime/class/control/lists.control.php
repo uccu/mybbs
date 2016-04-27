@@ -4,10 +4,20 @@ defined('IN_PLAY') || exit('Access Denied');
 class lists extends \control{
     private $listField;
     function _beginning(){
+        $this->g->template['title']="4MOEの动漫资源 - ";
         $this->listField = array('sid','subtitle','sname','sloc_type','size','stimeline','sdtype','outstation','outlink');
         
         
         //include template();
+    }
+    function _get_g(){
+        return table('config');
+    }
+    function _get_theme(){
+        return model('seanime:seanime_theme');
+    }
+    function _get_sort(){
+        return model('seanime:seanime_sort');
     }
     function _get_list($where=array(),$order=0,$desc='DESC'){
         if($order !== 'size')$order = 'stimeline';
@@ -23,11 +33,11 @@ class lists extends \control{
     }
     function search($s=''){
         if(!$s)$this->all();
+        $this->g->template['title'] .='搜索 - '.$s;
         $where['tag'] = array('match',$s);
         $_m = model('seanime_resource_tag');
         $table = model('seanime_resource')->foreignTagTable;
-        $_m->add_table($table);
-        $list = $_m->field($this->listField)->where($where)->limit(100)
+        $list = $_m->add_table($table)->field($this->listField)->where($where)->limit(100)
                 //->sql()
                 ->select();
         //echo $list;die();
@@ -36,34 +46,53 @@ class lists extends \control{
         include $t;
     }
     function subtitle($sub='',$order=0,$desc='DESC'){
+        $this->g->template['title'] .='字幕|压制 - '.$sub;
         $where=array();
         if($sub)$where['subtitle'] = $sub;
         $this->_get_list($where,$order,$desc);
     }
     function aid($aid='',$order=0,$desc='DESC'){
         $where=array();
+        $a = $this->theme->find($aid);
+        $this->g->template['title'] .=$a?$a['name']:'未归类';
         if($aid)$where['aid'] = $aid;
         $this->_get_list($where,$order,$desc);
     }
     function sdtype($type='',$order=0,$desc='DESC'){
+        $sd = $this->sort->sdtype;
+        $this->g->template['title'] .=$sd[$type]['name']?$sd[$type]['name']:'未知';
         $where=array();
         if($type)$where['sdtype'] = $type;
         $this->_get_list($where,$order,$desc);
     }
     function all($order=0,$desc='DESC'){
+        $this->g->template['title'] .='所有资源';
         $this->_get_list(array(),$order,$desc);
     }
     function ltype($type='',$order=0,$desc='DESC'){
         $where=array();
+        if($type==1){
+            $this->g->template['title'] .='种子资源';
+        }elseif($type==2){
+            $this->g->template['title'] .='磁力资源';
+        }elseif($type==3){
+            $this->g->template['title'] .='外链资源';
+        }elseif($type==4){
+            $this->g->template['title'] .='网盘资源';
+        }else{
+            $this->g->template['title'] .='未知资源';
+        }
         if($type)$where['sloc_type'] = $type;
         $this->_get_list($where,$order,$desc);
     }
     function today($order=0,$desc='DESC'){
+        $this->g->template['title'] .='今日资源';
         $where['show'] = 1;
         $where['stimeline']=array('logic',strtotime(date('Y-m-d')),'>');
         $this->_get_list($where,$order,$desc);
     }
     function yesterday($order=0,$desc='DESC'){
+        $this->g->template['title'] .='昨日资源';
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
         $where['show'] = 1;
