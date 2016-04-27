@@ -41,7 +41,7 @@ class ajax extends \control\ajax{
 				elseif(isset($b[0]) && isset($b[1])){
                     $b[0] = (string)$b[0];
                     $b[1] = (string)$b[1];
-					if($b[0]=='sname')$b[1]=$lis[$b[0]]=preg_replace(array('_'),array(' '),$b[1]);
+					if($b[0]=='sname')$b[1]=$lis[$b[0]]=str_ireplace(array('_'),array(' '),$b[1]);
 					$lis[$b[0]]=$this->_typein($b[1]);
 				}
 			}
