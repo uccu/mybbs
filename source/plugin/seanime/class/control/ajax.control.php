@@ -88,7 +88,7 @@ class ajax extends \control\ajax{
                 if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
                 if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
                 //var_dump( $tt[0],$array);die();
-                $ss = preg_replace('/[-_ \/\.\\]+/i',' ',$ss);
+                $ss = preg_replace('/([-_ \/\.\\!&·]|！)+/i',' ',$ss);
                 $ss = preg_replace('/[`]+/i','',$ss);
 				//var_dump($array);echo $ss;die();
                 foreach($array as $v){
