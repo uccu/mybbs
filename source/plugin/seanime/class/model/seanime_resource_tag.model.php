@@ -9,7 +9,7 @@ class seanime_resource_tag extends \model{
 
         )
     );
-
+    public $tableMapx = array('seanime_sources'=>array('aid','_on'=>'sid'));
     
 
     

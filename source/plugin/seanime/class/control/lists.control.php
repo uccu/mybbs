@@ -27,6 +27,11 @@ class lists extends \control{
                 //->sql()
                 ->select();
         //echo $list;die();
+        
+        $where2['utime'] = array('logic',time()-3600*48,'>');
+        $playbill = $this->theme->where($where2)->order('utime')->select();
+        
+        
         $t = template();
         $g = (array)table('config');
         include $t;

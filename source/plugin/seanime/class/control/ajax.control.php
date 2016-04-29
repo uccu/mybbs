@@ -78,12 +78,14 @@ class ajax extends \control\ajax{
             $where['matchs'] = array('match',$ss,true);
             $tt = $this->theme->where($where)->limit(5)->select();
             if(count($tt)<1)return;
+            
             //elseif(count($tt)==1)return $a = $tt[0]['aid'];
             //elseif(!$tt[0]['vague'])return $a = $tt[0]['aid'];
             else{
                 $v = $tt[0];
                 $array = array();
-                if($v['zh_tag'])$array = array_merge($array,explode(',',$v['zh_tag'])) ;
+                if($v['name'])$array = array_merge($array,explode(',',$v['name']));
+                if($v['zh_tag'])$array = array_merge($array,explode(',',$v['zh_tag']));
                 if($v['en_tag'])$array = array_merge($array,explode(',',$v['en_tag']));
                 if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
                 if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
@@ -192,9 +194,19 @@ class ajax extends \control\ajax{
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
-            $this->_typein_aid($info['aid'],$info['sname']);
+            if($info['aid'])$this->_typein_aid($info['aid'],$info['sname']);
             if($info['aid']!=69)$this->_typein_playbill($info['aid'],$info['sdtype'],$info['sname']);
-			$upd = $this->model->auto($auto)->data($info)->sql()->save($sid);
+			if($upd = $this->model->auto($auto)->data($info)->save($sid))
+            {
+                if($info['sname']){
+                    $data2['sid'] = $sid;
+                    $data2['tag'] = array('logic',$info['sname'],'%m');
+                    $this->modelTag->data($data2)->add(true);
+                    
+                }
+                
+                
+            }
             $this->success($upd);
 		}else{
             $auto['stimeline'] = array(false,time());
@@ -204,7 +216,12 @@ class ajax extends \control\ajax{
             if(!$info['aid'] || $info['aid']==69)$this->_typein_sdtype($info['sdtype'],$info['sname']);
             $this->_typein_aid($info['aid'],$info['sname']);
             if($info['aid']!=69)$this->_typein_playbill($info['aid'],$info['sdtype'],$info['sname']);
-            $ins = $this->model->auto($auto)->data($info)->add();
+            if($ins = $this->model->auto($auto)->data($info)->add()){
+                $data2['sid'] = $ins;
+                $data2['tag'] = array('logic',$info['sname'],'%m');
+                $this->modelTag->data($data2)->add(true);
+            }
+            
             $this->success($ins);
         }
 	}
@@ -315,10 +332,11 @@ class ajax extends \control\ajax{
     
     
     
-    public function flesh_theme_matchs($s=false){
-		$this->user->_safe_right(8);
-        $r = $this->theme->field(array('aid','name','zh_tag','en_tag','loma_tag','jp_tag'))->limit(9999)->order('aid');
-        $r = $s ? array($r->find($s)) : $r->select();
+    public function flesh_theme_matchs($s=false,$o=false){
+		$this->user->_safe_right(8);$where = array();
+        if($s && $o)$where['aid'] = array('between',array($s,$o));
+        elseif($s)$where['aid']=$s;
+        $r = $this->theme->where($where)->field(array('aid','name','zh_tag','en_tag','loma_tag','jp_tag'))->limit(9999)->order('aid')->select();
         $oo = array();
         foreach($r as $v){
             $data = array();
@@ -329,7 +347,30 @@ class ajax extends \control\ajax{
                 $oo[] = $v['aid'];
             }
         }
+        $out['count'] = count($r);
         $out['unflesh'] = $oo;
+        $this->success($out);
+	}
+    public function filter_theme_in($s=false){
+		$this->user->_safe_right(8);
+        if(!$s)$this->error('无AID');
+        $s = floor($s);
+        $r = $this->theme->field(array('name','zh_tag','en_tag','loma_tag','jp_tag'))->find($s);
+        if(!$r)$this->error('无AID');
+        $tt = array();
+        foreach ($r as $v) {
+           if($v)$tt = array_merge($tt,explode(',',$v));
+        }
+        $data['aid'] = $s;$ue = array();
+        $plusTable = $this->modelTag->tableMapx;
+        $t = $this->modelTag->add_table($plusTable);
+        foreach ($tt as $v) {
+            $where['tag'] = array('match',$v);
+            $where['aid'] = 69;
+            $ue[]= $t->where($where)->data($data)->save();
+        }
+        $out['count'] = $ue;
+        $out['matchs'] =$tt;
         $this->success($out);
 	}
     public function flesh_resource_matchs($page=1,$limit=100){

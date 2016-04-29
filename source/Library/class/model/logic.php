@@ -131,7 +131,7 @@ class logic{
 		
 	}
 	function quote($str, $noarray = false) {
-		if(is_string($str))return '\'' . addcslashes($str, "\n\r\\'\"\032") . '\'';	
+		if(is_string($str))return '\'' . addcslashes( trim($str), "\n\r\\'\"\032") . '\'';	
 		elseif (is_int($str) or is_float($str))return '\'' . $str . '\'';
 		elseif(is_array($str)){
 			if($noarray === false) {
