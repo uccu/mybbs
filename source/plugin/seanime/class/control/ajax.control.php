@@ -75,6 +75,8 @@ class ajax extends \control\ajax{
         $a = floor($a);
         if(!$a || $a ==69){
             $a = 69;
+            $ss = preg_replace('/([-_ \/\.\\!&]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i',' ',$ss);
+            $ss = preg_replace('/[`]+/i','',$ss);
             $where['matchs'] = array('match',$ss,true);
             $tt = $this->theme->where($where)->limit(5)->select();
             if(count($tt)<1)return;
@@ -90,10 +92,10 @@ class ajax extends \control\ajax{
                 if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
                 if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
                 //var_dump( $tt[0],$array);die();
-                $ss = preg_replace('/([-_ \/\.\\!&·]|！)+/i',' ',$ss);
-                $ss = preg_replace('/[`]+/i','',$ss);
+                $ss = str_ireplace(' ','',$ss);
 				//var_dump($array);echo $ss;die();
                 foreach($array as $v){
+                    $v= preg_replace('/([-_ \/\.\\!&]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i','',$v);
                     if(stripos($ss, $v)!==false)return $a = $tt[0]['aid'];
                 }
                 if(!$tt[0]['vague'])return;

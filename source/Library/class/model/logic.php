@@ -266,7 +266,7 @@ class logic{
 			}
 			$key=NULL;
 			for($j=0;$j<$split;$j++,$i++){$key.=$str[$i];}
-            if($split===1 && !preg_match('/^[a-z0-9]$/i',$key) || false !== strpos('【】『』★＜＞《》的之の·，',$key)){
+            if($split===1 && !preg_match('/^[a-z0-9]$/i',$key) || false !== strpos('【】『』★＜＞《》的之の·，！',$key)){
                 if($keys){
 					if(preg_match('/^[a-z0-9]$/i',$keys)){
 						$keys = '_'.$keys;
