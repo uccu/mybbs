@@ -1,4 +1,4 @@
-<!--{subtemplate main/header}-->
+<!--{subtemplate header}-->
 <!--{eval addcss();}-->
 <!--{eval addjs();}-->
 <div class="upload upload_font">
@@ -123,4 +123,4 @@
 
 
 <span style="position:absolute;bottom:0;right:0;color:#CCC">本页需要高版本浏览器支持！</span>
-<!--{subtemplate main/footer}-->
+<!--{subtemplate footer}-->

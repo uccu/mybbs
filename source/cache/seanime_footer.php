@@ -1,0 +1,1 @@
+<?php defined('IN_PLAY') || exit('Access Denied');?><script>    <?php foreach($g['loadtimeset'] as $k=>$v){ ?>    console.log(<?php echo $v;?>-<?php echo $g["loadtimeset"]["start"];?>,"<?php echo $k;?>");    <?php } ?></script></body></html>

@@ -18,6 +18,26 @@
 	</i></a>{/if}
 </div>
 <hr />
+<!--{if $right>7}-->
+<div class="t">
+	<a class="t button-2 b-1 b-h5 c-h5 upd_re"><i>修改</i></a>
+	<a class="t button-2 b-1 b-h5 c-h5 del_re"><i>删除</i></a>
+	<script>
+		jq('.del_re').click(function(){
+			if(confirm('确认删除？')){
+				jq.post('seanime/ajax/resource/del',{sid:{r.sid}},function(d){
+					if(!d.code)alert(d.data);
+					window.parent.location.hash = '';
+					window.parent.location.reload(true);
+				},'json');
+			}
+
+		})
+		
+	</script>
+</div>
+<hr />
+<!--{/if}-->
 <div class="t" style=" overflow: hidden;margin: 10px;">
 	<ul>
 	<li><i>up： {r.uname}</i></li>

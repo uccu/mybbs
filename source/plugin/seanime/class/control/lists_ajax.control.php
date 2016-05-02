@@ -22,7 +22,7 @@ class lists_ajax extends \control\ajax{
         $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,$desc)->limit(50)
                 //->sql()
                 ->select();
-        //var_dump($desc);die();
+        //var_dump($list);die();
         $station =array('本站','动漫花园','NYAA','Leopard');
         $sd = $this->sort->sdtype;
         foreach($list as &$v){
@@ -63,7 +63,7 @@ class lists_ajax extends \control\ajax{
         $y = strtotime(date('Y-m-d',time()-3600*24));
         $t = strtotime(date('Y-m-d'));
         $where['show'] = 1;
-        $where['stimeline']=array('contain',array($y,$t),'BETWEEN','AND');
+        $where['stimeline']=array('between',array($y,$t));
         $this->_get_list($where,$order,$desc);
     }
 }

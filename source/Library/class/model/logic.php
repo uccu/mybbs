@@ -268,7 +268,7 @@ class logic{
 			for($j=0;$j<$split;$j++,$i++){$key.=$str[$i];}
             if($split===1 && !preg_match('/^[a-z0-9]$/i',$key) || false !== strpos('【】『』★＜＞《》的之の·，！',$key)){
                 if($keys){
-					if(preg_match('/^[a-z0-9]$/i',$keys)){
+					if(preg_match('/^[a-z]$/i',$keys)){
 						$keys = '_'.$keys;
 					}
                     array_push($array,$keys);
@@ -278,7 +278,7 @@ class logic{
                 if($tt){
                     if($tt!==$split){
                         if($keys){
-							if(preg_match('/^[a-z0-9]$/i',$keys)){
+							if(preg_match('/^[a-z]$/i',$keys)){
 								$keys = '_'.$keys;
 							}
                             array_push($array,$keys);
@@ -288,7 +288,7 @@ class logic{
                 }
 				if(false !== strpos('第',$key)){
 					if($keys){
-						if(preg_match('/^[a-z0-9]$/i',$keys)){
+						if(preg_match('/^[a-z]$/i',$keys)){
 							$keys = '_'.$keys;
 						}
                         array_push($array,$keys);
@@ -300,7 +300,7 @@ class logic{
             }
 		}
 		if($keys){
-			if(preg_match('/^[a-z0-9]$/i',$keys)){
+			if(preg_match('/^[a-z]$/i',$keys)){
 				$keys = '_'.$keys;
 			}
             array_push($array,$keys);

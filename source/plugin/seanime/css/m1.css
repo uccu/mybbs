@@ -39,6 +39,11 @@ input[disabled]{border:2px solid #ccc;opacity:.7}
 
 .button-1{padding: 10px 19px;margin:10px;cursor:pointer;border-radius:4px;display: inline-flex}
 .button-1 i,.button-n i{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-size: 15px;line-height: 1.467}
+.button-2{padding:2px;margin:10px;cursor:pointer;border-radius:4px;display: inline-flex}
+.button-2 i{color:#1abc9c}
+.button-1plus{position:relative;cursor:default}
+.button-1plus::before{content:' ';width: 0;height: 0;position: absolute;left: -20px;top: 0;border-top: 21px solid transparent;border-right: 21px solid #1abc9c;border-bottom: 21px solid transparent;}
+.button-1plus::after{content: ' ';color: #fff;width: 10px;height: 5px;border-radius: 10px;background: #fff;position: absolute;left: -2px;top: 18px;}
 
 @-webkit-keyframes tran-1{0%{opacity:0;left:-50%}100%{opacity:1;left:0}}
 @keyframes tran-1{0%{opacity:0;left:-50%}100%{opacity:1;left:0}}
@@ -118,6 +123,8 @@ li{float:left}
 .bgc-6{background-color:#415b76}.bgc-h6:hover{background-color:#516b86}.bgc-h6:active{background-color:#333333}
 .bgc-7{background-color:#5dade2}.bgc-h7:hover{background-color:#6dbdf2}.bgc-h7:active{background-color:#3d6da2}
 .bgc-n{background-color:transparent}
+.c-h1:hover i{color:#1abc9c}
+.c-h5:hover i{color:#ec7063}
 .b-1,.b-h1:hover,.b-f1:focus{border:2px solid #1abc9c}
 .b-2,.b-h2:hover,.b-f2:focus{border:2px solid #58d68d}
 .b-3,.b-h3:hover,.b-f3:focus{border:2px solid #f4d313}

@@ -8,7 +8,7 @@ jq(function(){
 			j('body').addClass('ofh')
 		}else{
 			onwheel =null;
-			j('body').remove('ofh')
+			j('body').removeClass('ofh')
 		}
 	}
 

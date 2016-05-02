@@ -27,10 +27,14 @@ class lists extends \control{
                 //->sql()
                 ->select();
         //echo $list;die();
-        
-        $where2['utime'] = array('logic',time()-3600*48,'>');
-        $playbill = $this->theme->where($where2)->order('utime')->select();
-        
+        $time =time();$today = strtotime(date('Y-m-d'));
+        $where2['utime'] = array('logic',$time-3600*24,'>');
+        $playbill = $this->theme->where($where2)->order('utime')->limit(999)->select();
+        $playbill_y = $playbill_t = array();
+        foreach ($playbill as $v){
+            if($v['utime']<$today)$playbill_y[]=$v;
+            else $playbill_t[]=$v;
+        }
         
         $t = template();
         $g = (array)table('config');
@@ -46,6 +50,14 @@ class lists extends \control{
                 //->sql()
                 ->select();
         //echo $list;die();
+        $time =time();$today = strtotime(date('Y-m-d'));
+        $where2['utime'] = array('logic',$time-3600*24,'>');
+        $playbill = $this->theme->where($where2)->order('utime')->limit(999)->select();
+        $playbill_y = $playbill_t = array();
+        foreach ($playbill as $v){
+            if($v['utime']<$today)$playbill_y[]=$v;
+            else $playbill_t[]=$v;
+        }
         $t = template();
         $g = (array)table('config');
         include $t;

@@ -3,6 +3,12 @@
 
 body{text-align:center}
 
+.playbill ul li{list-style-type: none;float:left;width:44px;position: relative}
+.playbill ul li.playbill_n{z-index:1;width:auto}
+.playbill:hover ul li.playbill_n{z-index:0;transform: translateX(-10px)}
+.playbill ul li.playbill_b{transform: rotate(80deg) translateX(-30px)}
+.playbill ul li.playbill_b:hover{z-index:1;transform: rotate(0deg)}
+.playbill{background-color: #fff;}
 .search_tags{position: absolute;width: 580px;box-shadow: 0 2px 2px #ccc;opacity:0}
 .search_tags ul{background:#fff;list-style-type: none;text-align: left;padding:5px;border-left: 4px solid #2accac;border-right: 4px solid #2accac}
 .search_tags li{background:#fff;padding:5px;margin:0 10px}
@@ -15,7 +21,7 @@ body{text-align:center}
 ul.sourceslist_menu,ul.sourceslist_title,ul.sourceslist_block{
     overflow: hidden;background-color:#fff;padding: 6px 0;position: relative}
 ul.sourceslist_title{background-color: #585}
-.sourceslist_menu::before{content:' ';height: 1px;position: absolute;top: 0;left:0;width:100%;
+.playbill::before,.sourceslist_menu::before{content:' ';height: 1px;position: absolute;top: 0;left:0;width:100%;
     background:-webkit-gradient(linear,left top,right top,color-stop(0, #ccc), color-stop(0.3, #fff),
         color-stop(0.5, #999),color-stop(0.8, #999));
     background: -moz-linear-gradient(left, #fff,#fff 20%, #999);}
