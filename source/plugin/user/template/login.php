@@ -55,14 +55,13 @@
 					}
 				}
                 
-                
+                jq('.password').bind({keypress:function(e){if(e.which !== 13)return;jq('.login').click()}})
                 jq('.login').click(function(){
 					var f = {};
 					f.lname = jq('.loginname').val();
 					f.pwd = jq('.password').val();
 					if(!f.lname || !f.pwd){alert('error');return}
 					f.pwd = CryptoJS.MD5(f.pwd).toString();
-					
                     jq.post('user/ajax/login',f,function(d){
 						if(!d.code){alert(d.data);return}
 						window.parent.location.hash = '';
