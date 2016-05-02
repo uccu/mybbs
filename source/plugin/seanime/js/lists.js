@@ -13,7 +13,12 @@
 
 	j(function(){
 		
-		
+		jq('.logout').click(function(){
+                    jq.post('user/ajax/logout',function(d){
+						if(!d.code){alert(d.data);return}
+						location.reload(true);
+					},'json')
+                })
 		j('#overlay-2 iframe').height(document.body.clientHeight*.7);
 		allCount=j('.sourceslist_body ul').length;
 		

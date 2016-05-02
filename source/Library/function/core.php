@@ -20,7 +20,7 @@ function template($t=true,$f=true){
 	}
 	return template\base::load($t,$f);
 	
-}
+} 
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
 function control($t=false,$f=''){
 	$config = table('config');
@@ -31,8 +31,8 @@ function control($t=false,$f=''){
 	return C::c($t,$f);
 }
 function model($m,$f=''){return C::m($m,$f);}
-function cookie($name,$value='',$expire='',$path='/',$domain=0){
-    if($value){
+function cookie($name,$value=null,$expire='',$path='/',$domain=0){
+    if($value!==null){
         if(!$domain){
             $config = table('config');
             $domain = '.'.$config->config['HOST'];
@@ -44,6 +44,7 @@ function cookie($name,$value='',$expire='',$path='/',$domain=0){
     }
 }
 function post($s,$r='',$e=''){
+	if(!isset($_POST[$s]))return $r;
     $f = $_POST[$s];
     if(is_array($e)){
         $f = call_user_func_array($e,array($f));

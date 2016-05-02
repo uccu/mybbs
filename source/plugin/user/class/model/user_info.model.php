@@ -9,7 +9,7 @@ class user_info extends \model{
                 'loginname'=>'lname',
                 'password',
                 'lasttime',
-                'ip',
+                'currentip'=>'ip',
                 'right',
                 'avatar',
                 'salt',

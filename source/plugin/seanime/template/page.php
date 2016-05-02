@@ -26,7 +26,7 @@
 		jq('.del_re').click(function(){
 			if(confirm('确认删除？')){
 				jq.post('seanime/ajax/resource/del',{sid:{r.sid}},function(d){
-					if(!d.code)alert(d.data);
+					if(!d.code){alert(d.data);return}
 					window.parent.location.hash = '';
 					window.parent.location.reload(true);
 				},'json');

@@ -4,34 +4,41 @@ defined('IN_PLAY') || exit('Access Denied');
 class base extends \control\ajax{
     function _beginning(){
         $this->checkAJAX = 0;
-        $this->uid = $this->right = 8;
+        //$this->uid = $this->right = 8;
         //var_dump($this->uid);die();
     }
     private function _get_g(){
         return table('config');
     }
     protected function _get_uid(){
-        if($secury = cookie('login_secury'))if($s = substr($secury,1))if($s = base64_decode($s))if($s = explode('|',$s)){
-            list($uid,$right,$uname,$time,$until,$md5) = $s;
-            if($time<time()){
-                cookie('login_secury','',-3600);
-                return 0;
-            }
-            elseif(md5($uid . $right . $uname . $time . $until . $this->g->config['LOGIN_SALT']) === $md5){
-                $time = time();
-                $rtime = $time + $until;
-                $login_secury = 
-                    $this->g->config['LOGIN_SALT'][rand(0,4)].
-                    base64_encode(implode('|',array(
-                        $uid,$right,$uname,$rtime,$until,
-                        md5($uid.$right.$uname.$rtime.$until.$this->g->config['LOGIN_SALT'])
-                    )));
-                cookie('login_secury',$login_secury,$until);
-                $this->uid = $uid;
-                $this->right = $right;
-                $this->uname = $uname;
-                return $uid;
-            }
+        if($secury = cookie('login_secury')){
+            if($s = substr($secury,1)){
+                if($s = base64_decode($s)){
+                    if($s = explode('|',$s)){
+                        list($uid,$right,$uname,$time,$until,$md5) = $s;
+                        if($time<time()){
+                            cookie('login_secury','',-3600);
+                            return 0;
+                        }
+                        elseif(md5($uid . $right . $uname . $time . $until . $this->g->config['LOGIN_SALT']) === $md5){
+                            $time = time();
+                            $rtime = $time + $until;
+                            $salt = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+                            $login_secury = 
+                                $salt[rand(0,20)].
+                                base64_encode(implode('|',array(
+                                    $uid,$right,$uname,$rtime,$until,
+                                    md5($uid.$right.$uname.$rtime.$until.$this->g->config['LOGIN_SALT'])
+                                )));
+                            cookie('login_secury',$login_secury,(int)$until);
+                            $this->uid = $uid;
+                            $this->right = $right;
+                            $this->uname = $uname;
+                            return $uid;
+                        }else $this->error(1);
+                    }else $this->error(2);
+                }else $this->error(3);
+            }else $this->error(4);
         }
         if($userhash = post('userhash')){
             $where['hash'] = $userhash;

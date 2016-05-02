@@ -16,6 +16,9 @@ class lists extends \control{
     function _get_theme(){
         return model('seanime:seanime_theme');
     }
+    function _get_user(){
+        return control('user:base','api');
+    }
     function _get_sort(){
         return model('seanime:seanime_sort');
     }
@@ -35,7 +38,8 @@ class lists extends \control{
             if($v['utime']<$today)$playbill_y[]=$v;
             else $playbill_t[]=$v;
         }
-        
+        $this->user->uid;
+        $user = (array)$this->user;
         $t = template();
         $g = (array)table('config');
         include $t;
@@ -58,6 +62,8 @@ class lists extends \control{
             if($v['utime']<$today)$playbill_y[]=$v;
             else $playbill_t[]=$v;
         }
+        $this->user->uid;
+        $user = (array)$this->user;
         $t = template();
         $g = (array)table('config');
         include $t;

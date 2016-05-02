@@ -13,6 +13,11 @@ class ajax extends \control\ajax{
         return model('user:user_info');
     }
     function login(){
+        if($this->user->uid)$this->error('已登录');
+        
+        
+        
+        
         $lname = post('lname','');
         $pwd = post('pwd','');
         if(!$lname || !$pwd)$this->error('参数错误');
@@ -32,8 +37,9 @@ class ajax extends \control\ajax{
         
         $until = post('until',1800,'%d');
         $rtime = $time + $until;
+        $salt = 'QWERTYUIOPASDFGHJKLZXCVBNM';
         $login_secury = 
-            $this->g->config['LOGIN_SALT'][rand(0,4)].
+            $salt[rand(0,20)].
             base64_encode(implode('|',array(
                 $uid,$right,$uname,$rtime,$until,
                 md5($uid.$right.$uname.$rtime.$until.$this->g->config['LOGIN_SALT'])
@@ -42,6 +48,7 @@ class ajax extends \control\ajax{
         return $this->success(1);
     }
     function logout(){
+        $this->user->_safe_login();
         cookie('login_secury','',-3600);
         return $this->success(1);
     }

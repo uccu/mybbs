@@ -18,8 +18,11 @@
 <div class="sourceslist_box w-1000">
 	<div class="sourceslist_top"></div>
 	<div class="playbill w-1000 ofh tl">
-			{if $playbill}
 			<a class="t button-2 b-1 b-h5 c-h5 fr" href="seanime/playbill" target="overlay-iframe-2" rel="nofollow" style="margin:1px"><i>查看完整历史更新</i></a>
+			{if $user['uid']}
+			<a class="t button-2 b-1 b-h5 c-h5 fr logout" target="overlay-iframe-2" rel="nofollow" style="margin:1px"><i>Log out</i></a>
+			{else}
+			<a class="t button-2 b-1 b-h5 c-h5 fr" href="user/login" target="overlay-iframe-2" rel="nofollow" style="margin:1px"><i>Log in</i></a>
 			{/if}
 		</div>
 		<div class="playbill w-1000 ofh pr">
