@@ -55,7 +55,7 @@
 					}
 				}
                 
-                jq('.password').bind({keypress:function(e){if(e.which !== 13)return;jq('.login').click()}})
+                jq('.password').bind({keypress:function(e){if(e.which !== 13)return;jq('.login').click()}});
                 jq('.login').click(function(){
 					var f = {};
 					f.lname = jq('.loginname').val();
