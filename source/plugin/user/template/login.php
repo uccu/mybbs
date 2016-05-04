@@ -1,8 +1,9 @@
 <!--{subtemplate seanime:header}-->
-<style>input{max-width:none;box-shadow:none}</style>
+
         <!--{eval addcss('normalize')}-->
         <!--{eval addcss('demo')}-->
         <!--{eval addcss('component')}-->
+		<style>input{max-width:none;box-shadow:none}body{background-color:#3d4444}</style>
         <div class="overlay" style="display: table;opacity:1;">
             <div class="overlay_box">
             <section class="content bgcolor-5" style="text-align:center">

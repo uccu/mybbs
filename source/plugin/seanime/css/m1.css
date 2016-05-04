@@ -72,7 +72,7 @@ input[disabled]{border:2px solid #ccc;opacity:.7}
 .box-p1.w-80.h-80 i{transform: rotate(20deg);bottom: 5px;right: 0;font-size: 20px;font-family: cursive;}
 .box-p1.tran-2:target{display:inline-table;animation:tran-2 0.8s;-webkit-animation:tran-2 0.8s}
 .box-p1.tran-2:target~.tran-2{display:none}
-body{background-color:#f0f0f0;background-image: url(http://i2.piimg.com/817745b652c0f45e.png); 
+body{background-color:#f0f0f0; 
 background-size: cover;background-attachment: fixed;background-position: center;padding:0;border:0
 }
 

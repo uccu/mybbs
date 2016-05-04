@@ -1,5 +1,71 @@
 (function() {
-	j=jq;
+	var j=jq,sto,k={},r={
+		sname:function(){
+			var a=j('.sname input').val();
+			if(!a){
+				alert('resource error');
+				return false
+			}
+			return a;
+		},sloc_type:function(){
+			return j('.sloc_type a').attr('value')
+		},sdtype:function(){
+			return j('.sdtype a').attr('value')
+		
+		},show:function(){
+			return j('a.show').attr('value')
+		},size:function(){
+			var m = parseInt(j('.size input').val());
+			if(!m)return true;
+			return (j('span.input.size a.dn.gb').length?1:1024)*m
+		},sloc:function(){
+			var sloc_type = this.sloc_type();
+			if(sloc_type==1){
+				if(k.durl && k.durl.match(/^https?:.*\.torrent$/i)){
+					delete k.base32 ;delete k.pw;
+					return k.durl;
+				}
+				alert('torrent error:'+k.durl);return false;
+			}else if(sloc_type==2){
+				delete(k.durl);delete(k.hash);delete(k.md5);delete(k.base32);delete(k.pw);
+				var m = j('.magnet_up input').val(),l;
+				if((l=m.match(/^magnet:\?xt=urn:btih:([a-z0-9]{40})/i)) && l[1]){
+					k.hash = l[1];return m;
+				}else if((l=m.match(/^magnet:\?xt=urn:btih:([a-z0-9]{32})/i))&& l[1]){
+					k.base32 = l[1];return m;
+				}else{
+					alert('magnet error');
+					return false;
+				}
+			}else if(sloc_type==3){
+				delete(k.durl);delete(k.hash);delete(k.md5);delete(k.base32);delete(k.pw);
+				var m = j('.link_up input').val();
+				if(m.match(/^https?:/i))return m;
+				alert('link error');
+				return false;
+			}else if(sloc_type==4){
+				delete(k.durl);delete(k.hash);delete(k.md5);delete(k.base32);delete(k.pw);
+				var m = j('.pan_up input').eq(0).val(),n = j('.pan_up input').eq(1).val();
+				if(!m.match(/^https?:/i)){
+					alert('Disk Link error');
+					return false
+				}
+				if(n)k.pw = n;
+				return m;
+			}
+			alert('sloc error');
+			return false
+		},subtitle:function(){
+			var m = j('.subtitle input').val();
+			return m?m:true;
+		},outlink:function(){
+			var m = j('.outlink input').val();
+			return m.match(/^https?:/i)?m:true;
+		},outstation:function(){
+			if(this.outlink()!==true)return j('.outstation input').val();
+			else return true
+		}
+	};
 	j('.see .sloc_type li').click(function(){
 		var v = j(this).attr('value'),t = j(this).find('i').text();
 		j('.upup').children().addClass('dn');
@@ -53,11 +119,12 @@
 		if(j(this).val()){
 			var f = j(this)[0].files[0],form = new FormData(),v={here:1},t={};
 			if(!f.name.match(/\.torrent$/i)){
-				j(this).val('');alert('error file');
+				k.durl = null;
+				j(this).val('');alert('error file');return;
 			}
 			form.append("file",f);
 			for(var d in v)form.append(d,v[d]);
-			jq.ajax({
+			j.ajax({
 				url:'http://x.4moe.com/a/anime.php',
 				data:form,
 				contentType: false,
@@ -66,17 +133,67 @@
 				beforeSend:function(xhr){j('.torrent_up a').html('uploading file')},
 				success:function(d){
 					var sloc=d[0],size=parseInt(d[1]/1024/1024),hash=d[2],md5=d[3];
-					jq('.size input').val(size);
-					if(j('span.input.size a.dn.gb').length)j('span.input.size a').click();
+					if(!j('span.input.size a.dn.gb').length)j('span.input.size a.dn').click();
+					j('.size input').val(size);k.durl=sloc;k.hash=hash;k.md5=md5;
 					j('.torrent_up a').html('upload succeed')
 				},
 				dataType:'json',
-				error:function(){alert('上传失败');j('.torrent_up a').html('upload failed')}
+				error:function(){k.krul = null;alert('上传失败');j('.torrent_up a').html('upload failed')}
 			})
 			j('.torrent_up a').html('selected one file');
 			
 		}else j('.torrent_up a').html('');
 	});
+	j('.theme input').bind({keyup:function(e){
+			delete(k.aid);
+			if(sto)clearTimeout(sto);
+			var v = j(this).val();
+			j('.search_tags').css({opacity:0,display:'none',left:0,top:40}).find('ul').html('');
+			if(v.length>0){
+				sto = setTimeout(function(){
+					j.post('seanime/ajax/themetags',{search:v},function(w){
+						if(!w.code)return;
+						var d = w.data;
+						if(d.length)j('.search_tags').css({opacity:1,display:'block'});
+						j('.search_tags ul').html('');
+						for(var a in d){
+							var z = '<a class="cp" aid="'+d[a].aid+'"><li><i>'+d[a].name+'</i></li></a>'
+							j('.search_tags ul').append(z);
+						}
+						j('.search_tags a').one({click:function(){
+							k.aid = j(this).attr('aid');
+							j('.theme input').val(j(this).find('i').text())
+						}})
+					},'json');
+				},500)
+				
+			}
+	},blur:function(){
+		setTimeout(function(){j('.search_tags').css({opacity:0,display:'none'})},300);
+	}});
+	
+	j('.upload').click(function(){
+		var g=[];
+		for(var d in r){
+			if(typeof r[d]==='function'){
+				var h=r[d]();
+				if(h ===false){alert('error');return}
+				else if(h !==true)g[g.length] = [d,r[d]()];
+			}
+		}
+		delete k.durl;
+		for(var d in k){
+			g[g.length] = [d,k[d]];
+		}
+		j.post('seanime/ajax/resource',{info:g},function(d){
+			if(!d.code){alert(d.data);return}
+			window.parent.location.hash = '';
+			window.parent.location.reload(true);
+		},'json')
+	});
+	
+	
+	
     window.parent.location.hash="overlay-2";
 	if (!String.prototype.trim) {
 		(function() {
@@ -106,17 +223,5 @@
 		}
 	}
                 
-    j('.password').bind({keypress:function(e){if(e.which !== 13)return;j('.login').click()}});
-    j('.login').click(function(){
-		var f = {};
-		f.lname = j('.loginname').val();
-		f.pwd = j('.password').val();
-		if(!f.lname || !f.pwd){alert('error');return}
-		f.pwd = CryptoJS.MD5(f.pwd).toString();
-        j.post('user/ajax/login',f,function(d){
-			if(!d.code){alert(d.data);return}
-			window.parent.location.hash = '';
-			window.parent.location.reload(true);
-		},'json')
-    })
+
 })();

@@ -38,6 +38,7 @@ class lists extends \control{
             if($v['utime']<$today)$playbill_y[]=$v;
             else $playbill_t[]=$v;
         }
+        $sd = $this->sort->sdtype;
         $this->user->uid;
         $user = (array)$this->user;
         $t = template();
@@ -62,6 +63,7 @@ class lists extends \control{
             if($v['utime']<$today)$playbill_y[]=$v;
             else $playbill_t[]=$v;
         }
+        $sd = $this->sort->sdtype;
         $this->user->uid;
         $user = (array)$this->user;
         $t = template();

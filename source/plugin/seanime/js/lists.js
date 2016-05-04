@@ -1,7 +1,5 @@
 (function(){
-	var j=jq,lastsTimeline=lastSize=allCount=0,sto,sdt = [
-		["58","新番连载"],["82","完整动画"],["83","BDRIP"],["84","DVDRIP"],["57","OVA/SP"],["64","剧场版"],
-		["67","音乐"],["68","MV/MAD"],["73","漫画"],["74","小说"],["81","图包"],["85","历年更新"],["90","游戏"],["91","RAW"]],sdtt={},
+	var j=jq,lastsTimeline=lastSize=allCount=0,sto,
 		l = _s.s_a();if(!l[3])l[3] = 'all';
 		if(['subtitle','ltype','sdtype','aid'].indexOf(l[3])>-1){
 			if(!l[5])l[5] = 'time';if(!l[6])l[6] = 'DESC';
@@ -47,12 +45,9 @@
 			}
 		})
 		
-		for(var d in sdt){
-			sdtt[sdt[d][0]] = sdt[d][1];
-			j('.sourceslist_menu.sdtype').append('<li><a class="" href="seanime/lists/sdtype/'+sdt[d][0]+'"><i>'+sdt[d][1]+'</i></a></li>')
-		}
 		
-		j('.sourceslist_body ul').find('li:eq(1) i:first').text(function(){j(this).parent().attr('href','seanime/lists/sdtype/'+j(this).text());return '['+sdtt[j(this).text()]+']'});
+		
+
 		j('.sourceslist_body ul').find('li:eq(3) i').text(function(){lastSize =j(this).text();return j(this).text().sizechange()});
 		j('.sourceslist_body ul').find('li:eq(4) i').text(function(){lastsTimeline =j(this).text();return j(this).text().timechange()});
 		j('.sourceslist_body ul').find('li:eq(2) i').text(function(){return j(this).text().ltypechange()});
@@ -67,7 +62,7 @@
 				for(var d in w['data']){
 					var g = '<ul class="sourceslist_block" sid="'+w['data'][d].sid+'"><li>';
 					g +=w['data'][d].subtitle?'<a href="seanime/lists/subtitle/'+w['data'][d].subtitle+'"><i>'+w['data'][d].subtitle+'</i></a>':'<i>　</i>';
-					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+sdtt[w['data'][d].sdtype]+']</i></a><a href="seanime/page/sid/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'" target="overlay-iframe-2"><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="'+w['data'][d].outlink+'"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href="seanime/down/straight/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
+					g += '</li><li style="text-align:left"><a class="sdtype" href="seanime/lists/sdtype/'+w['data'][d].sdtype+'"><i>['+w['data'][d].sdtypename+']</i></a><a href="seanime/page/sid/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'" target="overlay-iframe-2"><i>'+w['data'][d].sname+'</i></a><a class="outs" target="_blank" href="'+w['data'][d].outlink+'"><i>['+w['data'][d].outstation+']</i></a></li><li><a rel="external nofollow" href="seanime/down/straight/'+w['data'][d].sid+'/'+w['data'][d].stimeline+'"><i>'+w['data'][d].sloc_type.ltypechange()+'</i></a></li><li><i>'+w['data'][d].size.sizechange()+'</i></li><li><i>'+w['data'][d].stimeline.timechange()+'</i></li></ul>'
 					j('.sourceslist_body').append(g);
 					lastsTimeline =w['data'][d].stimeline;
 					lastSize =w['data'][d].size;

@@ -1,7 +1,7 @@
 <!--{subtemplate seanime:header}-->
 <!--{eval addcss()}-->
 <!--{eval addjs()}-->
-
+	<div class="body_background pf wh-wh left-0 top-0 tc" style="z-index: -100;"><img style="width: 100%" src="http://i2.piimg.com/817745b652c0f45e.png"></div>
 	<div class="box-b1">
         <span class="search_box t">
 			<input class="search_input t-1 b-8 o-5 o-f1 b-f1 w-580" style="margin:180px auto 100px auto" placeholder="多条件请用空格隔开" />
@@ -51,6 +51,9 @@
 		<li><a class="" href="seanime/lists/ltype/4"><i>网盘资源</i></a></li>
 	</ul>
 	<ul class="sourceslist_menu sdtype">
+		<!--{loop $sd $k=>$v}-->
+		<li><a href="seanime/lists/sdtype/{k}"><i>{v.name}</i></a></li>
+		<!--{/loop}-->
 	</ul>
 	<div class="sourceslist">
 	<ul class="sourceslist_title">
@@ -65,7 +68,7 @@
 		<ul class="sourceslist_block" sid="{b.sid}">
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
-				<a class="sdtype" href="seanime/sdtype/{b.sdtype}"><i>{b.sdtype}</i></a>
+				<a class="sdtype" href="seanime/sdtype/{b.sdtype}"><i>[{$sd[$b['sdtype']]['name']}]</i></a>
 				<a href="seanime/page/sid/{b.sid}/{b.stimeline}" rel="nofollow" target="overlay-iframe-2"><i>{$b['sname']}</i></a>
 				<a target="_blank" href="{$b['outlink']}"><i class="outs">
 					{if $b['outstation']==1}[动漫花园]

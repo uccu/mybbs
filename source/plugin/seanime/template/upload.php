@@ -12,6 +12,12 @@
 				font-size: 20px;
 				cursor:pointer;
 			}
+			.search_tags{position: absolute;box-shadow: 0 2px 2px #ccc;opacity:0}
+			.search_tags ul{background:#fff;list-style-type: none;text-align: left;padding:5px;border-left: 4px solid #2accac;border-right: 4px solid #2accac}
+			.search_tags li{background:#fff;padding:5px;margin:0 10px}
+			.search_tags li:hover{background:brown}
+			.search_tags i{font-size: 15px;line-height: 1.467}
+			.search_tags li:hover i{color:#fff}
 			.see ul{position:absolute;top:-20px;right:-10px;padding: 0; width: 130px;z-index:-1}
 			.see ul li{cursor:pointer;list-style-type: none;float: left;width: 60px;padding: 4px;background: #ccc;transform: scale(0)}
 			.see ul li:hover{background:#fc8073}
@@ -28,8 +34,8 @@
             <section class="content bgcolor-8 tc">
                 <h2>Upload</h2>
                 <div>
-				<span class="input input--isao">
-					<input class="input__field input__field--isao sname" type="text" id="input-38" />
+				<span class="input input--isao sname">
+					<input class="input__field input__field--isao" type="text" id="input-38" />
 					<label class="input__label input__label--isao" for="input-38" data-content="Resource Name">
 						<span class="input__label-content input__label-content--isao">Resource Name</span>
 					</label>
@@ -49,20 +55,9 @@
 					<span class="sdtype pr">
 						<a class="t button-1 bgc-6 bgc-h6 w-100" value='58'><i>新番连载</i></a>
 						<ul class="t">
-							<li value='58' class="bgc-4 bgc-h4 selected"><i>新番连载</i></li>
-							<li value='82' class="bgc-4 bgc-h4"><i>完整动画</i></li>
-							<li value='83' class="bgc-4 bgc-h4"><i>BDRIP</i></li>
-							<li value='84' class="bgc-4 bgc-h4"><i>DVDRIP</i></li>
-							<li value='57' class="bgc-4 bgc-h4"><i>OVA/SP</i></li>
-							<li value='64' class="bgc-4 bgc-h4"><i>剧场版</i></li>
-							<li value='67' class="bgc-4 bgc-h4"><i>音乐</i></li>
-							<li value='68' class="bgc-4 bgc-h4"><i>MV/MAD</i></li>
-							<li value='73' class="bgc-4 bgc-h4"><i>漫画</i></li>
-							<li value='74' class="bgc-4 bgc-h4"><i>小说</i></li>
-							<li value='81' class="bgc-4 bgc-h4"><i>图包</i></li>
-							<li value='85' class="bgc-4 bgc-h4"><i>历年更新</i></li>
-							<li value='90' class="bgc-4 bgc-h4"><i>游戏</i></li>
-							<li value='91' class="bgc-4 bgc-h4"><i>RAW</i></li>
+							<!--{loop $sd $k=>$v}-->
+							<li value='{k}' class="bgc-4 bgc-h4"><i>{v.name}</i></li>
+							<!--{/loop}-->
 							
 						</ul>
 						
@@ -75,7 +70,7 @@
 							<li value='1' class="bgc-4 bgc-h4"><i>Dmhy</i></li>
 							<li value='2' class="bgc-4 bgc-h4"><i>Nyaa</i></li>
 							<li value='3' class="bgc-4 bgc-h4"><i>Leopard</i></li>
-							<li value='0' class="bgc-4 bgc-h4"><i>other</i></li>
+							<li value='99' class="bgc-4 bgc-h4"><i>other</i></li>
 						</ul>
 					</span>
 					<a class="t button-1 bgc-1 bgc-h1 show" value="1"><i>显示</i></a>
@@ -138,25 +133,26 @@
 					</div>
 				</div>
 				<div>
-				<div class="theme_up">
-				<span class="input input--isao">
-					<input class="input__field input__field--isao theme" type="text" id="input-39" />
-					<label class="input__label input__label--isao" for="input-39" data-content="Theme">
-						<span class="input__label-content input__label-content--isao">Theme</span>
-					</label>
-				</span>
+				<div class="theme_up pr" style="z-index:10">
+					<span class="input input--isao theme">
+						<input class="input__field input__field--isao" type="text" id="input-39" />
+						<label class="input__label input__label--isao" for="input-39" data-content="Theme">
+							<span class="input__label-content input__label-content--isao">Theme</span>
+						</label>
+						<div class="search_tags w-400 t"><ul></ul></div>
+					</span>
 				</div>
 				<div class="subtitle_up">
-				<span class="input input--isao">
-					<input class="input__field input__field--isao subtitle" type="text" id="input-39" />
+				<span class="input input--isao subtitle">
+					<input class="input__field input__field--isao" type="text" id="input-39" />
 					<label class="input__label input__label--isao" for="input-39" data-content="Subtitle">
 						<span class="input__label-content input__label-content--isao">Subtitle</span>
 					</label>
 				</span>
 				</div>
 				<div class="outlink_up dn">
-				<span class="input input--isao">
-					<input class="input__field input__field--isao outlink" type="text" id="input-39" />
+				<span class="input input--isao outlink">
+					<input class="input__field input__field--isao" type="text" id="input-39" />
 					<label class="input__label input__label--isao" for="input-39" data-content="Outlink">
 						<span class="input__label-content input__label-content--isao">Outlink</span>
 					</label>
