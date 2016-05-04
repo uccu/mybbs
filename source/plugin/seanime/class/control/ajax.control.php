@@ -75,7 +75,7 @@ class ajax extends \control\ajax{
         $a = floor($a);
         if(!$a || $a ==69){
             $a = 69;
-            $ss = preg_replace('/([-_ \/\.\\!&\d]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i',' ',$ss);
+            $ss = preg_replace('/([-_ \/\.\\!&]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i',' ',$ss);
             $ss = preg_replace('/[`]+/i','',$ss);
             $where['matchs'] = array('match',$ss,true);
             $tt = $this->theme->where($where)->limit(5)->select();
@@ -92,14 +92,14 @@ class ajax extends \control\ajax{
                 if($v['loma_tag'])$array = array_merge($array,explode(',',$v['loma_tag']));
                 if($v['jp_tag'])$array = array_merge($array,explode(',',$v['jp_tag']));
                 //var_dump( $tt[0],$array);die();
-                $ss = str_ireplace(' ','',$ss);
+                $ss = preg_replace('/[ \d]+/i','',$ss);
 				//var_dump($array);echo $ss;die();
                 foreach($array as $v){
-                    $v= preg_replace('/([-_ \/\.\\!&\d]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i','',$v);
+                    $v= preg_replace('/([-_ \/\.\\!&\d`]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i','',$v);
                     if(stripos($ss, $v)!==false)return $a = $tt[0]['aid'];
                 }
                 if(post('test')){
-                    //var_dump($array,$ss);die();
+                    var_dump($array,$ss);die();
                 }
                 if(!$tt[0]['vague'])return;
                 foreach($tt as $v){
