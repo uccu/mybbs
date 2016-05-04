@@ -53,10 +53,9 @@
 		if(j(this).val())j('.torrent_up a').html('selected one file');
 		else j('.torrent_up a').html('');
 	});
-                window.parent.location.hash="overlay-2";
+    window.parent.location.hash="overlay-2";
 	if (!String.prototype.trim) {
 		(function() {
-	
 			var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
 			String.prototype.trim = function() {
 				return this.replace(rtrim, '');
@@ -83,8 +82,8 @@
 		}
 	}
                 
-                j('.password').bind({keypress:function(e){if(e.which !== 13)return;j('.login').click()}});
-                j('.login').click(function(){
+    j('.password').bind({keypress:function(e){if(e.which !== 13)return;j('.login').click()}});
+    j('.login').click(function(){
 		var f = {};
 		f.lname = j('.loginname').val();
 		f.pwd = j('.password').val();
@@ -95,5 +94,5 @@
 			window.parent.location.hash = '';
 			window.parent.location.reload(true);
 		},'json')
-                })
+    })
 })();
