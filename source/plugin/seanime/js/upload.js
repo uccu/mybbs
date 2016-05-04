@@ -50,8 +50,32 @@
 		j('span.input.size a').toggleClass('dn');
 	});
 	j('.torrent_up input').change(function(){
-		if(j(this).val())j('.torrent_up a').html('selected one file');
-		else j('.torrent_up a').html('');
+		if(j(this).val()){
+			var f = j(this)[0].files[0],form = new FormData(),v={here:1},t={};
+			if(!f.name.match(/\.torrent$/i)){
+				j(this).val('');alert('error file');
+			}
+			form.append("file",f);
+			for(var d in v)form.append(d,v[d]);
+			jq.ajax({
+				url:'http://x.4moe.com/a/anime.php',
+				data:form,
+				contentType: false,
+				processData: false,
+				type:'post',
+				beforeSend:function(xhr){j('.torrent_up a').html('uploading file')},
+				success:function(d){
+					var sloc=d[0],size=parseInt(d[1]/1024/1024),hash=d[2],md5=d[3];
+					jq('.size input').val(size);
+					if(j('span.input.size a.dn.gb').length)j('span.input.size a').click();
+					j('.torrent_up a').html('upload succeed')
+				},
+				dataType:'json',
+				error:function(){alert('上传失败');j('.torrent_up a').html('upload failed')}
+			})
+			j('.torrent_up a').html('selected one file');
+			
+		}else j('.torrent_up a').html('');
 	});
     window.parent.location.hash="overlay-2";
 	if (!String.prototype.trim) {

@@ -40,7 +40,7 @@
 						<a class="t button-1 bgc-5 bgc-h5 w-100" value='1'><i>Torrent</i></a>
 						<ul class="t">
 							<li value='1' class="bgc-4 bgc-h4 selected"><i>Torrent</i></li>
-							<li value='1' class="bgc-4 bgc-h4"><i>Torrent'</i></li>
+							<!--<li value='1' class="bgc-4 bgc-h4"><i>Torrent'</i></li>-->
 							<li value='2' class="bgc-4 bgc-h4"><i>Magnet</i></li>
 							<li value='3' class="bgc-4 bgc-h4"><i>Link</i></li>
 							<li value='4' class="bgc-4 bgc-h4"><i>NetDisk</i></li>
@@ -83,7 +83,7 @@
 				
                 <span class="input input--isao size" style="max-width:100px">
 					<a class="t gb dn"></a><a class="t mb"></a>
-					<input class="input__field input__field--isao size tc" type="text" id="input-16" />
+					<input class="input__field input__field--isao tc" type="text" id="input-16" />
 					<label class="input__label input__label--isao" for="input-16" data-content="Size">
 						<span class="input__label-content input__label-content--isao">Size</span>
 					</label>
@@ -114,7 +114,7 @@
 							</label>
 						</span>
 					</div>
-					<div class="Link_up dn">
+					<div class="link_up dn">
 						<span class="input input--isao">
 							<input class="input__field input__field--isao" type="text" id="input-39" />
 							<label class="input__label input__label--isao" for="input-39" data-content="Link">
@@ -122,7 +122,7 @@
 							</label>
 						</span>
 					</div>
-					<div class="Pan_up dn">
+					<div class="pan_up dn">
 						<span class="input input--isao" style="max-width:278px">
 							<input class="input__field input__field--isao" type="text" id="input-39" />
 							<label class="input__label input__label--isao" for="input-39" data-content="Net Disk">
