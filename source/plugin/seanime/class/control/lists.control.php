@@ -24,7 +24,8 @@ class lists extends \control{
     }
     function _get_list($where=array(),$order=0,$desc='DESC'){
         if($order !== 'size')$order = 'stimeline';
-        $where['show'] = 1;
+        if(!isset($where['show']))$where['show'] = 1;
+        if($where['show']===false)unset($where['show']);
         $_m = model('seanime_resource');
         $list = $_m->field($this->listField)->where($where)->order($order,$desc)->limit(100)
                 //->sql()
@@ -122,6 +123,13 @@ class lists extends \control{
         $t = strtotime(date('Y-m-d'));
         $where['show'] = 1;
         $where['stimeline']=array('between',array($y,$t));
+        $this->_get_list($where,$order,$desc);
+    }
+    function my($order=0,$desc='DESC'){
+        $where=array();
+        $this->g->template['title'] .='我发布的资源';
+        $where['suid'] = $this->user->uid;
+        $where['show'] = false;
         $this->_get_list($where,$order,$desc);
     }
     function _nomethod(){

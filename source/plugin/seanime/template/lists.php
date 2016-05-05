@@ -49,6 +49,9 @@
 		<li><a class="" href="seanime/lists/ltype/2"><i>磁力资源</i></a></li>
 		<li><a class="" href="seanime/lists/ltype/3"><i>外链资源</i></a></li>
 		<li><a class="" href="seanime/lists/ltype/4"><i>网盘资源</i></a></li>
+		{if $user['uid']}
+		<li><a class="" href="seanime/lists/my"><i>我的发布</i></a></li>
+		{/if}
 	</ul>
 	<ul class="sourceslist_menu sdtype">
 		<!--{loop $sd $k=>$v}-->

@@ -3,7 +3,7 @@
 		l = _s.s_a();if(!l[3])l[3] = 'all';
 		if(['subtitle','ltype','sdtype','aid'].indexOf(l[3])>-1){
 			if(!l[5])l[5] = 'time';if(!l[6])l[6] = 'DESC';
-		}else if(['today','all','yesterday'].indexOf(l[3])>-1){
+		}else if(['today','all','yesterday','my'].indexOf(l[3])>-1){
 			if(!l[4])l[4] = 'time';if(!l[5])l[5] = 'DESC';
 		}else{
 			l[3] = 'all';l[5] = 'ASC';

@@ -16,7 +16,8 @@ class lists_ajax extends \control\ajax{
         $data = post('data','');
         if(!strlen($data))$this->error('error');
         if($order !== 'size')$order = 'stimeline';
-        $where['show'] = 1;
+        if(!isset($where['show']))$where['show'] = 1;
+        if($where['show']===false)unset($where['show']);
         $where2[$order] = array('logic',$data,strtoupper($desc) == 'ASC' || !$desc?'>':'<');
         $_m = model('seanime_resource');
         $list = $_m->field($this->listField)->where($where)->where($where2)->order($order,$desc)->limit(50)
@@ -64,6 +65,12 @@ class lists_ajax extends \control\ajax{
         $t = strtotime(date('Y-m-d'));
         $where['show'] = 1;
         $where['stimeline']=array('between',array($y,$t));
+        $this->_get_list($where,$order,$desc);
+    }
+    function my($order=0,$desc='DESC'){
+        $where=array();
+        $where['suid'] = $this->user->uid;
+        $where['show'] = false;
         $this->_get_list($where,$order,$desc);
     }
 }

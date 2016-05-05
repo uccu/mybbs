@@ -196,7 +196,9 @@ class ajax extends \control\ajax{
         if($w=='upd'){
             
             if(!$sid)$this->error('无参数 : sid');
-			$this->user->_safe_right(8);
+            $sinfo = $this->model->find($sid);
+            if(!$sinfo)$this->error('无数据');
+			if($this->user->right<8 && $this->user->uid!=$sinfo['suid'])$this->error('无权限');
             if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
