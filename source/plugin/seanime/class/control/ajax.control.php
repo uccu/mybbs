@@ -161,7 +161,8 @@ class ajax extends \control\ajax{
         $sid = post('sid',0,'%d');
 		if($w=='get'){
             if(!$sid)$this->error('无参数 sid');
-            $o = $this->model->find($sid);
+            $table = $this->model->foreignThemeTable;
+            $o = $this->model->add_table($table)->find($sid);
             $this->success($o);
         }
         $this->user->_safe_login();

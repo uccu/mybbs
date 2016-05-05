@@ -1,5 +1,5 @@
 (function() {
-	var j=jq,sto,k={},r={
+	var j=jq,sto,k={},sid=_s.s_a()[4],r={
 		sname:function(){
 			var a=j('.sname input').val();
 			if(!a){
@@ -64,8 +64,12 @@
 		},outstation:function(){
 			if(this.outlink()!==true)return j('.outstation input').val();
 			else return true
+		},sdes:function(){
+			var m = j('textarea.sdes').val();
+			return m?m:true;
 		}
 	};
+	
 	j('.see .sloc_type li').click(function(){
 		var v = j(this).attr('value'),t = j(this).find('i').text();
 		j('.upup').children().addClass('dn');
@@ -115,6 +119,7 @@
 	j('span.input.size a').click(function(){
 		j('span.input.size a').toggleClass('dn');
 	});
+	
 	j('.torrent_up input').change(function(){
 		if(j(this).val()){
 			var f = j(this)[0].files[0],form = new FormData(),v={here:1},t={};
@@ -177,15 +182,18 @@
 		for(var d in r){
 			if(typeof r[d]==='function'){
 				var h=r[d]();
-				if(h ===false){alert('error');return}
-				else if(h !==true)g[g.length] = [d,r[d]()];
+				if(h ===false)return;
+				else if(h !==true)g[g.length] = [d,h];
 			}
 		}
-		delete k.durl;
+		/*delete k.durl;*/
 		for(var d in k){
+			if(d=='durl')continue;
 			g[g.length] = [d,k[d]];
 		}
-		j.post('seanime/ajax/resource',{info:g},function(d){
+		var l = {info:g},url='seanime/ajax/resource';
+		if(sid){l.sid=sid;url+='/upd'}
+		j.post(url,l,function(d){
 			if(!d.code){alert(d.data);return}
 			window.parent.location.hash = '';
 			window.parent.location.reload(true);
@@ -224,4 +232,52 @@
 	}
                 
 
+	
+	if(sid){
+		j.post('seanime/ajax/resource/get',{sid:sid},function(d){
+			if(!d.data.sid){
+				alert('无数据');
+				window.parent.location.hash = '';
+				window.parent.location.reload(true);return;
+			}
+			if(d.data.sname)j('.sname input').val(d.data.sname);
+			if(d.data.sloc_type){
+				jq('.see .sloc_type li[value='+d.data.sloc_type+']').click();
+				if(d.data.sloc_type==1){
+					if(d.data.sloc)k.durl=d.data.sloc;
+					if(d.data.hash)k.hash=d.data.hash;
+					if(d.data.md5)k.md5=d.data.md5;
+				}else if(d.data.sloc_type==2){
+					if(d.data.sloc)j('.magnet_up input').val(d.data.sloc)
+				}else if(d.data.sloc_type==3){
+					if(d.data.sloc)j('.link_up input').val(d.data.sloc)
+				}else if(d.data.sloc_type==4){
+					if(d.data.sloc)j('.pan_up input').eq(0).val(d.data.sloc);
+					if(d.data.pw)j('.pan_up input').eq(1).val(d.data.pw);
+				}
+			}
+			if(d.data.sdtype)j('.see .sdtype li[value='+d.data.sdtype+']').click();
+			j('.see .outstation li[value='+d.data.outstation+']').click();
+			if(d.data.show=='0')j('.see .show').click();
+			j('.size input').val(d.data.size);
+			if(d.data.aid!='69'){
+				k.aid = d.data.aid;
+				j('.theme input').val(d.data.name);
+			}
+			if(d.data.subtitle)j('.subtitle input').val(d.data.subtitle);
+			if(d.data.outlink)j('.outlink input').val(d.data.outlink);
+			if(d.data.sdes)j('textarea.sdes').val(d.data.sdes);
+		},'json')
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 })();

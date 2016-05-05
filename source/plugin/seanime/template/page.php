@@ -18,9 +18,9 @@
 	</i></a>{/if}
 </div>
 <hr />
-<!--{if $right>7}-->
+<!--{if $right>7 || $user['uid']==$r['suid']}-->
 <div class="t">
-	<a class="t button-2 b-1 b-h5 c-h5 upd_re"><i>修改</i></a>
+	<a href="seanime/upload/sid/{r.sid}" class="t button-2 b-1 b-h5 c-h5 upd_re"><i>修改</i></a>
 	<a class="t button-2 b-1 b-h5 c-h5 del_re"><i>删除</i></a>
 	<script>
 		jq('.del_re').click(function(){

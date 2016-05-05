@@ -29,6 +29,7 @@
 			span.input.size a.mb::after{content: 'MB'}
 			.see span:hover ul{z-index:10}
 			.see span:hover ul li{transform: scale(1)}
+			textarea.sdes{font-family: cursive;height: 200px;max-width: 400px;min-width: 400px;padding: 10px;line-height: 30px;font-size: 14px;background: #333;outline: 0;border: 0;color: #fff}
 		</style>
         
             <section class="content bgcolor-8 tc">
@@ -159,7 +160,10 @@
 				</span>
 				</div>
 				</div>
-				
+				<div>
+					<textarea class="sdes">
+					</textarea>
+				</div>
 				
                 <div><a class="t button-1 bgc-5 bgc-h5 upload"><i>Upload</i></a></div>
             </section>

@@ -33,6 +33,9 @@ class seanime_resource extends \model{
     );
     public $foreignTagTable = array(
          'seanime_sources'=>array('subtitle','sname','sloc_type','size','stimeline','sdtype','outstation','outlink','_on'=>'sid')
+    );
+    public $foreignThemeTable = array(
+         'seanime_theme'=>array('name','_on'=>'aid')
      );
     
    

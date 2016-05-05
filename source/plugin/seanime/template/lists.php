@@ -68,7 +68,7 @@
 		<ul class="sourceslist_block" sid="{b.sid}">
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
-				<a class="sdtype" href="seanime/sdtype/{b.sdtype}"><i>[{$sd[$b['sdtype']]['name']}]</i></a>
+				<a class="sdtype" href="seanime/lists/sdtype/{b.sdtype}"><i>[{$sd[$b['sdtype']]['name']}]</i></a>
 				<a href="seanime/page/sid/{b.sid}/{b.stimeline}" rel="nofollow" target="overlay-iframe-2"><i>{$b['sname']}</i></a>
 				<a target="_blank" href="{$b['outlink']}"><i class="outs">
 					{if $b['outstation']==1}[动漫花园]

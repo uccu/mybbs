@@ -31,6 +31,7 @@ class page extends \control{
         if($r['subtitle']=='Leopard-Raws'&&!$r['sdes'])$r['sdes'] = '[img]http://i4.piimg.com/1f2422a328733ab9.png[/img]';
 		$r['sdes']=preg_replace($rr,$p,$r['sdes']);
         $right = $this->user->right;
+        $user = (array)$this->user;
         $t = template();
         $g = (array)$this->g;
         include $t;
