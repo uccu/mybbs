@@ -8,6 +8,7 @@ $config=array(
     'HOST'=>'c.baka',
     'LOGIN_SALT'=>'gtiekFamdojga4owied7',
 	'LIMIT_SORT_LEN'=>2,
+	'CHECK_IP'=>1,
 	'TIMEZONE'=>'PRC'
 );
 ?>

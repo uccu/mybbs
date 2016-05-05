@@ -19,7 +19,9 @@ class test extends \control{
 	function date(){
         echo date('Y-m-d H:i:s');
 	}
-	
+	function head(){
+		//var_dump(table('config'));
+	}
 	
 }
 

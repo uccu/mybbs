@@ -7,10 +7,23 @@ class base extends \control\ajax{
         //$this->uid = $this->right = 8;
         //var_dump($this->uid);die();
     }
-    private function _get_g(){
+    protected function _get_g(){
         return table('config');
     }
+    function _get_ip(){
+        return model('user:ip_content');
+    }
     protected function _get_uid(){
+        if($this->g->config['CHECK_IP']){
+            $where = array();
+            $where['ip'] = $this->g->config['ip'];
+            $where['type'] = 'password';
+            $where['time'] = array('logic',time()-900,'>');
+            $c = $this->ip->where($where)->get_field('count(1)');
+            if($c>4){
+                header('Location: /404.html');die();
+            }
+        }
         if($secury = cookie('login_secury')){
             if($s = substr($secury,1)){
                 if($s = base64_decode($s)){
@@ -41,6 +54,7 @@ class base extends \control\ajax{
             }else $this->error(4);
         }
         if($userhash = post('userhash')){
+            $where = array();
             $where['hash'] = $userhash;
             $t = model('user:user_info')->tableMap_hash;
             $u = model('user:user_hash')->add_table($t)->where($where)->find();

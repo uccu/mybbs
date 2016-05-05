@@ -2,7 +2,7 @@
 namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class ajax extends \control\ajax{
-    private function _get_g(){
+    protected function _get_g(){
         //$this->g->config['LOGIN_SALT']
         return table('config');
     }
@@ -12,12 +12,11 @@ class ajax extends \control\ajax{
     function _get_model(){
         return model('user:user_info');
     }
+    function _get_ip(){
+        return model('user:ip_content');
+    }
     function login(){
         if($this->user->uid)$this->error('已登录');
-        
-        
-        
-        
         $lname = post('lname','');
         $pwd = post('pwd','');
         if(!$lname || !$pwd)$this->error('参数错误');
@@ -26,11 +25,17 @@ class ajax extends \control\ajax{
         $user = $this->model->where($where)->find();
         if(!$user)$this->error('无用户');
         if(md5($pwd.$user['salt'])===$user['password']){
-            $data['ip'] = $_SERVER["REMOTE_ADDR"];
+            $data['ip'] = $this->g->config['ip'];
             $data['lasttime'] = $time;
             $this->model->data($data)->save($user['uid']);
-        }else $this->error('密码错误');
-        
+        }else{
+            $data = array();
+            $data['ip'] = $this->g->config['ip'];
+            $data['type'] = 'password';
+            $data['time'] = time();
+            $this->ip->data($data)->add();
+            $this->error('密码错误');
+        }
         $uid = $user['uid'];
         $uname = $user['uname'];
         $right = $user['right'];

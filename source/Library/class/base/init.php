@@ -10,6 +10,8 @@ class init{
 		require PLAY_ROOT.'/source/config/config.php';
         $this->config = table('config');
 		$this->config->config = $config;
+		$this->config->config['ip'] = $_SERVER["HTTP_CF_CONNECTING_IP"]?$_SERVER["HTTP_CF_CONNECTING_IP"]:
+		($_SERVER["HTTP_X_FORWARDED_FOR"]?$_SERVER["HTTP_X_FORWARDED_FOR"]:$_SERVER["REMOTE_ADDR"]);
 		date_default_timezone_set($this->config->config['TIMEZONE']);
 		define('IS_AJAX',$_SERVER["HTTP_X_REQUESTED_WITH"]=="XMLHttpRequest" ?1:0);
 		$this->_init_input();
