@@ -71,6 +71,25 @@ class ajax extends \control\ajax{
 			}
         }
     }
+    public function typein_aid($a,$ss){
+        $a = floor($a);
+        if(!$a || $a ==69){
+            $a = 69;
+            $ss = preg_replace('/([-_ \/\.\\!&]|！|☆|×|【|】|『|』|★|＜|＞|《|》|的|之|の|·|&#39;)+/i',' ',$ss);
+            $ss = preg_replace('/[`]+/i','',$ss);
+            $where['matchs'] = array('match',$ss,true);
+            $tt = $this->theme->where($where)->limit(5)->select();
+            if(count($tt)<1)return;
+            else{
+
+                var_dump($tt);die();
+               
+            }
+            
+        }
+        
+        
+    }
     public function _typein_aid(&$a,$ss){
         $a = floor($a);
         if(!$a || $a ==69){
@@ -337,7 +356,30 @@ class ajax extends \control\ajax{
 			$this->error('无权限');
 		}
 	}
-    
+    public function theme($w=0,$aid=0){
+        $k = array('name','newname','remark','lastnum', 'zh_tag','en_tag','loma_tag','jp_tag','vague');
+        if($w=='get'){
+            if(!$aid)$this->error('无参数 aid');
+            $o = $this->theme->field($k)->find($aid);
+            $this->success($o);
+        }
+		elseif($w=='upd'){
+            if(!$aid)$this->error('无参数 aid');
+            $this->user->_safe_right(8);
+            $name = post('name');
+            if($name)$data['name'] = $name;
+            unset($k[0]);
+            foreach($k as $v)$data[$v] = post($v);
+            $ma = array($data['name'],$data['zh_tag'],$data['en_tag'],$data['loma_tag'],$data['jp_tag']);
+            $data['matchs'] = array('logic',implode(' ',$ma),'%m');
+            //echo $this->theme->data($data)->sql()->save($aid);die();
+            if(!$this->theme->data($data)->save($aid))$this->error('修改失败');
+            
+            $this->success('ok');
+        }
+        
+        $this->error('0');
+	}
     
     
     public function flesh_theme_matchs($s=false,$o=false){

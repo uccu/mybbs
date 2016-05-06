@@ -16,7 +16,8 @@ class seanime_theme extends \model{
                 'zh_tag',
                 'en_tag',
                 'loma_tag',
-                'jp_tag'
+                'jp_tag',
+                'vague'
         )
     );
     

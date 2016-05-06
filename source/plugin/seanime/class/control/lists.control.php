@@ -80,6 +80,7 @@ class lists extends \control{
     function aid($aid='',$order=0,$desc='DESC'){
         $where=array();
         $a = $this->theme->find($aid);
+        $this->g->aid = $aid;
         $this->g->template['title'] .=$a?$a['name']:'未归类';
         if($aid)$where['aid'] = $aid;
         $this->_get_list($where,$order,$desc);

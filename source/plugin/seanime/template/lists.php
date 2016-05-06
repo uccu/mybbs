@@ -25,6 +25,9 @@
 			{else}
 			<a class="t button-2 b-1 b-h5 c-h5 fr" href="user/login" target="overlay-iframe-2" rel="nofollow" style="margin:1px"><i>Log in</i></a>
 			{/if}
+			{if $user['right']>7 && $g['aid']}
+			<a class="t button-2 b-1 b-h5 c-h5 fr" href="seanime/uptheme/aid/{g.aid}" target="overlay-iframe-2" rel="nofollow" style="margin:1px"><i>UpdTheme</i></a>
+			{/if}
 		</div>
 		<div class="playbill w-1000 ofh pr">
 			{if $playbill}
