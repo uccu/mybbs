@@ -7,7 +7,14 @@
 			window.parent.location.reload(true);
 		},'json')
 	}
-	
+	j('.typein').click(function(){
+		j.post('seanime/ajax/filter_theme_in/'+aid,function(d){
+			if(!d.code){alert(d.data);return}
+			for(var s in d.data.matchs)
+				console.log(d.data.matchs[s]+':'+d.data.count[s]);
+			alert('succeed');
+		},'json')
+	});
 	
 	
 	

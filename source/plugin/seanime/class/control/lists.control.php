@@ -5,7 +5,7 @@ class lists extends \control{
     private $listField;
     function _beginning(){
         $this->g->template['title']="4MOEの动漫资源 - ";
-        $this->listField = array('sid','subtitle','sname','sloc_type','size','stimeline','sdtype','outstation','outlink');
+        $this->listField = array('sid','subtitle','sname','sloc_type','size','hash','md5','stimeline','sdtype','outstation','outlink');
         
         
         //include template();

@@ -75,8 +75,8 @@
 			<li>{if $b['subtitle']}<a href="seanime/lists/subtitle/{b.subtitle}"><i>{b.subtitle}</i></a>{else}<i>　</i>{/if}</li>
 			<li style="text-align:left">
 				<a class="sdtype" href="seanime/lists/sdtype/{b.sdtype}"><i>[{$sd[$b['sdtype']]['name']}]</i></a>
-				<a href="seanime/page/sid/{b.sid}/{b.stimeline}" rel="nofollow" target="overlay-iframe-2"><i>{$b['sname']}</i></a>
-				<a target="_blank" href="{$b['outlink']}"><i class="outs">
+				<a href="seanime/page/sid/{b.sid}/{b.stimeline}/{b.hash}" rel="nofollow" target="overlay-iframe-2"><i>{$b['sname']}</i></a>
+				<a target="_blank" href="{$b['outlink']}{if $b['outstation']==3 && $b['md5']}?profile={b.md5}{/if}"><i class="outs">
 					{if $b['outstation']==1}[动漫花园]
 					{elseif $b['outstation']==2}[NYAA]
 					{elseif $b['outstation']==3}[Leopard]

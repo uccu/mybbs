@@ -9,7 +9,7 @@
 	{if $r['aid']!=69}<a class="button-1 bgc-6 bgc-h6" href="seanime/lists/aid/{r.aid}" target="_top"><i>{r.name}</i></a>{/if}
 	{if $r['subtitle']}<a class="button-1 bgc-7 bgc-h7" href="seanime/lists/subtitle/{r.subtitle}" target="_top"><i>{r.subtitle}</i></a>{/if}
 	{if $r['outlink']}
-	<a class="button-1 bgc-5 bgc-h5" href="{r.outlink}" target="_top"><i>
+	<a class="button-1 bgc-5 bgc-h5" href="{r.outlink}{if $r['outstation']==3 && $r['md5']}?profile={r.md5}{/if}" target="_top"><i>
 		{if $r['outstation']==1}DMHY
 		{elseif $r['outstation']==2}NYAA
 		{elseif $r['outstation']==3}Leopard
@@ -45,6 +45,7 @@
 	<li><i>up： {r.uname}</i></li>
 	{if $r['hash']}<li><i>hash(sha1)： {r.hash}</i></li>{/if}
 	{if $r['base32']}<li><i>hash(base32)： {r.base32}</i></li>{/if}
+	{if $r['md5']}<li><i>md5： {r.md5}</i></li>{/if}
 	{if $r['size']}<li>size： <i class="size change">{r.size}</i></li>{/if}
 	<li><i>date： {r.date}</i></li>
 	</ul>

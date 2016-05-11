@@ -66,7 +66,7 @@ class ajax extends \control\ajax{
 				if(preg_match("/漫画/i",$ss))$s=73;
 				elseif(preg_match("/(图包|画册)/i",$ss))$s=81;
 				elseif(preg_match("/小说/",$ss))$s=74;
-				elseif(preg_match("/op|ed|音乐|主题(歌|曲)/i",$ss))$s=67;
+				elseif(preg_match("/\bop\b|\bed\b|音乐|主题(歌|曲)/i",$ss))$s=67;
 				elseif(preg_match("/硬盘版/i",$ss))$s=90;
 			}
         }
@@ -165,7 +165,7 @@ class ajax extends \control\ajax{
     }
     public function _typein_hash($h){
         if(!$h)$this->error('HASH未定义');
-        if($sid = $this->model->where(array('hash'=>$h))->find(false,false)->get_field('sid'))$this->error(array('code'=>300,'des'=>'存在HASH : '.$sid));
+        if($sid = $this->model->where(array('hash'=>$h))->get_field('sid'))$this->error(array('code'=>300,'des'=>'存在HASH : '.$sid));
         return $h;
     }
     public function _typein_outlink($o){
@@ -218,10 +218,10 @@ class ajax extends \control\ajax{
             $sinfo = $this->model->find($sid);
             if(!$sinfo)$this->error('无数据');
 			if($this->user->right<8 && $this->user->uid!=$sinfo['suid'])$this->error('无权限');
-            if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->find(false,false)->get_field('sid')){
+            if($info['hash'] && $rsid = $this->model->where(array('hash'=>$info['hash'],'sid'=>array('logic',$sid,'!=')))->get_field('sid')){
                 $this->error('存在HASH : '.$rsid);
             }
-            if($info['aid'])$this->_typein_aid($info['aid'],$info['sname']);
+            if($sinfo['aid']==69)$this->_typein_aid($info['aid'],$info['sname']);
             if($info['aid']!=69)$this->_typein_playbill($info['aid'],$info['sdtype'],$info['sname']);
 			if($upd = $this->model->auto($auto)->data($info)->save($sid))
             {

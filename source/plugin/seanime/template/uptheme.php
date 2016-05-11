@@ -19,6 +19,12 @@
 							<span class="input__label-content input__label-content--isao">New Name</span>
 						</label>
 					</span>
+					<span class="input input--isao remark">
+						<input class="input__field input__field--isao" name="remark" type="text" id="input-38" />
+						<label class="input__label input__label--isao" for="input-38" data-content="Remark">
+							<span class="input__label-content input__label-content--isao">Remark</span>
+						</label>
+					</span>
 				</div>
 				<div>
 					<span class="input input--isao zh_tag">
@@ -61,6 +67,14 @@
 					</span>
 				</div>
                 <div><a class="t button-1 bgc-5 bgc-h5 upload"><i>Upload</i></a></div>
+				
+				<div>
+					<a class="t button-1 bgc-5 bgc-h5 typein"><i>Typein Resource</i></a>
+					<a class="t button-1 bgc-5 bgc-h5 free"><i>Free Resource</i></a>
+					<a class="t button-1 bgc-5 bgc-h5 playbill"><i>Flesh Playbill</i></a>
+				
+				
+				</div>
             </section>
         </form>
         <!--{eval addjs('classie',0,'user')}-->

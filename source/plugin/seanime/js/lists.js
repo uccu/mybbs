@@ -103,7 +103,7 @@
 				
 			}
 		},blur:function(){
-			setTimeout(function(){if(d.length)j('.search_tags').css({opacity:0,display:'none'})},1000);
+			setTimeout(function(){j('.search_tags').css({opacity:0,display:'none'})},300);
 		}});
 		
 	})
