@@ -18,7 +18,9 @@ class control {
     protected function error($object, $url = '') {
 		header('Location: /404.html');
 	}
-	
+	protected function _get_g(){
+        return table('config');
+    }
 }
 
 

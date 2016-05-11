@@ -20,7 +20,12 @@ function template($t=true,$f=true){
 	}
 	return template\base::load($t,$f);
 	
-} 
+}
+function T($_t=true,$_f=true){
+	$_t = template($_t,$_f);
+    $g = (array)table('config');
+	include $_t;
+}
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
 function control($t=false,$f=''){
 	$config = table('config');
