@@ -5,7 +5,7 @@ class base extends \control\ajax{
     function _beginning(){
         
     }
-    function _get_ip(){
+    protected function _get_ip(){
         return model('user:ip_content');
     }
     protected function _get_uid(){

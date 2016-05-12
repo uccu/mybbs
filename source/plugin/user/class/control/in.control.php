@@ -1,16 +1,16 @@
 <?php
 namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
-class ajax extends \control\ajax{
+class in extends \control\ajax{
     function _beginning(){
     }
-    function _get_user(){
+    protected function _get_user(){
         return control('user:base','api');
     }
-    function _get_model(){
+    protected function _get_model(){
         return model('user:user_info');
     }
-    function _get_ip(){
+    protected function _get_ip(){
         return model('user:ip_content');
     }
     function login(){
@@ -53,7 +53,7 @@ class ajax extends \control\ajax{
     function logout(){
         $this->user->_safe_login();
         cookie('login_secury','',-3600);
-        return $this->success(1);
+        return $this->success();
     }
     function create(){
         if($this->user->uid)
@@ -68,15 +68,31 @@ class ajax extends \control\ajax{
              $this->error(302,'手机号已注册');
         $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
         for($i=0;$i<5;$i++)$salt .=$ss[rand(0,35)];
-        $pwd = md5($pwd.$salt);
+        $pwd = md5(md5($pwd).$salt);
         $time = time();
         $data['phone'] = $phone;
-        $data['password'] = md5(md5($pwd).$salt);
+        $data['password'] = $pwd;
         $data['ctime'] = $time;
         $data['salt'] = $salt;
         if(!$this->model->data($data)->add())
             $this->error(404,'创建失败');
         $this->login();
+    }
+    function forget_password(){
+        if($this->user->uid)
+            $this->error(301,'已登入');
+        $phone = post('phone','');
+        $pwd = post('pwd','');
+        $captcha = post('captcha','');
+        if(!$lname || !$pwd || !$captcha)
+            $this->error(401,'参数错误');
+        $this->captcha->_check_captcha($captcha);
+        $user = $this->model->where(array('phone'=>$phone))->find();
+        if(!$user)$this->error(402,'该用户未注册');
+        $data['password'] = md5(md5($pwd).$salt);
+        $out = $this->model->data($data)->save($user['uid']);
+        if(!$out)$this->error('修改失败');
+        $this->success();
     }
     
     
