@@ -9,7 +9,7 @@ if(!defined('IN_PLAY')) {
 	 'user'=>'root',
 	 'password'=>'123',
 	 'db'=>'souce',
-	 'prefix'=>'zr',
+	 'prefix'=>'zr_',
 	 'charset'=>'utf8'
 );
 ?>
