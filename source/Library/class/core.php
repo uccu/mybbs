@@ -79,7 +79,8 @@ class core
 		}
 	}
 	public static function handleException($exception) {
-		if(defined('SHOW_ERROR'))var_dump($exception);
+		//if($exception)
+		if(defined('SHOW_ERROR'))var_dump($exception->getMessage());
 		echo "handleException";
 		die();
 	}

@@ -4,12 +4,12 @@ if(!defined('IN_PLAY')) {
 }
 
 
-// $config=array(
-	// 'host'=>'uugggggggggggggg.yoooo.co',
-	// 'user'=>'',
-	// 'password'=>'',
-	// 'db'=>'so',
-	// 'prefix'=>'',
-	// 'charset'=>'utf8'
-// );
+ $config=array(
+	 'host'=>'localhost',
+	 'user'=>'root',
+	 'password'=>'123',
+	 'db'=>'sources',
+	 'prefix'=>'',
+	 'charset'=>'utf8'
+ );
 ?>

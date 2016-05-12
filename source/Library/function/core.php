@@ -36,6 +36,10 @@ function control($t=false,$f=''){
 	return C::c($t,$f);
 }
 function model($m,$f=''){return C::m($m,$f);}
+function config($c,$v=null){
+	if($v===null)return table('config')->config[$c];
+	else return table('config')->config[$c] = $v;
+}
 function cookie($name,$value=null,$expire='',$path='/',$domain=0){
     if($value!==null){
         if(!$domain){
