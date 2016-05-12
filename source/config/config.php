@@ -4,11 +4,12 @@ if(!defined('IN_PLAY')) {
 }
 $config=array(
 	'GETTER_SEPARATOR'=>'/',
-	'BASE_URL'=>'http://c.baka/',
-    'HOST'=>'c.baka',
+	'BASE_URL'=>'http://a.baka/',
+    'HOST'=>'a.baka',
     'LOGIN_SALT'=>'gtiekFamdojga4owied7',
 	'LIMIT_SORT_LEN'=>2,
-	'CHECK_IP'=>1,
-	'TIMEZONE'=>'PRC'
+	'CHECK_IP'=>0,
+	'TIMEZONE'=>'PRC',
+	'CHECK_AJAX'=>0
 );
 ?>

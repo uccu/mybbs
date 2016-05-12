@@ -2,9 +2,7 @@
 namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class ajax extends \control\ajax{
-    protected function _get_g(){
-        //$this->g->config['LOGIN_SALT']
-        return table('config');
+    function _beginning(){
     }
     function _get_user(){
         return control('user:base','api');
@@ -16,41 +14,41 @@ class ajax extends \control\ajax{
         return model('user:ip_content');
     }
     function login(){
-        if($this->user->uid)$this->error('已登录');
-        $lname = post('lname','');
+        if($this->user->uid)$this->error(301,'已登入');
+        $phone = post('phone','');
         $pwd = post('pwd','');
-        if(!$lname || !$pwd)$this->error('参数错误');
+        if(!$phone || !$pwd)$this->error(401,'参数错误');
         $time = time();
-        $where['lname'] = $lname;
+        $where['phone'] = $phone;
         $user = $this->model->where($where)->find();
-        if(!$user)$this->error('无用户');
-        if(md5($pwd.$user['salt'])===$user['password']){
+        if(!$user)$this->error(402,'该用户未注册');
+        if(md5(md5($pwd).$user['salt'])===$user['password']){
             $data['ip'] = $this->g->config['ip'];
             $data['lasttime'] = $time;
             $this->model->data($data)->save($user['uid']);
         }else{
-            $data = array();
-            $data['ip'] = $this->g->config['ip'];
-            $data['type'] = 'password';
-            $data['time'] = time();
-            $this->ip->data($data)->add();
-            $this->error('密码错误');
+            if($this->g->config['CHECK_IP']){
+                $data = array();
+                $data['ip'] = $this->g->config['ip'];
+                $data['type'] = 'password';
+                $data['time'] = time();
+                $this->ip->data($data)->add();
+            }
+            $this->error(403,'密码错误');
         }
         $uid = $user['uid'];
-        $uname = $user['uname'];
-        $right = $user['right'];
-        
-        $until = post('until',1800,'%d');
-        $rtime = $time + $until;
+        $type = $user['user_type'];
+        $until = post('until',604800,'%d')+$time;
         $salt = 'QWERTYUIOPASDFGHJKLZXCVBNM';
         $login_secury = 
             $salt[rand(0,20)].
             base64_encode(implode('|',array(
-                $uid,$right,$uname,$rtime,$until,
-                md5($uid.$right.$uname.$rtime.$until.$this->g->config['LOGIN_SALT'])
+                $uid,$until,$type,
+                md5($uid.$until.$type.$this->g->config['LOGIN_SALT'])
             )));
-        cookie('login_secury',$login_secury,$until);
-        return $this->success(1);
+        cookie('login_secury',$login_secury,$until-$time);
+        $out['login_secury'] = $login_secury;
+        return $this->success($out);
     }
     function logout(){
         $this->user->_safe_login();
@@ -59,32 +57,25 @@ class ajax extends \control\ajax{
     }
     function create(){
         if($this->user->uid)
-            $this->error('已登入');
-        $lname = post('lname','');
+            $this->error(301,'已登入');
+        $phone = post('phone','');
         $pwd = post('pwd','');
-        $uname = post('uname','');
-        $email = post('email','');
         $captcha = post('captcha','');
-        if(!$lname || !$pwd || !$uname || !$email || !$captcha)
-            $this->error('参数错误');
-        if($this->model->where(array('lname'=>$lname))->find())
-             $this->error('lname错误');
-        if($this->model->where(array('uname'=>$lname))->find())
-             $this->error('uname错误');
-        if($this->model->where(array('email'=>$lname))->find())
-             $this->error('email错误');
+        if(!$lname || !$pwd || !$captcha)
+            $this->error(401,'参数错误');
+        $this->captcha->_check_captcha($captcha);
+        if($this->model->where(array('phone'=>$phone))->find())
+             $this->error(302,'手机号已注册');
         $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
         for($i=0;$i<5;$i++)$salt .=$ss[rand(0,35)];
         $pwd = md5($pwd.$salt);
         $time = time();
-        $data['uname'] = $uanme;
-        $data['lname'] = $lname;
-        $data['password'] = $pwd;
-        $data['createtime'] = $time;
-        $data['email'] = $email;
+        $data['phone'] = $phone;
+        $data['password'] = md5(md5($pwd).$salt);
+        $data['ctime'] = $time;
         $data['salt'] = $salt;
         if(!$this->model->data($data)->add())
-            $this->error('创建失败');
+            $this->error(404,'创建失败');
         $this->login();
     }
     
