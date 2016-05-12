@@ -4,12 +4,12 @@ if(!defined('IN_PLAY')) {
 }
 
 
-// $config=array(
-	// 'host'=>'uugggggggggggggg.yoooo.co',
-	// 'user'=>'',
-	// 'password'=>'',
-	// 'db'=>'so',
-	// 'prefix'=>'',
-	// 'charset'=>'utf8'
-// );
+$config=array(
+	'host'=>'56e624c81f46e.sh.cdb.myqcloud.com:5884',
+	'user'=>'cdb_outerroot',
+	'password'=>'qqwwee22zxp',
+	'db'=>'sources',
+	'prefix'=>'',
+	'charset'=>'utf8'
+);
 ?>
