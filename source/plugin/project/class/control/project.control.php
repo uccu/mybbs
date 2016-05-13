@@ -12,7 +12,7 @@ class project extends \control\ajax{
         return model('project:project');
     }
     function get_list(){
-        $m = $this->model->filed(array('jid','jthumb','jname'))->limit(999)->order(array('jorder','tctime'))->select();
+        $m = $this->model->field(array('jid','jthumb','jname'))->limit(999)->order(array('jorder'))->select();
         $this->success($m);
         
     }
