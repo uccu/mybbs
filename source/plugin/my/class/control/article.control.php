@@ -58,10 +58,7 @@ class article extends \control\ajax{
             unset($ae[array_search($o,$ae)]);
             $n .= "</$o>";
         }  
-          
-        "{color:#fff:}";
-        "{size:px:}";
-        "{center:}";
+
         
     }
     function aid($aid){
