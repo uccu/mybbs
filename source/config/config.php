@@ -11,6 +11,6 @@ $config=array(
 	'CHECK_IP'=>1,
 	'TIMEZONE'=>'PRC',
 	'CHECK_AJAX'=>0,
-	'AJAX_JSON_CONTENT'=>1
+	'AJAX_JSON_HEADER'=>1
 );
 ?>

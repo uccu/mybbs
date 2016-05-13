@@ -4,7 +4,6 @@ if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
 class coherent{
-
 	protected $thisTable;
 	protected $table;
 	protected $field;
@@ -199,7 +198,9 @@ class coherent{
     public function remove($key = false){
 		if($key!==false){
 			if(!$this->tableMap)return false;
-			$this->where(array(reset(reset($this->tableMap))=>$key),true);
+			$table = reset($this->tableMap);
+			$table = reset($table);
+			$this->where(array($table=>$key),true);
 		}
 		$sql .= 'DELETE FROM ';
 		if($this->table)$sql .= $this->table;
@@ -216,7 +217,9 @@ class coherent{
 	public function save($key = false){
 		if($key!==false){
 			if(!$this->tableMap)return false;
-			$this->where(array(reset(reset($this->tableMap))=>$key),true);
+			$table = reset($this->tableMap);
+			$table = reset($table);
+			$this->where(array($table=>$key),true);
 		}
 		$sql .= 'UPDATE ';
 		if($this->table)$sql .= $this->table;
@@ -246,7 +249,10 @@ class coherent{
 	public function find($key = false,$out = true){
 		if($key!==false){
 			if(!$this->tableMap)return array();
-			$this->where(array(reset(reset($this->tableMap))=>$key),true);
+			
+			$table = reset($this->tableMap);
+			$table = reset($table);
+			$this->where(array($table=>$key),true);
 		}
         if(!$out){
             return $this;
@@ -317,7 +323,5 @@ class coherent{
 	
 	
 	
-
 }
-
 ?>

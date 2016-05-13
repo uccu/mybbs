@@ -6,7 +6,6 @@ if(!defined('IN_PLAY')) {
 class ajax extends \control{
 	function __construct(){
 		call_user_func_array(array(parent,'__construct'),func_get_args());
-		if($this->g->config['AJAX_JSON_CONTENT'])header('Content-Type:application/json; charset=utf-8');
 		if($this->g->config['CHECK_AJAX'])if(!IS_AJAX)$this->error('not ajax');
 	}
     protected function success($object='',$url='') {
@@ -19,6 +18,7 @@ class ajax extends \control{
 		$data['data'] = $object;
 		$data['url'] = $url;
 		$data['code'] = $code;
+		if($this->g->config['AJAX_JSON_HEADER'])header('Content-Type:application/json; charset=utf-8');
 		echo json_encode($data);
 		die();
 	}
