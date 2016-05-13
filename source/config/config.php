@@ -10,6 +10,7 @@ $config=array(
 	'LIMIT_SORT_LEN'=>2,
 	'CHECK_IP'=>0,
 	'TIMEZONE'=>'PRC',
-	'CHECK_AJAX'=>0
+	'CHECK_AJAX'=>0,
+	'AJAX_JSON_HEADER'=>1
 );
 ?>

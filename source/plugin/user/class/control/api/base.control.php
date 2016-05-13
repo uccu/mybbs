@@ -19,7 +19,7 @@ class base extends \control\ajax{
                 header('Location: /404.html');die();
             }
         }
-        $secury = post('ogin_secury');
+        $secury = post('login_secury');
         $time = time();
         if(!$secury)$secury = cookie('login_secury');
         if(!$secury)return 0;

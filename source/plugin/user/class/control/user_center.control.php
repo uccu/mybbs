@@ -10,11 +10,7 @@ class user_center extends \control\ajax{
     function _get_model(){
         return model('user:user_info');
     }
-    function change_password(){
-        
-        
-        
-    }
+    
     
     
     
