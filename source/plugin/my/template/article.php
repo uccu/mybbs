@@ -5,8 +5,8 @@
         <footer> {g.article.date}</footer>
     </blockquote>
     <div class="container">
-        <!--{loop $passage $words}-->
-        <p>{$words}</p>
+        <!--{loop $article['passage'] $words}-->
+        {$words}
         <!--{/loop}-->
     </div>  
 </div>
