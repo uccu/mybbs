@@ -99,7 +99,7 @@ class core
 				default:
 					break;
 			}
-			var_dump($errno,$errstr,basename($errfile),$errline);
+			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
 			echo "handleError";
 			die();
 		}
