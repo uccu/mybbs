@@ -9,7 +9,6 @@ set_error_handler(array('core','handleError'));
 register_shutdown_function(array('core', 'handleShutdown'));
 spl_autoload_register(array('core', 'autoload'));
 require PLAY_ROOT.'/source/Library/function/core.php';
-
 C::init();
 class core
 {
@@ -22,24 +21,20 @@ class core
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
-        //echo $name.'<br />';
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);
 			$name = substr($name,strlen($plugin)+1);
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
-        
 		if(!isset(self::$_tables[$tname])){
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
-                
 				self::$_tables[$tname] = new $tname;
 			}elseif(!$plugin && self::$config->plugin && self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
 				$uname = 'plugin\\' . self::$config->plugin .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 				self::$_tables[$tname] = new $uname;
 			}else self::$_tables[$tname] = false;
 		}
-        //var_dump($plugin ,self::$config);
 		return self::$_tables[$tname];
 	}
 	public static function m($name, $folder=''){
@@ -63,7 +58,6 @@ class core
 			$path  .= $v.'\\';
 		}
 		$key .= $class;
-		//echo $key.'<br />'.microtime(get_as_float).'<br />';
 		if(self::$_imports[$key])return true;
 		$path .= $class.($plugin && $type?'.'.$type:'').'.php';
 		$path = str_replace('\\','/',$path);
@@ -72,15 +66,13 @@ class core
 			self::$_imports[$key] = true;
 			return true;
 		} elseif(!$force) {
-            //var_dump($path);
 			return false;
 		} else {
 			throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));
 		}
 	}
 	public static function handleException($exception) {
-		//if($exception)
-		if(defined('SHOW_ERROR'))var_dump($exception->getMessage());
+		if(defined('SHOW_ERROR'))var_dump($exception);
 		echo "handleException";
 		die();
 	}
@@ -91,21 +83,18 @@ class core
 					if(stristr($errstr,'foreach'))return null;
 					elseif(stristr($errstr,'mysql'))return null;
 					elseif(stristr($errstr,'argument'))return null;
-					//elseif(stristr($errstr,'match'))return null;
 					break;
 				case 8:
-				//case 2:
 					return null;
 					break;
 				default:
 					break;
 			}
-			var_dump($errno,$errstr,basename($errfile),$errline);
+			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
 			echo "handleError";
 			die();
 		}
 	}
-
 	public static function handleShutdown() {
 		if(($error = error_get_last()) && $error['type']) {
 			if(stristr($error['file'],'eval'))return null;
@@ -131,7 +120,5 @@ class core
 		return true;
 	}
 }
-
 class C extends core {}
-
 ?>
