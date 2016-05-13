@@ -90,7 +90,8 @@ class core
 				default:
 					break;
 			}
-			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
+			//var_dump($errno,$errstr,$errfile,$errline);
+			if(defined('SHOW_ERROR'))throw new Exception($errstr);
 			echo "handleError";
 			die();
 		}
