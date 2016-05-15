@@ -1,37 +1,36 @@
 <!--{subtemplate header}-->
+<style>
+    .blog_block:hover .blog_title{border-left: 5px solid red;}
+</style>
 <div class="container">
-    <blockquote class="blog_title">
-        <p>Example page header</p>
+    <ol class="breadcrumb">
+        <li><a href="">Home</a></li>
+        <li><a href="my/article/list">List</a></li>
+    </ol>
+</div>
+<!--{loop $g['list'] $a}-->
+<div class="container blog_block">
+    <blockquote class="blog_title t">
+        <a href="my/article/aid/{a.aid}"><strong>{a.title}</strong></a>
             <footer>
-                <!--{eval echo date('Y-m-d H:i:s')}-->
+                {a.date}
             </footer>
-        
     </blockquote>
+    {if a.pic}
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-md-12"><img src="source/plugin/my/pic/2.gif" class="img-responsive img-rounded"></div>
-            <div class="col-md-2 col-md-12"><img src="source/plugin/my/pic/2.gif" class="img-responsive img-rounded"></div>
-            <div class="col-md-2 col-md-12"><img src="source/plugin/my/pic/2.gif" class="img-responsive img-rounded"></div>
+            <!--{loop $a['pic'] $k=>$p}-->
+            <!--{eval if($k>2)break}-->
+            <div class="col-md-3 col-sm-6 col-xs-6"><img src="t{p}" class="img-responsive" style="margin-bottom:10px"></div>
+            <!--{/loop}-->
         </div>
-        
-    </div>  
+    </div>
+    {/if}
     <div class="container">
-        <p>For example,  should be wrapped as inline.</p>
+        <p>{a.summary}</p>
     </div>  
 </div>
+<!--{/loop}-->
 
-<div class="container">
-    <blockquote class="blog_title">
-        <p>Example&nbsp;page&nbsp;header</p>
-            <footer>
-                <!--{eval echo date('Y-m-d H:i:s')}-->
-            </footer>
-        
-    </blockquote>
-     
-    <div class="container">
-        <p>For example,  should be wrapped as inline.</p>
-    </div>  
-</div>
 
 <!--{subtemplate tool:footer}-->

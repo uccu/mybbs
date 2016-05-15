@@ -83,6 +83,7 @@ class core
 					if(stristr($errstr,'foreach'))return null;
 					elseif(stristr($errstr,'mysql'))return null;
 					elseif(stristr($errstr,'argument'))return null;
+					elseif(stristr($errstr,'DOMDocument'))return null;
 					break;
 				case 8:
 					return null;
@@ -90,8 +91,8 @@ class core
 				default:
 					break;
 			}
-			//var_dump($errno,$errstr,$errfile,$errline);
-			if(defined('SHOW_ERROR'))throw new Exception($errstr);
+			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
+			//if(defined('SHOW_ERROR'))throw new Exception($errstr);
 			echo "handleError";
 			die();
 		}

@@ -5,3 +5,4 @@
         <footer class="text-muted">Here is zcat's blog </footer>
     </div>
 </div>
+<div class="container">

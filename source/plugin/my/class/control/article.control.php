@@ -14,7 +14,8 @@ class article extends \control\ajax{
         },$n);
         $ae = array();
         $callback = function($e) use (&$ae){
-            if($e[5] && $ae){
+            if($e[5]){
+                if(!$ae)return $e[5];
                 $c = substr_count($e[0],$e[6]);$d = $e[5];
                 for($i=0;$i<$c;$i++){
                     $o = end($ae);
@@ -49,7 +50,6 @@ class article extends \control\ajax{
                 return $k.'>';
             }
         };
-        
         $n = preg_replace_callback(
             '#\{(?:(center|left|right|justify|nowrap):)?(strong|code|pre|mark|del|u|small|big|em)(?:\[(color|font-size)=([\#a-z0-9]+)\])?:|([^-])(:\})+#i',
             $callback,$n);
@@ -58,27 +58,55 @@ class article extends \control\ajax{
             unset($ae[array_search($o,$ae)]);
             $n .= "</$o>";
         }  
-
+        $n .= '<br />';
         
     }
+    private function serpic($n){
+        preg_match_all('/\{(?:(center):)?img:([0-9]{1,2})\/([a-z0-9]{16})\.(jpg|png|gif):\}/i',$n,$r,PREG_SET_ORDER);
+        if(!$r)return array();
+        $t = array();
+        foreach($r as $e)$t[] = $e[2].'/'.$e[3].'.'.$e[4];
+        return $t;
+    }
+    private function serword($n){
+        $n = preg_replace('#\{(?:(center):)?img:([0-9]{1,2})\/([a-z0-9]{16})\.(jpg|png|gif):\}#i','',$n);
+        $n = preg_replace(
+            '#\{(?:(center|left|right|justify|nowrap):)?(strong|code|pre|mark|del|u|small|big|em)(?:\[(color|font-size)=([\#a-z0-9]+)\])?:#i',
+            '',$n);
+        $n = preg_replace('#([^-])(:\})+#i','$1',$n);
+        $n = mb_substr($n,0,200);
+        $n = preg_replace('#\n#i','<br />',$n);
+        $n = str_replace(' ','&nbsp;',$n);
+        return $n;
+    }
     function aid($aid){
+        //$s = control('tool:query','format');
+        //$s->get('http://c.baka/my/article/list');
+        //var_dump($s->jq('footer'));die();
         $m = $this->model;
         if(!$f = $m->find($aid))$this->error('401','no article');
         $f['date'] = date('Y-m-d H:i:s',$f['ctime']);
-        $f['passage'] = explode('\n',$f['description']);
-        
-        foreach($f['passage'] as &$n){
-            $this->unseri($n);
-        }
-        
-        
-        
+        $f['description'] = preg_replace('/\n/','<br>',$f['description']);
+        $f['passage'] = explode('<br>',$f['description']);
+        //var_dump($f['passage']);
+        foreach($f['passage'] as &$n)$this->unseri($n);
+        $this->g->template['title'] = $f['title'];
         $this->g->article = $f;
-        
-        
-        
-        
         T();
+    }
+    function list(){
+        $m = $this->model;
+        $f = $m->order(array('ctime'))->limit(10)->select();
+        foreach($f as &$v){
+            $v['pic'] = $this->serpic($v['description']);
+            $v['summary'] = $this->serword($v['description']);
+             $v['date'] = date('Y-m-d H:i:s',$v['ctime']);
+        }
+        $this->g->template['title'] = 'Hello,Bye';
+        $this->g->list = $f;
+        //var_dump($f);die();
+        T('list');
+        
     }
     function _nomethod(){
         $this->error('401','no article');

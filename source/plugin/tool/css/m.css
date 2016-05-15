@@ -13,6 +13,7 @@
 .pr{position:relative}.pf{position:fixed}.pa{position:absolute}.ps{position:static}
 .nos,.nos *{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-moz-drag-over:none;-webkit-user-drag:none}
 .ofh{overflow:hidden}
+a:focus, a:hover{text-decoration: none}
 
 
 

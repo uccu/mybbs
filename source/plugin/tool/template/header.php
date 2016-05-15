@@ -9,6 +9,8 @@
 <title>{g.template.title}</title>
 <base href="{g.template.baseurl}">
 <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!--{eval addcss('component',0,'tool')}-->
 <!--{eval addcss('m',0,'tool')}-->
 <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 <script src="//apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js" type="text/javascript"></script>
