@@ -6,8 +6,9 @@ class product extends \model{
         'product'=>array(
                 'did',
                 'dthumb',
-                'danme',
+                'dname',
                 'dpic',
+                'dctime',
                 'introduction',
                 'fealture',
                 'effect',

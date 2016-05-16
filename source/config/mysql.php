@@ -5,8 +5,8 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'localhost',
-	 'user'=>'root',
+	 'host'=>'120.26.230.136:6088',
+	 'user'=>'baka',
 	 'password'=>'123',
 	 'db'=>'souce',
 	 'prefix'=>'zr_',

@@ -9,6 +9,7 @@ class e extends control{
         //session_start();
         //echo session_id ();
         $this->g->template['baseurl'] = 'http://a.baka/my/e';
+        //echo json_encode((object)array());
         T();
         
     }

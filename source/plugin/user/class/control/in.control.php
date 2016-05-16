@@ -13,14 +13,19 @@ class in extends \control\ajax{
     protected function _get_ip(){
         return model('user:ip_content');
     }
-    function login(){
+    protected function _get_captcha(){
+        return control('tool:captcha');
+    }
+    function login($e=array()){
         if($this->user->uid)$this->error(301,'已登入');
         $phone = post('phone','');
         $pwd = post('pwd','');
         if(!$phone || !$pwd)$this->error(401,'参数错误');
         $time = time();
         $where['phone'] = $phone;
-        $user = $this->model->where($where)->find();
+        
+        $user = $e?$e:$this->model->where($where)->find();
+        
         if(!$user)$this->error(402,'该用户未注册');
         if(md5(md5($pwd).$user['salt'])===$user['password']){
             $data['ip'] = $this->g->config['ip'];
@@ -38,7 +43,8 @@ class in extends \control\ajax{
         }
         $uid = $user['uid'];
         $type = $user['user_type'];
-        $until = post('until',604800,'%d')+$time;
+        $until = post('until',0,'%d');
+        if($until)$until =$time;
         $salt = 'QWERTYUIOPASDFGHJKLZXCVBNM';
         $login_secury = 
             $salt[rand(0,20)].
@@ -46,7 +52,7 @@ class in extends \control\ajax{
                 $uid,$until,$type,
                 md5($uid.$until.$type.$this->g->config['LOGIN_SALT'])
             )));
-        cookie('login_secury',$login_secury,$until-$time);
+        cookie('login_secury',$login_secury,$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
         return $this->success($out);
     }
@@ -58,10 +64,11 @@ class in extends \control\ajax{
     function create(){
         if($this->user->uid)
             $this->error(301,'已登入');
+            //var_dump($this->user->uid);die();
         $phone = post('phone','');
         $pwd = post('pwd','');
         $captcha = post('captcha','');
-        if(!$lname || !$pwd || !$captcha)
+        if(!$phone || !$pwd || !$captcha)
             $this->error(401,'参数错误');
         $this->captcha->_check_captcha($captcha);
         if($this->model->where(array('phone'=>$phone))->find())
@@ -74,9 +81,11 @@ class in extends \control\ajax{
         $data['password'] = $pwd;
         $data['ctime'] = $time;
         $data['salt'] = $salt;
-        if(!$this->model->data($data)->add())
+        if(!$rr = $this->model->data($data)->add())
             $this->error(404,'创建失败');
-        $this->login();
+        $data['uid'] = $rr;
+        $data['user_type'] = 0;
+        $this->login($data);
     }
     function forget_password(){
         if($this->user->uid)
@@ -84,14 +93,14 @@ class in extends \control\ajax{
         $phone = post('phone','');
         $pwd = post('pwd','');
         $captcha = post('captcha','');
-        if(!$lname || !$pwd || !$captcha)
+        if(!$phone || !$pwd || !$captcha)
             $this->error(401,'参数错误');
         $this->captcha->_check_captcha($captcha);
         $user = $this->model->where(array('phone'=>$phone))->find();
         if(!$user)$this->error(402,'该用户未注册');
         $data['password'] = md5(md5($pwd).$salt);
         $out = $this->model->data($data)->save($user['uid']);
-        if(!$out)$this->error('修改失败');
+        if(!$out)$this->error(410,'修改失败');
         $this->success();
     }
     

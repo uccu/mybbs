@@ -19,6 +19,7 @@ class base extends \control\ajax{
                 header('Location: /404.html');die();
             }
         }
+        
         $secury = post('login_secury');
         $time = time();
         if(!$secury)$secury = cookie('login_secury');
@@ -27,7 +28,7 @@ class base extends \control\ajax{
         if(!$s = base64_decode($s))$this->error(405,'非法操作');
         if(!$s = explode('|',$s))$this->error(405,'非法操作');
         list($uid,$until,$type,$md5) = $s;
-        if($until<$time){
+        if($until!=0 && $until<$time){
             cookie('login_secury','',-3600);
             $this->error(101,'登入超时');
             return 0;
@@ -36,6 +37,7 @@ class base extends \control\ajax{
             $this->type = $type;
             return $uid;
         }    
+        
         return 0;
     }
     protected function _get_type(){

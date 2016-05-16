@@ -16,7 +16,13 @@ class ajax extends \control{
 		return $this->_out($object,$url,$code);
 	}
 	private function _out($object,$url='',$code=1) {
-		$data['data'] = $object;
+		if(is_array($object)){
+			$data['data'] = $object;
+			$data['desc'] = '';
+		}else{
+			$data['data'] = array();
+			$data['desc'] = $object;
+		}
 		$data['url'] = $url;
 		$data['code'] = $code;
 		if($this->g->config['AJAX_JSON_HEADER'])header('Content-Type:application/json; charset=utf-8');

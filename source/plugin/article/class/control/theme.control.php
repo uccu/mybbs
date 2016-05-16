@@ -3,7 +3,7 @@ namespace plugin\article\control;
 defined('IN_PLAY') || exit('Access Denied');
 class theme extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');

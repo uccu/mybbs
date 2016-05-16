@@ -14,13 +14,27 @@ class opition extends \control\ajax{
     function get_logo_pic(){
         $m = $this->model->find('logo_pic');
         if(!$m)$m = array();
-        else $m = unserialize($m);
+        else $m = unserialize($m['content']);
         $this->success($m);
         
     }
     function set_logo_pic(){
-        
-        
+        $f = array(
+            array(
+                "type"=>"none",
+                "value"=>"",
+                "pic"=>"testPic.jpg"
+            ),
+            array(
+                "type"=>"article",
+                "value"=>"1",
+                "pic"=>"testPic.jpg"
+            )
+        );
+        $data['name'] = 'logo_pic';
+        $data['content'] = array('logic',$f,'%s');
+        $m = $this->model->data($data)->add(true);
+        $this->success($m);
     }
     
     
