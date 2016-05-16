@@ -21,7 +21,7 @@ class store extends \control\ajax{
     function get_store_list(){
         $where['jid'] = post('jid');
         $where['area'] = post('area');
-        $m = $this->pls->field(array('sid','area'))->where($where)->limit(9999)->select();
+        $m = $this->pls->where($where)->limit(9999)->select();
         $this->success($m);
     }
     function get_expert_list(){

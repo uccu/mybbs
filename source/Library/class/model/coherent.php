@@ -160,10 +160,11 @@ class coherent{
 				unset($v['_mapping']);
 				unset($v['_on']);
 				foreach($v as $k0=>$v0){
-					$fields[] = model('logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.model('logic')->quote_field($v0):'');
+					$fields[] = $v0;
 				}
 			}
-			$sql .= implode(',',$fields);
+			$this->field($fields);
+			$sql .= $this->field;
 		}else $sql .= '*';
 		$sql .=' FROM ';
 		if($this->table)$sql .= $this->table;

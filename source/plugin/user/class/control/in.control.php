@@ -98,7 +98,7 @@ class in extends \control\ajax{
         $this->captcha->_check_captcha($captcha);
         $user = $this->model->where(array('phone'=>$phone))->find();
         if(!$user)$this->error(402,'该用户未注册');
-        $data['password'] = md5(md5($pwd).$salt);
+        $data['password'] = md5(md5($pwd).$user['salt']);
         $out = $this->model->data($data)->save($user['uid']);
         if(!$out)$this->error(410,'修改失败');
         $this->success();
