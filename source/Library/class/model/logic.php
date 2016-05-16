@@ -170,7 +170,7 @@ class logic{
 					unset($v['_on']);
 					$kfield = array_search($field,$v);
 					if($kfield!==false){
-						return $this->quote_field(is_string($kfield)?$kfield:$field,count($tablemap)>1?($mapping?$mapping:$k):false);
+						return $this->quote_field(is_string($kfield)?$kfield:$field,count($tablemap)>1?($mapping?$mapping:$this->prefix.$k):false);
 					}
 				}return;
 				
