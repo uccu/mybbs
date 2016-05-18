@@ -20,11 +20,12 @@ class product extends \control\ajax{
         $where = array();
         if($jid)$where['jid'] = $jid;
         if($line)$where['dctime'] = array('logic',$line,'<');
-        $m = $this->model->field(array('did','dthumb','dname'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        $m = $this->model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
         $this->success($m);
     }
     function product($did=0){
         $this->user->_safe_login();
+        $did = post('did',$did,'%d');
         $d = $this->model->find($did);
         if(!$d)$this->error(411,'获取失败');
         $this->success($d);

@@ -31,9 +31,8 @@ class opition extends \control\ajax{
                 "pic"=>"sy_33.png"
             )
         );
-        $data['name'] = 'logo_pic';
         $data['content'] = array('logic',$f,'%s');
-        $m = $this->model->data($data)->add(true);
+        $m = $this->model->data($data)->save('logo_pic');
         $this->success($m);
     }
     

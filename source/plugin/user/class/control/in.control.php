@@ -81,6 +81,8 @@ class in extends \control\ajax{
         $data['password'] = $pwd;
         $data['ctime'] = $time;
         $data['salt'] = $salt;
+        $data['nickname'] = '用户_'.$time;
+        $data['avatar'] = 'noavatar.png';
         if(!$rr = $this->model->data($data)->add())
             $this->error(404,'创建失败');
         $data['uid'] = $rr;

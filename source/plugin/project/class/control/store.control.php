@@ -21,16 +21,18 @@ class store extends \control\ajax{
         $m = model('project:project_link_store');
         return $m->add_table($m->store);
     }
-    function get_store_list(){
-        $where['jid'] = post('jid');
-        $where['area'] = post('area');
+    function get_store_list($jid,$area){
+        $where['jid'] = post('jid',$jid);
+        $where['area'] = post('area',$area);
+        //model('cache')->replace('test',$where,'%s');
         $m = $this->pls->where($where)->limit(9999)->select();
         $this->success($m);
     }
     function get_store_area_list(){
+        
         $province = post('province');
         $city = post('city');
-        $m = $this->store->field('DISTINCT `area`')->limit(9999)->select();
+        $m = $this->store->field('DISTINCT `area`')->order('area')->limit(9999)->select();
         $gg = array();
         
         if($province){

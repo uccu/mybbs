@@ -18,8 +18,9 @@
     </svg>
 </div>
 
-<form action="http://a.baka/_diary/diary/new_diary" method="post" enctype="multipart/form-data">
+<form action="http://a.baka/_tool/other/up_pic" method="post" enctype="multipart/form-data">
 <input type="file" name="file" />
+<input type="file" name="file2" />
 <input type="submit" />
 </form>
 

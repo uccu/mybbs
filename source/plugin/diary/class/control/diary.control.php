@@ -11,10 +11,15 @@ class diary extends \control\ajax{
     function _get_model(){
         return model('diary:diary');
     }
-    function get_list($type=1){
+    function _get_tool(){
+        return model('tool:other');
+    }
+    function get_list($type=0){
+        $this->user->_safe_login();
         $limit = post('limit',6,'%d');
         $where['uid'] = $this->user->uid;
         $where['type'] = $type?1:0;
+        $where['reply'] = 0;
         $line = post('ctime',0,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
         $m = $this->model->field(array('did','ctime','otime','pic','last_pic','title'))->where($where)->order('ctime','DESC')->limit($limit)->select();
@@ -29,41 +34,9 @@ class diary extends \control\ajax{
         $data['ctime'] = $time;
         $data['type'] = post('type')?1:0;
         $data['uid'] = $this->user->uid;
-        $imgsrc0 = $_FILES['file']['tmp_name'];
-        
-        $arr = getimagesize($imgsrc0);
-        switch($arr[2]){
-            case 3:
-                $imgsrc = imagecreatefrompng($imgsrc0);
-                imagesavealpha($imgsrc,true);
-                break;
-            case 2:
-                $imgsrc = imagecreatefromjpeg($imgsrc0);
-            break;
-            case 1:
-                $imgsrc = imagecreatefromgif($imgsrc0);
-                imagesavealpha($imgsrc,true);
-                break;
-            default:
-                $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
-                break;
-        }
-        
-        $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
-        $image = imagecreatetruecolor($w, $w);    //图像大小
-        imagealphablending($image,false);
-        imagesavealpha($image,true);
-        $color = imagecolorallocatealpha($image, 0, 0, 0,127);
-        imagefill($image, 0, 0, $color);
-        imagecopyresampled($image, $imgsrc, 0, 0, 0, 0,$arr[0], $arr[1],$w, $w);  //调整到的大小
-        $ym = date('Ym',$time);
-        $d = date('d',$time);
-        if(!is_dir(PLAY_ROOT.'pic/diary/'.$ym))mkdir(PLAY_ROOT.'pic/diary/'.$ym);
-        if(!is_dir(PLAY_ROOT.'pic/diary/'.$ym.'/'.$d))mkdir(PLAY_ROOT.'pic/diary/'.$ym.'/'.$d);
-        $md5 = md5_file($imgsrc0);
-        if(!imagepng($image,PLAY_ROOT.'pic/diary/'.$ym.'/'.$d.'/'.$md5.'.png'))$this->error(415,'保存图片失败');
-        imagedestroy($image);
-        $data['pic'] = 'diary/'.$ym.'/'.$d.'/'.$md5.'.png';
+        $pic = $this->tool->_up_pic('diary');
+        if(!$pic)$this->error(418,'没有上传照片');
+        $data['pic'] = $pic[0];
         if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');;
         $this->success();
     }
@@ -77,43 +50,64 @@ class diary extends \control\ajax{
         $data['ctime'] = $time;
         $data['type'] = $madiary['type'];
         $data['uid'] = $this->user->uid;
-        $imgsrc0 = $_FILES['file']['tmp_name'];
-        $arr = getimagesize($imgsrc0);
-        switch($arr[2]){
-            case 3:
-                $imgsrc = imagecreatefrompng($imgsrc0);
-                imagesavealpha($imgsrc,true);
-                break;
-            case 2:
-                $imgsrc = imagecreatefromjpeg($imgsrc0);
-            break;
-            case 1:
-                $imgsrc = imagecreatefromgif($imgsrc0);
-                imagesavealpha($imgsrc,true);
-                break;
-            default:
-                $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
-                break;
-        }
-        $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
-        $image = imagecreatetruecolor($w, $w);    //图像大小
-        imagealphablending($image,false);
-        imagesavealpha($image,true);
-        $color = imagecolorallocatealpha($image, 0, 0, 0,127);
-        imagefill($image, 0, 0, $color);
-        imagecopyresampled($image, $imgsrc, 0, 0, 0, 0,$arr[0], $arr[1],$w, $w);  //调整到的大小
-        $ym = date('Ym',$time);
-        $d = date('d',$time);
-        if(!is_dir(PLAY_ROOT.'pic/diary/'.$ym))mkdir(PLAY_ROOT.'pic/diary/'.$ym);
-        if(!is_dir(PLAY_ROOT.'pic/diary/'.$ym.'/'.$d))mkdir(PLAY_ROOT.'pic/diary/'.$ym.'/'.$d);
-        $md5 = md5_file($imgsrc0);
-        if(!imagepng($image,PLAY_ROOT.'pic/diary/'.$ym.'/'.$d.'/'.$md5.'.png'))$this->error(415,'保存图片失败');
-        imagedestroy($image);
-        $data['pic'] = 'diary/'.$ym.'/'.$d.'/'.$md5.'.png';
-        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');;
+        $pic = $this->tool->_up_pic('diary');
+        if(!$pic)$this->error(418,'没有上传照片');
+        $data['pic'] = $pic[0];
+        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
+        $data2['last_pic'] = $data['pic'];
+        $this->model->data($data2)->save($data['did']);
         $this->success();
     }
-    
+    function get_detail($did){
+        $this->user->_safe_login();
+        $limit = post('limit',6,'%d');
+        $where['uid'] = $this->user->uid;
+        $where0['did'] = post('did',$did,'%d');
+        $where0['uid'] = $this->user->uid;
+        if(!$where0['did'])$this->error(401,'参数错误');
+        $where0['reply'] = 0;
+        $where['reply'] = $where0['did'];
+        $line = post('ctime',0,'%d');
+        if($line)$where['ctime'] = array('logic',$line,'<');
+        $theme = $line ? array() : $this->model->field(array('otime','pic','title'))->where($where0)->find();
+        $reply = $this->model->field(array('ctime','pic','content','suggest'))->where($where)->order('ctime','DESC')->limit($limit)->select();
+        $m = array('theme'=>$theme,'reply'=>$reply);
+        $this->success($m);
+    }
+    function pic_compare($did=0,$type=0){
+        $time = time();
+        $type = post('type',$type);
+        $where['uid'] = $this->user->uid;
+        $where['reply'] = post('did',$did,'%d');
+        $where0['did'] = post('did',$did,'%d');
+        $where0['uid'] = $this->user->uid;
+        $m0 = $this->model->field(array('ctime','pic'))->where($where0)->select();
+        if(!$m0)$this->error(417,'未找到日记');
+        $m = $this->model->field(array('ctime','pic'))->where($where)->order('ctime')->limit(9999)->select();
+        $m = array_merge($m0,$m);
+        if(!$m)$this->error(417,'未找到日记');
+        $last = end($m);
+        if($type == 'week'){
+            $week = $time-3600*24*7;
+            foreach($m as $t)if($t['ctime']>$week){
+                $first = $t;break;
+            }
+        }elseif($type == 'month'){
+            $month = $time - 3600*24*7*30;
+            foreach($m as $t)if($t['ctime']>$month){
+                $first = $t;break;
+            }
+        }elseif($type == 'year'){
+            $year = $time - 3600*24*7*30*365;
+            foreach($m as $t)if($t['ctime']>$year){
+                $first = $t;break;
+            }
+        }else{
+            $first = reset($m);
+        }
+        $f = array('first'=>$first,'last'=>$last);
+        $this->success($f);
+    }
     
     
     

@@ -8,7 +8,7 @@ class user_info extends \model{
                 'avatar',
                 'nickname',
                 'name',
-                'male',
+                'sex',
                 'age',
                 'area',
                 'marry',
