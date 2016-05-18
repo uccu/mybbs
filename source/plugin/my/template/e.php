@@ -18,5 +18,9 @@
     </svg>
 </div>
 
+<form action="http://a.baka/_diary/diary/new_diary" method="post" enctype="multipart/form-data">
+<input type="file" name="file" />
+<input type="submit" />
+</form>
 
 <!--{subtemplate tool:footer}-->

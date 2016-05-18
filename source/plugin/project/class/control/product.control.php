@@ -16,10 +16,10 @@ class product extends \control\ajax{
         $tt = post('jid',0,'%d');
         if($tt)$jid = $tt;
         $limit = post('limit',6,'%d');
-        $line = post('actime',0,'%d');
+        $line = post('dctime',0,'%d');
         $where = array();
         if($jid)$where['jid'] = $jid;
-        if($line)$where['actime'] = array('logic',$line,'<');
+        if($line)$where['dctime'] = array('logic',$line,'<');
         $m = $this->model->field(array('did','dthumb','dname'))->where($where)->order('dctime','DESC')->limit($limit)->select();
         $this->success($m);
     }

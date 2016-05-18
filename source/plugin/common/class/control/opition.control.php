@@ -23,12 +23,12 @@ class opition extends \control\ajax{
             array(
                 "type"=>"none",
                 "value"=>"",
-                "pic"=>"testPic.jpg"
+                "pic"=>"sy_33.png"
             ),
             array(
                 "type"=>"article",
                 "value"=>"1",
-                "pic"=>"testPic.jpg"
+                "pic"=>"sy_33.png"
             )
         );
         $data['name'] = 'logo_pic';

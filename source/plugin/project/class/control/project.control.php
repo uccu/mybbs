@@ -19,6 +19,8 @@ class project extends \control\ajax{
     }
     function project($jid=0){
         $this->user->_safe_login();
+        $tt = post('jid',0,'%d');
+        if($tt)$jid = $tt;
         $d = $this->model->find($jid);
         if(!$d)$this->error(411,'获取失败');
         $this->success($d);
