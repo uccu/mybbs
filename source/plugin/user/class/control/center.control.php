@@ -11,6 +11,9 @@ class center extends \control\ajax{
     function _get_model(){
         return model('user:user_info');
     }
+    function _get_work(){
+        return model('tool:work_list');
+    }
     function change_avatar(){
         $pic = $this->tool->_up_avatar('avatar');
         if(!$pic)$this->error(418,'没有上传照片');
@@ -70,11 +73,22 @@ class center extends \control\ajax{
     }
     function change_work(){
         $data['work'] = post('work');
+        if(preg_match('#\d+#',$data['work']))$where['id'] = $data['work'];
+        else $where['name'] = $data['work'];
+        $w = $this->work-where($where)->find();
+        if(!$w)$this->error(419,'没有找到对应的工作');
+        $data['work'] = $w['name'];
         if(!$data)$this->error(401,'参数错误');
         $this->model->data($data)->save($this->user->uid);
         $this->success();
     }
-    
+    function change_interest(){
+        $interest = post('interest');
+        if(!$interest || !is_array($interest))$this->error(401,'参数错误');
+        $data['interest'] = array('logic',$interest,'%s');
+        $this->model->data($data)->save($this->user->uid);
+        $this->success();
+    }
     
     
     

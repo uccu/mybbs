@@ -11,6 +11,9 @@ class other extends \control\ajax{
     function _get_user(){
         return control('user:base','api');
     }
+    function _get_work(){
+        return model('tool:work_list');
+    }
     function get_area(){
         $province = post('province');
         $city = post('city');
@@ -28,7 +31,10 @@ class other extends \control\ajax{
         }
         $this->success($m);
     }
-    
+    function get_work(){
+        $m = $this->work->limit(9999)->order('name')->select();
+        $this->success($m);
+    }
     function _up_pic($f = 'diary'){
         $this->user->_safe_login();
         $dir = PLAY_ROOT.'pic/'.$f.'/';
