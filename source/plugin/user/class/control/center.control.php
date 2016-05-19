@@ -14,6 +14,24 @@ class center extends \control\ajax{
     function _get_work(){
         return model('tool:work_list');
     }
+    function _get_favourite(){
+        return model('user:favourite');
+    }
+    function _get_gift(){
+        return model('user:gift');
+    }
+    function _get_feedback(){
+        return model('user:feedback');
+    }
+    function _get_scoreDetail(){
+        return model('user:score_detail');
+    }
+    function _get_reservationView(){
+        $m = $model('project:reservation');
+        $m->add_table($m->storeMap);
+        $m->add_table($m->expertMap);
+        return $m;
+    }
     function change_avatar(){
         $pic = $this->tool->_up_avatar('avatar');
         if(!$pic)$this->error(418,'没有上传照片');
@@ -89,15 +107,160 @@ class center extends \control\ajax{
         $this->model->data($data)->save($this->user->uid);
         $this->success();
     }
+    function get_my_reservation(){
+        $where['uid'] = $this->user->uid;
+        $where['time'] = array('logic',time(),'<');
+        $m = $this->reservationView->where($where)->limit(9999)->order(array('time'=>'DESC'))->select();
+        $this->success($m);
+    }
+
+    function get_my_theme(){
+        $limit = post('limit',6,'%d');
+        $line = post('ctime',0,'%d');
+        $where['uid'] = $this->user->uid;
+        $where['reply'] = 0;
+        if($line)$where['ctime'] = array('logic',$line,'<');
+        $m = $this->model->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order('ctime','DESC')->limit($limit)->select();
+        foreach($m as &$v)$v['pic'] = $v['pic']?unserialize($v['pic']):array();
+        $this->success($m);
+    }
+    function get_my_favourite($type){
+        $limit = post('limit',6,'%d');
+        $line = post('ftime',0,'%d');
+        $where['type'] = post('type',$type);
+        $where['uid'] = $this->user->uid;
+        if($where['type']=='article'){
+            $where['atype'] = array('logic',0,'!=');
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($where['type']=='media'){
+            $where['atype'] = 0;
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($where['type']=='project'){
+            $this->favourite->add_table($this->favourite->projectMap);
+        }elseif($where['type']=='product'){
+            $this->favourite->add_table($this->favourite->productMap);
+        }elseif($where['type']=='thread'){
+            $this->favourite->add_table($this->favourite->threadMap);
+        }else $this->error(401,'参数错误');
+        if($line)$where['ftime'] = array('logic',$line,'<');
+        $m = $this->favourite->where($where)->order(array('ftime'=>'DESC'))->select();
+        $this->success($m);
+    }
+    function add_favourite($type){
+        $data['type'] = post('type',$type);
+        $data['uid'] = $this->user->uid;
+        if($data['type']=='article'){
+            $data['aid'] = post('aid');
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($data['type']=='media'){
+            $data['aid'] = post('aid');
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($data['type']=='project'){
+            $data['jid'] = post('jid');
+            $this->favourite->add_table($this->favourite->projectMap);
+        }elseif($data['type']=='product'){
+            $data['did'] = post('did');
+            $this->favourite->add_table($this->favourite->productMap);
+        }elseif($where['type']=='thread'){
+            $data['hid'] = post('hid');
+            $threadData['favo'] = array('add',1);
+            model('thread')->data($threadData)->save($data['hid']);
+            $this->favourite->add_table($this->favourite->threadMap);
+        }else $this->error(401,'参数错误');
+        $m = $this->favourite->data($data)->add();
+        $this->success();
+    }
+    function remove_favourite(){
+        $data['type'] = post('type',$type);
+        $data['uid'] = $this->user->uid;
+        if($data['type']=='article'){
+            $data['aid'] = post('aid');
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($data['type']=='media'){
+            $data['aid'] = post('aid');
+            $this->favourite->add_table($this->favourite->articleMap);
+        }elseif($data['type']=='project'){
+            $data['jid'] = post('jid');
+            $this->favourite->add_table($this->favourite->projectMap);
+        }elseif($data['type']=='product'){
+            $data['did'] = post('did');
+            $this->favourite->add_table($this->favourite->productMap);
+        }elseif($where['type']=='thread'){
+            $data['hid'] = post('hid');
+            $this->favourite->add_table($this->favourite->threadMap);
+        }else $this->error(401,'参数错误');
+        $m = $this->favourite->data($data)->remove();
+        if($m && $where['type']=='thread'){
+            $threadData['favo'] = array('add',-1);
+            model('thread')->data($threadData)->save($data['hid']);
+        }
+        $this->success();
+    }
+    function get_my_score(){
+        $m = $this->model->field('score')->find($this->user->uid);
+        $this->success($m);
+    }
+    function get_my_score_detail($type='in'){
+        $where['uid'] = $this->user->uid;
+        $where['type'] = post('type',$type);
+        if($where['type']!='out')$where['type'] = 'in';
+        $m = $this->scoreDetail->where($where)->limit(9999)->select();
+        $this->success($m);
+    }
+    function get_my_info(){
+        $m = $this->model->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
+                'work','phone','interest','score','ctime','last_time','ip'))->find($this->user->uid);
+        $this->success($m);
+    }
     
+    function feedback(){
+        $data['uid'] = $this->user->uid;
+        $data['content'] = post('content');
+        if(!$data['content'])$this->error(401,'参数错误');
+        $m = $this->feedback->data($data)->add();
+        $this->success($m);
+    }
     
-    
-    
-    
-    
-    
-    
-    
+    function get_gift_list(){
+        $limit = post('limit',6,'%d');
+        $line = post('ctime',0,'%d');
+        $where = array();
+        if($line)$where['ctime'] = array('logic',$line,'<');
+        $m = $this->gift->field(array('ctime','gid','gtitle','gthumb','gscore'))->where($where)->order('ctime','DESC')->limit($limit)->select();
+        $this->success($m);
+    }
+    function get_gift_detail($gid = 0){
+        $gid = post('gid',$gid,'%d');
+        $m = $this->gift->find($gid);
+        if(!$m)$this->error(420,'没有找到礼品');
+        $this->success($m);
+    }
+    function get_gift(){
+        $gid = post('gid',0,'%d');
+        $uid = $this->user->uid;
+        $gift = $this->gift->find($gid);
+        if(!$gift)$this->error(420,'没有找到礼品');
+        $user = $this->model->find($uid);
+        if($gift['gscore']>$user['score'])$this->error(421,'积分不够');
+        $data['score'] = array('add',-1*$gift['gscore']);
+        $this->model->data($data)->save($uid);
+        $this->_add_score_detail('兑换'.$gift['gtitle'],$gift['gscore'],'out');
+        $this->success();
+    }
+    function get_friends($uid = 0){
+        $where['invate'] = post('uid',$uid,'%d');
+        if(!$where['invate'])$this->error(401,'参数错误');
+        $m = $this->model->field(array('uid','nickname','invate_num'))->where($where)->select();
+        $this->success($m);
+    }
+    function _add_score_detail($desc,$type='in'){
+        $data['stime'] = time();
+        $data['type'] = $type;
+        $data['desc'] = $desc;
+        $data['score'] = $score;
+        $data['uid'] = $this->user->uid;
+        return $this->scoreDetail->data($data)->add();
+    }
     
     
 }

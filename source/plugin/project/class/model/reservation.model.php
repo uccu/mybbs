@@ -10,10 +10,30 @@ class reservation extends \model{
                 'name',
                 'phone',
                 'time',
+                'sid',
                 
         )
     );
-    
+    public $expertMap = array(
+        'expert_info'=>array(
+            'ename',
+            '_on'=>'eid'
+        )
+    );
+    public $storetMap = array(
+        'store_info'=>array(
+            'sname',
+            'address',
+            'phone',
+            '_on'=>'sid'
+        ) 
+    );
+    public $userMap = array(
+        'user_info'=>array(
+            'adviser',
+            '_on'=>'uid'
+        ) 
+    );
    
 }
 

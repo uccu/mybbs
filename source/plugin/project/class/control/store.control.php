@@ -3,7 +3,7 @@ namespace plugin\project\control;
 defined('IN_PLAY') || exit('Access Denied');
 class store extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -57,18 +57,19 @@ class store extends \control\ajax{
         $this->success($gg);
     }
     function get_expert_list($sid=0){
-        //$where['sid'] = $sid;
-        $where['sid'] = post('sid');
+        $where['sid'] = post('sid',$sid,'%d');
         $m = $this->expert->where($where)->limit(9999)->select();
         $this->success($m);
     }
     function booking(){
         $data['eid'] = post('eid',0,'%d');
-        if(!$this->expert->find($data['eid']))$this->error(412,'没有找到对应的专家');
+        if(!$expert = $this->expert->find($data['eid']))$this->error(412,'没有找到对应的专家');
         $where['name'] = post('name');
         $where['phone'] = post('phone');
         $where['time'] = post('time');
+        $where['sid'] = $expert['sid'];
         $where['uid'] = $this->user->uid;
+        if(!$where['name'] || !$where['phone'] || !$where['time'])$this->error(401,'参数错误');
         $m = $this->reservation->data($data)->add();
         if($m)$this->success($m);
         else $this->error(413,'预约失败');

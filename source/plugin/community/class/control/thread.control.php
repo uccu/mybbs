@@ -12,7 +12,7 @@ class thread extends \control\ajax{
         return model('community:thread');
     }
     function _get_tool(){
-        return model('tool:other');
+        return control('tool:other');
     }
     function _get_tag(){
         return model('community:community_tag');
@@ -71,14 +71,15 @@ class thread extends \control\ajax{
         $data['pic'] = $this->tool->_up_pic('community');
         if(!$data['title'] || $data['content'])$this->error(401,'参数错误');
         $data['pic'] = serialize($data['pic']);
-        $data['ctime'] = time();
+        $data['ctime'] = $data['last'] = time();
         $data['uid'] = $this->user->uid;
         if(!$hid = $this->model->data($data)->add())$this->error(416,'创建失败');
         foreach($tag as $t){
             $data = array('hid'=>$hid,'tid'=>$t);
             $this->threadTag->$data($data)->add(true);
         }
-        $this->success();
+        $array = array('hid'=>$hid);
+        $this->success($array);
     }
     function new_reply(){
         $hid = post('hid');

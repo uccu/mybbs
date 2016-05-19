@@ -105,7 +105,18 @@ class in extends \control\ajax{
         if(!$out)$this->error(410,'修改失败');
         $this->success();
     }
-    
+    function change_password(){
+        $this->user->_safe_login();
+        $phone = post('phone','');
+        $pwd = post('pwd','');
+        $newPwd = post('new_pwd','');
+        $user = $this->model->where()->find($this->user->uid);
+        if(md5(md5($pwd).$user['salt'])===$user['password']){
+            $data['password'] = md5(md5($newPwd).$user['salt']);
+            $this->model->data($data)->save($this->user->uid);
+        }else $this->error(403,'密码错误');
+        $this->success();
+    }
     
     
     

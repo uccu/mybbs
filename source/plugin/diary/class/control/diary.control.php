@@ -11,8 +11,11 @@ class diary extends \control\ajax{
     function _get_model(){
         return model('diary:diary');
     }
+    function _get_userModel(){
+        model('user:user_info');
+    }
     function _get_tool(){
-        return model('tool:other');
+        return control('tool:other');
     }
     function get_list($type=0){
         $this->user->_safe_login();
@@ -37,8 +40,11 @@ class diary extends \control\ajax{
         $pic = $this->tool->_up_pic('diary');
         if(!$pic)$this->error(418,'没有上传照片');
         $data['pic'] = $pic[0];
-        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');;
-        $this->success();
+        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
+        $data3['diary'] = 1;
+        $this->userModel->data($data3)->save($this->user->uid);
+        $array = array('did'=>$id);
+        $this->success($array);
     }
     function add_diary(){
         $this->user->_safe_login();
@@ -50,12 +56,16 @@ class diary extends \control\ajax{
         $data['ctime'] = $time;
         $data['type'] = $madiary['type'];
         $data['uid'] = $this->user->uid;
+        $data['suggest'] = '';
         $pic = $this->tool->_up_pic('diary');
         if(!$pic)$this->error(418,'没有上传照片');
         $data['pic'] = $pic[0];
         if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
         $data2['last_pic'] = $data['pic'];
+        $data2['new'] = 1;
         $this->model->data($data2)->save($data['did']);
+        $data3['diary'] = 1;
+        $this->userModel->data($data3)->save($this->user->uid);
         $this->success();
     }
     function get_detail($did){
@@ -69,7 +79,7 @@ class diary extends \control\ajax{
         $where['reply'] = $where0['did'];
         $line = post('ctime',0,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
-        $theme = $line ? array() : $this->model->field(array('otime','pic','title'))->where($where0)->find();
+        $theme = $line ? array() : $this->model->field(array('ctime','otime','pic','title'))->where($where0)->find();
         $reply = $this->model->field(array('ctime','pic','content','suggest'))->where($where)->order('ctime','DESC')->limit($limit)->select();
         $m = array('theme'=>$theme,'reply'=>$reply);
         $this->success($m);

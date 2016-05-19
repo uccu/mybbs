@@ -14,7 +14,8 @@ class diary extends \model{
                 'content',
                 'pic',
                 'last_pic',
-                'suggest'
+                'suggest',
+                'new'
         )
     );
     

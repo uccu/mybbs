@@ -25,6 +25,10 @@ class user_info extends \model{
                 'last_time',
                 'ip',
                 'password',
+                'invate',
+                'invate_num',
+                'adviser',
+                'diary'
         )
     );
     public $tableMap_hash = array(
