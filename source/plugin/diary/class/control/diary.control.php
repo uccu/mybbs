@@ -12,7 +12,7 @@ class diary extends \control\ajax{
         return model('diary:diary');
     }
     function _get_userModel(){
-        model('user:user_info');
+        return model('user:user_info');
     }
     function _get_tool(){
         return control('tool:other');
