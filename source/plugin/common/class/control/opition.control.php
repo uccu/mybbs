@@ -3,7 +3,7 @@ namespace plugin\common\control;
 defined('IN_PLAY') || exit('Access Denied');
 class opition extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        
     }
     function _get_user(){
         return control('user:base','api');
@@ -42,6 +42,7 @@ class opition extends \control\ajax{
         $this->success($m);
     }
     function get_project(){
+        $this->user->_safe_login();
         $interest = $this->userModel->find($this->user->uid,false)->get_field('interest');
         $interest = unserialize($interest);$pro = array();
         foreach($interest as $k=>$i){

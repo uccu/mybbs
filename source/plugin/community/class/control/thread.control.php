@@ -26,7 +26,7 @@ class thread extends \control\ajax{
         return model('community:thread_link_tag');
     }
     function get_tag(){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
         $m = $this->tag->field(array('tid','tname'))->order('torder')->limit(9999)->select();
         $this->success($m);
     }
@@ -64,28 +64,32 @@ class thread extends \control\ajax{
     }
     function new_theme(){
         $this->user->_safe_login();
+        //model('cache')->replace('test',$_POST,'%s');
         $data['title'] = post('title');
         $data['content'] = post('content');
         $tag = post('tag');
-        if(!is_array($tag))$this->error(401,'参数错误');
+        if(!$tag)$this->error(401,'参数错误');
+        if(is_string($tag))$tag = explode(',',$tag);
+        if(!is_array($tag))$this->error(401,'参数错误,TAG非数组');
         $data['pic'] = $this->tool->_up_pic('community');
-        if(!$data['title'] || $data['content'])$this->error(401,'参数错误');
+        if(!$data['title'] || !$data['content'])$this->error(401,'参数错误');
         $data['pic'] = serialize($data['pic']);
         $data['ctime'] = $data['last'] = time();
         $data['uid'] = $this->user->uid;
         if(!$hid = $this->model->data($data)->add())$this->error(416,'创建失败');
         foreach($tag as $t){
             $data = array('hid'=>$hid,'tid'=>$t);
-            $this->threadTag->$data($data)->add(true);
+            $this->threadTag->data($data)->add(true);
         }
         $array = array('hid'=>$hid);
+        //model('cache')->replace('test2',$array,'%s');
         $this->success($array);
     }
     function new_reply(){
         $hid = post('hid');
         $data['reply'] = $hid;
         $data['content'] = post('content');
-        if(!$data['reply'] || $data['content'])$this->error(401,'参数错误');
+        if(!$data['reply'] || !$data['content'])$this->error(401,'参数错误');
         $data['ctime'] = time();
         $data['uid'] = $this->user->uid;
         if(!$hid = $this->model->data($data)->add())$this->error(416,'创建失败');

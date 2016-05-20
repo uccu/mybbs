@@ -102,6 +102,8 @@ class center extends \control\ajax{
     }
     function change_interest(){
         $interest = post('interest');
+        if(!$interest)$this->error(401,'参数错误');
+        if(is_string($interest))$interest = explode(',',$interest);
         if(!$interest || !is_array($interest))$this->error(401,'参数错误');
         $data['interest'] = array('logic',$interest,'%s');
         $this->model->data($data)->save($this->user->uid);

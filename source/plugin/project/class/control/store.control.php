@@ -51,9 +51,6 @@ class store extends \control\ajax{
                 if(!array_search($v[0],$gg))$gg[] = $v[0];
             }
         }
-        
-        
-        
         $this->success($gg);
     }
     function get_expert_list($sid=0){

@@ -51,8 +51,8 @@ class diary extends \control\ajax{
         $time = time();
         $data['content'] = post('content');
         if(!$data['content'])$this->error(401,'参数错误');
-        $data['did'] = post('did');
-        if(!$madiary = $this->model->find($data['did']))$this->error(417,'未找到日记');
+        $data['reply'] = post('did');
+        if(!$madiary = $this->model->find($data['reply']))$this->error(417,'未找到日记');
         $data['ctime'] = $time;
         $data['type'] = $madiary['type'];
         $data['uid'] = $this->user->uid;
@@ -63,7 +63,7 @@ class diary extends \control\ajax{
         if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
         $data2['last_pic'] = $data['pic'];
         $data2['new'] = 1;
-        $this->model->data($data2)->save($data['did']);
+        $this->model->data($data2)->save($data['reply']);
         $data3['diary'] = 1;
         $this->userModel->data($data3)->save($this->user->uid);
         $this->success();
@@ -91,7 +91,7 @@ class diary extends \control\ajax{
         $where['reply'] = post('did',$did,'%d');
         $where0['did'] = post('did',$did,'%d');
         $where0['uid'] = $this->user->uid;
-        $m0 = $this->model->field(array('ctime','pic'))->where($where0)->select();
+        $m0 = $this->model->field(array('ctime','pic'))->where($where0)->limit(1)->select();
         if(!$m0)$this->error(417,'未找到日记');
         $m = $this->model->field(array('ctime','pic'))->where($where)->order('ctime')->limit(9999)->select();
         $m = array_merge($m0,$m);

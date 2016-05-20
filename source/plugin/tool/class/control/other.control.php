@@ -35,6 +35,12 @@ class other extends \control\ajax{
         $m = $this->work->limit(9999)->order('name')->select();
         $this->success($m);
     }
+    function get_adviser(){
+        
+        $m['user'] = 'guwen_1';
+        
+        $this->success($m);
+    }
     function _up_pic($f = 'diary'){
         $this->user->_safe_login();
         $dir = PLAY_ROOT.'pic/'.$f.'/';
