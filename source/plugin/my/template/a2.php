@@ -1,43 +1,37 @@
-<!--{subtemplate tool:header}-->
+
 <style>
 img{}
 .m1 {
-    position:absolute;left:0;top:0;z-index:1;
-    width:277px;height:420px;
+    
+    
   -webkit-clip-path: url(#svgPath1);
   clip-path: url(#svgPath1);
 }
 .m2 {
-    position:absolute;left:149px;top:0;z-index:1;
-    width:415px;height:420px;
+   
   -webkit-clip-path: url(#svgPath2);
   clip-path: url(#svgPath2);
 }
 .m3 {
-    position:absolute;left:436px;top:0;z-index:1;
-    width:415px;height:420px;
+   
   -webkit-clip-path: url(#svgPath3);
   clip-path: url(#svgPath3);
 }
 .m4 {
-    position:absolute;left:723px;top:0;z-index:1;
-    width:415px;height:420px;
+    
   -webkit-clip-path: url(#svgPath4);
   clip-path: url(#svgPath4);
 }
-img:hover {
+image:hover {
   opacity: .5;
 }
+svg{left:100px;position:absolute}
 </style>
 <div style="position:relative">
 <div class="wrapper">
-  <img class="m1" src="http://i2.buimg.com/d0198ed044f7442a.jpg" alt="" />
-  <img class="m2" src="http://i2.buimg.com/d0198ed044f7442a.jpg" alt="" />
-  <img class="m3" src="http://i2.buimg.com/d0198ed044f7442a.jpg" alt="" />
-  <img class="m4" src="http://i2.buimg.com/d0198ed044f7442a.jpg" alt="" />
   
 </div>
-<svg height="0" width="0">
+<svg height="420" width="1000">
   <defs>
     <clipPath id="svgPath1">
       <path  d="M0 0 L277 0 L139 420 L0 420 L0 0 Z"></path>
@@ -52,6 +46,14 @@ img:hover {
       <path  d="M861 0 L1000 0 L1000 420 L723 420 L861 0 Z"></path>
      </clipPath>
   </defs>
+    <a xlink:href="#1">
+    <image class="m1" xlink:href="http://i2.buimg.com/d0198ed044f7442a.jpg" x="000" y="0" height="420px" width="277px" /></a>
+    <a xlink:href="#1">
+    <image class="m2" xlink:href="http://i2.buimg.com/b961b88f26a66c88.png" x="149" y="0" height="420px" width="415px" /></a>
+    <a xlink:href="#1">
+    <image class="m3" xlink:href="http://i2.buimg.com/b961b88f26a66c88.png" x="436" y="0" height="420px" width="415px" /></a>
+    <a xlink:href="#1">
+    <image class="m4" xlink:href="http://i2.buimg.com/d0198ed044f7442a.jpg" x="723" y="0" height="420px" width="277px" /></a>
+  </g>
 </svg>
 </div>
-<!--{subtemplate tool:footer}-->
