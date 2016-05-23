@@ -20,11 +20,11 @@ class reservation extends \model{
             '_on'=>'eid'
         )
     );
-    public $storetMap = array(
+    public $storeMap = array(
         'store_info'=>array(
             'sname',
             'address',
-            'phone',
+            'phone'=>'sphone',
             '_on'=>'sid'
         ) 
     );

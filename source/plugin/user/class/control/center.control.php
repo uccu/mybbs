@@ -3,7 +3,7 @@ namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class center extends \control\ajax{
     function _beginning(){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -25,6 +25,9 @@ class center extends \control\ajax{
     }
     function _get_scoreDetail(){
         return model('user:score_detail');
+    }
+    function _get_tool(){
+        return control('tool:other');
     }
     function _get_reservationView(){
         $m = $model('project:reservation');
@@ -149,52 +152,45 @@ class center extends \control\ajax{
         $this->success($m);
     }
     function add_favourite($type){
+
         $data['type'] = post('type',$type);
         $data['uid'] = $this->user->uid;
+        $data['ftime'] = time();
         if($data['type']=='article'){
             $data['aid'] = post('aid');
-            $this->favourite->add_table($this->favourite->articleMap);
         }elseif($data['type']=='media'){
             $data['aid'] = post('aid');
-            $this->favourite->add_table($this->favourite->articleMap);
         }elseif($data['type']=='project'){
             $data['jid'] = post('jid');
-            $this->favourite->add_table($this->favourite->projectMap);
+
         }elseif($data['type']=='product'){
             $data['did'] = post('did');
-            $this->favourite->add_table($this->favourite->productMap);
-        }elseif($where['type']=='thread'){
+        }elseif($data['type']=='thread'){
             $data['hid'] = post('hid');
             $threadData['favo'] = array('add',1);
-            model('thread')->data($threadData)->save($data['hid']);
-            $this->favourite->add_table($this->favourite->threadMap);
+            model('community:thread')->data($threadData)->save($data['hid']);
         }else $this->error(401,'参数错误');
         $m = $this->favourite->data($data)->add();
         $this->success();
     }
-    function remove_favourite(){
+    function remove_favourite($type){
         $data['type'] = post('type',$type);
         $data['uid'] = $this->user->uid;
         if($data['type']=='article'){
             $data['aid'] = post('aid');
-            $this->favourite->add_table($this->favourite->articleMap);
         }elseif($data['type']=='media'){
             $data['aid'] = post('aid');
-            $this->favourite->add_table($this->favourite->articleMap);
         }elseif($data['type']=='project'){
             $data['jid'] = post('jid');
-            $this->favourite->add_table($this->favourite->projectMap);
         }elseif($data['type']=='product'){
             $data['did'] = post('did');
-            $this->favourite->add_table($this->favourite->productMap);
-        }elseif($where['type']=='thread'){
+        }elseif($data['type']=='thread'){
             $data['hid'] = post('hid');
-            $this->favourite->add_table($this->favourite->threadMap);
         }else $this->error(401,'参数错误');
-        $m = $this->favourite->data($data)->remove();
+        $m = $this->favourite->where($data)->remove();;
         if($m && $where['type']=='thread'){
             $threadData['favo'] = array('add',-1);
-            model('thread')->data($threadData)->save($data['hid']);
+            model('community:thread')->data($threadData)->save($data['hid']);
         }
         $this->success();
     }
@@ -205,8 +201,11 @@ class center extends \control\ajax{
     function get_my_score_detail($type='in'){
         $where['uid'] = $this->user->uid;
         $where['type'] = post('type',$type);
+        $limit = post('limit',6,'%d');
+        $line = post('stime',0,'%d');
         if($where['type']!='out')$where['type'] = 'in';
-        $m = $this->scoreDetail->where($where)->limit(9999)->select();
+        if($line)$where['stime'] = array('logic',$line,'<');
+        $m = $this->scoreDetail->where($where)->limit($limit)->order(array('stime'=>"DESC"))->select();
         $this->success($m);
     }
     function get_my_info(){
@@ -250,8 +249,7 @@ class center extends \control\ajax{
         $this->success();
     }
     function get_friends($uid = 0){
-        $where['invate'] = post('uid',$uid,'%d');
-        if(!$where['invate'])$this->error(401,'参数错误');
+        $where['invate'] = $this->user->uid;
         $m = $this->model->field(array('uid','nickname','invate_num'))->where($where)->select();
         $this->success($m);
     }

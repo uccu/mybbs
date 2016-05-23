@@ -10,7 +10,8 @@ class favourite extends \model{
                 'jid',
                 'did',
                 'ftime',
-                'hid'
+                'hid',
+                'aid'
         )
     );
     public $productMap = array(

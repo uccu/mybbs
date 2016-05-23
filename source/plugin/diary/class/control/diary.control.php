@@ -68,8 +68,8 @@ class diary extends \control\ajax{
         $this->userModel->data($data3)->save($this->user->uid);
         $this->success();
     }
-    function get_detail($did){
-        $this->user->_safe_login();
+    function get_detail($did,$ctime=0){
+        //$this->user->_safe_login();
         $limit = post('limit',6,'%d');
         $where['uid'] = $this->user->uid;
         $where0['did'] = post('did',$did,'%d');
@@ -77,11 +77,12 @@ class diary extends \control\ajax{
         if(!$where0['did'])$this->error(401,'参数错误');
         $where0['reply'] = 0;
         $where['reply'] = $where0['did'];
-        $line = post('ctime',0,'%d');
+        $line = post('ctime',$ctime,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
-        $theme = $line ? array() : $this->model->field(array('ctime','otime','pic','title'))->where($where0)->find();
+        $theme = $this->model->field(array('ctime','otime','pic','title'))->where($where0)->find();
         $reply = $this->model->field(array('ctime','pic','content','suggest'))->where($where)->order('ctime','DESC')->limit($limit)->select();
         $m = array('theme'=>$theme,'reply'=>$reply);
+       
         $this->success($m);
     }
     function pic_compare($did=0,$type=0){

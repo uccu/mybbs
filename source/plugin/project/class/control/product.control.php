@@ -3,7 +3,7 @@ namespace plugin\project\control;
 defined('IN_PLAY') || exit('Access Denied');
 class product extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -11,8 +11,10 @@ class product extends \control\ajax{
     function _get_model(){
         return model('project:product');
     }
+    function _get_favourite(){
+        return model('user:favourite');
+    }
     function get_list($jid=0){
-        $this->user->_safe_login();
         $tt = post('jid',0,'%d');
         if($tt)$jid = $tt;
         $limit = post('limit',6,'%d');
@@ -24,10 +26,12 @@ class product extends \control\ajax{
         $this->success($m);
     }
     function product($did=0){
-        $this->user->_safe_login();
         $did = post('did',$did,'%d');
         $d = $this->model->find($did);
         if(!$d)$this->error(411,'获取失败');
+        $where['uid'] = $this->user->uid;
+        $where['did'] = $did;
+        $d['favo'] = $this->favourite->where($where)->find() ? 1 : 0;
         $this->success($d);
     }
     

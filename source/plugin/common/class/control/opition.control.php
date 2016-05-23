@@ -29,12 +29,20 @@ class opition extends \control\ajax{
             array(
                 "type"=>"none",
                 "value"=>"",
-                "pic"=>"sy_33.png"
+                "pic"=>"sq_23.png"
             ),
             array(
                 "type"=>"article",
                 "value"=>"1",
-                "pic"=>"sy_33.png"
+                "pic"=>"sq_23.png"
+            ),array(
+                "type"=>"article",
+                "value"=>"1",
+                "pic"=>"sq_23.png"
+            ),array(
+                "type"=>"article",
+                "value"=>"1",
+                "pic"=>"sq_23.png"
             )
         );
         $data['content'] = array('logic',$f,'%s');

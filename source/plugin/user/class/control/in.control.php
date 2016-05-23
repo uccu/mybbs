@@ -147,11 +147,13 @@ class in extends \control\ajax{
         $this->success();
     }
     function change_password(){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
         $phone = post('phone','');
         $pwd = post('pwd','');
         $newPwd = post('new_pwd','');
-        $user = $this->model->where()->find($this->user->uid);
+        if($this->user->uid)$user = $this->model->where()->find($this->user->uid);
+        elseif($phone)$user = $this->model->where(array('phone'=>$phone))->find();
+        else $this->error(401,'参数错误');
         if(md5(md5($pwd).$user['salt'])===$user['password']){
             $data['password'] = md5(md5($newPwd).$user['salt']);
             $this->model->data($data)->save($this->user->uid);

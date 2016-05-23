@@ -22,11 +22,15 @@ class init{
 		$p=floor($_REQUEST['page']);
 		$this->config->page=$p>0&&$p<101?$p:1;
 		$this->config->maxpage=$this->config->maxrow=1;
-		if(!preg_match('/^[a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->config->plugin=$_REQUEST['plugin']){
+		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->config->plugin=$_REQUEST['plugin']){
 			header('Location: /404.html');
 		}
-		if(!preg_match('/^[a-z0-9_]+$/i',$_REQUEST['control']) || !$this->config->control = $_REQUEST['control']){
+		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['control']) || !$this->config->control = $_REQUEST['control']){
 			header('Location: /404.html');
+		}
+		if(file_exists(PLUGIN_ROOT.'/'.$this->config->plugin.'/config/config.php')){
+			require PLUGIN_ROOT.$this->config->plugin.'/config/config.php';
+			if($config)$this->config->config = array_merge($this->config->config,$config);
 		}
 		$this->config->template['baseurl'] = $this->config->config['BASE_URL'];
         $this->config->template['cacheid'] = model('cache')->get('cacheid');

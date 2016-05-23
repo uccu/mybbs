@@ -25,8 +25,11 @@ class thread extends \control\ajax{
     function _get_threadTag(){
         return model('community:thread_link_tag');
     }
+    function _get_favourite(){
+        return model('user:favourite');
+    }
     function get_tag(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
         $m = $this->tag->field(array('tid','tname'))->order('torder')->limit(9999)->select();
         $this->success($m);
     }
@@ -55,9 +58,14 @@ class thread extends \control\ajax{
         $where['reply'] = $hid;
         if($line)$where['ctime'] = array('logic',$line,'>');
         $this->model->add_table($this->model->userMap);
-        $theme = $line ? array() : $this->model->where($where0)->field(array('hid','title','content','pic','ctime','uid','nickname','avatar'))->find();
+        $theme = $this->model->where($where0)->field(array('hid','title','content','pic','ctime','uid','nickname','avatar'))->find();
         $reply = $this->model->where($where)->field(array('hid','content','ctime','uid','nickname','avatar'))->order('ctime')->limit($limit)->select();
-        if($theme)$theme['pic'] = $theme['pic']?unserialize($theme['pic']):array();
+        if($theme){
+            $theme['pic'] = $theme['pic']?unserialize($theme['pic']):array();
+            $where2['uid'] = $this->user->uid;
+            $where2['hid'] = $hid;
+            $theme['favo'] = $this->favourite->where($where2)->find() ? 1 : 0;
+        }
         foreach($reply as &$v)$v['pic'] = $v['pic']?unserialize($v['pic']):array();
         $m = array('theme'=>$theme,'reply'=>$reply);
         $this->success($m);

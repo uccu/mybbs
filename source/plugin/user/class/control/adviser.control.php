@@ -21,7 +21,7 @@ class adviser extends \control\ajax{
         return model('diary:diary');
     }
     function _get_reservationView(){
-        $m = $model('project:reservation');
+        $m = model('project:reservation');
         $m->add_table($m->storeMap);
         $m->add_table($m->expertMap);
         $m->add_table($m->userMap);

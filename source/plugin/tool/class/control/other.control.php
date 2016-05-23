@@ -41,8 +41,11 @@ class other extends \control\ajax{
         
         $this->success($m);
     }
+    function up_pic($f = 'diary'){
+        return $this->_up_pic($f);
+    }
     function _up_pic($f = 'diary'){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         $pic = array();$time = time();
         foreach($_FILES as $file){
@@ -70,7 +73,7 @@ class other extends \control\ajax{
             imagesavealpha($image,true);
             $color = imagecolorallocatealpha($image, 0, 0, 0,127);
             imagefill($image, 0, 0, $color);
-            imagecopyresampled($image, $imgsrc, 0, 0, 0, 0,$arr[0], $arr[1],$w, $w);  //调整到的大小
+            imagecopyresampled($image, $imgsrc,-($arr[0]-$w)/2, -($arr[1]-$w)/2,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
             $ym = date('Ym',$time);
             $d = date('d',$time);
             if(!is_dir($dir.$ym))mkdir($dir.$ym);
