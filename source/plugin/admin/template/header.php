@@ -1,7 +1,5 @@
 <!--{subtemplate tool:header}-->
-<link href="//cdn.bootcss.com/sortable/0.8.0/css/sortable-theme-bootstrap.min.css" rel="stylesheet">
-<script src="//cdn.bootcss.com/sortable/0.8.0/js/sortable.min.js"></script>
-<!--{eval addjs('p','common','admin')}-->
+<!--{eval addjs('p','header','admin')}-->
 <div class="container">
     <div class="page-header">
         <h1>美容整形 <small>后台</small></h1>
@@ -15,7 +13,7 @@
     <li role="presentation" class="project"><a href="project"">项目</a></li>
     <li role="presentation" class="dropdown articleMod">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            文章
+            资料
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="article">文章</a></li>

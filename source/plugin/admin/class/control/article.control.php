@@ -1,7 +1,7 @@
 <?php
 namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
-class article extends \control\ajax{
+class article extends \control{
     function _beginning(){
         //$this->user->_safe_login();
     }
