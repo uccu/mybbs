@@ -32,17 +32,17 @@ class adviser extends \control\ajax{
         $m = $this->model->field("`uid` ,  `nickname` ,`diary`, ELT( INTERVAL( CONV( HEX( LEFT( CONVERT(  `nickname` 
 USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2, 0xB8C1, 0xB9FE, 0xBBF7, 0xBFA6, 0xC0AC, 0xC2E8, 0xC4C3, 0xC5B6, 0xC5BE, 0xC6DA, 0xC8BB, 0xC8F6, 0xCBFA, 0xCDDA, 0xCEF4, 0xD1B9, 0xD4D1 ) ,  'A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'J',  'K',  'L',  'M',  'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'W',  'X',  'Y',  'Z' ) AS py
 ")->where($where)->order('py')->limit(9999)->select();
-        if(post('array',$array)){
-            foreach($m as $v){
-                if($v['py'] == null){
-                    if(preg_match('#^([QWERTYUIOPASDFGHJKLZXCVBNM])#i',$v['nickname'],$match)){
-                        $v['py'] = strtoupper($match[1]);
-                    }else $v['py'] = '#';
-                } 
-                $mm[$v['py']][] = $v;
-            }
-            $this->success($mm);
+        
+        foreach($m as &$v){
+            if($v['py'] == null){
+                if(preg_match('#^([QWERTYUIOPASDFGHJKLZXCVBNM])#i',$v['nickname'],$match)){
+                    $v['py'] = strtoupper($match[1]);
+                }else $v['py'] = '#';
+            } 
+            $mm[$v['py']][] = $v;
         }
+        if(post('array',$array))$this->success($mm);
+        
         
         $this->success($m);
     }
