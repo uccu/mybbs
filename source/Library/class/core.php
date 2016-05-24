@@ -2,8 +2,8 @@
 define('IN_PLAY', true);
 define('PLAY_ROOT', substr(__DIR__, 0, -20));
 define('LIBRARY_ROOT', substr(__DIR__, 0, -6));
-define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin\\');
-define('CACHE_ROOT', substr(__DIR__, 0, -13).'cache\\');
+define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin/');
+define('CACHE_ROOT', substr(__DIR__, 0, -13).'cache/');
 set_exception_handler(array('core','handleException'));
 set_error_handler(array('core','handleError'));
 register_shutdown_function(array('core', 'handleShutdown'));
@@ -99,7 +99,7 @@ class core
 				default:
 					break;
 			}
-			var_dump($errno,$errstr,basename($errfile),$errline);
+			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
 			echo "handleError";
 			die();
 		}

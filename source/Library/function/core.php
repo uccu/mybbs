@@ -24,6 +24,7 @@ function template($t=true,$f=true){
 function T($_t=true,$_f=true){
 	$_t = template($_t,$_f);
     $g = (array)table('config');
+	foreach($g['template'] as $k=>$v)$$k = $v;
 	include $_t;
 }
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
@@ -76,7 +77,7 @@ function addcss($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$g->template['baseurl']."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
+	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".dirname($g->template['baseurl'])."/source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
 	if($e)echo $r;
 	return $r;
 }
@@ -85,7 +86,7 @@ function addjs($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = '<script src="'.$g->template['baseurl']."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
+	$r = '<script src="'.dirname($g->template['baseurl'])."/source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
 	if($e)echo $r;
 	return $r;
 }
