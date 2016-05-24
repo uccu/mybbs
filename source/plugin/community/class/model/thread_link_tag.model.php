@@ -9,7 +9,7 @@ class thread_link_tag extends \model{
         ),
     );
     public $threadMap = array(
-        'thread_link_tag'=>array(
+        'thread'=>array(
                 'uid',
                 'reply',
                 'ctime',

@@ -37,13 +37,13 @@ class thread extends \control\ajax{
     function get_theme($tid=0){
         $this->user->_safe_login();
         $limit = post('limit',6,'%d');
-        $tid = post('tid',$tag,'%d');
+        $tid = post('tid',$tid,'%d');
         $line = post('last',0,'%d');
         if($tid)$where['tid'] = $tid;
         $where['reply'] = 0;
         if($line)$where['last'] = array('logic',$line,'<');
         if(!$tid)$m = $this->model->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order('last','DESC')->limit($limit)->select();
-        else $m = $this->modelView->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order('last','DESC')->limit($limit)->select();
+        else $m = $this->modelView->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order(array('last'=>'DESC'))->limit($limit)->select();
         foreach($m as &$v)$v['pic'] = $v['pic']?unserialize($v['pic']):array();
         $this->success($m);
     }
@@ -59,7 +59,7 @@ class thread extends \control\ajax{
         if($line)$where['ctime'] = array('logic',$line,'>');
         $this->model->add_table($this->model->userMap);
         $theme = $this->model->where($where0)->field(array('hid','title','content','pic','ctime','uid','nickname','avatar'))->find();
-        $reply = $this->model->where($where)->field(array('hid','content','ctime','uid','nickname','avatar'))->order('ctime')->limit($limit)->select();
+        $reply = $this->model->where($where)->field(array('hid','content','ctime','uid','nickname','avatar'))->order(array('ctime'))->limit($limit)->select();
         if($theme){
             $theme['pic'] = $theme['pic']?unserialize($theme['pic']):array();
             $where2['uid'] = $this->user->uid;

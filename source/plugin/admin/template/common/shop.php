@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
         <li><a href="common">基本设置</a></li>
-        <li><a href="common/pic">切图设置</a></li>
+        <li><a href="common/shop">商城切图</a></li>
     </ol>
     <div class="alert_box"></div>
 </div>
@@ -12,9 +12,9 @@
 <div class="container">
     <div class="col-md-2">
         <div class="list-group">
-            <a class="list-group-item active cd">切图设置</a>
+            <a href="common/pic" class="list-group-item">切图设置</a>
             <a href="common/ad" class="list-group-item">社区广告</a>
-            <a href="common/shop" class="list-group-item">商城切图</a>
+            <a class="list-group-item active cd">商城切图</a>
         </div>
     </div>
     <div class="col-md-10">
@@ -154,7 +154,7 @@
     });
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
-        j.post('common/change_pic',d,function(){
+        j.post('common/change_shop',d,function(){
             location=location
         })
     });
@@ -162,7 +162,7 @@
         var id=j(this).parent().parent().parent().find('td:eq(0)').text();
         j('.alert_box').html('').append('<div id="alert" class="alert alert-danger alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认删除？</h4><p></p><p><button type="button" class="btn btn-danger yes" style="margin-right:10px">删除</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
-            j.post('common/del_pic',{id:parseInt(id)-1},function(){
+            j.post('common/del_shop',{id:parseInt(id)-1},function(){
                 location=location
             })
         })
@@ -170,7 +170,7 @@
     j('.add_pic').click(function(){
         j('.alert_box').html('').append('<div id="alert" class="alert alert-success alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认添加？</h4><p></p><p><button type="button" class="btn btn-success yes" style="margin-right:10px">添加</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
-            j.post('common/add_pic',function(){
+            j.post('common/add_shop',function(){
                 location=location
             })
         })

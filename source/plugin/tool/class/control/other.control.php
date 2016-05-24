@@ -42,7 +42,41 @@ class other extends \control\ajax{
         $this->success($m);
     }
     function up_pic($f = 'diary'){
-        return $this->_up_pic($f);
+        $dir = PLAY_ROOT.'pic/'.$f.'/';
+        $pic = array();$time = time();
+        foreach($_FILES as $file){
+            $imgsrc0 = $file['tmp_name'];
+            $arr = getimagesize($imgsrc0);
+            switch($arr[2]){
+                case 3:
+                    $imgsrc = imagecreatefrompng($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                case 2:
+                    $imgsrc = imagecreatefromjpeg($imgsrc0);
+                break;
+                case 1:
+                    $imgsrc = imagecreatefromgif($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                default:
+                    $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
+                    break;
+            }
+            $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
+            $image = imagecreatetruecolor($arr[0], $arr[1]);    //图像大小
+            imagealphablending($image,false);
+            imagesavealpha($image,true);
+            $color = imagecolorallocatealpha($image, 0, 0, 0,127);
+            imagefill($image, 0, 0, $color);
+            imagecopyresampled($image, $imgsrc,0,0,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
+
+            $md5 = md5_file($imgsrc0);
+            if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
+            imagedestroy($image);
+            $pic[] = $f.'/'.$md5.'.png';
+        }
+        $this->success($pic);
     }
     function _up_pic($f = 'diary'){
         //$this->user->_safe_login();

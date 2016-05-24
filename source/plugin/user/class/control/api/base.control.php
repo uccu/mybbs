@@ -22,7 +22,7 @@ class base extends \control\ajax{
         
         $secury = post('login_secury');
         $time = time();
-        //if(!$secury)$secury = cookie('login_secury');
+        if(!$secury)$secury = cookie('login_secury');
         if(!$secury)return 0;
         if(!$s = substr($secury,1))$this->error(405,'非法操作');
         if(!$s = base64_decode($s))$this->error(405,'非法操作');
@@ -37,7 +37,7 @@ class base extends \control\ajax{
             $this->type = $type;
             return $uid;
         }    
-        
+        //echo md5($uid.$until.$type.$this->g->config['LOGIN_SALT']).'|'.$md5;
         return 0;
     }
     protected function _get_type(){

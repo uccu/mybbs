@@ -24,6 +24,20 @@ class opition extends \control\ajax{
         $this->success($m);
         
     }
+    function get_ad(){
+        $m = $this->model->find('logo_ad');
+        if(!$m)$m = array();
+        else $m = unserialize($m['content']);
+        $this->success($m);
+        
+    }
+    function get_shop_pic(){
+        $m = $this->model->find('shop_pic');
+        if(!$m)$m = array();
+        else $m = unserialize($m['content']);
+        $this->success($m);
+        
+    }
     function set_logo_pic(){
         $f = array(
             array(

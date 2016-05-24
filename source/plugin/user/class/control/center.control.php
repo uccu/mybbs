@@ -3,7 +3,7 @@ namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class center extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -20,6 +20,9 @@ class center extends \control\ajax{
     function _get_gift(){
         return model('user:gift');
     }
+    function _get_project(){
+        return model('project:project');
+    }
     function _get_feedback(){
         return model('user:feedback');
     }
@@ -30,7 +33,7 @@ class center extends \control\ajax{
         return control('tool:other');
     }
     function _get_reservationView(){
-        $m = $model('project:reservation');
+        $m = model('project:reservation');
         $m->add_table($m->storeMap);
         $m->add_table($m->expertMap);
         return $m;
@@ -49,7 +52,7 @@ class center extends \control\ajax{
         $this->success();
     }
     function change_nickname(){
-        $data['nickname'] = post('nickname');
+        $data['nickname'] = post('name');
         if(!$data)$this->error(401,'参数错误');
         $this->model->data($data)->save($this->user->uid);
         $this->success();
@@ -94,9 +97,11 @@ class center extends \control\ajax{
     }
     function change_work(){
         $data['work'] = post('work');
+        //model('cache')->replace('test2',$data['work']);
         if(preg_match('#\d+#',$data['work']))$where['id'] = $data['work'];
         else $where['name'] = $data['work'];
-        $w = $this->work-where($where)->find();
+        $w = $this->work->where($where)->find();
+        //model('cache')->replace('test',$w);
         if(!$w)$this->error(419,'没有找到对应的工作');
         $data['work'] = $w['name'];
         if(!$data)$this->error(401,'参数错误');
@@ -111,6 +116,15 @@ class center extends \control\ajax{
         $data['interest'] = array('logic',$interest,'%s');
         $this->model->data($data)->save($this->user->uid);
         $this->success();
+    }
+    function get_interest(){
+        $m = $this->model->field(array('interest'))->find($this->user->uid);
+        $interest = $m['interest']?unserialize($m['interest']):array();
+        $m = $this->project->field(array('jid','jname'))->limit(999)->order(array('jorder'))->select();
+        foreach($m as &$v){
+            $v['favo'] = array_search($v['jid'],$interest)===false?0:1;
+        }
+        $this->success($m);
     }
     function get_my_reservation(){
         $where['uid'] = $this->user->uid;
@@ -211,6 +225,7 @@ class center extends \control\ajax{
     function get_my_info(){
         $m = $this->model->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
                 'work','phone','interest','score','ctime','last_time','ip'))->find($this->user->uid);
+        $m['interest'] = $m['interest']?unserialize($m['interest']):array();
         $this->success($m);
     }
     

@@ -27,9 +27,23 @@ class adviser extends \control\ajax{
         $m->add_table($m->userMap);
         return $m;
     }
-    function get_user_list(){
+    function get_user_list($array=0){
         $where['adviser'] = $this->user->uid;
-        $m = $this->model->field(array('uid','nickname','diary'))->where($where)->order('nickname')->limit(9999)->select();
+        $m = $this->model->field("`uid` ,  `nickname` ,`diary`, ELT( INTERVAL( CONV( HEX( LEFT( CONVERT(  `nickname` 
+USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2, 0xB8C1, 0xB9FE, 0xBBF7, 0xBFA6, 0xC0AC, 0xC2E8, 0xC4C3, 0xC5B6, 0xC5BE, 0xC6DA, 0xC8BB, 0xC8F6, 0xCBFA, 0xCDDA, 0xCEF4, 0xD1B9, 0xD4D1 ) ,  'A',  'B',  'C',  'D',  'E',  'F',  'G',  'H',  'J',  'K',  'L',  'M',  'N',  'O',  'P',  'Q',  'R',  'S',  'T',  'W',  'X',  'Y',  'Z' ) AS py
+")->where($where)->order('py')->limit(9999)->select();
+        if(post('array',$array)){
+            foreach($m as $v){
+                if($v['py'] == null){
+                    if(preg_match('#^([QWERTYUIOPASDFGHJKLZXCVBNM])#i',$v['nickname'],$match)){
+                        $v['py'] = strtoupper($match[1]);
+                    }else $v['py'] = '#';
+                } 
+                $mm[$v['py']][] = $v;
+            }
+            $this->success($mm);
+        }
+        
         $this->success($m);
     }
     function get_user_detail($uid=0){
@@ -72,7 +86,7 @@ class adviser extends \control\ajax{
         $line = post('ctime',0,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
         $theme = $line ? array() : $this->diary->field(array('ctime','otime','pic','title'))->where($where0)->find();
-        $reply = $this->diary->field(array('ctime','pic','content','suggest'))->where($where)->order('ctime','DESC')->limit($limit)->select();
+        $reply = $this->diary->field(array('ctime','pic','content','suggest','did'))->where($where)->order('ctime','DESC')->limit($limit)->select();
         $m = array('theme'=>$theme,'reply'=>$reply);
         $data['new'] = 0;
         $this->diary->data($data)->save($where0['did']);
@@ -91,5 +105,6 @@ class adviser extends \control\ajax{
     }
     
 }
+//SELECT `uid` , `nickname` , ELT( INTERVAL( CONV( HEX( left( CONVERT( `nickname` USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2, 0xB8C1, 0xB9FE, 0xBBF7, 0xBFA6, 0xC0AC, 0xC2E8, 0xC4C3, 0xC5B6, 0xC5BE, 0xC6DA, 0xC8BB, 0xC8F6, 0xCBFA, 0xCDDA, 0xCEF4, 0xD1B9, 0xD4D1 ) , 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z' ) AS PY FROM zr_user_info ORDER BY PY ASC
 
 ?>

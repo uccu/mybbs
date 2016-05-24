@@ -56,6 +56,7 @@ class in extends \control\ajax{
         $out['login_secury'] = $login_secury;
         return $this->success($out);
     }
+    
     function adviser_login($e=array()){
         
         $phone = post('phone','');
@@ -83,7 +84,7 @@ class in extends \control\ajax{
         }
         $uid = $user['uid'];
         $type = $user['user_type'];
-        if($type<1)if($this->type<$r)$this->error(407,'未授权');
+        if($type<1)$this->error(407,'未授权');
         $until = post('until',0,'%d');
         if($until)$until =$time;
         $salt = 'QWERTYUIOPASDFGHJKLZXCVBNM';
