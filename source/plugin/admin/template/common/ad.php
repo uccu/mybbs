@@ -53,7 +53,7 @@
     j('[type=file]').change(function(){
         form = packFormData('[type=file]');
         j.ajax({
-            url:location.origin+'/tool/other/up_pic/common',
+            url:'common/up_pic/common',
             data:form,
             contentType:false,
             processData:false,
@@ -76,7 +76,7 @@
         j('.alert_box').html('').append('<div id="alert" class="alert alert-success alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认保存？</h4><p></p><p><button type="button" class="btn btn-success yes" style="margin-right:10px">添加</button><button type="button" class="btn btn-default" data-dismiss="alert">保存</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
             j.post('common/save_ad',d,function(){
-                location=location
+                location.reload(true)
             })
         })
         

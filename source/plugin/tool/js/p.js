@@ -8,11 +8,30 @@ String.prototype.decodeh=function(){return this.replace(/&222;|&333;|&#039;|&lt;
 String.prototype.sizechange=function(){return this!=''?(this<1000?this+"MB":((parseInt(this/10.24))/100)+"GB"):"未知";};
 String.prototype.ltypechange=function(){return {'1':'Torrent','2':'Magnet','3':'Link','4':'Pan'}[this]};
 Number.prototype.t2=function(){if(this.toString().length===1)return '0'+this;else return this.toString()};
-String.prototype.timechange=function(){
+String.prototype.timeChange=function(){
 	var g = new Date();
 	g.setTime(this*1000);
 	return g.getFullYear()+'-'+(g.getMonth()+1).t2()+'-'+g.getDate().t2()+' '+g.getHours().t2()+":"+g.getMinutes().t2()
 }
+String.prototype.dateChange=function(){
+	var g = new Date();g.setTime(this*1000);return g.getFullYear()+'-'+(g.getMonth()+1).t2()+'-'+g.getDate().t2()
+}
+window.getPageSet=(p,m,a,f,b,c)=>{
+	p=parseInt(p);if(!a)a='href';
+	var s='',g=(p>5?p-5:1)-(p+5>m?5+m-p:0);if(!b)b='';
+	s+='<li><a '+a+'="'+f+1+b+'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+	for(i=g<1?1:g;i<p;i++)
+		s+="<li><a "+a+"='"+f+i+b+"'><i class='t'>"+i+"</i></a></li>";
+	s+="<li class='active'><a class='paget'>"+p+"<span class='sr-only'>(current)</span></a></li>";
+	for(i=p+1;i<=m&&i<(p+6+(p>5?0:6-p));i++)
+		s+="<li><a "+a+"='"+f+i+b+"'><i class='t'>"+i+"</i></a></li>";
+	s+='<li><a '+a+'="'+f+m+b+'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+	jQuery(()=>{
+		jQuery('.pageset').append(s);
+		if(c)c()
+	})
+}
+
 jQuery.fn.extend({
 	positions:function(value){
 		var elem = this[0];

@@ -41,9 +41,17 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
             } 
             $mm[$v['py']][] = $v;
         }
+        $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#';
+        
+        for($i=0;$i<27;$i++)$mmm[] = $mm[substr($str,$i,1)]?$mm[substr($str,$i,1)]:array();
+        $mm = $mmm;
         if(post('array',$array))$this->success($mm);
         
         
+        $this->success($m);
+    }
+    function get_my_info(){
+        $m = $this->model->field(array('uid','avatar','nickname'))->find($this->user->uid);
         $this->success($m);
     }
     function get_user_detail($uid=0){
@@ -62,6 +70,7 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
         $line = post('ctime',0,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
         $m = $this->diary->field(array('did','ctime','otime','pic','last_pic','title','new'))->where($where)->order('ctime','DESC')->limit($limit)->select();
+        foreach($m as &$v)$v['news'] = $v['new'];
         $this->success($m);
     }
     function suggest(){
@@ -75,9 +84,9 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
         if(!$diary = $this->diary->where($where)->data($data)->save())$this->error(410,'修改失败');
         $this->success();
     }
-    function get_diary_detail($did){
+    function get_diary_detail($did,$uid){
         $limit = post('limit',6,'%d');
-        $where['uid'] = post('uid');
+        $where['uid'] = post('uid',$uid);
         $where0['did'] = post('did',$did,'%d');
         $where0['uid'] = $where['uid'];
         if(!$where0['did'])$this->error(401,'参数错误');
@@ -85,7 +94,7 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
         $where['reply'] = $where0['did'];
         $line = post('ctime',0,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
-        $theme = $line ? array() : $this->diary->field(array('ctime','otime','pic','title'))->where($where0)->find();
+        $theme = $this->diary->field(array('ctime','otime','pic','title'))->where($where0)->find();
         $reply = $this->diary->field(array('ctime','pic','content','suggest','did'))->where($where)->order('ctime','DESC')->limit($limit)->select();
         $m = array('theme'=>$theme,'reply'=>$reply);
         $data['new'] = 0;
@@ -94,7 +103,7 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
         $where1['reply'] = 0;
         $where1['new'] = 1;
         $data2['diary'] = 0;
-        if(!$this->diary->where($where1)->find())$this->user->data($data2)->save($where['uid']);
+        if(!$this->diary->where($where1)->find())$this->model->data($data2)->save($where['uid']);
         $this->success($m);
     }
     function get_reservation(){

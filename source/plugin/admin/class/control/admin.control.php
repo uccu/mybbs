@@ -59,4 +59,9 @@ class admin extends \control\ajax{
         $out['login_secury'] = $login_secury;
         return $this->success($out);
     }
+    function logout(){
+        $this->user->_safe_login();
+        cookie('login_secury','',-3600);
+        header('Location: /admin/login');
+    }
 }

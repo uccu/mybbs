@@ -135,7 +135,7 @@
     j('#myModal [type=file]').change(function(){
         form = packFormData('#myModal [type=file]');
         j.ajax({
-            url:location.origin+'/tool/other/up_pic/common',
+            url:'common/up_pic/common',
             data:form,
             contentType:false,
             processData:false,
@@ -155,7 +155,7 @@
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
         j.post('common/change_pic',d,function(){
-            location=location
+            location.reload(true)
         })
     });
     j('.del_pic').click(function(){
@@ -163,7 +163,7 @@
         j('.alert_box').html('').append('<div id="alert" class="alert alert-danger alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认删除？</h4><p></p><p><button type="button" class="btn btn-danger yes" style="margin-right:10px">删除</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
             j.post('common/del_pic',{id:parseInt(id)-1},function(){
-                location=location
+                location.reload(true)
             })
         })
     });
@@ -171,7 +171,7 @@
         j('.alert_box').html('').append('<div id="alert" class="alert alert-success alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认添加？</h4><p></p><p><button type="button" class="btn btn-success yes" style="margin-right:10px">添加</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
             j.post('common/add_pic',function(){
-                location=location
+                location.reload(true)
             })
         })
         

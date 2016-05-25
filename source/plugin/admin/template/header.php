@@ -7,7 +7,7 @@
 <ul class="nav nav-tabs">
     <li role="presentation" class="index"><a href="index">Smile</a></li>
     <li role="presentation" class="common"><a href="common">基本</a></li>
-    <li role="presentation" class="permission"><a href="permission">权限</a></li>
+    {if $userType>2}<li role="presentation" class="permission"><a href="permission">权限{userType}</a></li>{/if}
     <li role="presentation" class="user"><a href="user">会员</a></li>
     <li role="presentation" class="adviser"><a href="adviser">顾问</a></li>
     <li role="presentation" class="project"><a href="project"">项目</a></li>
@@ -27,5 +27,6 @@
     <li role="presentation" class="score"><a href="score">积分</a></li>
     <li role="presentation" class="shop"><a href="shop">商城</a></li>
     <li role="presentation" class="feedback"><a href="feedback">反馈</a></li>
+    <li role="presentation" class="logout"><a href="admin/logout">退出</a></li>
 </ul>
 </div>

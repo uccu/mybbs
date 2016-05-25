@@ -4,6 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class common extends \control\ajax{
     function _beginning(){
         $this->user->_safe_type(2);
+        table('config')->template['userType'] = $this->user->type;
     }
     function _get_user(){
         return control('user:base','api');
@@ -70,6 +71,86 @@ class common extends \control\ajax{
         table('config')->template['pic'] = $m;
         T('admin:common/shop');
     }
+    function up_pic($f = 'common'){
+        $dir = PLAY_ROOT.'pic/'.$f.'/';
+        $pic = array();$time = time();
+        foreach($_FILES as $file){
+            $imgsrc0 = $file['tmp_name'];
+            $arr = getimagesize($imgsrc0);
+            switch($arr[2]){
+                case 3:
+                    $imgsrc = imagecreatefrompng($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                case 2:
+                    $imgsrc = imagecreatefromjpeg($imgsrc0);
+                break;
+                case 1:
+                    $imgsrc = imagecreatefromgif($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                default:
+                    $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
+                    break;
+            }
+            $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
+            $image = imagecreatetruecolor($arr[0], $arr[1]);    //图像大小
+            imagealphablending($image,false);
+            imagesavealpha($image,true);
+            $color = imagecolorallocatealpha($image, 0, 0, 0,127);
+            imagefill($image, 0, 0, $color);
+            imagecopyresampled($image, $imgsrc,0,0,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
+
+            $md5 = md5_file($imgsrc0);
+            if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
+            imagedestroy($image);
+            $pic[] = $f.'/'.$md5.'.png';
+        }
+        $this->success($pic);
+    }
+    function up_avatar($f = 'avatar'){
+        $uid = $this->user->uid;
+        $dir = PLAY_ROOT.'pic/'.$f.'/';
+        $pic = array();$time = time();
+        foreach($_FILES as $file){
+            $imgsrc0 = $file['tmp_name'];
+            $arr = getimagesize($imgsrc0);
+            switch($arr[2]){
+                case 3:
+                    $imgsrc = imagecreatefrompng($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                case 2:
+                    $imgsrc = imagecreatefromjpeg($imgsrc0);
+                break;
+                case 1:
+                    $imgsrc = imagecreatefromgif($imgsrc0);
+                    imagesavealpha($imgsrc,true);
+                    break;
+                default:
+                    $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
+                    break;
+            }
+            $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
+            $image = imagecreatetruecolor($w, $w);    //图像大小
+            imagealphablending($image,false);
+            imagesavealpha($image,true);
+            $color = imagecolorallocatealpha($image, 0, 0, 0,127);
+            imagefill($image, 0, 0, $color);
+            imagecopyresampled($image, $imgsrc, 0, 0, 0, 0,$arr[0], $arr[1],$w, $w);  //调整到的大小
+            
+            if($uc<10000)$fe1 = 0;else $fe1 = ($uid-$uid%10000)/10000;
+            if($uc<100)$fe2 = 0;else $fe2 = ($uid%10000-$uid%100)/100;
+            
+           
+            if(!is_dir($dir.$fe1))mkdir($dir.$fe1);
+            if(!is_dir($dir.$fe1.'/'.$fe2))mkdir($dir.$fe1.'/'.$fe2);
+            if(!imagepng($image,$dir.$fe1.'/'.$fe2.'/'.$uid.'.png'))$this->error(415,'保存图片失败');
+            imagedestroy($image);
+            $pic[] = $f.'/'.$fe1.'/'.$fe2.'/'.$uid.'.png';
+        }
+        $this->success($pic);
+    }
     function change_shop(){
         $m = $this->model->find('shop_pic');
         if(!$m)$m = array();
@@ -110,7 +191,7 @@ class common extends \control\ajax{
         $this->success($m);
     }
     function save_ad(){
-        $m = array('type'=>post('type'),'desc'=>post('desc'),'content'=>post('content'),'pic'=>post('pic'));
+        $m = array('url'=>post('url'),'desc'=>post('desc'),'content'=>post('content'),'pic'=>post('pic'));
         $data['content'] = array('logic',$m,'%s');
         $m = $this->model->data($data)->save('logo_ad');
         $this->success($m);

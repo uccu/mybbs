@@ -261,7 +261,8 @@ class center extends \control\ajax{
         $data['score'] = array('add',-1*$gift['gscore']);
         $this->model->data($data)->save($uid);
         $this->_add_score_detail('兑换'.$gift['gtitle'],$gift['gscore'],'out');
-        $this->success();
+        $array['message'] = '兑换成功，请到我这里来领取~';
+        $this->success($array['message']);
     }
     function get_friends($uid = 0){
         $where['invate'] = $this->user->uid;

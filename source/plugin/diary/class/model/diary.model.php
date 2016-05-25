@@ -15,7 +15,7 @@ class diary extends \model{
                 'pic',
                 'last_pic',
                 'suggest',
-                'new'
+                'new',
         )
     );
     
