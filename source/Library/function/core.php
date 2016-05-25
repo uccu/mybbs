@@ -41,7 +41,7 @@ function cookie($name,$value=null,$expire='',$path='/',$domain=0){
     if($value!==null){
         if(!$domain){
             $config = table('config');
-            $domain = '.'.$config->config['HOST'];
+            $domain = $config->config['HOST'];
         }
         if(!is_int($expire))return strlen($_COOKIE[$name])?$_COOKIE[$name]:$value;
         return setcookie($name,$value,$expire?$expire+time():0,$path,$domain);
