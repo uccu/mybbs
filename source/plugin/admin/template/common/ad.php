@@ -51,7 +51,7 @@
 </div>
 <script>
     j('[type=file]').change(function(){
-        form = packFormData('[type=file]');
+        var form = packFormData('[type=file]');
         j.ajax({
             url:'common/up_pic/common',
             data:form,

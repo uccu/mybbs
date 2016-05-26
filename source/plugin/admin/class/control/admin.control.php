@@ -56,6 +56,7 @@ class admin extends \control\ajax{
                 md5($uid.$until.$type.$this->g->config['LOGIN_SALT'])
             )));
         cookie('login_secury',$login_secury,$until?$until-$time:0);
+        cookie('login_zz','1',$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
         return $this->success($out);
     }

@@ -1,10 +1,18 @@
 <?php
 namespace plugin\project\model;
 defined('IN_PLAY') || exit('Access Denied');
-class product extends \model{
+class project_link_product extends \model{
     protected $tableMap = array(
-        'product'=>array(
+        'project_link_product'=>array(
+                
                 'did',
+                'jid',
+
+                
+        )
+    );
+    public $productMap = array(
+        'product'=>array(
                 'dthumb',
                 'dname',
                 'dpic',
@@ -13,7 +21,7 @@ class product extends \model{
                 'fealture',
                 'effect',
                 'purchase',
-                'jid'
+                '_on'=>'did'
         )
     );
     

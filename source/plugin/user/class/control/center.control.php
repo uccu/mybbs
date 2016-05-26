@@ -14,6 +14,9 @@ class center extends \control\ajax{
     function _get_work(){
         return model('tool:work_list');
     }
+    function _get_thread(){
+        return model('community:thread');
+    }
     function _get_favourite(){
         return model('user:favourite');
     }
@@ -139,7 +142,7 @@ class center extends \control\ajax{
         $where['uid'] = $this->user->uid;
         $where['reply'] = 0;
         if($line)$where['ctime'] = array('logic',$line,'<');
-        $m = $this->model->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order('ctime','DESC')->limit($limit)->select();
+        $m = $this->thread->where($where)->field(array('hid','title','pic','ctime','uid','last','favo','reply_num'))->order('ctime','DESC')->limit($limit)->select();
         foreach($m as &$v)$v['pic'] = $v['pic']?unserialize($v['pic']):array();
         $this->success($m);
     }

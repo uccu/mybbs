@@ -3,7 +3,7 @@ namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
 class common extends \control\ajax{
     function _beginning(){
-        $this->user->_safe_type(2);
+        if($this->user->type<2)header('Location :/admin/login');
         table('config')->template['userType'] = $this->user->type;
     }
     function _get_user(){
@@ -93,18 +93,42 @@ class common extends \control\ajax{
                     $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
                     break;
             }
-            $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
-            $image = imagecreatetruecolor($arr[0], $arr[1]);    //图像大小
-            imagealphablending($image,false);
-            imagesavealpha($image,true);
-            $color = imagecolorallocatealpha($image, 0, 0, 0,127);
-            imagefill($image, 0, 0, $color);
-            imagecopyresampled($image, $imgsrc,0,0,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
-
+            if(!post('circle')){
+                $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
+                $image = imagecreatetruecolor($arr[0], $arr[1]);    //图像大小
+                imagealphablending($image,false);
+                imagesavealpha($image,true);
+                $color = imagecolorallocatealpha($image, 0, 0, 0,127);
+                imagefill($image, 0, 0, $color);
+                imagecopyresampled($image, $imgsrc,0,0,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);
+            }else{
+                $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
+                $image = imagecreatetruecolor($w, $w);    //图像大小
+                imagealphablending($image,false);
+                imagesavealpha($image,true);
+                $color = imagecolorallocatealpha($image, 0, 0, 0,127);
+                imagefill($image, 0, 0, $color);
+                imagecopyresampled($image, $imgsrc,-($arr[0]-$w)/2, -($arr[1]-$w)/2,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
+            
+            }
+            
             $md5 = md5_file($imgsrc0);
-            if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
-            imagedestroy($image);
-            $pic[] = $f.'/'.$md5.'.png';
+            if(!is_dir($dir))mkdir($dir);
+            if($f=='common'){
+                if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
+                imagedestroy($image);
+                $pic[] = $f.'/'.$md5.'.png';
+            }else{
+                $ym = date('Ym',$time);
+                $d = date('d',$time);
+                if(!is_dir($dir.$ym))mkdir($dir.$ym);
+                if(!is_dir($dir.$ym.'/'.$d))mkdir($dir.$ym.'/'.$d);
+                $md5 = md5_file($imgsrc0);
+                if(!imagepng($image,$dir.$ym.'/'.$d.'/'.$md5.'.png'))$this->error(415,'保存图片失败');
+                imagedestroy($image);
+             $pic[] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.png';
+            }
+            
         }
         $this->success($pic);
     }

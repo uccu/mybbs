@@ -42,7 +42,7 @@
                             <th class="text-center">创建时间</th>
                             <th class="text-center">积分</th>
                             <th class="text-center">顾问</th>
-                            <th class="text-center">操作</th>
+                            <th class="text-center" style="min-width:150px">操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,8 @@
                             <td>{user.score}</td>
                             <td>{user.advisername}</td>
                             <td>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">查看详情</button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">查看</button>
+                                <button type="button" style="margin-left:10px" class="btn btn-danger del_user">删除</button>
                             </td>
                         </tr>
                         <!--{/loop}-->
@@ -216,12 +217,12 @@
             m.find('[name=work]').val(d.data.work);
             m.find('[name=sex][value='+d.data.sex+']').click();
             m.find('[name=email]').val(d.data.email);
-            m.find('[name=marry]').attr('checked',d.data.marry=='1'?'checked':false);
-            m.find('[name=diary]').attr('checked',d.data.diary=='1'?'checked':false);
-            m.find('[name=child]').attr('checked',d.data.child=='1'?'checked':false);
-            m.find('[name=plastic]').attr('checked',d.data.plastic=='1'?'checked':false);
+            m.find('[name=marry]').attr('checked',false);if(d.data.marry=='1')m.find('[name=marry]').click();
+            m.find('[name=diary]').attr('checked',false);if(d.data.diary=='1')m.find('[name=diary]').click();
+            m.find('[name=child]').attr('checked',false);if(d.data.child=='1')m.find('[name=child]').click();
+            m.find('[name=plastic]').attr('checked',false);if(d.data.plastic=='1')m.find('[name=plastic]').click();
             m.find('[name=interest]').attr('checked',false);
-            for(var k in d.data.interest)m.find('[name=interest][value='+d.data.interest[k]+']').attr('checked','checked');
+            for(var k in d.data.interest)m.find('[name=interest][value='+d.data.interest[k]+']').click();
             m.find('[name=score]').val(d.data.score);
             m.find('[name=invate]').val(d.data.invate);
             m.find('[name=adviser]').val(d.data.adviser);
@@ -230,7 +231,7 @@
         m.find('.help-block').html('');
     });
    j('#myModal [type=file]').change(function(){
-        form = packFormData('#myModal [type=file]',{uid:j('#myModal [name=uid]').val()});
+       var form = packFormData('#myModal [type=file]',{uid:j('#myModal [name=uid]').val()});
         j.ajax({
             url:'common/up_avatar',
             data:form,
@@ -254,6 +255,15 @@
         for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
         j.post('user/change_info',d,function(){
             location.reload(true)
+        })
+    });
+    j('.del_user').click(function(){
+        var id=j(this).parent().parent().find('td:eq(0)').text();
+        j('.alert_box').html('').append('<div id="alert" class="alert alert-danger alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认删除？</h4><p></p><p><button type="button" class="btn btn-danger yes" style="margin-right:10px">删除</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
+        j('.alert').slideDown().find('.yes').one('click',function(){
+            j.post('user/del_user',{uid:id},function(){
+                location.reload(true)
+            })
         })
     });
 </script>

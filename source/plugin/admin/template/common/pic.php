@@ -133,7 +133,7 @@
         m.find('.help-block').html('');m.find('[name=move]').val('');
     });
     j('#myModal [type=file]').change(function(){
-        form = packFormData('#myModal [type=file]');
+        var form = packFormData('#myModal [type=file]');
         j.ajax({
             url:'common/up_pic/common',
             data:form,

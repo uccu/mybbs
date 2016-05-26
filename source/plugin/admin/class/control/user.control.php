@@ -3,7 +3,7 @@ namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
 class user extends \control\ajax{
     function _beginning(){
-        $this->user->_safe_type(2);
+        if($this->user->type<2)header('Location :/admin/login');
         table('config')->template['userType'] = $this->user->type;
     }
     function _get_user(){
@@ -30,7 +30,7 @@ class user extends \control\ajax{
         $where['user_type'] = 0;
         if($phone)$where['phone'] = $phone;
         if($adviser)$where['advisername'] = $adviser;
-         $this->userModel->add_table(array('_table'=>array('_join'=>'LEFT JOIN','nickname'=>'advisername','_on'=>'adviser.uid=zr_user_info.adviser','_mapping'=>'adviser')));
+        $this->userModel->add_table(array('_table'=>array('_join'=>'LEFT JOIN','nickname'=>'advisername','_on'=>'adviser.uid=zr_user_info.adviser','_mapping'=>'adviser')));
         $maxRow= $this->userModel->where($where)->limit(99999999)->get_field();
         $maxPage = floor(($maxRow-1)/10)+1;
         table('config')->template['maxRow'] = $maxRow;

@@ -14,6 +14,11 @@ class product extends \control\ajax{
     function _get_favourite(){
         return model('user:favourite');
     }
+    function _get_modelView(){
+        $m = model('project:project_link_product');
+        $m->add_table($m->productMap);
+        return $m;
+    }
     function get_list($jid=0){
         $tt = post('jid',0,'%d');
         if($tt)$jid = $tt;
@@ -22,7 +27,8 @@ class product extends \control\ajax{
         $where = array();
         if($jid)$where['jid'] = $jid;
         if($line)$where['dctime'] = array('logic',$line,'<');
-        $m = $this->model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        if($jid)$m = $this->modelView->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        else $m = $this->model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
         $this->success($m);
     }
     function product($did=0){

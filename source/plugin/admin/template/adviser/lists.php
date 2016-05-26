@@ -48,6 +48,7 @@
 
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">查看详情</button>
+                                <button type="button" style="margin-left:10px" class="btn btn-danger del_adviser">删除</button>
                             </td>
                         </tr>
                         <!--{/loop}-->
@@ -148,7 +149,7 @@
         m.find('.help-block').html('');
     });
    j('#myModal [type=file]').change(function(){
-        form = packFormData('#myModal [type=file]',{uid:j('#myModal [name=uid]').val()});
+        var form = packFormData('#myModal [type=file]',{uid:j('#myModal [name=uid]').val()});
         j.ajax({
             url:'common/up_avatar',
             data:form,
@@ -181,7 +182,15 @@
                 location.reload(true)
             })
         })
-        
+    });
+    j('.del_adviser').click(function(){
+        var id=j(this).parent().parent().find('td:eq(0)').text();
+        j('.alert_box').html('').append('<div id="alert" class="alert alert-danger alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认删除？</h4><p>所有该顾问的客户都会还原成无顾问的状态</p><p><button type="button" class="btn btn-danger yes" style="margin-right:10px">删除</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
+        j('.alert').slideDown().find('.yes').one('click',function(){
+            j.post('user/del_user',{uid:id},function(){
+                location.reload(true)
+            })
+        })
     });
 </script>
 <!--{subtemplate tool:footer}-->

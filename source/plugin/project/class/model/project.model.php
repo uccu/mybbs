@@ -12,7 +12,8 @@ class project extends \model{
                 "expert",
                 "fealture",
                 "attention",
-                "jctime"
+                "jctime",
+                "jorder"
         )
     );
     
