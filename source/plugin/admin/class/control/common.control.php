@@ -3,7 +3,7 @@ namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
 class common extends \control\ajax{
     function _beginning(){
-        if($this->user->type<2)header('Location :/admin/login');
+        if($this->user->type<2)header('Location:/admin/login');
         table('config')->template['userType'] = $this->user->type;
     }
     function _get_user(){
@@ -113,7 +113,7 @@ class common extends \control\ajax{
             }
             
             $md5 = md5_file($imgsrc0);
-            if(!is_dir($dir))mkdir($dir);
+            if(!is_dir(PLAY_ROOT.'pic/'.$f))mkdir(PLAY_ROOT.'pic/'.$f);
             if($f=='common'){
                 if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
                 imagedestroy($image);

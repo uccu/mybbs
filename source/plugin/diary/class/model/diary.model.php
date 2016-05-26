@@ -18,7 +18,12 @@ class diary extends \model{
                 'new',
         )
     );
-    
+    public $userMap = array(
+        'user_info'=>array(
+            '_on'=>'uid',
+            'nickname'
+        )
+    );
    
 }
 
