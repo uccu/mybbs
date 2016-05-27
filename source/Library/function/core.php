@@ -24,8 +24,7 @@ function template($t=true,$f=true){
 function T($_t=true,$_f=true){
 	$_t = template($_t,$_f);
     $g = (array)table('config');
-	foreach($g as $k=>$v)$$k = $v;
-	
+	foreach($g['template'] as $k=>$v)$$k = $v;
 	include $_t;
 }
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
@@ -38,15 +37,11 @@ function control($t=false,$f=''){
 	return C::c($t,$f);
 }
 function model($m,$f=''){return C::m($m,$f);}
-function config($c,$v=null){
-	if($v===null)return table('config')->config[$c];
-	else return table('config')->config[$c] = $v;
-}
 function cookie($name,$value=null,$expire='',$path='/',$domain=0){
     if($value!==null){
         if(!$domain){
             $config = table('config');
-            $domain = '.'.$config->config['HOST'];
+            $domain = $config->config['HOST'];
         }
         if(!is_int($expire))return strlen($_COOKIE[$name])?$_COOKIE[$name]:$value;
         return setcookie($name,$value,$expire?$expire+time():0,$path,$domain);
@@ -82,7 +77,7 @@ function addcss($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$g->template['baseurl']."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
+	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".dirname($g->template['baseurl'])."/source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
 	if($e)echo $r;
 	return $r;
 }
@@ -91,7 +86,7 @@ function addjs($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = '<script src="'.$g->template['baseurl']."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
+	$r = '<script src="'.dirname($g->template['baseurl'])."/source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
 	if($e)echo $r;
 	return $r;
 }

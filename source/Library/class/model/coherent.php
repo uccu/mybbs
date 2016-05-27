@@ -4,6 +4,7 @@ if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
 class coherent{
+
 	protected $thisTable;
 	protected $table;
 	protected $field;
@@ -158,11 +159,13 @@ class coherent{
 			foreach($this->tableMap as $k=>$v){
 				unset($v['_mapping']);
 				unset($v['_on']);
+				unset($v['_join']);
 				foreach($v as $k0=>$v0){
-					$fields[] = model('logic')->quote_field(is_string($k0)?$k0:$v0,$ENABLE_TABLE?$k:false).(is_string($k0)?' AS '.model('logic')->quote_field($v0):'');
+					$fields[] = $v0;
 				}
 			}
-			$sql .= implode(',',$fields);
+			$this->field($fields);
+			$sql .= $this->field;
 		}else $sql .= '*';
 		$sql .=' FROM ';
 		if($this->table)$sql .= $this->table;
@@ -284,16 +287,20 @@ class coherent{
 	}
 	public function field($field=''){
 		if(is_string($field))$this->field = $field;
-		elseif(is_array($field) && $field = model('logic')->quote_field_in($field,$this->tableMap))$this->field = implode(',',$field);
+		elseif(is_array($field) && $field = model('logic')->quote_field_in($field,$this->tableMap,true))$this->field = implode(',',$field);
 		else $this->field = '';
 		return $this;
 	}
-	public function order($field, $order = 'ASC') {
+	public function order($field, $order = '') {
 		if(!$field) {
 			$this->order = '';
 			return $this;
 		}
 		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
+		if(is_string($field) && !$order){
+			$this->order = ' ORDER BY '.$field;
+			return $this;
+		}
 		if(!is_array($field))$field=array($field=>$order);
 		foreach($field as $k=>$v)
 			if($oo = model('logic')->quote_field_in(is_string($k)?$k:$v,$this->tableMap))
@@ -323,5 +330,7 @@ class coherent{
 	
 	
 	
+
 }
+
 ?>

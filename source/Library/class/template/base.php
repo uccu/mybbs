@@ -72,9 +72,7 @@ class base
             '/\{\$?([a-z][a-z_0-9\[\]\'"\$]*)\}/i',
             '/\{\$?([a-z0-9]+)\.([a-z_0-9]+)\}/i',
             '/\{\$?([a-z0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\}/i',
-            '/\{\$?([a-z0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\}/i',
-            '/\{\$?([a-z0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\.([a-z_0-9]+)\}/i',
-            '/[\r\n\t]/'
+            '/[\r\n\t]|    /'
         );
 		$r=array(
             "<?php ",
@@ -94,8 +92,6 @@ class base
             '<?php echo $$1;?>',
             '<?php echo $$1["$2"];?>',
             '<?php echo $$1["$2"]["$3"];?>',
-            '<?php echo $$1["$2"]["$3"]["$4"];?>',
-            '<?php echo $$1["$2"]["$3"]["$4"]["$5"];?>',
             ''
         );
 		$template = preg_replace($p,$r,$template);
@@ -130,7 +126,9 @@ class base
         if(!$plugin || !$kname)throw new \Exception('Oops! Name error: '.$name);
 		$cfile=PLAY_ROOT.'source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$kname.'.php';
         $cfile = str_replace('\\','/',$cfile);
-		file_exists($cfile) && self::isflesh($kname,$folder,$plugin) || self::ttoc($kname,$folder,$plugin);
+        if($config->config['DEBUG']){
+            self::ttoc($kname,$folder,$plugin);
+        }else file_exists($cfile) && self::isflesh($kname,$folder,$plugin) || self::ttoc($kname,$folder,$plugin);
         table('config')->loadtimeset['template_final']=microtime(get_as_float);
 		return $cfile;
 	}

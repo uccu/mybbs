@@ -141,7 +141,7 @@ class logic{
 		}elseif(is_bool($str))return $str ? '1' : '0';
 		return '\'\'';
 	}
-	function quote_field($field,$table=false){
+	function quote_field($field,$table=false,$as=''){
 		if (is_array($field)) 
 			foreach ($field as $k => $v){
 				if(!($s = $this->quote_field($v,$table)))continue;
@@ -152,25 +152,29 @@ class logic{
 			$kfield = '`' . str_replace('`', '', $field) . '`';
 			if(is_string($table))$kfield =  $this->quote_field($table) . '.' . $kfield;
 		}
+		if($as){
+			$kfield .= ' AS `'.$as.'` ';
+		}
 		return $kfield;
 	}
-	function quote_field_in($field,$tablemap=false){
+	function quote_field_in($field,$tablemap=false,$as=false){
 		if(!$tablemap || is_string($tablemap))
 			return $this->quote_field($field,$tablemap);
 		else{
 			if(!$field)return;
 			if(is_array($field)){
 				foreach ($field as $k => $v)
-					if($value = $this->quote_field_in($v,$tablemap))
+					if($value = $this->quote_field_in($v,$tablemap,$as))
 						$kfield[$k] = $value;return $kfield;
 			}else{
 				foreach($tablemap as $k =>$v){
 					$mapping = $v['_mapping'];
 					unset($v['_mapping']);
 					unset($v['_on']);
+					unset($v['_join']);
 					$kfield = array_search($field,$v);
 					if($kfield!==false){
-						return $this->quote_field(is_string($kfield)?$kfield:$field,count($tablemap)>1?($mapping?$mapping:$k):false);
+						return $this->quote_field(is_string($kfield)?$kfield:$field,count($tablemap)>1?($mapping?$mapping:$this->prefix.$k):false,$as&&is_string($kfield)?$field:'');
 					}
 				}return;
 				
@@ -181,12 +185,14 @@ class logic{
 	function quote_table($tablemap){
 		if(is_string($tablemap))return $this->quote_field($this->prefix.$tablemap);
 		if(!$tablemap || !is_array($tablemap))return false;
-		$content = $ons = array();
+		$content = $ons = array();$str = '';$ki = 0;
 		foreach($tablemap as $k => $v){
 			$table = $this->quote_field($this->prefix.$k);
 			if(count($tablemap)>1){
-				if($mapping = $v['_mapping'])$table .= ' '.$this->quote_field($mapping);
 				$keys = array_keys($tablemap);
+				if($k=='_table')$table = $this->quote_field($this->prefix.$keys[0]);
+				if($mapping = $v['_mapping'])$table .= ' '.$this->quote_field($mapping);
+				
 				if($keys[0] !== $k){
 					if(!($on = $v['_on']))throw new \Exception('model error');
 					elseif(strpos($on, '='))$table .= ' on '.$on;
@@ -194,8 +200,11 @@ class logic{
 				}
 			}
 			$content[] = $table;
+			if($ki)$str.= $v['_join']?' '.$v['_join'].' ':' JOIN ';
+			$str .= $table;
+			$ki++;
 		}
-		return implode(' JOIN ',$content);
+		return $str;
 		
 	}
     function arraySortString($a,$u=0,$d=array(),$li=0){
