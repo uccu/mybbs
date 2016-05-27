@@ -1,5 +1,6 @@
 <?php
 define('IN_PLAY', true);
+define('TIMELINE', time());
 define('PLAY_ROOT', substr(__DIR__, 0, -20));
 define('LIBRARY_ROOT', substr(__DIR__, 0, -6));
 define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin/');

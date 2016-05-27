@@ -22,6 +22,9 @@ class test extends \control{
 	function head(){
 		//var_dump(table('config'));
 	}
+	function mail(){
+		//\plugin\tool\control\smtp\smtp::send();
+	}
 	
 }
 

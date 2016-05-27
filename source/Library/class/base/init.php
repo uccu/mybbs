@@ -19,9 +19,7 @@ class init{
 	private function _init_input(){
 		$tran = control('tool:tran','format');
 		if($_POST)$_POST = $tran->t2c(str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$_POST));
-		$p=floor($_REQUEST['page']);
-		$this->config->page=$p>0&&$p<101?$p:1;
-		$this->config->maxpage=$this->config->maxrow=1;
+		
 		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->config->plugin=$_REQUEST['plugin']){
 			header('Location: /404.html');
 		}

@@ -2,7 +2,7 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 	
-  
+  RewriteRule ^$ my/index
   RewriteRule ^(s?)([0-9]{1,2})/([a-z0-9]{16})\.(jpg|png|gif) http://i$2.buimg.com/$3$1.$4
   RewriteRule ^t([0-9]{1,2})/([a-z0-9]{16})\.(jpg|png|gif) http://i$1.buimg.com/$2t.jpg
   RewriteRule ^_([a-z0-9_]+)/([a-z0-9_]+)(?:/([a-z0-9_A-Z]+)(?:/([^\.]*))?)?/?$ d.php?plugin=$1&control=$2&method=$3&getter=$4

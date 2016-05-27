@@ -10,7 +10,8 @@ class article extends \model{
             'description',
             'ctime',
             'display',
-            'type'
+            'type',
+            'reply_count'
         )
     );
     

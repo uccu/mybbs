@@ -76,6 +76,7 @@ if ( typeof define === 'function' && define.amd ) {
   // browser global
   window.classie = classie;
 }
+  j(()=>{
       if (!String.prototype.trim) {
 					(function() {
 						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
@@ -103,4 +104,5 @@ if ( typeof define === 'function' && define.amd ) {
 						classie.remove( ev.target.parentNode, 'input--filled' );
 					}
 				}
+  })
 })( window );

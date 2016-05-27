@@ -3,7 +3,7 @@
     .blog_block:hover .blog_title{border-left: 5px solid red;}
 </style>
 <div class="container">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="background:none">
         <li><a href="">Home</a></li>
         <li><a href="my/article/list">List</a></li>
     </ol>
@@ -31,6 +31,15 @@
     </div>  
 </div>
 <!--{/loop}-->
-
+<div class="container">
+    <nav class="text-center">
+        <ul class="pagination pageset">
+            <script id="pageset">
+                getPageSet({currentPage},{maxPage},'href','my/article/list/');
+                j('#pageset').remove()
+            </script>
+        </ul>
+    </nav>
+</div>
 
 <!--{subtemplate tool:footer}-->
