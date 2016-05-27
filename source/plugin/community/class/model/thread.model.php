@@ -18,7 +18,7 @@ class thread extends \model{
     );
     public $userMap = array(
         'user_info'=>array(
-            'nickname','avatar','_on'=>'uid'
+            'nickname','avatar','_on'=>'uid','phone'
             
             
         )

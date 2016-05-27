@@ -256,14 +256,9 @@ class center extends \control\ajax{
     }
     function get_gift(){
         $gid = post('gid',0,'%d');
-        $uid = $this->user->uid;
         $gift = $this->gift->find($gid);
         if(!$gift)$this->error(420,'没有找到礼品');
-        $user = $this->model->find($uid);
-        if($gift['gscore']>$user['score'])$this->error(421,'积分不够');
-        $data['score'] = array('add',-1*$gift['gscore']);
-        $this->model->data($data)->save($uid);
-        $this->_add_score_detail('兑换'.$gift['gtitle'],$gift['gscore'],'out');
+        control('user:score','api')->_add_score_detail('兑换'.$gift['gname'],$gift['gscore'],'out');
         $array['message'] = '兑换成功，请到我这里来领取~';
         $this->success($array['message']);
     }
@@ -272,14 +267,7 @@ class center extends \control\ajax{
         $m = $this->model->field(array('uid','nickname','invate_num'))->where($where)->select();
         $this->success($m);
     }
-    function _add_score_detail($desc,$type='in'){
-        $data['stime'] = time();
-        $data['type'] = $type;
-        $data['desc'] = $desc;
-        $data['score'] = $score;
-        $data['uid'] = $this->user->uid;
-        return $this->scoreDetail->data($data)->add();
-    }
+
     
     
 }

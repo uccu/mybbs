@@ -2,8 +2,8 @@
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
-        <li><a href="store">门店</a></li>
-        <li><a href="store/lists">门店列表</a></li>
+        <li><a href="expert">专家</a></li>
+        <li><a href="expert/lists">专家列表</a></li>
     </ol>
     <div class="alert_box"></div>
 </div>
@@ -11,23 +11,18 @@
 <div class="container">
     <div class="col-md-2">
         <div class="list-group">
-            <a class="list-group-item active cd">门店列表</a>
+            <a class="list-group-item active cd">专家列表</a>
+            <a href="reservation/lists" class="list-group-item">预约列表</a>
         </div>
        
     </div>
     <div class="col-md-10">
         <div class="panel panel-default">
             <div class="panel-body form-inline">
-                <div class="form-group" style="margin:10px">
-                        <label for="move">地区:</label>
-                        <select class="form-control" id="example1">
-                            <option selected=“selected” value="0">未选择</option>
-                            <!--{loop $store_areas $area}-->
-                            <option value="{$area.area}">{$area.area}</option>
-                            <!--{/loop}-->
-                        </select>
-                    </div>
-                
+                 <div class="form-group" style="margin-right:10px">
+                    <label for="exampleInputName2">专家名字：</label>
+                    <input type="text" class="form-control" id="example1" placeholder="">
+                </div>
                 <button type="submit" class="btn btn-default search">搜索</button>
             </div>
         </div>
@@ -38,24 +33,22 @@
                         <tr>
                             <th class="text-center">ID</th>
                             <th class="text-center">名字</th>
-                            <th class="text-center">缩略图</th>
-                            <th class="text-center">地区</th>
-                            <th class="text-center">电话</th>
-                            <th class="text-center">专家</th>
+                            <th class="text-center">头像</th>
+                            <th class="text-center">门店</th>
                             <th class="text-center">预约</th>
+                            
                             <th class="text-center">操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!--{loop $list $p}-->
                         <tr>
-                            <td>{p.sid}</td>
-                            <td>{p.sname}</td>
-                            <td><img class='img-responsive center-block' style="width:80px" src="http://120.26.230.136:6087/pic/{p.sthumb}" /></td>
-                            <td>{p.area}</td>
-                            <td>{p.phone}</td>
-                            <td><a href="expert/lists/1/{p.sid}" type="button" class="btn btn-warning">查看</a></td>
-                            <td><a href="reservation/lists/1/0/{p.sid}" type="button" class="btn btn-warning">查看</a></td>
+                            <td>{p.eid}</td>
+                            <td>{p.ename}</td>
+                            <td><img class='img-responsive center-block img-circle' style="width:40px" src="http://120.26.230.136:6087/pic/{p.ethumb}" /></td>
+                            <td><a href="store/lists/1/0/{p.sid}" type="button" class="btn btn-warning">查看</a></td>
+                            <td><a href="reservation/lists/1/{p.eid}" type="button" class="btn btn-warning">查看</a></td>
+                            
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">详情</button>
                                 <button type="button" style="margin-left:10px" class="btn btn-danger del">删除</button>
@@ -87,49 +80,36 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
+                        <label for="move">专家ID</label>
+                        <input type="text" class="form-control" disabled="disabled" id="uid" name="eid2">
+                        <input type="hidden" class="form-control" id="uid" name="eid">
+                    </div>
+                    <div class="form-group">
                         <label for="move">门店ID</label>
-                        <input type="text" class="form-control" disabled="disabled" id="uid" name="sid2">
-                        <input type="hidden" class="form-control" id="uid" name="sid">
+                        <input type="text" class="form-control" name="sid">
                     </div>
                     <div class="form-group">
-                        <label for="move">所属项目：</label>
-                        <!--{loop $projects $project}-->
-                        <label>
-                            <input type="checkbox" id="inlineCheckbox1" name="interest" value="{project.jid}"> {project.jname}
-                        </label>
-                        <!--{/loop}-->
-                    </div>
-                    <div class="form-group">
-                        <label>缩略图</label>
-                        <input type="file" id="sthumb" data-circle="1" />
+                        <label>头像</label>
+                        <input type="file" id="ethumb" data-circle="1" />
                         <p class="help-block"></p>
-                        <img id="pic_sthumb" class='img-responsive' style="width:100px"  />
+                        <img id="pic_ethumb" class='img-responsive img-circle' style="width:40px"  />
                     </div>
                     <div class="form-group">
-                        <input class="form-control pic-form" name="sthumb2" type="text" value="" disabled="disabled"/>
-                        <input class="form-control pic-form" name="sthumb" type="hidden" value=""/>
+                        <input class="form-control pic-form" name="ethumb2" type="text" value="" disabled="disabled"/>
+                        <input class="form-control pic-form" name="ethumb" type="hidden" value=""/>
                     </div>
                     
                     <div class="form-group">
                         <label for="move">名字</label>
-                        <input type="text" class="form-control" name="sname" >
+                        <input type="text" class="form-control" name="ename" >
                     </div>
                     <div class="form-group">
-                        <label for="value">地址</label>
-                        <input type="text" class="form-control" name="address" >
+                        <label for="value">简介</label>
+                        <input type="text" class="form-control" name="desc" >
                     </div>
                     <div class="form-group">
-                        <label for="move">地区</label>
-                        <select class="form-control" name="area">
-                            <option selected=“selected” value="">无</option>
-                            <!--{loop $areas $area}-->
-                            <option value="{area.name}">{area.name}</option>
-                            <!--{/loop}-->
-                        </select>
-                    </div>
-                     <div class="form-group">
-                        <label for="value">电话</label>
-                        <input type="text" class="form-control" name="phone" >
+                        <label for="value">擅长</label>
+                        <textarea class="form-control" name="good" rows="2" placeholder=''></textarea>
                     </div>
                 </form>
             </div>
@@ -141,13 +121,13 @@
     </div>
 </div>
 <script>
-   var goods = 'store',control = 'store';
+   var goods = 'expert',control = 'expert';
    j('.search').click(()=>{
         var a1=j('#example1').val();
         a1=a1?a1:0;
-        location = control+'/lists/1/'+a1
+        location = control+'/lists/1/0/'+a1
     });
-   getPageSet({currentPage},{maxPage},'href',control+'/lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:''+(folder[7]?'/'+folder[7]:''));
+   getPageSet({currentPage},{maxPage},'href',control+'/lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:''));
    j('#myModal').on('show.bs.modal',function(e){
         var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
         j.post(location.origin+'/_admin/'+control+'/get_'+goods+'_detail/'+id,(d)=>{

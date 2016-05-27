@@ -43,7 +43,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.did}</td>
-                            <td>{p.nickname}</td>
+                            <td><a href="user/lists/1/{p.phone}">{p.nickname}</a></td>
                             <td>{p.cdate}</td>
                             <td>{p.has_suggest}</td>
                             <td>
@@ -133,7 +133,7 @@
                 m.find('[type!=radio][name='+k+'2]').val(d.data[k]);
                 m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
             }
-            m.find('[name=type][value='+d.data.type+']').click();
+            
 
         },'json');
         m.find('.help-block').html('');

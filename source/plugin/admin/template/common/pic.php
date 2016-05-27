@@ -13,8 +13,11 @@
     <div class="col-md-2">
         <div class="list-group">
             <a class="list-group-item active cd">切图设置</a>
+           
             <a href="common/ad" class="list-group-item">社区广告</a>
             <a href="common/shop" class="list-group-item">商城切图</a>
+            <a href="common/area" class="list-group-item">地区列表</a>
+            <a href="common/work" class="list-group-item">工作列表</a>
         </div>
     </div>
     <div class="col-md-10">

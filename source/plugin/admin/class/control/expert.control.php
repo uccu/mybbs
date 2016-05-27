@@ -1,7 +1,7 @@
 <?php
 namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
-class store extends \control\ajax{
+class expert extends \control\ajax{
     function _beginning(){
         if($this->user->type<2)header('Location:/admin/login');
         table('config')->template['userType'] = $this->user->type;
@@ -30,6 +30,9 @@ class store extends \control\ajax{
     function _get_productView(){
         return model('project:project_link_product');
     }
+    function _get_expert(){
+        return model('project:expert_info');
+    }
     function _get_area(){
         return model('tool:area');
     }
@@ -38,61 +41,49 @@ class store extends \control\ajax{
     }
 
 
-    function lists($page=1,$area=0,$s=0){
+    function lists($page=1,$s=0,$n=0){
         $where=array();
         if($s)$where['sid'] = $s;
-        if($area)$where['area'] = $area;
-        $maxRow= $this->store->where($where)->limit(99999999)->get_field();
+        if($n)$where['ename'] = $n;
+        $maxRow= $this->expert->where($where)->limit(99999999)->get_field();
         $maxPage = floor(($maxRow-1)/10)+1;
         table('config')->template['maxRow'] = $maxRow;
         table('config')->template['maxPage'] = $maxPage;
         table('config')->template['currentPage'] = $page;
-        $list = $this->store->where($where)->page($page,10)->order(array('sid'=>'DESC'))->select();
+        $list = $this->expert->where($where)->page($page,10)->order(array('eid'=>'DESC'))->select();
 
         table('config')->template['list'] = $list;
-        table('config')->template['store_areas'] = $this->store->field('DISTINCT `area`')->order('area')->limit(9999)->select();
-        table('config')->template['areas'] = $this->area->field("concat(province,' ',city,' ',district) as name")->order(array('province','city','district'))->limit(9999)->select();
-        table('config')->template['projects'] = $this->project->field(array('jid','jthumb','jname'))->limit(999)->order(array('jorder'))->select();
-        T('admin:store/lists');
+        //table('config')->template['store_areas'] = $this->store->field('DISTINCT `area`')->order('area')->limit(9999)->select();
+        //table('config')->template['areas'] = $this->area->field("concat(province,' ',city,' ',district) as name")->order(array('province','city','district'))->limit(9999)->select();
+        //table('config')->template['projects'] = $this->project->field(array('jid','jthumb','jname'))->limit(999)->order(array('jorder'))->select();
+        T('admin:expert/lists');
         
     }
 
-    function get_store_detail($id){
-        $d = $this->store->find($id);
-        $e = $this->storeView->where(array('sid'=>$id))->limit(99999)->select();
-        foreach($e as &$v){
-            $v = $v['jid'];
-        }
-        $d['interest'] = $e;
+    function get_expert_detail($id){
+        $d = $this->expert->find($id);
         if(!$d)$this->error(411,'获取失败');
         $this->success($d);
     }
-    function change_store(){
-        $id = post('sid');
-        $d = $this->store->data($_POST)->save($id);
-        $this->storeView->where(array('sid'=>$id))->remove();
+    function change_expert(){
+        $id = post('eid');
+        $d = $this->expert->data($_POST)->save($id);
+        $this->expertView->where(array('sid'=>$id))->remove();
         foreach(post('interest') as $v){
             $data = array('sid'=>$id,'jid'=>$v);
-            $this->storeView->data($data)->add(true);
+            $this->expertView->data($data)->add(true);
         }
         $this->success($d);
     }
-    function add_store(){
+    function add_expert(){
         $data=array(
-
-                'sthumb'=>'no_store_thumb.png',
-                'sname'=>'医院',
-                'address'=>'',
-                'area'=>'',
-                'phone'=>'',
-  
+                'ethumb'=>'no_expert_thumb.png',
         );
-        $d = $this->store->data($data)->add();
+        $d = $this->expert->data($data)->add();
         $this->success($d);
     }
-    function del_store($id){
-        $d = $this->store->remove($id);
-        $this->storeView->where(array('sid'=>$id))->remove();
+    function del_expert($id){
+        $d = $this->expert->remove($id);
         $this->success($d);
     }
     function _nomethod(){

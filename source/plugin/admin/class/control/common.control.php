@@ -18,12 +18,47 @@ class common extends \control\ajax{
     function _get_project(){
         return model('project:project');
     }
+    function _get_area(){
+        return model('tool:area');
+    }
+    function _get_work(){
+        return model('tool:work_list');
+    }
     function pic(){
         $m = $this->model->find('logo_pic');
         if(!$m)$m = array();
         else $m = unserialize($m['content']);
         table('config')->template['pic'] = $m;
         T('admin:common/pic');
+    }
+    function change_area(){
+        $m = $this->area->data($_POST)->add(true);
+        $this->success($m);
+    }
+    function del_area(){
+        $m = $this->area->where($_POST)->remove();
+        $this->success($m);
+    }
+    function work(){
+        $list = $this->work->limit(9999)->order('name')->select();
+        table('config')->template['list'] = $list;
+        T('admin:common/work');
+    }
+    function change_work(){
+        $m = $this->work->data($_POST)->add(true);
+        $this->success($m);
+    }
+    function del_work(){
+        $m = $this->work->where($_POST)->remove();
+        $this->success($m);
+    }
+    function area($province=0,$city=0){
+        $where=array();
+        if($province)$where['province'] = $province;
+        if($city)$where['city'] = $city;
+        $list = $this->area->field("province,city,district")->where($where)->order(array('province','city','district'))->limit(9999)->select();
+        table('config')->template['list'] = $list;
+        T('admin:common/area');
     }
     function change_pic(){
         $m = $this->model->find('logo_pic');

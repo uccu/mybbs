@@ -15,6 +15,9 @@
             <a href="common/pic" class="list-group-item">切图设置</a>
             <a href="common/ad" class="list-group-item">社区广告</a>
             <a class="list-group-item active cd">商城切图</a>
+            <a href="common/area" class="list-group-item">地区列表</a>
+            <a href="common/work" class="list-group-item">工作列表</a>
+            
         </div>
     </div>
     <div class="col-md-10">

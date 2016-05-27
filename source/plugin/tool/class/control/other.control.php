@@ -14,6 +14,9 @@ class other extends \control\ajax{
     function _get_work(){
         return model('tool:work_list');
     }
+    function _get_userModel(){
+        return model('user:user_info');
+    }
     function get_area(){
         $province = post('province');
         $city = post('city');
@@ -36,50 +39,34 @@ class other extends \control\ajax{
         $this->success($m);
     }
     function get_adviser(){
-        
-        $m['user'] = 'guwen_1';
-        
-        $this->success($m);
-    }
-    function up_pic($f = 'diary'){
-        $dir = PLAY_ROOT.'pic/'.$f.'/';
-        $pic = array();$time = time();
-        foreach($_FILES as $file){
-            $imgsrc0 = $file['tmp_name'];
-            $arr = getimagesize($imgsrc0);
-            switch($arr[2]){
-                case 3:
-                    $imgsrc = imagecreatefrompng($imgsrc0);
-                    imagesavealpha($imgsrc,true);
-                    break;
-                case 2:
-                    $imgsrc = imagecreatefromjpeg($imgsrc0);
-                break;
-                case 1:
-                    $imgsrc = imagecreatefromgif($imgsrc0);
-                    imagesavealpha($imgsrc,true);
-                    break;
-                default:
-                    $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
-                    break;
+        require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
+        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        //$r = $p->getToken('7','testUser','http://120.26.230.136:6087/pic/iavatar/0/0/7.png');
+        $this->user->_safe_login();
+        //$this->user->uid = 13;
+        $user = $this->userModel->find($this->user->uid);
+        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
+        //var_dump($r);
+        $o = json_decode($r,true);
+        if($o){
+            if(!$user['adviser']){
+                $where['user_type'] = 1;
+                $advisers = $this->userModel->where($where)->limit(9999)->select();
+                $rand = rand(0,count($advisers)-1);
+                $adviser = $advisers[$rand];
+                $data['adviser'] = $adviser['uid'];
+                $this->userModel->data($data)->save($user['uid']);
+                $user['adviser'] = $adviser['uid'];
             }
-            $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
-            $image = imagecreatetruecolor($arr[0], $arr[1]);    //图像大小
-            imagealphablending($image,false);
-            imagesavealpha($image,true);
-            $color = imagecolorallocatealpha($image, 0, 0, 0,127);
-            imagefill($image, 0, 0, $color);
-            imagecopyresampled($image, $imgsrc,0,0,0, 0 ,$arr[0], $arr[1],$arr[0], $arr[1]);  //调整到的大小
-
-            $md5 = md5_file($imgsrc0);
-            if(!imagepng($image,$dir.$md5.'.png'))$this->error(415,'保存图片失败');
-            imagedestroy($image);
-            $pic[] = $f.'/'.$md5.'.png';
+            $array['token'] = $o['token'];
+            $array['adviser'] = $user['adviser'];
+            $this->success($array);
         }
-        $this->success($pic);
+        else $this->error(411,'获取失败');
     }
+  
     function _up_pic($f = 'diary'){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         $pic = array();$time = time();
         foreach($_FILES as $file){

@@ -21,7 +21,8 @@ class diary extends \model{
     public $userMap = array(
         'user_info'=>array(
             '_on'=>'uid',
-            'nickname'
+            'nickname',
+            'phone'
         )
     );
    
