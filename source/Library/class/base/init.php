@@ -3,7 +3,6 @@ namespace base;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-
 class init{
     private $config;
 	function __construct(){

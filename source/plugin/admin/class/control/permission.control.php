@@ -1,7 +1,7 @@
 <?php
 namespace plugin\admin\control;
 defined('IN_PLAY') || exit('Access Denied');
-class adviser extends \control\ajax{
+class permission extends \control\ajax{
     function _beginning(){
         if($this->user->type<2)header('Location:/admin/login');
         table('config')->template['userType'] = $this->user->type;
@@ -26,10 +26,9 @@ class adviser extends \control\ajax{
     }
 
 
-    function lists($page=1,$phone=0,$adviser=0){
-        $where['user_type'] = 1;
-        if($phone)$where['phone'] = $phone;
-        if($adviser)$where['advisername'] = $adviser;
+    function lists($page=1){
+        $where['user_type'] = array('logic',1,'>');
+      
          $this->userModel->add_table(array('_table'=>array('_join'=>'LEFT JOIN','nickname'=>'advisername','_on'=>'adviser.uid=zr_user_info.adviser','_mapping'=>'adviser')));
         $maxRow= $this->userModel->where($where)->limit(99999999)->get_field();
         $maxPage = floor(($maxRow-1)/10)+1;
@@ -42,13 +41,10 @@ class adviser extends \control\ajax{
             $user['cdate'] = date('Y-m-d',$user['ctime']);
         }
         table('config')->template['list'] = $list;
-        table('config')->template['areas'] = $this->area->field("concat(province,' ',city,' ',district) as name")->order(array('province','city','district'))->limit(9999)->select();
-        table('config')->template['works'] = $this->work->limit(9999)->order('name')->select();
-        table('config')->template['projects'] = $this->project->field(array('jid','jthumb','jname'))->limit(999)->order(array('jorder'))->select();
-        T('admin:adviser/lists');
+        T('admin:permission/lists');
         
     }
-    function add_adviser(){
+    function add_permission(){
         
         $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
         for($i=0;$i<5;$i++)$salt .=$ss[rand(0,35)];
@@ -59,7 +55,7 @@ class adviser extends \control\ajax{
         $data['ctime'] = $time;
         $data['salt'] = $salt;
         $data['avatar'] = 'noavatar.png';
-        $data['user_type'] = 1;
+        $data['user_type'] = 2;
         $data['nickname'] = '顾问_'.$time;
         $data['avatar'] = 'noavatar.png';
         if(!$rr = $this->userModel->data($data)->add())

@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <label for="move">重设密码</label>
-                        <input type="password" class="form-control" name="pdw" placeholder="">
+                        <input type="password" class="form-control" name="pwd" placeholder="">
                     </div>
                 </form>
             </div>

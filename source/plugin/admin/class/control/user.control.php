@@ -80,7 +80,10 @@ class user extends \control\ajax{
         $data['age'] = strtotime(post('age'));
         $data['area'] = post('area');
         $data['sex'] = post('sex');
-        if($phone = post('phone'))$data['phone'] = $phone;
+        if($phone = post('phone')){
+            if($user['phone']!=$phone)if($this->userModel->where(array('phone'=>$phone))->find())$this->error(411,'手机号重复');
+            $data['phone'] = $phone;
+        }
         $data['email'] = post('email');
         $data['work'] = post('work');
         $data['score'] = post('score');
@@ -91,7 +94,7 @@ class user extends \control\ajax{
         $data['plastic'] = post('plastic')?1:0;
         $data['child'] = post('child')?1:0;
         $data['interest'] = array('logic',post('interest',array()),'%s');
-        if($pwd = post('pwd'))$data['password'] = md5(md5($wd).$user['salt']);
+        if($pwd = post('pwd'))$data['password'] = md5(md5($pwd).$user['salt']);
         $m = $this->userModel->data($data)->save($uid);
         $this->success($m);
     }
