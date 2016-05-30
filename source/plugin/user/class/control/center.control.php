@@ -3,7 +3,7 @@ namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class center extends \control\ajax{
     function _beginning(){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -165,7 +165,40 @@ class center extends \control\ajax{
             $this->favourite->add_table($this->favourite->threadMap);
         }else $this->error(401,'参数错误');
         if($line)$where['ftime'] = array('logic',$line,'<');
-        $m = $this->favourite->where($where)->order(array('ftime'=>'DESC'))->select();
+        $m = $this->favourite->where($where)->order(array('ftime'=>'DESC'))->limit($limit)->select();
+        
+        if(post('typein')){
+            if($where['type']=='article'){
+                foreach($m as &$v){
+                    $v['title'] = $v['atitle'];
+                    $v['thumb'] = $v['athumb'];
+                    
+                }
+                
+            }elseif($where['type']=='media'){
+                foreach($m as &$v){
+                    $v['title'] = $v['atitle'];
+                    $v['thumb'] = $v['athumb'];
+                    
+                }
+            }elseif($where['type']=='project'){
+                foreach($m as &$v){
+                    $v['title'] = $v['jname'];
+                    $v['thumb'] = $v['jthumb'];
+                    
+                }
+            }elseif($where['type']=='product'){
+                foreach($m as &$v){
+                    $v['title'] = $v['dname'];
+                    $v['thumb'] = $v['dthumb'];
+                    
+                }
+            }elseif($where['type']=='thread'){
+                //$m['title'] = $m['hname'];
+            }
+            
+        }
+        
         $this->success($m);
     }
     function add_favourite($type){
@@ -179,15 +212,18 @@ class center extends \control\ajax{
             $data['aid'] = post('aid');
         }elseif($data['type']=='project'){
             $data['jid'] = post('jid');
-
         }elseif($data['type']=='product'){
             $data['did'] = post('did');
         }elseif($data['type']=='thread'){
             $data['hid'] = post('hid');
+            
+        }else $this->error(401,'参数错误');
+        if($this->favourite->where($data)->find())$this->error(405,'非法操作');
+        $m = $this->favourite->data($data)->add(true);
+        if($m && $data['type']=='thread'){
             $threadData['favo'] = array('add',1);
             model('community:thread')->data($threadData)->save($data['hid']);
-        }else $this->error(401,'参数错误');
-        $m = $this->favourite->data($data)->add();
+        }
         $this->success();
     }
     function remove_favourite($type){
@@ -205,7 +241,7 @@ class center extends \control\ajax{
             $data['hid'] = post('hid');
         }else $this->error(401,'参数错误');
         $m = $this->favourite->where($data)->remove();;
-        if($m && $where['type']=='thread'){
+        if($m && $data['type']=='thread'){
             $threadData['favo'] = array('add',-1);
             model('community:thread')->data($threadData)->save($data['hid']);
         }
@@ -248,6 +284,12 @@ class center extends \control\ajax{
         $m = $this->gift->field(array('ctime','gid','gtitle','gthumb','gscore'))->where($where)->order('ctime','DESC')->limit($limit)->select();
         $this->success($m);
     }
+    function get_my_gift_list(){
+        $where['uid'] = $this->user->uid;
+        $where['type'] = 'out';
+        $m = $this->scoreDetail->where($where)->order('stime','DESC')->select();
+        $this->success($m);
+    }
     function get_gift_detail($gid = 0){
         $gid = post('gid',$gid,'%d');
         $m = $this->gift->find($gid);
@@ -262,9 +304,9 @@ class center extends \control\ajax{
         $array['message'] = '兑换成功，请到我这里来领取~';
         $this->success($array['message']);
     }
-    function get_friends($uid = 0){
+        function get_friends($uid = 0){
         $where['invate'] = $this->user->uid;
-        $m = $this->model->field(array('uid','nickname','invate_num'))->where($where)->select();
+        $m = $this->model->field(array('uid','nickname','invate_num'))->limit(9999)->where($where)->select();
         $this->success($m);
     }
 

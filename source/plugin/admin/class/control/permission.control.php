@@ -5,6 +5,7 @@ class permission extends \control\ajax{
     function _beginning(){
         if($this->user->type<2)header('Location:/admin/login');
         table('config')->template['userType'] = $this->user->type;
+        table('config')->template['uid'] = $this->user->uid;
     }
     function _get_user(){
         return control('user:base','api');
@@ -27,9 +28,9 @@ class permission extends \control\ajax{
 
 
     function lists($page=1){
+        if($this->user->type<3)$where['uid'] = $this->user->uid;
         $where['user_type'] = array('logic',1,'>');
-      
-         $this->userModel->add_table(array('_table'=>array('_join'=>'LEFT JOIN','nickname'=>'advisername','_on'=>'adviser.uid=zr_user_info.adviser','_mapping'=>'adviser')));
+        //$this->userModel->add_table(array('_table'=>array('_join'=>'LEFT JOIN','nickname'=>'advisername','_on'=>'adviser.uid=zr_user_info.adviser','_mapping'=>'adviser')));
         $maxRow= $this->userModel->where($where)->limit(99999999)->get_field();
         $maxPage = floor(($maxRow-1)/10)+1;
         table('config')->template['maxRow'] = $maxRow;
@@ -45,7 +46,7 @@ class permission extends \control\ajax{
         
     }
     function add_permission(){
-        
+        $this->user->_safe_type(3);
         $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
         for($i=0;$i<5;$i++)$salt .=$ss[rand(0,35)];
         $pwd = md5(md5('123456').$salt);

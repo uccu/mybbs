@@ -6,10 +6,12 @@ class score_setting extends \model{
         'score_setting'=>array(
                 'name',
                 'score',
-
+                'type',
+                'stimes',
+                'desc'
         )
     );
-    function name($name){
+    function score($name){
         return $this->where(array('name'=>$name))->get_field('score');
     }
    

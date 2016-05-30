@@ -90,7 +90,7 @@ class core
 					if(stristr($errstr,'foreach'))return null;
 					elseif(stristr($errstr,'mysql'))return null;
 					elseif(stristr($errstr,'argument'))return null;
-					//elseif(stristr($errstr,'match'))return null;
+					elseif(stristr($errstr,'DOMDocument'))return null;
 					break;
 				case 8:
 				//case 2:

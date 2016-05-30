@@ -42,7 +42,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.id}</td>
-                            <td>{p.nickname}</td>
+                            <td><a href="user/lists/1/{p.phone}">{p.nickname}</a></td>
                             <td>{p.desc}</td>
                             <td>{p.zscore}</td>
                             <td>{p.cdate}</td>

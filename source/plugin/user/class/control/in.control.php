@@ -16,16 +16,14 @@ class in extends \control\ajax{
     protected function _get_captcha(){
         return control('tool:captcha');
     }
-    function login($e=array()){
+    function login($e=0){
         if($this->user->uid)$this->error(301,'已登入');
         $phone = post('phone','');
         $pwd = post('pwd','');
         if(!$phone || !$pwd)$this->error(401,'参数错误');
         $time = time();
         $where['phone'] = $phone;
-        
-        $user = $e?$e:$this->model->where($where)->find();
-        
+        $user = $e?$this->model->where('uid='.$e)->find():$this->model->where($where)->find();
         if(!$user)$this->error(402,'该用户未注册');
         if(md5(md5($pwd).$user['salt'])===$user['password']){
             $data['ip'] = $this->g->config['ip'];
@@ -54,6 +52,20 @@ class in extends \control\ajax{
             )));
         cookie('login_secury',$login_secury,$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
+        
+        //if($score = model('cache')->get('login_score')){
+        //    $scoreSafe = model('cache')->get('login_score_time');
+        //    if($scoreSafe!=strtotime(date('Y-m-d'))){
+         //       model('cache')->replace('login_score_time',strtotime(date('Y-m-d')));
+                $this->user->uid = $user['uid'];
+                if($score = control('user:score','api')->_add_score_detail('登录积分','login')){
+                    $out['score'] = $score;
+                }
+         //       $out['score'] = $score;
+         //   }
+            
+        //}
+        
         return $this->success($out);
     }
     
@@ -129,7 +141,7 @@ class in extends \control\ajax{
             $this->error(404,'创建失败');
         $data['uid'] = $rr;
         $data['user_type'] = 0;
-        $this->login($data);
+        $this->login($rr);
     }
     function forget_password(){
         if($this->user->uid)

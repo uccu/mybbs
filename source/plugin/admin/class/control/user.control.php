@@ -73,7 +73,7 @@ class user extends \control\ajax{
         $uid = post('uid');
         $user = $this->userModel->find($uid);
         if(!$user)$this->error(411,'获取失败');
-        if($user['user_type']>1)$this->user->_safe_type(3);
+        if($user['user_type']>1 && $user['uid']!=$this->user->uid)$this->user->_safe_type(3);
         $data['avatar'] = post('avatar');
         $data['nickname'] = post('nickname');
         $data['name'] = post('name');

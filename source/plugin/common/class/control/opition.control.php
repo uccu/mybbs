@@ -21,6 +21,15 @@ class opition extends \control\ajax{
         $m = $this->model->find('logo_pic');
         if(!$m)$m = array();
         else $m = unserialize($m['content']);
+        foreach($m as &$v){
+            if($v['type']=='product'){
+                $v['name'] = model('project:product')->find($v['value'],0)->get_field('dname');
+            }elseif($v['type']=='project'){
+                $v['name'] = model('project:project')->find($v['value'],0)->get_field('jname');
+            }else{
+                $v['name']='';
+            }
+        }
         $this->success($m);
         
     }
@@ -35,34 +44,20 @@ class opition extends \control\ajax{
         $m = $this->model->find('shop_pic');
         if(!$m)$m = array();
         else $m = unserialize($m['content']);
+        
+        foreach($m as &$v){
+            if($v['type']=='product'){
+                $v['name'] = model('project:product')->find($v['value'],0)->get_field('dname');
+            }elseif($v['type']=='project'){
+                $v['name'] = model('project:project')->find($v['value'],0)->get_field('jname');
+            }else{
+                $v['name']='';
+            }
+        }
         $this->success($m);
         
     }
-    function set_logo_pic(){
-        $f = array(
-            array(
-                "type"=>"none",
-                "value"=>"",
-                "pic"=>"sq_23.png"
-            ),
-            array(
-                "type"=>"article",
-                "value"=>"1",
-                "pic"=>"sq_23.png"
-            ),array(
-                "type"=>"article",
-                "value"=>"1",
-                "pic"=>"sq_23.png"
-            ),array(
-                "type"=>"article",
-                "value"=>"1",
-                "pic"=>"sq_23.png"
-            )
-        );
-        $data['content'] = array('logic',$f,'%s');
-        $m = $this->model->data($data)->save('logo_pic');
-        $this->success($m);
-    }
+   
     function get_project(){
         $this->user->_safe_login();
         //$this->user->uid = 32;

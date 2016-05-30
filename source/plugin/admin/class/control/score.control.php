@@ -33,6 +33,9 @@ class score extends \control\ajax{
     function _get_score(){
         return model('user:score_detail');
     }
+    function _get_setting(){
+        return model('user:score_setting');
+    }
     function _get_work(){
         return model('tool:work_list');
     }
@@ -58,7 +61,21 @@ class score extends \control\ajax{
         T('admin:score/lists');
         
     }
-
+    function setting(){
+        
+        $list = $this->setting->limit(9999)->select();
+        
+        table('config')->template['list'] = $list;
+        //table('config')->template['projects'] = $this->project->field(array('jid','jthumb','jname'))->limit(999)->order(array('jorder'))->select();
+        T('admin:score/setting');
+        
+    }
+    function change_setting(){
+        $id = post('name');
+        $d = $this->setting->data($_POST)->save($id);
+        
+        $this->success($d);
+    }
 
     function _nomethod(){
         $this->lists();

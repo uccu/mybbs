@@ -43,7 +43,7 @@
 
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">查看详情</button>
-                                {if $user['user_type']==2}
+                                {if $user['user_type']==2 && $user['uid']!=$uid}
                                 <button type="button" style="margin-left:10px" class="btn btn-danger del_permission">删除</button>
                                 {/if}
                             </td>
@@ -52,7 +52,7 @@
                     </tbody>
                 </table>
                 <div class="text-right fr">
-                    <button type="button" class="btn btn-success add_permission" data-toggle="alert" data-target="#alert">添加</button>
+                    {if $userType>2}<button type="button" class="btn btn-success add_permission" data-toggle="alert" data-target="#alert">添加</button>{/if}
                     
                 </div>
                 <nav>

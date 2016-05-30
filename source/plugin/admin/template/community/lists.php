@@ -88,7 +88,14 @@
                         <input type="text" class="form-control" disabled="disabled" name="uid2">
                         
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="move">喜欢的项目：</label>
+                        <!--{loop $tags $tag}-->
+                        <label>
+                            <input type="checkbox" id="inlineCheckbox1" name="tag" value="{tag.tid}"> {tag.tname}
+                        </label>
+                        <!--{/loop}-->
+                    </div>
                     <div class="form-group">
                         <label>图片11</label>
                         <input type="file" id="pic0" />
@@ -151,6 +158,8 @@
                 m.find('[type!=radio][name='+k+']').val(d.data[k]);
                 m.find('[type!=radio][name='+k+'2]').val(d.data[k]);
                 m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
+                m.find('[name=tag]').attr('checked',false);
+                for(var k in d.data.tag)m.find('[name=tag][value='+d.data.tag[k]+']').click();
             }
             
 
@@ -181,7 +190,7 @@
     });
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
-        for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
+        for(e in d){d[e].name = d[e].name=='tag'?'tag[]':d[e].name}
         j.post(control+'/change_'+goods,d,function(){
             location.reload(true)
         })

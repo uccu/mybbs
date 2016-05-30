@@ -31,6 +31,7 @@ class reservation extends \model{
     public $userMap = array(
         'user_info'=>array(
             'adviser',
+            'phone'=>'uphone',
             '_on'=>'uid'
         ) 
     );

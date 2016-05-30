@@ -51,6 +51,7 @@ class reservation extends \control\ajax{
         if($u)$where['uid'] = $u;
         $this->reservation->add_table($this->reservation->storeMap);
         $this->reservation->add_table($this->reservation->expertMap);
+        $this->reservation->add_table($this->reservation->userMap);
         $maxRow= $this->reservation->where($where)->limit(99999999)->get_field();
         $maxPage = floor(($maxRow-1)/10)+1;
         table('config')->template['maxRow'] = $maxRow;

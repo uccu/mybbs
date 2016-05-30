@@ -67,7 +67,7 @@ class store extends \control\ajax{
         $where['sid'] = $expert['sid'];
         $where['uid'] = $this->user->uid;
         if(!$where['name'] || !$where['phone'] || !$where['time'])$this->error(401,'参数错误');
-        $m = $this->reservation->data($data)->add();
+        $m = $this->reservation->data($where)->add();
         if($m)$this->success($m);
         else $this->error(413,'预约失败');
     }

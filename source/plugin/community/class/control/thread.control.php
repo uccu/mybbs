@@ -91,22 +91,29 @@ class thread extends \control\ajax{
             $this->threadTag->data($data)->add(true);
         }
         $array = array('hid'=>$hid);
+        if($score = control('user:score','api')->_add_score_detail('发帖','thread'))
+            $array['score'] = $score;
+                
         //model('cache')->replace('test2',$array,'%s');
         $this->success($array);
     }
     function new_reply(){
+        $this->user->_safe_login();
         $hid = post('hid');
         $data['reply'] = $hid;
         $data['content'] = post('content');
         if(!$data['reply'] || !$data['content'])$this->error(401,'参数错误');
         $data['ctime'] = time();
         $data['uid'] = $this->user->uid;
-        if(!$hid = $this->model->data($data)->add())$this->error(416,'创建失败');
+        if(!$hid2 = $this->model->data($data)->add())$this->error(416,'创建失败');
         $data = array();
         $data['reply_num'] = array('add',1);
         $data['last'] = time();
-        $this->model->data($data)->save($hid);
-        $this->success();
+        $hid = $this->model->data($data)->save($hid);
+        $array = array('hid'=>$hid);
+        if($score = control('user:score','api')->_add_score_detail('回复','thread_reply'))
+            $array['score'] = $score;
+        $this->success($array);
     }
     
     

@@ -36,7 +36,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.rid}</td>
-                            <td>{p.name}</td>
+                            <td><a href="user/lists/1/{p.uphone}">{p.name}</a></td>
                             <td>{p.phone}</td>
                             <td>{p.cdate}</td>
                             <td>{p.ename}</td>

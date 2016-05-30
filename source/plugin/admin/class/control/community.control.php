@@ -21,8 +21,8 @@ class community extends \control\ajax{
     function _get_product(){
         return model('project:product');
     }
-    function _get_productView(){
-        return model('project:project_link_product');
+    function _get_threadView(){
+        return model('community:thread_link_tag');
     }
     function _get_area(){
         return model('tool:area');
@@ -48,6 +48,7 @@ class community extends \control\ajax{
         $list = $this->thread->where($where)->page($page,10)->order(array('ctime'=>'DESC'))->select();
         foreach($list as &$p)$p['cdate'] = date('Y-m-d',$p['ctime']);
         table('config')->template['list'] = $list;
+        table('config')->template['tags'] = model('community:community_tag')->order('torder')->limit(9999)->select();
         T('admin:community/lists');
         
     }
@@ -81,6 +82,10 @@ class community extends \control\ajax{
             if(!$d['pic0'])$d['pic0']='';
             if(!$d['pic1'])$d['pic1']='';
             if(!$d['pic2'])$d['pic2']='';
+        $tag = $this->threadView->where(array('hid'=>$id))->limit(9999)->select();
+        foreach($tag as $t){
+            $d['tag'][] = $t['tid'];
+        }
         if(!$d)$this->error(411,'获取失败');
         $this->success($d);
     }
@@ -92,6 +97,12 @@ class community extends \control\ajax{
         if($_POST['pic2'])$_POST['pic'][] = $_POST['pic2'];
         $_POST['pic'] = array('logic',$_POST['pic'],'%s');
         $d = $this->thread->data($_POST)->save($id);
+
+        $this->threadView->where(array('hid'=>$id))->remove();
+        foreach(post('tag') as $v){
+            $data = array('hid'=>$id,'tid'=>$v);
+            $this->threadView->data($data)->add(true);
+        }
         $this->success($d);
     }
 
