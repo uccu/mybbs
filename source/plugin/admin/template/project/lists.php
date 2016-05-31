@@ -4,10 +4,7 @@
 		window.onload = function(){
 			window.UEDITOR_CONFIG.initialFrameHeight=500;
 			
-			UE.getEditor('introduction');
-            UE.getEditor('introduction2');
-            UE.getEditor('introduction3');
-            UE.getEditor('introduction4');
+			
 		}
 	</script>
 	<!--{eval addjs('ueditor.config')}-->
@@ -139,7 +136,7 @@
 </div>
 <script>
 
-   j('#myModal').on('show.bs.modal',function(e){
+   j('#myModal').on({'hide.bs.modal':()=>location.reload(true),'show.bs.modal':function(e){
         var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
         j.post('project/get_detail/'+id,(d)=>{
             
@@ -148,10 +145,13 @@
                 m.find('[name='+k+'2]').val(d.data[k]);
                 m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
             }
-            
+            UE.getEditor('introduction');
+            UE.getEditor('introduction2');
+            UE.getEditor('introduction3');
+            UE.getEditor('introduction4');
         },'json');
         m.find('.help-block').html('');
-    });
+   }});
    j('#myModal [type=file]').change(function(){
         var that = j(this),id = that.attr('id'),f = that.attr('data-circle') ? {circle:1} : {},
         form = packFormData('#'+id,f);

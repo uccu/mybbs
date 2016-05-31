@@ -1,14 +1,7 @@
 <!--{subtemplate header}-->
 <script type="text/javascript">
-		window.UEDITOR_CONFIG = 'ueditor/';
-		window.onload = function(){
-			window.UEDITOR_CONFIG.initialFrameHeight=500;
-			
-			UE.getEditor('introduction');
-            UE.getEditor('introduction2');
-            UE.getEditor('introduction3');
-            UE.getEditor('introduction4');
-		}
+		window.UEDITOR_CONFIG = 'http://120.26.230.136:6087/source/plugin/admin/js/';
+		
 	</script>
 	<!--{eval addjs('ueditor.config')}-->
     <!--{eval addjs('ueditor.all.min')}-->
@@ -149,7 +142,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default closemodel" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary save">保存</button>
             </div>
         </div>
@@ -163,7 +156,7 @@
         location = control+'/lists/1/'+a1
     });
    getPageSet({currentPage},{maxPage},'href',control+'/lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:''));
-   j('#myModal').on('show.bs.modal',function(e){
+   j('#myModal').on({'hide.bs.modal':()=>location.reload(true),'show.bs.modal':function(e){
         var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
         j.post(location.origin+'/_admin/'+control+'/get_'+goods+'_detail/'+id,(d)=>{
             for(var k in d.data){
@@ -171,11 +164,16 @@
                 m.find('[name='+k+'2]').val(d.data[k]);
                 m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
             }
+			window.UEDITOR_CONFIG.initialFrameHeight=500;
+			UE.getEditor('introduction');
+            UE.getEditor('introduction2');
+            UE.getEditor('introduction3');
+            UE.getEditor('introduction4');
             m.find('[name=interest]').attr('checked',false);
             for(var k in d.data.interest)m.find('[name=interest][value='+d.data.interest[k]+']').click();
         },'json');
         m.find('.help-block').html('');
-    });
+   }});
    j('#myModal [type=file]').change(function(){
         var that = j(this),id = that.attr('id'),f = that.attr('data-circle') ? {circle:1} : {},
         form = packFormData('#'+id,f);
@@ -196,6 +194,7 @@
                 j('#myModal [name='+id+'2]').val(d.data[0]);
                 that.parent().find('img').attr('src',location.origin+'/pic/'+d.data[0]);
             }
+			
         })
     });
     j('#myModal .save').click(function(){
