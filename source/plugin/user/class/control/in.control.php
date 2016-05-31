@@ -53,7 +53,10 @@ class in extends \control\ajax{
         cookie('login_secury',$login_secury,$until?$until-$time:0);
         if(post('cookie'))cookie('login_zz','1',$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
-        
+        $out['user_info'] = $e?$this->model->where('uid='.$e)->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
+                'work','phone','interest','score','ctime','last_time','ip'))->find():
+                $this->model->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
+                'work','phone','interest','score','ctime','last_time','ip'))->where($where)->find();
         //if($score = model('cache')->get('login_score')){
         //    $scoreSafe = model('cache')->get('login_score_time');
         //    if($scoreSafe!=strtotime(date('Y-m-d'))){
@@ -66,7 +69,21 @@ class in extends \control\ajax{
          //   }
             
         //}
-        
+        require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
+        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
+        $o = json_decode($r,true);
+        $out['token'] = $o['token'];
+            if(!$user['adviser']){
+                $where['user_type'] = 1;
+                $advisers = $this->model->where($where)->limit(9999)->select();
+                $rand = rand(0,count($advisers)-1);
+                $adviser = $advisers[$rand];
+                $data['adviser'] = $adviser['uid'];
+                $this->model->data($data)->save($user['uid']);
+                $user['adviser'] = $adviser['uid'];
+            }
+            $out['adviser'] = $user['adviser'];
         return $this->success($out);
     }
     
@@ -110,6 +127,18 @@ class in extends \control\ajax{
         cookie('login_secury',$login_secury,$until?$until-$time:0);
         if(post('cookie'))cookie('login_zz','1',$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
+        
+        $out['user_info'] = $e?$this->model->where('uid='.$e)->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
+                'work','phone','interest','score','ctime','last_time','ip'))->find():
+                $this->model->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
+                'work','phone','interest','score','ctime','last_time','ip'))->where($where)->find();
+        
+        
+        require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
+        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
+        $o = json_decode($r,true);
+        $out['token'] = $o['token'];
         return $this->success($out);
     }
     function logout(){

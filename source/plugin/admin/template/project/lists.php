@@ -1,4 +1,17 @@
 <!--{subtemplate header}-->
+<script type="text/javascript">
+		window.UEDITOR_CONFIG = 'ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameHeight=500;
+			
+			UE.getEditor('introduction');
+            UE.getEditor('introduction2');
+            UE.getEditor('introduction3');
+            UE.getEditor('introduction4');
+		}
+	</script>
+	<!--{eval addjs('ueditor.config')}-->
+    <!--{eval addjs('ueditor.all.min')}-->
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
@@ -101,19 +114,19 @@
                     </div>
                     <div class="form-group">
                         <label for="value">项目介绍</label>
-                        <textarea class="form-control" name="introduction" rows="10" placeholder='内容'></textarea>
+                        <textarea name="introduction" rows="10" id="introduction" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">专家介绍</label>
-                        <textarea class="form-control" name="expert" rows="10" placeholder='内容'></textarea>
+                        <textarea name="expert" rows="10" id="introduction2" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">项目特色</label>
-                        <textarea class="form-control" name="fealture" rows="10" placeholder='内容'></textarea>
+                        <textarea name="fealture" rows="10" id="introduction3" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">注意事项</label>
-                        <textarea class="form-control" name="attention" rows="10" placeholder='内容'></textarea>
+                        <textarea name="attention" id="introduction4" rows="10" placeholder='内容'></textarea>
                     </div>
                 </form>
             </div>

@@ -66,6 +66,10 @@ class product extends \control\ajax{
         $this->success($d);
     }
     function change_product(){
+        $_POST['introdution'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['introdution']);
+        $_POST['fealture'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['fealture']);
+        $_POST['effect'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['effect']);
+        $_POST['purchase'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['purchase']);
         $id = post('did');
         $d = $this->product->data($_POST)->save($id);
         $this->productView->where(array('did'=>$id))->remove();

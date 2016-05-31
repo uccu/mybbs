@@ -28,5 +28,27 @@ class captcha extends \control\ajax{
             $array = array('url'=>'qrcode/'.$fe1.'/'.$fe2.'/'.$uid.'.png');
             $this->success($array);
     }
+    function pusher($content='亲~~该写日记了！'){
+        require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
+        $client = new \JPush('a152f7c45e9b75f25692cbc2', 'c77c6c2b49f0f86eadef42f7');
+        $result = $client->push()
+            ->setPlatform('all')
+            ->addAllAudience()
+            ->setNotificationAlert($content)
+            ->send();
+        $this->success(json_encode($result));
+
+    }
+    function _pusher($uid,$content='您的用户更新了日记哟~'){
+        require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
+        $client = new \JPush('7ad3174f8cec5f0f533d7905', 'd5e374d771a1a7fb6023b1b6');
+        $result = $client->push()
+            ->setPlatform('all')
+            ->setAudience(array('A'.$uid))
+            ->setNotificationAlert($content)
+            ->send();
+        $this->success(json_encode($result));
+
+    }
 }
 ?>

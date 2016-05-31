@@ -45,6 +45,10 @@ class project extends \control\ajax{
         $this->success($d);
     }
     function change_project(){
+        $_POST['introdution'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['introdution']);
+        $_POST['fealture'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['fealture']);
+        $_POST['expert'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['expert']);
+        $_POST['attention'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['attention']);
         $d = $this->project->data($_POST)->save(post('jid'));
         $this->success($d);
     }

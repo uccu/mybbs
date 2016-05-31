@@ -44,6 +44,8 @@ class diary extends \control\ajax{
         $data3['diary'] = 1;
         $this->userModel->data($data3)->save($this->user->uid);
         $array = array('did'=>$id);
+        $user = $this->userModel->find($this->user->uid);
+        model('tool:captcha')->_pusher($user['adviser']);
         $this->success($array);
     }
     function add_diary(){
@@ -66,6 +68,8 @@ class diary extends \control\ajax{
         $this->model->data($data2)->save($data['reply']);
         $data3['diary'] = 1;
         $this->userModel->data($data3)->save($this->user->uid);
+        $user = $this->userModel->find($this->user->uid);
+        model('tool:captcha')->_pusher($user['adviser']);
         $this->success();
     }
     function get_detail($did,$ctime=0){

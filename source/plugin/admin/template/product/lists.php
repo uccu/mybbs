@@ -1,4 +1,17 @@
 <!--{subtemplate header}-->
+<script type="text/javascript">
+		window.UEDITOR_CONFIG = 'ueditor/';
+		window.onload = function(){
+			window.UEDITOR_CONFIG.initialFrameHeight=500;
+			
+			UE.getEditor('introduction');
+            UE.getEditor('introduction2');
+            UE.getEditor('introduction3');
+            UE.getEditor('introduction4');
+		}
+	</script>
+	<!--{eval addjs('ueditor.config')}-->
+    <!--{eval addjs('ueditor.all.min')}-->
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
@@ -119,19 +132,19 @@
                     </div>
                     <div class="form-group">
                         <label for="value">产品介绍</label>
-                        <textarea class="form-control" name="introduction" rows="10" placeholder='内容'></textarea>
+                        <textarea  name="introduction" rows="10" id="introduction" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">产品特色</label>
-                        <textarea class="form-control" name="fealture" rows="10" placeholder='内容'></textarea>
+                        <textarea  name="fealture" rows="10" id="introduction2" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">产品效果</label>
-                        <textarea class="form-control" name="effect" rows="10" placeholder='内容'></textarea>
+                        <textarea  name="effect" rows="10" id="introduction3" placeholder='内容'></textarea>
                     </div>
                     <div class="form-group">
                         <label for="value">购买方式</label>
-                        <textarea class="form-control" name="purchase" rows="10" placeholder='内容'></textarea>
+                        <textarea  name="purchase" rows="10" id="introduction4" placeholder='内容'></textarea>
                     </div>
                 </form>
             </div>

@@ -1,5 +1,9 @@
 <!--{subtemplate tool:header}-->
 <!--{eval addjs('p','header','admin')}-->
+<style>
+    .modal-backdrop{z-index:1}
+    .modal{z-index:2}
+</style>
 <div class="container">
     <div class="page-header">
         <h1>美容整形 <small>后台</small></h1>
