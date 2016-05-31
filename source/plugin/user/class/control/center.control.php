@@ -3,7 +3,7 @@ namespace plugin\user\control;
 defined('IN_PLAY') || exit('Access Denied');
 class center extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
     }
     function _get_user(){
         return control('user:base','api');
@@ -131,7 +131,7 @@ class center extends \control\ajax{
     }
     function get_my_reservation(){
         $where['uid'] = $this->user->uid;
-        $where['time'] = array('logic',time(),'<');
+        $where['time'] = array('logic',time(),'>');
         $m = $this->reservationView->where($where)->limit(9999)->order(array('time'=>'DESC'))->select();
         $this->success($m);
     }

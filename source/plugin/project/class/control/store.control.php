@@ -59,11 +59,12 @@ class store extends \control\ajax{
         $this->success($m);
     }
     function booking(){
-        $data['eid'] = post('eid',0,'%d');
+        $where['eid'] = $data['eid'] = post('eid',0,'%d');
         if(!$expert = $this->expert->find($data['eid']))$this->error(412,'没有找到对应的专家');
         $where['name'] = post('name');
         $where['phone'] = post('phone');
         $where['time'] = post('time');
+        if($where['time']<time())$this->error(401,'参数错误：不正确的时间');
         $where['sid'] = $expert['sid'];
         $where['uid'] = $this->user->uid;
         if(!$where['name'] || !$where['phone'] || !$where['time'])$this->error(401,'参数错误');
