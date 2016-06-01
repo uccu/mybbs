@@ -75,15 +75,18 @@ class in extends \control\ajax{
         $o = json_decode($r,true);
         $out['token'] = $o['token'];
             if(!$user['adviser']){
-                $where['user_type'] = 1;
-                $advisers = $this->model->where($where)->limit(9999)->select();
+                $where2['user_type'] = 1;
+                $advisers = $this->model->where($where2)->limit(9999)->select();
                 $rand = rand(0,count($advisers)-1);
                 $adviser = $advisers[$rand];
                 $data['adviser'] = $adviser['uid'];
                 $this->model->data($data)->save($user['uid']);
                 $user['adviser'] = $adviser['uid'];
+                
             }
             $out['adviser'] = $user['adviser'];
+            $m = $this->model->field(array('uid','avatar','nickname'))->find($user['adviser']);
+            $out['adviser_info'] = $m;
         return $this->success($out);
     }
     
@@ -166,12 +169,24 @@ class in extends \control\ajax{
         $data['password'] = $pwd;
         $data['ctime'] = $time;
         $data['salt'] = $salt;
+        if($invate = post('invate'))$data['invate'] = $invate;
         $data['nickname'] = '用户_'.$time;
         $data['avatar'] = 'noavatar.png';
         if(!$rr = $this->model->data($data)->add())
             $this->error(404,'创建失败');
         $data['uid'] = $rr;
         $data['user_type'] = 0;
+        if($invate){
+            if($user2 = $this->model->find($invate)){
+                $this->model->data(array('invate_num'=>array('add',1)))->save($user2['uid']);
+                control('user:score','api')->_add_score_detail('好友注册','register_friend','in',$user2['uid']);
+                if($user2['invate']){
+                    control('user:score','api')->_add_score_detail('好友注册','register_friend','in',$user2['invate']);
+                }
+            }
+        }
+        
+        
         $this->login($rr);
     }
     function forget_password(){

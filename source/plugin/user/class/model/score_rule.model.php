@@ -17,7 +17,18 @@ class score_rule extends \model{
                 'stimes',
         )
     );
+    function addSetting(){
+        $this->add_table(array(
+            'score_setting'=>array(
+                '_on'=>'name',
+                'score',
+                'type',
+                'stimes',
+        )));
+        return $this;
+    }
     function time($uid,$name){
+        $this->addSetting();
         $r = $this->where(array('name'=>$name,'uid'=>$uid))->find();
         if(!$r)return model('user:score_setting')->where(array('name'=>$name))->find();
         if(date($r['type'])==$r['time']){

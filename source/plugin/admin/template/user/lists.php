@@ -215,7 +215,7 @@
             m.find('[name=age]').val(d.data.age.dateChange());
             m.find('[name=area]').val(d.data.area);
             m.find('[name=work]').val(d.data.work);
-            m.find('[name=sex][value='+d.data.sex+']').click();
+            if(d.data.sex)m.find('[name=sex][value='+d.data.sex+']').click();
             m.find('[name=email]').val(d.data.email);
             m.find('[name=marry]').attr('checked',false);if(d.data.marry=='1')m.find('[name=marry]').click();
             m.find('[name=diary]').attr('checked',false);if(d.data.diary=='1')m.find('[name=diary]').click();
@@ -253,7 +253,8 @@
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
         for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
-        j.post('user/change_info',d,function(){
+        j.post('user/change_info',d,function(d){
+            if(d.code!==200)alert(d.desc);
             location.reload(true)
         })
     });

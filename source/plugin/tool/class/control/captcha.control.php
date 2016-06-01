@@ -40,14 +40,15 @@ class captcha extends \control\ajax{
 
     }
     function _pusher($uid,$content='您的用户更新了日记哟~'){
+        if(!$uid)return false;
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('7ad3174f8cec5f0f533d7905', 'd5e374d771a1a7fb6023b1b6');
         $result = $client->push()
             ->setPlatform('all')
-            ->setAudience(array('A'.$uid))
+            ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
             ->send();
-        $this->success(json_encode($result));
+        //$this->success(json_encode($result));
 
     }
 }

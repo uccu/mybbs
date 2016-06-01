@@ -133,7 +133,8 @@
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
         for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
-        j.post('user/change_info',d,function(){
+        j.post('user/change_info',d,function(d){
+            if(d.code!==200)alert(d.desc);
             location.reload(true)
         })
     });

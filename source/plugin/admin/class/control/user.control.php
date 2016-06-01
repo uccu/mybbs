@@ -24,7 +24,9 @@ class user extends \control\ajax{
     function _get_work(){
         return model('tool:work_list');
     }
-
+    function _get_scoreDetail(){
+        return model('user:score_detail');
+    }
 
     function lists($page=1,$phone=0,$adviser=0){
         $where['user_type'] = 0;
@@ -96,6 +98,20 @@ class user extends \control\ajax{
         $data['interest'] = array('logic',post('interest',array()),'%s');
         if($pwd = post('pwd'))$data['password'] = md5(md5($pwd).$user['salt']);
         $m = $this->userModel->data($data)->save($uid);
+        $data2['stime'] = time();
+        if($user['score']>$data['score']){
+            $data2['type'] = 'out';
+            $data2['desc'] = '管理员操作';
+            $data2['score'] = $user['score']-$data['score'];
+            
+        }elseif($user['score']<$data['score']){
+            $data2['type'] = 'in';
+            $data2['desc'] = '管理员操作';
+            $data2['score'] = $data['score']-$user['score'];
+            
+        }
+        $data2['uid'] = $uid;
+        $this->scoreDetail->data($data2)->add();
         $this->success($m);
     }
     

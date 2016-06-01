@@ -108,8 +108,8 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
     }
     function get_reservation(){
         $where['adviser'] = $this->user->uid;
-        $where['time'] = array('logic',time(),'<');
-        $m = $this->reservationView->where($where)->limit(9999)->order(array('time'=>'DESC'))->select();
+        $where['time'] = array('logic',time(),'>');
+        $m = $this->reservationView->where($where)->limit(9999)->order(array('time'))->select();
         $this->success($m);
     }
     

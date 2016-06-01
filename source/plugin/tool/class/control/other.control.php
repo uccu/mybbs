@@ -39,30 +39,31 @@ class other extends \control\ajax{
         $this->success($m);
     }
     function get_adviser(){
-        require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
-        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        //require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
+        //$p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
         //$r = $p->getToken('7','testUser','http://120.26.230.136:6087/pic/iavatar/0/0/7.png');
         $this->user->_safe_login();
         //$this->user->uid = 13;
         $user = $this->userModel->find($this->user->uid);
-        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
+        //$r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
         //var_dump($r);
-        $o = json_decode($r,true);
-        if($o){
+        //$o = json_decode($r,true);
+        //if($o){
             if(!$user['adviser']){
                 $where['user_type'] = 1;
-                $advisers = $this->userModel->where($where)->limit(9999)->select();
+                $advisers = $this->userModel->field(array('avatar','nickname','uid'))->where($where)->limit(9999)->select();
                 $rand = rand(0,count($advisers)-1);
                 $adviser = $advisers[$rand];
                 $data['adviser'] = $adviser['uid'];
                 $this->userModel->data($data)->save($user['uid']);
                 $user['adviser'] = $adviser['uid'];
-            }
-            $array['token'] = $o['token'];
+            }else $adviser=$this->userModel->field(array('avatar','nickname','uid'))->find($user['adviser']);
+            //$array['token'] = $o['token'];
             $array['adviser'] = $user['adviser'];
+            $array['adviser_info'] = $adviser;
             $this->success($array);
-        }
-        else $this->error(411,'获取失败');
+        //}
+        //else $this->error(411,'获取失败');
     }
   
     function _up_pic($f = 'diary'){

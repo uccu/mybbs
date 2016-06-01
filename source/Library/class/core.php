@@ -79,8 +79,17 @@ class core
 		}
 	}
 	public static function handleException($exception) {
-		if(defined('SHOW_ERROR'))var_dump($exception);
-		echo "handleException";
+		//if(defined('SHOW_ERROR'))var_dump($exception);
+		header('Content-Type:application/json; charset=utf-8');
+		$array = array();
+		if(defined('SHOW_ERROR')){
+			$array['message'] = $exception->getMessage();
+			$array['file'] = $exception->getFile();
+			$array['line'] = $exception->getLine();
+		}
+		
+		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
+		echo json_encode($error);
 		die();
 	}
 	public static function handleError($errno, $errstr, $errfile, $errline) {
@@ -90,7 +99,7 @@ class core
 					if(stristr($errstr,'foreach'))return null;
 					elseif(stristr($errstr,'mysql'))return null;
 					elseif(stristr($errstr,'argument'))return null;
-					elseif(stristr($errstr,'DOMDocument'))return null;
+					//elseif(stristr($errstr,'match'))return null;
 					break;
 				case 8:
 				//case 2:
@@ -99,8 +108,10 @@ class core
 				default:
 					break;
 			}
-			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
-			echo "handleError";
+			//if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
+			header('Content-Type:application/json; charset=utf-8');
+			$error = array('code'=>999,'desc'=>"handleError",url=>'',data=>array());
+			echo json_encode($error);
 			die();
 		}
 	}
@@ -109,7 +120,9 @@ class core
 		if(($error = error_get_last()) && $error['type']) {
 			if(stristr($error['file'],'eval'))return null;
 			if(defined('SHOW_ERROR'))var_dump($error);
-			echo "handleShutdown";
+			header('Content-Type:application/json; charset=utf-8');
+			$error = array('code'=>999,'desc'=>"handleShutdown",url=>'',data=>array());
+			echo json_encode($error);
 			die();
 		}
 	}

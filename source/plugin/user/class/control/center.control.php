@@ -132,7 +132,7 @@ class center extends \control\ajax{
     function get_my_reservation(){
         $where['uid'] = $this->user->uid;
         $where['time'] = array('logic',time(),'>');
-        $m = $this->reservationView->where($where)->limit(9999)->order(array('time'=>'DESC'))->select();
+        $m = $this->reservationView->where($where)->limit(9999)->order(array('time'))->select();
         $this->success($m);
     }
 
@@ -287,7 +287,10 @@ class center extends \control\ajax{
     function get_my_gift_list(){
         $where['uid'] = $this->user->uid;
         $where['type'] = 'out';
-        $m = $this->scoreDetail->where($where)->order('stime','DESC')->select();
+        $m = $this->scoreDetail->add_table(array('gift'=>array(
+            '_on'=>'CONCAT(  \'兑换\', zr_gift.gname ) = zr_score_detail.desc',
+            'gid','gthumb','gtitle','gscore'
+        )))->where($where)->order('stime','DESC')->limit(9999)->select();
         $this->success($m);
     }
     function get_gift_detail($gid = 0){

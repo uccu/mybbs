@@ -148,7 +148,7 @@ class JPush {
 
     public function log($content) {
         if (!is_null($this->logFile)) {
-            error_log($content . "\r\n", 3, $this->logFile);
+            //error_log($content . "\r\n", 3, $this->logFile);
         }
     }
 

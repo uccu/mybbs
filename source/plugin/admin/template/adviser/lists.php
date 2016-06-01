@@ -133,14 +133,12 @@
             m.find('[name=age]').val(d.data.age.dateChange());
             m.find('[name=area]').val(d.data.area);
             m.find('[name=work]').val(d.data.work);
-            m.find('[name=sex][value='+d.data.sex+']').click();
             m.find('[name=email]').val(d.data.email);
             m.find('[name=marry]').attr('checked',d.data.marry=='1'?'checked':false);
             m.find('[name=diary]').attr('checked',d.data.diary=='1'?'checked':false);
             m.find('[name=child]').attr('checked',d.data.child=='1'?'checked':false);
             m.find('[name=plastic]').attr('checked',d.data.plastic=='1'?'checked':false);
-            m.find('[name=interest]').attr('checked',false);
-            for(var k in d.data.interest)m.find('[name=interest][value='+d.data.interest[k]+']').attr('checked','checked');
+            
             m.find('[name=score]').val(d.data.score);
             m.find('[name=invate]').val(d.data.invate);
             m.find('[name=adviser]').val(d.data.adviser);
@@ -171,7 +169,8 @@
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
         for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
-        j.post('user/change_info',d,function(){
+        j.post('user/change_info',d,function(d){
+            if(d.code!==200)alert(d.desc);
             location.reload(true)
         })
     });
