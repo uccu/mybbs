@@ -28,6 +28,13 @@ class base
 		require PLAY_ROOT.'/source/config/mysql.php';
 		$this->prefix = $config['prefix']?$config['prefix']:'';
 		$this->config = $config;
+		if(file_exists(PLUGIN_ROOT.'/'.PLUGIN_NAME.'/config/mysql.php')){
+			require PLUGIN_ROOT.PLUGIN_NAME.'/config/mysql.php';
+			$this->prefix = $config['prefix']?$config['prefix']:$this->prefix;
+			$this->config = array_merge($this->config,$config);
+		}
+		$this->prefix = $config['prefix']?$config['prefix']:'';
+		$this->config = $config;
 	}
 	function select_db ($db){
 		$this->database = $db;

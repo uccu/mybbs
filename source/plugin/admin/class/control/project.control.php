@@ -28,7 +28,7 @@ class project extends \control\ajax{
 
     function lists(){
 
-        $list = $this->project->limit(9999)->order('jorder')->select();
+        $list = $this->project->limit(9999)->order(array('jctime'=>'DESC'))->select();
         foreach($list as &$p){
             $p['cdate'] = date('Y-m-d',$p['jctime']);
         }

@@ -10,6 +10,7 @@ class score_detail extends \model{
                 'desc',
                 'stime',
                 'score',
+                'rtype'
         )
     );
 

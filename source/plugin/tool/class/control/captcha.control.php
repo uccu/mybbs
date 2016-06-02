@@ -14,6 +14,9 @@ class captcha extends \control\ajax{
     function _check_captcha($a){
         return true;
     }
+    function _get_setting(){
+        return model('user:score_setting');
+    }
     function get_my_qrcode(){
             include PLUGIN_ROOT."tool/class/control/qr/qrlib.php";    
             //header("Content-type: image/png");
@@ -26,6 +29,8 @@ class captcha extends \control\ajax{
             if(!is_dir($dir.$fe1.'/'.$fe2))mkdir($dir.$fe1.'/'.$fe2);
             \QRcode::png($this->g->config['BASE_URL'].'user/share/'.$uid, $dir.$fe1.'/'.$fe2.'/'.$uid.'.png', 'H', 8, 2);
             $array = array('url'=>'qrcode/'.$fe1.'/'.$fe2.'/'.$uid.'.png');
+            $array['uid'] = $uid;
+            $array['content'] = '分享好友可获得'.$this->setting->score('register_friend').'点积分';
             $this->success($array);
     }
     function pusher($content='亲~~该写日记了！'){
@@ -34,6 +39,17 @@ class captcha extends \control\ajax{
         $result = $client->push()
             ->setPlatform('all')
             ->addAllAudience()
+            ->setNotificationAlert($content)
+            ->send();
+        $this->success(json_encode($result));
+
+    }
+    function pusher_test($content='推送测试~~'){
+        require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
+        $client = new \JPush('a152f7c45e9b75f25692cbc2', 'c77c6c2b49f0f86eadef42f7');
+        $result = $client->push()
+            ->setPlatform('all')
+            ->addAlias('A25')
             ->setNotificationAlert($content)
             ->send();
         $this->success(json_encode($result));

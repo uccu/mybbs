@@ -24,9 +24,11 @@ class init{
 		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->config->plugin=$_REQUEST['plugin']){
 			header('Location: /404.html');
 		}
+		define('PLUGIN_NAME',$this->config->plugin);
 		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['control']) || !$this->config->control = $_REQUEST['control']){
 			header('Location: /404.html');
 		}
+		define('CONTROL_NAME',$this->config->control);
 		if(file_exists(PLUGIN_ROOT.'/'.$this->config->plugin.'/config/config.php')){
 			require PLUGIN_ROOT.$this->config->plugin.'/config/config.php';
 			if($config)$this->config->config = array_merge($this->config->config,$config);

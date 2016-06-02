@@ -38,7 +38,7 @@ class user extends \control\ajax{
         table('config')->template['maxRow'] = $maxRow;
         table('config')->template['maxPage'] = $maxPage;
         table('config')->template['currentPage'] = $page;
-        $list = $this->userModel->where($where)->page($page,10)->select();
+        $list = $this->userModel->where($where)->page($page,10)->order(array('ctime'=>'DESC'))->select();
         foreach($list as &$user){
             $user['sexx'] = $user['sex']==1?'男':'女';
             $user['cdate'] = date('Y-m-d',$user['ctime']);
@@ -111,6 +111,7 @@ class user extends \control\ajax{
             
         }
         $data2['uid'] = $uid;
+        $data2['rtype'] = 'admin';
         $this->scoreDetail->data($data2)->add();
         $this->success($m);
     }

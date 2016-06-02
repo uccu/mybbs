@@ -75,7 +75,7 @@ class score extends \control\ajax{
         $data['desc'] = $desc;
         $data['score'] = $score;
         $data['uid'] = $uid;
-        
+        $data['rtype'] = $type=='out'?'out':($ru['name']?$ru['name']:'other');
         $this->scoreDetail->data($data)->add();
         return $score;
     }

@@ -35,7 +35,7 @@ class article extends \control\ajax{
     //--------------------------------
     function theme_lists(){
         $where['tid']=array('logic',0,'>');
-        $list = $this->theme->where($where)->limit(9999)->order(array('torder','tctime'))->select();
+        $list = $this->theme->where($where)->limit(9999)->order(array('tctime'=>'DESC'))->select();
         foreach($list as &$p){
             $p['cdate'] = date('Y-m-d',$p['tctime']);
         }
@@ -84,7 +84,7 @@ class article extends \control\ajax{
             $p['cdate'] = date('Y-m-d',$p['actime']);
         }
         $where2['tid']=array('logic',0,'>');
-        $themes = $this->theme->where($where2)->limit(9999)->order(array('torder','tctime'))->select();
+        $themes = $this->theme->where($where2)->limit(9999)->order(array('tctime'=>'DESC'))->select();
         table('config')->template['list'] = $list;
         table('config')->template['themes'] = $themes;
         T('admin:article/article_lists');

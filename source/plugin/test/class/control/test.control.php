@@ -20,7 +20,9 @@ class test extends \control{
         echo date('Y-m-d H:i:s');
 	}
 	function head(){
-		//var_dump(table('config'));
+		T('tool:header');
+		echo '11';
+		T('tool:footer');
 	}
 	
 	
@@ -28,3 +30,5 @@ class test extends \control{
 
 
 ?>
+
+

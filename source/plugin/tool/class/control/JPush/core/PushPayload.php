@@ -542,7 +542,7 @@ class PushPayload {
     }
 
     public function printJSON() {
-        echo $this->toJSON();
+        //echo $this->toJSON();
         return $this;
     }
 

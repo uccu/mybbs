@@ -82,12 +82,13 @@ class core
 		//if(defined('SHOW_ERROR'))var_dump($exception);
 		header('Content-Type:application/json; charset=utf-8');
 		$array = array();
-		if(defined('SHOW_ERROR')){
+		//if(defined('SHOW_ERROR')){
 			$array['message'] = $exception->getMessage();
 			$array['file'] = $exception->getFile();
 			$array['line'] = $exception->getLine();
-		}
-		
+			$array['trace'] = $exception->getTraceAsString();
+		//}
+		model('cache')->replace('handleException',$array,'%s');
 		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
 		echo json_encode($error);
 		die();
@@ -108,22 +109,16 @@ class core
 				default:
 					break;
 			}
+			model('cache')->replace('handleError',array($errno, $errstr, $errfile, $errline),'%s');
 			//if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
-			header('Content-Type:application/json; charset=utf-8');
-			$error = array('code'=>999,'desc'=>"handleError",url=>'',data=>array());
-			echo json_encode($error);
-			die();
+			throw new Exception('handleError');
 		}
 	}
 
 	public static function handleShutdown() {
 		if(($error = error_get_last()) && $error['type']) {
 			if(stristr($error['file'],'eval'))return null;
-			if(defined('SHOW_ERROR'))var_dump($error);
-			header('Content-Type:application/json; charset=utf-8');
-			$error = array('code'=>999,'desc'=>"handleShutdown",url=>'',data=>array());
-			echo json_encode($error);
-			die();
+			throw new Exception('handleError');
 		}
 	}
 	public static function autoload($class){

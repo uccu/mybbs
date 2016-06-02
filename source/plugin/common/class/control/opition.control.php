@@ -60,7 +60,7 @@ class opition extends \control\ajax{
    
     function get_project(){
         $this->user->_safe_login();
-        //$this->user->uid = 32;
+        //$this->user->uid = 25;
         $interest = $this->userModel->find($this->user->uid,false)->get_field('interest');
         $interest = unserialize($interest);$pro = array();
         foreach($interest as $k=>$i){
@@ -70,7 +70,7 @@ class opition extends \control\ajax{
         if(count($pro)<4){
             $n = 4-count($pro);
             $where['jid'] = array('contain',$interest,'NOT IN');
-            $pro2 = $this->project->field(array('jid','jthumb','jname'))->limit($n)->select();
+            $pro2 = $this->project->sql()->where($where)->field(array('jid','jthumb','jname'))->limit($n)->select();
             $pro = array_merge($pro,$pro2);
         }
         //var_dump($pro);

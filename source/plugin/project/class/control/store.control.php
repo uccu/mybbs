@@ -22,8 +22,10 @@ class store extends \control\ajax{
         return $m->add_table($m->store);
     }
     function get_store_list($jid,$area){
-        $where['jid'] = post('jid',$jid);
-        $where['area'] = post('area',$area);
+        $jid = post('jid',$jid);
+        if($jid)$where['jid'] = $jid;
+        $area = post('area',$area);
+        if($area)$where['area'] = $area;
         //model('cache')->replace('test',$where,'%s');
         $m = $this->pls->where($where)->limit(9999)->select();
         $this->success($m);

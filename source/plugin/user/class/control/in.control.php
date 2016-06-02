@@ -216,7 +216,7 @@ class in extends \control\ajax{
         if(md5(md5($pwd).$user['salt'])===$user['password']){
             $data['password'] = md5(md5($newPwd).$user['salt']);
             $this->model->data($data)->save($this->user->uid);
-        }else $this->error(403,'密码错误');
+        }else $this->error(403,'旧密码错误');
         $this->success();
     }
     

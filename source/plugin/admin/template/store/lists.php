@@ -147,7 +147,7 @@
         a1=a1?a1:0;
         location = control+'/lists/1/'+a1
     });
-   getPageSet({currentPage},{maxPage},'href',control+'/lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:''+(folder[7]?'/'+folder[7]:''));
+   getPageSet({currentPage},{maxPage},'href',control+'/lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:'')+(folder[7]?'/'+folder[7]:''));
    j('#myModal').on('show.bs.modal',function(e){
         var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
         j.post(location.origin+'/_admin/'+control+'/get_'+goods+'_detail/'+id,(d)=>{

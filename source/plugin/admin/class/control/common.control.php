@@ -168,7 +168,7 @@ class common extends \control\ajax{
         $this->success($pic);
     }
     function up_avatar($f = 'avatar'){
-        $uid = $this->user->uid;
+        $uid = post('uid');
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         $pic = array();$time = time();
         foreach($_FILES as $file){

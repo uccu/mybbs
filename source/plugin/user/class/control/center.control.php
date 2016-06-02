@@ -46,7 +46,9 @@ class center extends \control\ajax{
         if(!$pic)$this->error(418,'没有上传照片');
         $data['avatar'] = $pic[0];
         $this->model->data($data)->save($this->user->uid);
-        $this->success();
+        
+        $array['avatar'] = $this->model->find($this->user->uid,0)->get_field('avatar').'?'.rand(0,9999999);
+        $this->success($array);
     }
     function change_name(){
         $data['name'] = post('name');
@@ -218,7 +220,8 @@ class center extends \control\ajax{
             $data['hid'] = post('hid');
             
         }else $this->error(401,'参数错误');
-        if($this->favourite->where($data)->find())$this->error(405,'非法操作');
+        $data2 = $data;unset($data2['ftime']);
+        if($this->favourite->where($data2)->find())$this->error(405,'非法操作:已收藏');
         $m = $this->favourite->data($data)->add(true);
         if($m && $data['type']=='thread'){
             $threadData['favo'] = array('add',1);
@@ -259,6 +262,9 @@ class center extends \control\ajax{
         if($where['type']!='out')$where['type'] = 'in';
         if($line)$where['stime'] = array('logic',$line,'<');
         $m = $this->scoreDetail->where($where)->limit($limit)->order(array('stime'=>"DESC"))->select();
+        foreach($m as &$v){
+            $v['pic'] = 'score/'.$v['rtype'].'.png';
+        }
         $this->success($m);
     }
     function get_my_info(){

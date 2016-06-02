@@ -19,6 +19,7 @@ class diary extends \control\ajax{
     }
     function get_list($type=0){
         $this->user->_safe_login();
+        
         $limit = post('limit',6,'%d');
         $where['uid'] = $this->user->uid;
         $where['type'] = $type?1:0;
@@ -29,18 +30,18 @@ class diary extends \control\ajax{
         $this->success($m);
     }
     function new_diary(){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
         $time = time();
         $data['title'] = post('title');
         $data['otime'] = post('otime');
-        if(!$data['title'] || !$data['otime'])$this->error(401,'参数错误');
+        //if(!$data['title'] || !$data['otime'])$this->error(401,'参数错误');
         $data['ctime'] = $time;
         $data['type'] = post('type')?1:0;
         $data['uid'] = $this->user->uid;
         $pic = $this->tool->_up_pic('diary');
-        if(!$pic)$this->error(418,'没有上传照片');
+        //if(!$pic)$this->error(418,'没有上传照片');
         $data['pic'] = $pic[0];
-        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
+        //if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
         $data3['diary'] = 1;
         $this->userModel->data($data3)->save($this->user->uid);
         $array = array('did'=>$id);
@@ -73,7 +74,8 @@ class diary extends \control\ajax{
         $this->success();
     }
     function get_detail($did,$ctime=0){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
+        model('cache')->replace('test3',$_POST,'%s');
         $limit = post('limit',6,'%d');
         $where['uid'] = $this->user->uid;
         $where0['did'] = post('did',$did,'%d');
@@ -84,7 +86,7 @@ class diary extends \control\ajax{
         $line = post('ctime',$ctime,'%d');
         if($line)$where['ctime'] = array('logic',$line,'<');
         $theme = $this->model->field(array('ctime','otime','pic','title'))->where($where0)->find();
-        $reply = $this->model->field(array('ctime','pic','content','suggest'))->where($where)->order('ctime','DESC')->limit($limit)->select();
+        $reply = $this->model->field(array('ctime','pic','content','suggest'))->where($where)->order(array('ctime'=>'DESC'))->limit($limit)->select();
         $m = array('theme'=>$theme,'reply'=>$reply);
        
         $this->success($m);
