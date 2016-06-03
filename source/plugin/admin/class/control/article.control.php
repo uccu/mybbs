@@ -69,6 +69,7 @@ class article extends \control\ajax{
     function article_lists($page=1,$n=0,$h=0){
         
         $table = array('theme'=>array('_join'=>'LEFT JOIN','tname','_on'=>'zr_theme.tid=zr_article.atype'));
+        $this->article->add_table($table);
         $where['atype'] = array('logic',0,'>');
         if($n)$where['tname'] = $n;
         if($h)$where['atitle'] = $h;
@@ -78,7 +79,6 @@ class article extends \control\ajax{
         table('config')->template['maxPage'] = $maxPage;
         table('config')->template['currentPage'] = $page;
         
-        $this->article->add_table($table);
         $list = $this->article->where($where)->page($page,10)->order(array('actime'=>'DESC'))->select();
         foreach($list as &$p){
             $p['cdate'] = date('Y-m-d',$p['actime']);

@@ -71,8 +71,7 @@ class thread extends \control\ajax{
         $this->success($m);
     }
     function new_theme(){
-        $this->user->_safe_login();
-        //model('cache')->replace('test',$_POST,'%s');
+        $this->user->uid=1;
         $data['title'] = post('title');
         $data['content'] = post('content');
         $tag = post('tag');
@@ -93,7 +92,7 @@ class thread extends \control\ajax{
         $array = array('hid'=>$hid);
         if($score = control('user:score','api')->_add_score_detail('发帖','thread'))
             $array['score'] = $score;
-                
+        
         //model('cache')->replace('test2',$array,'%s');
         $this->success($array);
     }

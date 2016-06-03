@@ -3,7 +3,7 @@ namespace plugin\user\control\api;
 defined('IN_PLAY') || exit('Access Denied');
 class score extends \control\ajax{
     function _beginning(){
-        //$this->user->_safe_login();
+        
     }
     function _get_user(){
         return control('user:base','api');

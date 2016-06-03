@@ -19,6 +19,7 @@
       <script src="//apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
       <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script>window.j=jQuery.noConflict();</script>
 <!--{eval addjs('p',0,'tool')}-->
 </head>
 <body>

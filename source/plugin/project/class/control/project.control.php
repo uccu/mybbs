@@ -30,8 +30,8 @@ class project extends \control\ajax{
         $d['favo'] = $this->favourite->where($where)->find() ? 1 : 0;
         $d['introduction'] = 'http://120.26.230.136:6087/project/project/project_info/introduction/'.$jid;
         $d['fealture'] = 'http://120.26.230.136:6087/project/project/project_info/fealture/'.$jid;
-        $d['effect'] = 'http://120.26.230.136:6087/project/projectt/project_info/expert/'.$jid;
-        $d['purchase'] = 'http://120.26.230.136:6087/project/project/project_info/attention/'.$jid;
+        $d['expert'] = 'http://120.26.230.136:6087/project/project/project_info/expert/'.$jid;
+        $d['attention'] = 'http://120.26.230.136:6087/project/project/project_info/attention/'.$jid;
         $this->success($d);
     }
     

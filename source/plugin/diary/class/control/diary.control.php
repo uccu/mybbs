@@ -30,18 +30,18 @@ class diary extends \control\ajax{
         $this->success($m);
     }
     function new_diary(){
-        //$this->user->_safe_login();
+        $this->user->_safe_login();
         $time = time();
         $data['title'] = post('title');
         $data['otime'] = post('otime');
-        //if(!$data['title'] || !$data['otime'])$this->error(401,'参数错误');
+        if(!$data['title'] || !$data['otime'])$this->error(401,'参数错误');
         $data['ctime'] = $time;
         $data['type'] = post('type')?1:0;
         $data['uid'] = $this->user->uid;
         $pic = $this->tool->_up_pic('diary');
-        //if(!$pic)$this->error(418,'没有上传照片');
+        if(!$pic)$this->error(418,'没有上传照片');
         $data['pic'] = $pic[0];
-        //if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
+        if(!$id = $this->model->data($data)->add())$this->error(416,'创建失败');
         $data3['diary'] = 1;
         $this->userModel->data($data3)->save($this->user->uid);
         $array = array('did'=>$id);

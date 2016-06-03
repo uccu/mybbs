@@ -15,7 +15,7 @@ class article extends \control\ajax{
         return model('user:favourite');
     }
     function get_list($type=-1){
-        $this->user->_safe_login();
+        //$this->user->_safe_login();
         $tt = post('type',-1,'%d');
         if($tt!=-1)$type = $tt;
         $limit = post('limit',6,'%d');

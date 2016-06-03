@@ -90,6 +90,7 @@ class other extends \control\ajax{
                     $this->error(414,'解析图片失败');  //非jpg/png/gif 强制退出程序
                     break;
             }
+            
             $w = $arr[1]<$arr[0]?$arr[1]:$arr[0];
             $image = imagecreatetruecolor($w, $w);    //图像大小
             imagealphablending($image,false);
@@ -102,7 +103,7 @@ class other extends \control\ajax{
             if(!is_dir($dir.$ym))mkdir($dir.$ym);
             if(!is_dir($dir.$ym.'/'.$d))mkdir($dir.$ym.'/'.$d);
             $md5 = md5_file($imgsrc0);
-            if(!imagepng($image,$dir.$ym.'/'.$d.'/'.$md5.'.png'))$this->error(415,'保存图片失败');
+            if(!imagepng($image,$dir.$ym.'/'.$d.'/'.$md5.'.png',5))$this->error(415,'保存图片失败');
             imagedestroy($image);
             $pic[] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.png';
         }
