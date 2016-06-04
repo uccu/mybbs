@@ -315,7 +315,7 @@ class center extends \control\ajax{
     }
         function get_friends($uid = 0){
         $where['invate'] = $this->user->uid;
-        $m = $this->model->field(array('uid','nickname','invate_num'))->limit(9999)->where($where)->select();
+        $m = $this->model->field(array('uid','nickname','avatar','invate_num'))->limit(9999)->where($where)->select();
         $this->success($m);
     }
 
