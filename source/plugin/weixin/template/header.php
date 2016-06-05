@@ -1,5 +1,8 @@
 <!--{subtemplate tool:header}-->
 <!--{eval addjs('p')}-->
+<!--{eval addjs('inform')}-->
+<script type="text/javascript" src='ueditor/ueditor.config.js'></script>
+<script type="text/javascript" src='ueditor/ueditor.all.min.js'></script>
 <style>
     .modal-backdrop{z-index:1}
     .modal{z-index:2}
@@ -8,7 +11,7 @@
     <div class="page-header">
         <h1>美容整形 <small>微信后台</small></h1>
     </div>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs t">
         <li role="presentation" class="index"><a href="weixin/index">Smile</a></li>
         <li role="presentation" class="pinpai"><a href="weixin/pinpai">品牌</a></li>
         <li role="presentation" class="shili"><a href="weixin/shili">实例</a></li>
@@ -23,6 +26,6 @@
 <div class="container subnav">
     
     <div class="col-md-12">
-        
+        {subnav}
         
         

@@ -45,7 +45,8 @@ class init{
 		}else{
 			if($this->config->method = $_REQUEST['method']){
 				if(!method_exists($c,$this->config->method) || preg_match('/^[^a-z]$/i',$this->config->method[0]))header('Location: /404.html');
-                $getter = $_REQUEST['getter'];
+                define('METHOD_NAME',$this->config->method);
+				$getter = $_REQUEST['getter'];
 				if(!strlen($getter))$getter = array();
 				else $getter = explode($this->config->config['GETTER_SEPARATOR'],$tran->t2c(str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$getter)));
 				call_user_func_array(array($c,$this->config->method),$getter);

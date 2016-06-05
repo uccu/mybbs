@@ -1,15 +1,16 @@
 <!--{subtemplate header}-->
+<form id="form" data-default="weixin/{g.control}/get_{g.method}">
+    <div class="form-group">
+        <textarea class="advancedTextarea" name='content'>
+            {content}
+        </textarea>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-success insave t" for="form" data-action="weixin/{g.control}/save_{g.method}">保存</button>
+    </div>
+</form>
 
 
-
-
-
-
-
-
-<script>
-    subnav({introduction:'机构简介',coverage:'媒体报道',expert:'专家团队',project:'精品项目'},'introduction');
-</script>
 
 <!--{template tool:footer}-->
 

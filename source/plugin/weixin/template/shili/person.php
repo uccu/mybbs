@@ -1,15 +1,18 @@
 <!--{subtemplate header}-->
+<form id="form" data-default="weixin/{g.control}/get_{g.method}">
+    <div class="form-group">
+        <textarea class="advancedTextarea" name='content'>
+            {content}
+        </textarea>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-success insave t" for="form" data-action="weixin/{g.control}/save_{g.method}">保存</button>
+    </div>
+</form>
 
 
 
 
-
-
-
-
-<script>
-    subnav({person:'真人秀',compare:'前后对比',video:'视频实例'},'person');
-</script>
 
 <!--{template tool:footer}-->
 

@@ -80,16 +80,14 @@ class core
 		}
 	}
 	public static function handleException($exception) {
-		//if(defined('SHOW_ERROR'))var_dump($exception);
 		header('Content-Type:application/json; charset=utf-8');
 		$array = array();
-		//if(defined('SHOW_ERROR')){
-			$array['message'] = $exception->getMessage();
-			$array['file'] = $exception->getFile();
-			$array['line'] = $exception->getLine();
-			$array['trace'] = $exception->getTraceAsString();
-		//}
+		$array['message'] = $exception->getMessage();
+		$array['file'] = $exception->getFile();
+		$array['line'] = $exception->getLine();
+		$array['trace'] = $exception->getTraceAsString();
 		model('cache')->replace('handleException',$array,'%s');
+		if(!defined('SHOW_ERROR'))$array = array();
 		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
 		echo json_encode($error);
 		die();
