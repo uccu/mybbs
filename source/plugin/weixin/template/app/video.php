@@ -6,7 +6,7 @@
         <li class="media">
             <div class="media-left">
             <a href="weixin/app/{g.method}/video/{p.aid}">
-                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url(p.athumb)"></div>
+                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url(pic/{p.athumb})"></div>
             </a>
             </div>
             <div class="media-body pr">

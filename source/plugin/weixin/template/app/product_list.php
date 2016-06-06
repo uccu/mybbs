@@ -6,7 +6,7 @@
         <li class="media">
             <div class="media-left">
             <a href="weixin/app/product/{p.did}">
-                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url({p.dthumb})"></div>
+                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url(pic/{p.dthumb})"></div>
             </a>
             </div>
             <div class="media-body pr">

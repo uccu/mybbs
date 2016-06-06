@@ -43,5 +43,17 @@ class app extends \control{
         $this->g->template['list'] = $model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
         T(CONTROL_NAME.'/'.METHOD_NAME);
     }
+    function product($id){
+        $this->g->template['title'] = '产品详情';
+        $this->g->template = array_merge($this->g->template, model('project:product')->find($id));
+        T(CONTROL_NAME.'/'.METHOD_NAME);
+    }
+    function project($id){
+        $m = model('project:project')->find($id);
+        if(!$m)header('Location: /404.html');
+        $this->g->template = array_merge($this->g->template, $m);
+        $this->g->template['title'] = $m['jname'];
+        T(CONTROL_NAME.'/'.METHOD_NAME);
+    }
   
 }
