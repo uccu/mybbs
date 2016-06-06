@@ -71,7 +71,7 @@ class thread extends \control\ajax{
         $this->success($m);
     }
     function new_theme(){
-        $this->user->uid=1;
+        $this->user->_safe_login();
         $data['title'] = post('title');
         $data['content'] = post('content');
         $tag = post('tag');

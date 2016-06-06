@@ -13,13 +13,34 @@ class shili extends ab\ab{
         );
     }
     
+    function _app_person(){
+        $this->g->template['content'] = $this->get_opition('person_desc');
+        T('_static');
+    }
+    function _app_compare(){
+        $this->g->template['content'] = $this->get_opition('compare_desc');
+        T('_static');
+    }
+    function _app_video($aid){
+        if($aid){
+            $a = $this->shiliVideo->find($aid);
+            $this->g->template['title'] = $a['atitle'];
+            $this->g->template['content'] = $a['adescription'];
+            T('_static');return;
+        }
+        $this->g->template['list'] = $this->shiliVideo->limit(9999)->order(array('actime'=>'desc'))->select();
+         T(CONTROL_NAME.'/video');
+    }
+    
+    
     
 /*
     get template
 
 */
-    function video(){
-
+    function video($detail=0,$aid=0){
+        if($detail)return $this->_video_detail($aid);
+        $this->g->template['list'] = $this->shiliVideo->limit(9999)->order(array('actime'=>'desc'))->select();
         T(CONTROL_NAME.'/'.METHOD_NAME);
     }
     function compare(){
@@ -28,7 +49,15 @@ class shili extends ab\ab{
     function person(){
         T(CONTROL_NAME.'/'.METHOD_NAME);
     }
-
+    function _video_detail($aid){
+        if(!$aid)$this->g->template['aid'] = 0;
+        else{
+            $m = $this->shiliVideo->find($aid);
+            if(!$m)header('Location:'.CONTROL_NAME.'/'.METHOD_NAME);
+            $this->g->template['aid'] = $m['aid'];
+        }
+        T(CONTROL_NAME.'/'.METHOD_NAME.'_detail');
+    }
 
 
 /*
@@ -54,7 +83,15 @@ class shili extends ab\ab{
         $m = $this->save_opition('compare_desc');
         $this->success($m);
     }
-    
+    function save_video($aid){
+        $_POST['adescription'] = post('adescription','',array($this,'_toraw'));
+        if(!$aid){
+            $_POST['actime'] = time();
+            $m = $this->shiliVideo->data($_POST)->add();
+        }else 
+        $m = $this->shiliVideo->data($_POST)->save($aid);
+        $this->success($m);
+    }
     
     
 /*
@@ -62,6 +99,11 @@ class shili extends ab\ab{
 
 
 */
+    function get_video($aid){
+        if(!$aid)$m['adescription'] = '';
+        else $m = $this->shiliVideo->find($aid);
+        $this->success($m);
+    }
     function get_person(){
         $m = $this->get_opition('person_desc',1);
         $this->success($m);
@@ -72,4 +114,9 @@ class shili extends ab\ab{
     }
 
    
+   
+    function del_video($aid){
+        $m = $this->shiliVideo->remove($aid);
+        $this->success($m);
+    }
 }

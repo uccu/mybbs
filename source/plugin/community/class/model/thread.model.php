@@ -18,6 +18,7 @@ class thread extends \model{
     );
     public $userMap = array(
         'user_info'=>array(
+            '_join'=>'LEFT JOIN',
             'nickname','avatar','_on'=>'uid','phone'
             
             

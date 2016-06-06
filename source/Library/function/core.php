@@ -77,7 +77,8 @@ function addcss($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$g->template['baseurl']."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
+	$base = dirname($g->template['baseurl'])=='http:' ? $g->template['baseurl']:dirname($g->template['baseurl']).'/';
+	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"". $base."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
 	if($e)echo $r;
 	return $r;
 }
@@ -86,7 +87,8 @@ function addjs($c=0,$f=0,$p=0,$e=true){
 	if(!$c)$c = $g->control;
 	if(!$p)$p = $g->plugin;
     if(!$f)$f = $g->folder;
-	$r = '<script src="'.$g->template['baseurl']."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
+	$base = dirname($g->template['baseurl'])=='http:'?$g->template['baseurl']:dirname($g->template['baseurl']).'/';
+	$r = '<script src="'.$base."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
 	if($e)echo $r;
 	return $r;
 }

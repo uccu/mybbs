@@ -1,9 +1,10 @@
 (function(){
-    var folder =location.pathname.split("/");
+    folder =location.pathname.split("/");
     j(function(){
         var d = j('.nav-tabs li.'+folder[2]);
         if(d.length)d.addClass('active').removeAttr('href');
         j('form:not([data-default]) .advancedTextarea').advancedTextarea(500);
+        j('.changeToDate').text(function(){return j(this).text().dateChange()});
     });
     window.UEDITOR_CONFIG = 'ueditor/';
     jQuery.fn.extend({
@@ -15,7 +16,11 @@
     var breadcrumb = function(a){
         var d = j('.nav-tabs li.'+folder[2]),
         e = '<ol class="breadcrumb"><li><a href="weixin/index">Home</a></li><li>'+d.html()+'</li>';
-        if(a && folder[3])e += '<li><a href="weixin/'+folder[2]+'/'+folder[3]+'">'+a+'</a></li>';
+        if(a && folder[3]){
+            e += '<li><a href="weixin/'+folder[2]+'/'+folder[3]+'">'+a+'</a></li>';
+            if(folder[4] && !folder[4].match(/\d+/i))
+                e += '<li><a href="weixin/'+folder[2]+'/'+folder[3]+'/'+folder[4]+(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:'')+'">详情</a></li>';
+        }
         e += '</ol>';
         j('.alert_box').before(e);
     };

@@ -70,7 +70,7 @@ class in extends \control\ajax{
             
         //}
         require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
-        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        $p = new \ServerAPI('6tnym1brneq77','Akbbhh8WjZKjW0');
         $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
         $o = json_decode($r,true);
         $out['token'] = $o['token'];
@@ -138,7 +138,7 @@ class in extends \control\ajax{
         
         
         require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
-        $p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
+        $p = new \ServerAPI('6tnym1brneq77','Akbbhh8WjZKjW0');
         $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://120.26.230.136:6087/pic/'.$user['avatar']);
         $o = json_decode($r,true);
         $out['token'] = $o['token'];

@@ -37,6 +37,7 @@ class article extends \control\ajax{
         $out['url'] = 'http://120.26.230.136:6087/article/article/article/'.$aid;
         $where['uid'] = $this->user->uid;
         $where['aid'] = $aid;
+        $out['atype'] = $m['atype'];
         $out['favo'] = $this->favourite->where($where)->find() ? 1 : 0;
         if($tt)$this->success($out);
         T();

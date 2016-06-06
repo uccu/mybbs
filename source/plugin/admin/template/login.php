@@ -16,7 +16,6 @@
                         <label for="pdw">密码</label>
                         <input type="password" class="form-control" id="pdw" name="pwd" placeholder="密码">
                     </div>
-                    
                 </form>
             </div>
             <div class="modal-footer">

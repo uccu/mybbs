@@ -5,7 +5,7 @@ abstract class ab extends \control\ajax{
     abstract protected function _get_map();
     function __construct(){
         call_user_func_array(array(parent,'__construct'),func_get_args());
-        if(!$this->user->uid)header('Location:/weixin/login');
+        if(CONTROL_NAME!='app')if(!$this->user->uid)header('Location:/weixin/login');
         $first = reset($this->map);
         $this->g->template['subnav'] = "<script>subnav(".json_encode($this->map).",'".array_search($first,$this->map)."');</script>";
     }
@@ -14,6 +14,15 @@ abstract class ab extends \control\ajax{
     }
     protected function _get_opition(){
         return model('common:opition');
+    }
+    protected function _get_pinpaiCoverage(){
+        return model('weixin:weixin_pinpai_coverage');
+    }
+    protected function _get_shiliVideo(){
+        return model('weixin:weixin_shili_video');
+    }
+    protected function _get_feedback(){
+        return model('weixin:weixin_feedback');
     }
     protected function save_opition($name){
         $array['name'] = $name;
