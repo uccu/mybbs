@@ -28,5 +28,20 @@ class app extends \control{
     function up(){
         return control('hudong')->up();
     }
+    
+    function product_list($jid){
+        $jid = post('jid',$jid,'%d');
+        if($jid){
+            $model = model('project:project_link_product');
+            $model->add_table($model->productMap);
+        }else $model = model('project:product');
+        $limit = post('limit',10,'%d');
+        $line = post('dctime',0,'%d');
+        $where = array();
+        if($jid)$where['jid'] = $jid;
+        if($line)$where['dctime'] = array('logic',$line,'<');
+        $this->g->template['list'] = $model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        T(CONTROL_NAME.'/'.METHOD_NAME);
+    }
   
 }

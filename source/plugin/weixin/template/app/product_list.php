@@ -5,24 +5,16 @@
     <ul class="media-list"{if $k} style="border-top: 1px solid #ccc;padding-top: 8px;"{/if}>
         <li class="media">
             <div class="media-left">
-            <a href="weixin/app/{g.method}/{p.did}">
-                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url(http://a.baka/pic/weixin/201606/06/d82990b904b5e9c709929fa13e1aeea9.png)"></div>
+            <a href="weixin/app/product/{p.did}">
+                <div style="background-size:cover;background-position:center;width:100px;height:70px;background-image:url({p.dthumb})"></div>
             </a>
             </div>
             <div class="media-body pr">
-                <a href="weixin/app/{g.method}/video/{p.aid}"><h4 class="media-heading" style="color:#000">{p.dname}</h4></a>
-                <span class="pa" style="bottom:-10px;">
-                    <p class="text-muted">发布时间：
-                        <span class="changeToDate">{p.actime}</span>
-                    </p>
-                </span>
+                <a href="weixin/app/product/{p.did}"><h4 class="media-heading" style="color:#000">{p.dname}</h4></a>
             </div>
         </li>
     </ul>
     <!--{/loop}-->
-     
-     
-     
  </div>
 
 
