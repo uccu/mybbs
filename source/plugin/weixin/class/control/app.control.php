@@ -1,7 +1,7 @@
 <?php
 namespace plugin\weixin\control;
 defined('IN_PLAY') || exit('Access Denied');
-class app extends \control{
+class app extends \control\ajax{
     
 /*
     set subnav
@@ -35,12 +35,31 @@ class app extends \control{
             $model = model('project:project_link_product');
             $model->add_table($model->productMap);
         }else $model = model('project:product');
-        $limit = post('limit',10,'%d');
+        $limit = post('limit',6,'%d');
         $line = post('dctime',0,'%d');
         $where = array();
         if($jid)$where['jid'] = $jid;
         if($line)$where['dctime'] = array('logic',$line,'<');
         $this->g->template['list'] = $model->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        if($line)$this->success($this->g->template['list']);
+        T(CONTROL_NAME.'/'.METHOD_NAME);
+    }
+    function project_list(){
+        $limit = post('limit',6,'%d');
+        $line = post('dctime',0,'%d');
+        $where = array();
+        if($line)$where['dctime'] = array('logic',$line,'<');
+        $project = model('project:project')->limit(9999)->order(array('jctime'=>"DESC"))->select();$p2=array();$c = 0;
+        foreach($project as $p){
+            if($p2[$c] && count($p2[$c])==4)$c++;
+            if(!$p2[$c])$p2[$c]=array();
+            $p2[$c][] = $p;
+        }
+        $this->g->template['project'] = $p2;
+        //var_dump($p2);
+        $this->g->template['title'] = '产品与项目';
+        $this->g->template['product'] = model('project:product')->field(array('did','dthumb','dname','dctime'))->where($where)->order('dctime','DESC')->limit($limit)->select();
+        if($line)$this->success($this->g->template['product']);
         T(CONTROL_NAME.'/'.METHOD_NAME);
     }
     function product($id){

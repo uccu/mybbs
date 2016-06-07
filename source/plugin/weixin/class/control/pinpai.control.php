@@ -18,14 +18,17 @@ class pinpai extends ab\ab{
     } 
    
     function _app_introduction(){
+        $this->g->template['title'] = '机构简介';
         $this->g->template['content'] = $this->get_opition('introduction_desc');
         T('_static');
     }
     function _app_expert(){
+        $this->g->template['title'] = '专家团队';
         $this->g->template['content'] = $this->get_opition('expert_desc');
         T('_static');
     }
     function _app_coverage($aid){
+        $this->g->template['title'] = '媒体报道';
         if($aid){
             $a = $this->pinpaiCoverage->find($aid);
             $this->g->template['title'] = $a['atitle'];

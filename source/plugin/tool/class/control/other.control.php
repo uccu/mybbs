@@ -160,6 +160,15 @@ class other extends \control\ajax{
         }
         return $pic;
     }
+    function share(){
+        $this->user->_safe_login();
+        $o = array();
+        if($score = control('user:score','api')->_add_score_detail('分享','share')){
+            $o['score'] = $score;
+        }else $o['score'] = '0';
+        $this->success($o);
+
+    }
     
 }
 ?>

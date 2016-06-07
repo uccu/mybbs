@@ -1,3 +1,4 @@
 <!--{subtemplate tool:header}-->
-{content}
+<!--{eval addjs('p')}-->
+<div class="container" style="padding-top:10px">{content}</div>
 <!--{subtemplate tool:footer}-->

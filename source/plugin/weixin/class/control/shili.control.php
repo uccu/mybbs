@@ -14,14 +14,17 @@ class shili extends ab\ab{
     }
     
     function _app_person(){
+        $this->g->template['title'] = '真人秀';
         $this->g->template['content'] = $this->get_opition('person_desc');
         T('_static');
     }
     function _app_compare(){
+        $this->g->template['title'] = '前后对比';
         $this->g->template['content'] = $this->get_opition('compare_desc');
         T('_static');
     }
     function _app_video($aid){
+        $this->g->template['title'] = '视频实例';
         if($aid){
             $a = $this->shiliVideo->find($aid);
             $this->g->template['title'] = $a['atitle'];

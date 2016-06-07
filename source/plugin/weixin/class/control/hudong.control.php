@@ -10,20 +10,23 @@ class hudong extends ab\ab{
     
     
     function _app_activity(){
+        $this->g->template['title'] = '优惠活动';
         $this->g->template['content'] = $this->get_opition('activity_desc');
         T('_static');
     }
     function _app_apptro(){
+        $this->g->template['title'] = 'APP介绍';
         $this->g->template['content'] = $this->get_opition('apptro_desc');
         T('_static');
     }
     function _app_register(){
+        $this->g->template['title'] = '注册送好礼';
         $this->g->template['content'] = $this->get_opition('register_desc');
         T('_static');
     }
     function _app_question(){
-       
-         T(CONTROL_NAME.'/question');
+        $this->g->template['title'] = '我要咨询';
+        T(CONTROL_NAME.'/question');
     }
     function up(){
         if(!$_POST['name'])$this->error(400,'姓名为空');

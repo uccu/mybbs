@@ -69,7 +69,8 @@ class opition extends \control\ajax{
         }
         if(count($pro)<4){
             $n = 4-count($pro);
-            $where['jid'] = array('contain',$interest,'NOT IN');
+            $where = array();
+            if($interest)$where['jid'] = array('contain',$interest,'NOT IN');
             $pro2 = $this->project->where($where)->field(array('jid','jthumb','jname'))->order(array('jctime'=>'DESC'))->limit($n)->select();
             $pro = array_merge($pro,$pro2);
         }

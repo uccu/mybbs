@@ -17,6 +17,7 @@
             <a class="list-group-item active cd">商城切图</a>
             <a href="common/area" class="list-group-item">地区列表</a>
             <a href="common/work" class="list-group-item">工作列表</a>
+            <a href="common/tag" class="list-group-item">TAG列表</a>
             
         </div>
     </div>

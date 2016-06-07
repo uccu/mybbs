@@ -5,6 +5,7 @@
         if(d.length)d.addClass('active').removeAttr('href');
         j('form:not([data-default]) .advancedTextarea').advancedTextarea(500);
         j('.changeToDate').text(function(){return j(this).text().dateChange()});
+        j('img').addClass('img-responsive');
     });
     window.UEDITOR_CONFIG = 'ueditor/';
     jQuery.fn.extend({

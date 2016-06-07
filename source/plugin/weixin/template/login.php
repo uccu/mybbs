@@ -31,7 +31,7 @@
   j('.login').click(function(){
     var f=j('form').serializeArray();
     j.post('weixin/admin/admin_login',f,function(d){
-      if(d.code!=200){j('.help-block').html(d.desc);return}location='weixin/index'
+      if(d.code!=200){j('.help-block').html(d.desc);return}location='/weixin/index'
     },'json')
   })
   

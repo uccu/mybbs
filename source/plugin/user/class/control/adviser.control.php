@@ -56,7 +56,7 @@ USING gbk ) , 1 ) ) , 16, 10 ) , 0xB0A1, 0xB0C5, 0xB2C1, 0xB4EE, 0xB6EA, 0xB7A2,
     }
     function get_user_detail($uid=0){
         $where['uid'] = post('uid',0,'%d');
-        $where['adviser'] = $this->user->uid;
+        //$where['adviser'] = $this->user->uid;
         $m = $this->model->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
                 'work','phone','interest','score','ctime','last_time','ip'))->where($where)->find();
         if(!$m)$this->error(411,'获取失败');

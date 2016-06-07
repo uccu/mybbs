@@ -35,6 +35,11 @@ class common extends \control\ajax{
         $m = $this->area->data($_POST)->add(true);
         $this->success($m);
     }
+    function tag(){
+        $list = model('community:community_tag')->limit(9999)->order(array('tid'=>'DESC'))->select();
+        table('config')->template['list'] = $list;
+        T('admin:common/tag');
+    }
     function del_area(){
         $m = $this->area->where($_POST)->remove();
         $this->success($m);
@@ -46,6 +51,14 @@ class common extends \control\ajax{
     }
     function change_work(){
         $m = $this->work->data($_POST)->add(true);
+        $this->success($m);
+    }
+    function change_tag(){
+        $m = model('community:community_tag')->data($_POST)->add(true);
+        $this->success($m);
+    }
+    function del_tag(){
+        $m = model('community:community_tag')->where($_POST)->remove();
         $this->success($m);
     }
     function del_work(){

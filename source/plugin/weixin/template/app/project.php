@@ -9,15 +9,16 @@
 <div class="container">
 
   <!-- Nav tabs -->
-  <style>.nav-tabs>li>a{padding:5px 19px;border-radius:0;margin:0;border:none !important;outline:0}
+  <style>.nav-tabs>li>a{padding:5px 10px;border-radius:0;margin:0;border:none !important;outline:0}
       .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover,.nav-tabs>li>a:active{
           color:#fff;background:#F586A1;
       }
+      .tab-pane{overflow:hidden;min-height:210px}
   </style>
 <div class="text-center">
     <ul class="nav nav-tabs center-block t" role="tablist" style="overflow:hidden;display: inline-block;padding:0;border-bottom:none;margin-top:10px;margin-bottom:10px;border:1px solid #F586A1;border-radius:3px">
-        <li role="presentation" class="active"><a href="#t1" aria-controls=t1" role="tab" data-toggle="tab">项目介绍</a></li>
-        <li role="presentation"><a href="#t2" aria-controls=t2" role="tab" data-toggle="tab">项目特色</a></li>
+        <li role="presentation" class="active"><a href="#t1" aria-controls="t1" role="tab" data-toggle="tab">项目介绍</a></li>
+        <li role="presentation"><a href="#t2" aria-controls="t2" role="tab" data-toggle="tab">项目特色</a></li>
         <li role="presentation"><a href="#t3" aria-controls="t3" role="tab" data-toggle="tab">专家介绍</a></li>
         <li role="presentation"><a href="#t4" aria-controls="t4" role="tab" data-toggle="tab">注意事项</a></li>
     </ul>
@@ -32,5 +33,9 @@
   </div>
 
 </div>
+<div class="text-center" style="border-top:1px solid #ccc;padding:20px;">
+    <a href="weixin/app/product_list/{jid}" style="outline:0;margin-bottom:20px;padding:10px;width:150px;background:#72b0ec;border-radius:100px;border:none;box-shadow:0 0 5px #777;color:#f5f5f5;font-size:16px">查看相关产品</a>
+         
 
+</div>
 <!--{template tool:footer}-->

@@ -7,7 +7,6 @@
     </ol>
     <div class="alert_box"></div>
 </div>
-
 <div class="container">
     <div class="col-md-2">
         <div class="list-group">
@@ -16,8 +15,7 @@
             <a href="common/shop" class="list-group-item">商城切图</a>
             <a href="common/area" class="list-group-item">地区列表</a>
             <a href="common/work" class="list-group-item">工作列表</a>
-            
-            
+            <a href="common/tag" class="list-group-item">TAG列表</a>
         </div>
        
     </div>
@@ -40,10 +38,10 @@
                         <label for="value">外链地址</label>
                         <input class="form-control" type="text" name="url" value="{ad.url}" placeholder='http://'/>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="value">内容</label>
                         <textarea class="form-control" name="content" rows="10" placeholder='内容'>{ad.content}</textarea>
-                    </div>
+                    </div>-->
                     <div class="text-right">
                         <button type="button" class="btn btn-success save">保存</button>
                         

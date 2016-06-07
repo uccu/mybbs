@@ -30,5 +30,3 @@ class test extends \control{
 
 
 ?>
-
-

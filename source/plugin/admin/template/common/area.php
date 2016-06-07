@@ -16,6 +16,7 @@
             <a href="common/shop" class="list-group-item">商城切图</a>
             <a class="list-group-item active cd">地区列表</a>
             <a href="common/work" class="list-group-item">工作列表</a>
+            <a href="common/tag" class="list-group-item">TAG列表</a>
         </div>
        
     </div>
