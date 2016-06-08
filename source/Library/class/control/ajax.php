@@ -7,7 +7,7 @@ class ajax extends \control{
 	protected $checkAJAX = 1;
 	function __construct(){
 		call_user_func_array(array(parent,'__construct'),func_get_args());
-		if($this->g->config['CHECK_AJAX'])if(!IS_AJAX)$this->error('not ajax');
+		if($this->g->config['CHECK_AJAX'])if(!IS_AJAX)$this->error(400);
 	}
     protected function success($object,$url='') {
 		return $this->_out($object,$url,200);

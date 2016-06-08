@@ -3,7 +3,6 @@ namespace base;
 if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
-
 class init{
     private $config;
 	function __construct(){
@@ -25,9 +24,11 @@ class init{
 		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->config->plugin=$_REQUEST['plugin']){
 			header('Location: /404.html');
 		}
+		define('PLUGIN_NAME',$this->config->plugin);
 		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['control']) || !$this->config->control = $_REQUEST['control']){
 			header('Location: /404.html');
 		}
+		define('CONTROL_NAME',$this->config->control);
 		if(file_exists(PLUGIN_ROOT.'/'.$this->config->plugin.'/config/config.php')){
 			require PLUGIN_ROOT.$this->config->plugin.'/config/config.php';
 			if($config)$this->config->config = array_merge($this->config->config,$config);
@@ -44,7 +45,8 @@ class init{
 		}else{
 			if($this->config->method = $_REQUEST['method']){
 				if(!method_exists($c,$this->config->method) || preg_match('/^[^a-z]$/i',$this->config->method[0]))header('Location: /404.html');
-                $getter = $_REQUEST['getter'];
+                define('METHOD_NAME',$this->config->method);
+				$getter = $_REQUEST['getter'];
 				if(!strlen($getter))$getter = array();
 				else $getter = explode($this->config->config['GETTER_SEPARATOR'],$tran->t2c(str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$getter)));
 				call_user_func_array(array($c,$this->config->method),$getter);
