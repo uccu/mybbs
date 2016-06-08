@@ -15,7 +15,7 @@ String.prototype.timeChange=function(){
 String.prototype.dateChange=function(){
 	var g = new Date();g.setTime(this*1000);return g.getFullYear()+'-'+(g.getMonth()+1).t2()+'-'+g.getDate().t2()
 }
-window.getPageSet=(p,m,a,f,b,c)=>{
+window.getPageSet=function(p,m,a,f,b,c){
 	p=parseInt(p);if(!a)a='href';
 	var s='',g=(p>5?p-5:1)-(p+5>m?5+m-p:0);if(!b)b='';
 	s+='<li><a '+a+'="'+f+1+b+'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
@@ -25,7 +25,7 @@ window.getPageSet=(p,m,a,f,b,c)=>{
 	for(i=p+1;i<=m&&i<(p+6+(p>5?0:6-p));i++)
 		s+="<li><a "+a+"='"+f+i+b+"'><i class='t'>"+i+"</i></a></li>";
 	s+='<li><a '+a+'="'+f+m+b+'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
-	jQuery(()=>{
+	jQuery(function(){
 		jQuery('.pageset').append(s);
 		if(c)c()
 	})
