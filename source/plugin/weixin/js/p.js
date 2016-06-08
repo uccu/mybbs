@@ -6,6 +6,7 @@
         j('form:not([data-default]) .advancedTextarea').advancedTextarea(500);
         j('.changeToDate').text(function(){return j(this).text().dateChange()});
         j('img').addClass('img-responsive');
+        j('iframe').css({'max-width':'100%',height:'300px'});
     });
     window.UEDITOR_CONFIG = 'ueditor/';
     jQuery.fn.extend({
