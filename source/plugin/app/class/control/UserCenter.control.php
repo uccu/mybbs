@@ -23,6 +23,11 @@ class UserCenter extends \control{
     function _my_live(){
 
     }
+    function index($uid=0){
+
+        $this->g->template['user'] = model('UserInfo')->find($uid);
+        T('userCenter');
+    }
 }
 
 

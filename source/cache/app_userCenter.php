@@ -1,0 +1,1 @@
+<?php defined('IN_PLAY') || exit('Access Denied');?><?php var_dump($user) ?>
