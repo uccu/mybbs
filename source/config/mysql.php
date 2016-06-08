@@ -5,7 +5,7 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'test.hanyu365.com.cn',
+	 'host'=>'120.26.230.136:6088',
 	 'user'=>'xuanman',
 	 'password'=>'123',
 	 'db'=>'xuanman',

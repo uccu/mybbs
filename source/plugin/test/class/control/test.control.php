@@ -10,11 +10,11 @@ class test extends \control{
 		
 		
 	}
-	function abc($a,$b=0){
-        model('cache')->replace('cacheid',1);
+	function add($a,$b=0){
+        model('cache')->plus('cacheid',1);
 		//var_dump($a,$b);
         $g['plugin']=1234;
-        include template('cache:baka');
+        //include template('cache:baka');
 	}
 	function date(){
         echo date('Y-m-d H:i:s');
