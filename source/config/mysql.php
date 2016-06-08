@@ -5,11 +5,11 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'localhost',
-	 'user'=>'root',
-	 'password'=>'root',
-	 'db'=>'database',
-	 'prefix'=>'prefix_',
+	 'host'=>'test.hanyu365.com.cn',
+	 'user'=>'xuanman',
+	 'password'=>'123',
+	 'db'=>'xuanman',
+	 'prefix'=>'xu_',
 	 'charset'=>'utf8'
 );
 ?>
