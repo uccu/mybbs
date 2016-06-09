@@ -1,5 +1,5 @@
 <?php
 
-echo 'what is this'
-echo 'ok';
+echo 'what is this';
+echo ', ok';
 ?>
