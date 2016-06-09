@@ -1,4 +1,4 @@
-<!--{subtemplate header}-->
+<!--{subtemplate _header}-->
 <style>
     .blog_block:hover .blog_title{border-left: 5px solid red;}
 </style>

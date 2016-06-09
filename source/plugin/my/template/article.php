@@ -1,4 +1,4 @@
-<!--{subtemplate header}-->
+<!--{subtemplate _header}-->
 <div class="container">
     <ol class="breadcrumb" style="background:none">
         <li><a href="">Home</a></li>
@@ -106,4 +106,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!--{subtemplate footer}-->
+<!--{subtemplate _footer}-->
