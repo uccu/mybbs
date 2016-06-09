@@ -1,7 +1,7 @@
 <?php
 define('IN_PLAY', true);
-define('TIMELINE', time());
 define('PLAY_ROOT', substr(__DIR__, 0, -20));
+define('TIME_NOW',time());
 define('LIBRARY_ROOT', substr(__DIR__, 0, -6));
 define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin/');
 define('CACHE_ROOT', substr(__DIR__, 0, -13).'cache/');
@@ -80,8 +80,16 @@ class core
 		}
 	}
 	public static function handleException($exception) {
-		if(defined('SHOW_ERROR'))var_dump($exception);
-		echo "handleException";
+		header('Content-Type:application/json; charset=utf-8');
+		$array = array();
+		$array['message'] = $exception->getMessage();
+		$array['file'] = $exception->getFile();
+		$array['line'] = $exception->getLine();
+		$array['trace'] = $exception->getTraceAsString();
+		model('cache')->replace('handleException',$array,'%s');
+		if(!defined('SHOW_ERROR'))$array = array();
+		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
+		echo json_encode($error);
 		die();
 	}
 	public static function handleError($errno, $errstr, $errfile, $errline) {
@@ -100,18 +108,17 @@ class core
 				default:
 					break;
 			}
-			if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
-			echo "handleError";
-			die();
+			model('cache')->replace('handleError',array($errno, $errstr, $errfile, $errline),'%s');
+			//if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
+			throw new Exception('handleError');
 		}
 	}
 
 	public static function handleShutdown() {
 		if(($error = error_get_last()) && $error['type']) {
 			if(stristr($error['file'],'eval'))return null;
-			if(defined('SHOW_ERROR'))var_dump($error);
-			echo "handleShutdown";
-			die();
+			model('cache')->replace('handleShutdown','sss');
+			throw new Exception('handleError');
 		}
 	}
 	public static function autoload($class){

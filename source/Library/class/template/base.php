@@ -78,8 +78,6 @@ class base
             "<?php ",
             " ?>",
             "<?php $1 ?>",
-            
-            
             "<?php if($1){ ?>",
             "<?php }elseif($1){ ?>",
             "<?php }else{ ?>",
