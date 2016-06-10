@@ -4,7 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 use \control;
 class chat extends control{
     function _beginning(){
-        $this->g->template['title'] = 'Chat';
+        
     }
     function room($id=0){
          $this->g->template['title'] .= ' - Room - '.$id;
@@ -12,7 +12,7 @@ class chat extends control{
         T();
     }
     function _nomethod(){
-
+		$this->g->template['title'] = 'Chat - Master Room';
         T();
     }
     

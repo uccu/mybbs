@@ -16,7 +16,7 @@ class reply extends \model{
     );
     protected $auto = array(
         'rid'=>false,
-        'rctime'=>TIMELINE
+        'rctime'=>TIME_NOW
     );
     function add_articleMap(){
         return $this->add_table(array(

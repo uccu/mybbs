@@ -6,6 +6,7 @@
     </ol>
 </div>
 <div class="container" style="padding-top:100px">
+    <div><h4>total : 0</h4></div>
     <div class="panel panel-default chat-container" style="height:400px;overflow-y:auto">
         <div class="panel-body">
             <div class="chat-body tr"></div>
