@@ -66,10 +66,10 @@ jQuery.fn.extend({
 		}else if( value === undefined )return undefined;
 	}
 });
-window.packFormData=function(file,v,t,x){
+window.packFormData=function(file,v,x){
 		var form = new FormData();
 		if(typeof v==="object")for(d in v)form.append(d,v[d]);
-		if(!t)file=jQuery(file).get(0).files;
+		file=j.prototype.isPrototypeOf(file)?file.get(0).files:jQuery(file).get(0).files;
 		if(file.length)form.append("file",file[0]);
 		else{alert('选择失败，请选择正确的文件');return}
 		if(!file[0])return;

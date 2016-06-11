@@ -33,6 +33,20 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                 <span>
+                    <a class="btn btn-default t picup">图片</a>
+                    <div class="dn">
+                        <input type="file" class="picupi" accept="image/*">
+                    </div>
+                </span>
+                 <span>
+                    <botton class="btn btn-default t">@</button>
+                    <div class="dn">
+                        <input type="file">
+                    </div>
+                </span>
+            </div>
             <div class="form-group text-center">
                 <textarea id="textarea" class="form-control center-block" rows="10" name="content" style="resize:none" placeholder="发送消息"></textarea>
             </div>
