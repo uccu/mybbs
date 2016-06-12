@@ -5,7 +5,7 @@ if(!defined('IN_PLAY')) {
 }
 class logic{
 	private $mb;
-	private $prefix;
+	public $prefix;
 	private $multi = 0;
 	function __construct(){
 		$this->mb = table('base','mysql');
