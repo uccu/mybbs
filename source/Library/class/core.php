@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 define('IN_PLAY', true);
 define('PLAY_ROOT', substr(__DIR__, 0, -20));
 define('TIME_NOW',time());

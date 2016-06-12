@@ -8,8 +8,8 @@ if(!defined('IN_PLAY')) {
 	 'host'=>'localhost',
 	 'user'=>'root',
 	 'password'=>'root',
-	 'db'=>'database',
-	 'prefix'=>'prefix_',
+	 'db'=>'sources',
+	 'prefix'=>'',
 	 'charset'=>'utf8'
-);
+ );
 ?>
