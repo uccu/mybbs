@@ -96,6 +96,7 @@ class base
 		if(!$sub){
 			$template ="<?php defined('IN_PLAY') || exit('Access Denied');?>".$template;
 			$cfile=PLAY_ROOT.'source/cache/'.$plugin.'_'.($folder?$folder.'_':'').$name.'.php';
+            if(!is_dir(PLAY_ROOT.'cache'))mkdir(PLAY_ROOT.'cache');
 			$fp = fopen($cfile, 'w');
 			fwrite($fp, $template);
 			fclose($fp);
