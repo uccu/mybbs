@@ -4,7 +4,7 @@ if(!defined('IN_PLAY')) {
 }
 $config=array(
 	'GETTER_SEPARATOR'=>'/',
-	'BASE_URL'=>'http://'.$_SERVER['HTTP_HOST'].'/', 
+	'BASE_URL'=>'http://'.$_SERVER['HTTP_HOST'].($_SERVER['SERVER_PORT']==80?'':':'.$_SERVER['SERVER_PORT']).'/', 
     'HOST'=>$_SERVER['HTTP_HOST'], 
     'LOGIN_SALT'=>'gtisdsds',
 	'LIMIT_SORT_LEN'=>2,
