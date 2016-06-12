@@ -7,7 +7,7 @@ class captcha extends \control\ajax{
         //var_dump($this->uid);die();
     }
     function get_captcha(){
-        
+        $this->success('captcha');
     }
 }
 ?>
