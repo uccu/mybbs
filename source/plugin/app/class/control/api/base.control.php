@@ -19,7 +19,7 @@ class base extends \control\ajax{
 
         //验证过期时间
         if($until!=0 && $until<$time){
-            cookie('xm_secury','',-3600);$this->error(101,'登入超时');return 0;
+            cookie('xm_secury','',-3600);return 0;
         }elseif(md5($uid.$until.$time.$this->g->config['LOGIN_SALT']) === $md5){
             $this->type = $type;return $uid;
         }

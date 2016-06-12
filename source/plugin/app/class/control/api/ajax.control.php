@@ -1,7 +1,7 @@
 <?php
 namespace plugin\app\control\api;
 defined('IN_PLAY') || exit('Access Denied');
-class base extends \control\ajax{
+class ajax extends \control\ajax{
     function _beginning(){
         
     }

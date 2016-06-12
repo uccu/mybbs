@@ -4,7 +4,7 @@ defined('IN_PLAY') || die('Access Denied');
 class Login extends api\ajax{
     
     
-
+    //登录
     function login(){
         //已经登录
         if($this->user->uid)$this->error(301,'已登入');
@@ -32,6 +32,12 @@ class Login extends api\ajax{
         $this->success();
     }
 
+    //登出
+    function logout(){
+        cookie('xm_secury','',-3600);
+        $this->success();
+
+    }
 }
 
 
