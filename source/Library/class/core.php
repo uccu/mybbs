@@ -118,8 +118,10 @@ class core
 	public static function handleShutdown() {
 		if(($error = error_get_last()) && $error['type']) {
 			if(stristr($error['file'],'eval'))return null;
-			model('cache')->replace('handleShutdown','sss');
-			throw new Exception('handleError');
+			if(!defined('SHOW_ERROR'))$error = array();
+			$error = array('code'=>999,'desc'=>"handleShutdown",url=>'',data=>$error);
+			echo json_encode($error);
+			die();
 		}
 	}
 	public static function autoload($class){
