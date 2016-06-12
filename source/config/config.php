@@ -12,6 +12,6 @@ $config=array(
 	'TIMEZONE'=>'PRC',
 	'CHECK_AJAX'=>0,
 	'AJAX_JSON_HEADER'=>1,
-	'DEBUG'=>1
+	'DEBUG'=>1,
 );
 ?>
