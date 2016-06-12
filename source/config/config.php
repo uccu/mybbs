@@ -4,8 +4,8 @@ if(!defined('IN_PLAY')) {
 }
 $config=array(
 	'GETTER_SEPARATOR'=>'/',
-	'BASE_URL'=>'http://'.$_SERVER['HTTP_HOST'].'/',
-    'HOST'=>$_SERVER['HTTP_HOST'],
+	'BASE_URL'=>'http://'.$_SERVER['HTTP_HOST'].'/', 
+    'HOST'=>$_SERVER['HTTP_HOST'], 
     'LOGIN_SALT'=>'gtisdsds',
 	'LIMIT_SORT_LEN'=>2,
 	'CHECK_IP'=>1,
