@@ -1,1 +1,7 @@
-<!--{eval var_dump($user)}-->
+<pre>
+<!--{loop $g['template'] $k=>$v}-->
+<h2><!--{eval echo strtoupper($k)}--></h2>
+<p><!--{eval var_dump($v)}--></p>
+<!--{/loop}-->
+</pre>
+

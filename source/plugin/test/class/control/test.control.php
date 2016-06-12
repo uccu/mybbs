@@ -20,7 +20,7 @@ class test extends \control{
         echo date('Y-m-d H:i:s');
 	}
 	function head(){
-		//var_dump(table('config'));
+		var_dump($_SERVER);
 	}
 	
 }
