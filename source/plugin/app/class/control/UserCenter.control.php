@@ -6,7 +6,7 @@ class UserCenter extends \control{
         
     }
     function _coser($uid){
-        return model('UserInfo')->safe_info()->add_count()->find($uid);
+        return model('app:UserInfo')->safe_info()->add_count()->find($uid);
     }
     function _blog_list(){
 
@@ -21,18 +21,18 @@ class UserCenter extends \control{
         $where = array();
         if($uid)$where['uid'] = $uid;
         if($tid)$where['tid'] = $tid;
-        return model('Video')->where($where)->order(array('ctime'=>'DESC'))->limit($limit)->select();
+        return model('app:Video')->where($where)->order(array('ctime'=>'DESC'))->limit($limit)->select();
     }
     function _userTeam($uid=0,$team=0,$captain=null){
         $where = array();
         if(!is_null($captain))$where['captain'] = $captain;
         if($uid)$where['uid'] = $uid;
         if($tid)$where['tid'] = $tid;
-        return model('UserTeam')->where($where)->order(array('zid'))->limit(9999)->select();
+        return model('app:UserTeam')->where($where)->order(array('zid'))->limit(9999)->select();
     }
     function _rank(){
         $where['fans'] = array('logic',$fans,'>');
-        return model('UserCount')->where($where)->get_field()+1;
+        return model('app:UserCount')->where($where)->get_field()+1;
     }
     function _my_live(){
 
