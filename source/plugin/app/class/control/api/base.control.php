@@ -5,7 +5,14 @@ class base extends \control\ajax{
     function _beginning(){
         
     }
-
+    protected function _get_me(){
+        if(!$this->uid)return array();
+        return model('app:UserInfo')->safe_info()->find($this->uid);
+    }
+    protected function _get_tid(){
+        if(!$this->uid)return 0;
+        return $this->me['tid'];
+    }
     protected function _get_uid(){
         //获取cookie
         $secury = cookie('xm_secury');
@@ -28,6 +35,10 @@ class base extends \control\ajax{
 
     public function _safe_login(){
         if(!$this->uid)$this->error(406,'未登入');
+    }
+    public function _safe_right($uid){
+        if($this->uid == $uid)return true;
+        else $this->error(706,'权限不足');
     }
     
 }

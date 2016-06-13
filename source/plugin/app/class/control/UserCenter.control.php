@@ -1,7 +1,7 @@
 <?php
 namespace plugin\app\control;
 defined('IN_PLAY') || die('Access Denied');
-class UserCenter extends \control{
+class UserCenter extends api\ajax{
     function _beginning(){
         
     }
@@ -30,7 +30,7 @@ class UserCenter extends \control{
         if($tid)$where['tid'] = $tid;
         return model('app:UserTeam')->where($where)->order(array('zid'))->limit(9999)->select();
     }
-    function _rank(){
+    function _rank($fans){
         $where['fans'] = array('logic',$fans,'>');
         return model('app:UserCount')->where($where)->get_field()+1;
     }
