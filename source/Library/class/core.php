@@ -24,7 +24,7 @@ class core
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
-        //echo $name.'<br />';
+
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);
@@ -34,51 +34,45 @@ class core
         
 		if(!isset(self::$_tables[$tname])){
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
-                
 				self::$_tables[$tname] = new $tname;
-			}elseif(!$plugin && self::$config->plugin && self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
+			}elseif(!$plugin && 
+				self::$config->plugin && 
+				self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
 				$uname = 'plugin\\' . self::$config->plugin .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 				self::$_tables[$tname] = new $uname;
-			}else self::$_tables[$tname] = false;
+				}elseif($type==='model')self::$_tables[$tname] = new model($name);
+			else self::$_tables[$tname] = false;
 		}
-        //var_dump($plugin ,self::$config);
+		
 		return self::$_tables[$tname];
 	}
 	public static function m($name, $folder=''){
-		return self::t($name,'model',$folder);
+		$model = self::t($name,'model',$folder,false);
+		
+		return $model;
 	}
 	public static function c($name, $folder=''){
 		return self::t($name,'control',$folder,false);
 	}
-	public static function import($class, $type= false, $plugin = false, $force = true) {
-        
+	public static function import($class, $type = false, $plugin = false, $force = true) {
 		if(strpos($class, '\\')){
 			$pre = explode('\\',$class);
-			$class = $pre[count($pre)-1];
-			unset($pre[count($pre)-1]);
+			$class = end($pre);
+			array_pop($pre);
 		}
+		$root = $plugin?PLUGIN_ROOT.$plugin:LIBRARY_ROOT;
 		$key = ($plugin?'plugin_'.$plugin.'_':'').($type?$type.'_':'');
-		
-		$path = ($plugin?PLUGIN_ROOT.$plugin:LIBRARY_ROOT).'\\class\\'.($type?$type.'\\':'');
-		if($pre)foreach($pre as $v){
-			$key .= $v.'_';
-			$path  .= $v.'\\';
-		}
+		$path = $root.'\\class\\'.($type?$type.'\\':'');
+		if($pre)foreach($pre as $v){$key .= $v.'_';$path  .= $v.'\\';}
 		$key .= $class;
-		//echo $key.'<br />'.microtime(get_as_float).'<br />';
-		if(self::$_imports[$key])return true;
+		if(self::$_imports[$key])return $_imports[$key];
 		$path .= $class.($plugin && $type?'.'.$type:'').'.php';
 		$path = str_replace('\\','/',$path);
 		if(is_file($path)) {
-			include $path;
-			self::$_imports[$key] = true;
-			return true;
-		} elseif(!$force) {
-            //var_dump($path);
-			return false;
-		} else {
-			throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));
-		}
+			include $path;return self::$_imports[$key] = true;
+		}elseif(!$force) return $_imports[$key] = false;
+		else throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));
+		
 	}
 	public static function handleException($exception) {
 		header('Content-Type:application/json; charset=utf-8');
