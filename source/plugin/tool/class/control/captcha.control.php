@@ -1,5 +1,5 @@
 <?php
-namespace plugin\tool\control\api;
+namespace plugin\tool\control;
 defined('IN_PLAY') || exit('Access Denied');
 class captcha extends \control\ajax{
     function _beginning(){
@@ -7,9 +7,9 @@ class captcha extends \control\ajax{
         //var_dump($this->uid);die();
     }
     function get_captcha(){
+        $a = model('article')->find(1);
+        var_dump($a);
         $this->success('captcha');
     }
 }
 ?>
-
-

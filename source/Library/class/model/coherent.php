@@ -25,8 +25,17 @@ class coherent{
 		return model('logic');
 	}
 	function __construct(){
-		$this->tableName = basename(get_class($this));
-		$this->table($this->tableName);
+		$class = get_class($this);
+		$this->tableName = basename($class);
+		if($class==='model'){
+			$args = func_get_args();
+			$t = model('logic')->fetch_all('SHOW TABLES');
+			foreach($t as &$v)$v = reset($v);
+			if(array_search($args[0],$t)===false)throw new \Exception('table lost: '.$args[0]);
+			else $this->tableName = $args[0];
+		}
+		
+		
 		if(!$this->tableMap){
 			$file = PLAY_ROOT.'source/cache/model/'.$this->g->config['prefix'].$this->tableName.'.sys.php';
 			if($this->g->config['MODEL_DEBUG'] || !file_exists($file)){
@@ -44,7 +53,7 @@ class coherent{
 			$this->tableMap = $tableMap;
 		}
 		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
-		$this->table();
+		$this->table($this->tableName);
 	}
     function __call($name,$args) {
 		if(!method_exists($this,$name))
