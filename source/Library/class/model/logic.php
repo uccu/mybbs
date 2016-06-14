@@ -5,11 +5,11 @@ if(!defined('IN_PLAY')) {
 }
 class logic{
 	private $mb;
-	public $prefix;
+	private $prefix;
 	private $multi = 0;
 	function __construct(){
 		$this->mb = table('base','mysql');
-		$this->prefix = $this->mb->prefix;
+		table('config')->config['prefix'] = $this->prefix = $this->mb->prefix;
 	}
 	function multi($s=1){
 		$this->multi = $s;
