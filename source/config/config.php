@@ -13,5 +13,6 @@ $config=array(
 	'CHECK_AJAX'=>0,
 	'AJAX_JSON_HEADER'=>1,
 	'DEBUG'=>1,
+	'MODEL_DEBUG'=>0
 );
 ?>
