@@ -21,10 +21,21 @@
     .h-4{
         height:250px;overflow:hidden;padding:2px
     }
+    .pic{
+        width:100%;height:100%;background-image:url(./1.png);
+        background-position:center;
+        background-size:cover;
+        border-radius:0px;
+
+    }
+    @media (max-height: 460px)
+.t2{
+    display:none !important
+}
 
 </style>
-<!--{eval $a='<img src="./pic/album/201606/13/0b083707fa40bcdc45e18f991f65f792.large.jpg">'}-->
-<div class="container-fluid">
+<!--{eval $a='<div class="pic"></div>'}-->
+<div class="container-fluid" style="border-bottom:1px solid #fff inset">
     <div class="row">
         <div class="cccl col-md-3 col-sm-4 col-xs-6">
             <div>
@@ -37,7 +48,7 @@
             </div>
             <div class="h-1">{a}</div>
         </div>
-        <div class="cccl col-md-3 col-sm-4 col-xs-6">
+        <div class="t2 cccl col-md-3 col-sm-4 col-xs-6">
             <div>
                 <div class="h-4 col-sm-6 col-xs-6">
                     {a}
@@ -92,19 +103,19 @@
 </div>
 <script>
     j(window).resize(function(){
-        var h = window.innerHeight;
-        j('.h-1').height(h/2);
-        j('.h-2').height(h/4);
-        j('.h-3').height(h/4-20);
-        j('.h-4').height(h/4+20);
+        var h = window.innerHeight-2;
+        j('.h-1').height(h/2-2);
+        j('.h-2').height(h/4-2);
+        j('.h-3').height(h/4-20-2);
+        j('.h-4').height(h/4+20-2);
         j('.cccl').height(h);
     });
-    var h = window.innerHeight;
-    j('.h-1').height(h/2);
-    j('.h-2').height(h/4);
-    j('.h-3').height(h/4-20);
-    j('.h-4').height(h/4+20);
-    j('.cccl').height(h);
+        var h = window.innerHeight-2;
+        j('.h-1').height(h/2-2);
+        j('.h-2').height(h/4-2);
+        j('.h-3').height(h/4-20-2);
+        j('.h-4').height(h/4+20-2);
+        j('.cccl').height(h);
 
 </script>
 <!--{subtemplate tool:footer}-->
