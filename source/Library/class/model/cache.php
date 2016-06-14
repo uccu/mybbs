@@ -12,7 +12,7 @@ class cache extends \model{
         
     );
 	function _beginning(){
-		$sql = 'CREATE TABLE IF NOT EXISTS `'.model('logic')->prefix.'cache` (`type` varchar(100) NOT NULL,`des` text NOT NULL,PRIMARY KEY (`type`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.$this->g->config['prefix'].'cache` (`type` varchar(100) NOT NULL,`des` text NOT NULL,PRIMARY KEY (`type`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 		model('logic')->query($sql);
 	}
     function get($type,$format = false){
