@@ -11,6 +11,10 @@ class cache extends \model{
     protected $auto = array(
         
     );
+	function _beginning(){
+		$sql = 'CREATE TABLE IF NOT EXISTS `'.model('logic')->prefix.'cache` (`type` varchar(100) NOT NULL,`des` text NOT NULL,PRIMARY KEY (`type`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;';
+		model('logic')->query($sql);
+	}
     function get($type,$format = false){
 		return $this->find($type,false)->get_field('des',$format);
 	}
