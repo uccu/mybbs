@@ -18,10 +18,42 @@ class coherent{
 	protected $auto;
 	protected $data = array();
     protected $_gsave;
+	function _get_g(){
+		return table('config');
+	}
+	protected function _get_logic(){
+		return model('logic');
+	}
 	function __construct(){
-		$this->table(basename(get_class($this)));
+		$class = get_class($this);
+		$this->tableName = basename($class);
+		if($class==='model'){
+			$args = func_get_args();
+			$t = model('logic')->fetch_all('SHOW TABLES');
+			foreach($t as &$v)$v = reset($v);
+			if(array_search($args[0],$t)===false)throw new \Exception('table lost: '.$args[0]);
+			else $this->tableName = $args[0];
+		}
+		
+		
+		if(!$this->tableMap){
+			$file = PLAY_ROOT.'source/cache/model/'.$this->g->config['prefix'].$this->tableName.'.sys.php';
+			if($this->g->config['MODEL_DEBUG'] || !file_exists($file)){
+				$t = model('logic')->fetch_all('SHOW FULL COLUMNS FROM '.$this->logic->quote_table($this->tableName));
+				if(!is_dir(PLAY_ROOT.'source/cache'))mkdir(PLAY_ROOT.'source/cache');
+				if(!is_dir(PLAY_ROOT.'source/cache/model'))mkdir(PLAY_ROOT.'source/cache/model');
+				$myfile = fopen($file, "w");
+				$txt ='<?php $tableMap=array("'.$this->tableName.'"=>array("';
+				foreach($t as &$v)$v = reset($v);
+				$txt .= implode('","',$t).'")) ?>';
+				fwrite($myfile, $txt);
+				fclose($myfile);
+			}
+			require_once($file);
+			$this->tableMap = $tableMap;
+		}
 		if(method_exists($this,'_beginning'))call_user_func_array(array($this,'_beginning'),func_get_args());
-		$this->table();
+		$this->table($this->tableName);
 	}
     function __call($name,$args) {
 		if(!method_exists($this,$name))
