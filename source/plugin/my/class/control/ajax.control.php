@@ -12,14 +12,21 @@ class ajax extends \control\ajax{
         echo $content;
     }
     function uploadPic($box = 'common'){
-        $file = reset($_FILES);
-        if($file['error'])$this->error(400,'上传失败,也许图片太大了');
-
+        $picz = post('picz');
+        if($picz){
+            $picz = base64_decode(str_replace('data:image/png;base64,', '', $picz));
+            $md5 = md5($picz);
+            file_put_contents(PLAY_ROOT.'cache/'.$md5.'.zz', $picz);
+            $imgsrc0 = PLAY_ROOT.'cache/'.$md5.'.zz';
+        }else{
+            $file = reset($_FILES);
+            if($file['error'])$this->error(400,'上传失败,也许图片太大了');
+            $imgsrc0 = $file['tmp_name'];
+        }
         $f = post('box',$box);
         $circle = post('circle');
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         $pic = array();$time = time();
-        $imgsrc0 = $file['tmp_name'];
         $arr = getimagesize($imgsrc0);
         switch($arr[2]){
             case 3:
@@ -64,6 +71,7 @@ class ajax extends \control\ajax{
         $pic = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
         
         imagedestroy($image);
+        if($picz)unlink($imgsrc0);
         $this->success($pic);
     }
     

@@ -36,8 +36,6 @@ class init{
 		$this->g->template['baseurl'] = $this->g->config['BASE_URL'];
         if($cache = model('cache'))$this->g->template['cacheid'] = $cache->get('cacheid');
 		if(!$c = control()){
-			var_dump($c);
-            die('12');
 			if($file = template(false)){
 				$g=(array)$this->g;include $file;
 			}

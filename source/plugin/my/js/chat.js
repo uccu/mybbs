@@ -17,8 +17,12 @@
     
     j('a.picup').click(function(){j(this).parent().find('input').click()});
     j('input.picupi').change(function(){
-        packFormData(this,0,function(form){
-            j('input.picupi').val('');
+        var file = this.files[0];
+        j(this).val('');
+        if(!j('[name=nickname]').val()){j('.modal-body p').html('昵称不能为空');j('.modal').modal();return}
+        if(!j('[name=email]').val()){j('.modal-body p').html('邮箱不能为空');j('.modal').modal();return}
+        /*packFormData(this,0,function(form){
+            
             j.ajax({
 				url:'my/ajax/uploadpic',
 				data:form,contentType: false,processData: false,type:'post',dataType:'json',
@@ -27,8 +31,7 @@
                 },success:function(d){
 					if(d.code!=200){j('.modal-body p').html(d.desc);j('.modal').modal();return}
                     var s = j('form').serializeArray();
-                    if(!j('[name=nickname]').val()){j('.modal-body p').html('昵称不能为空');j('.modal').modal();return}
-                    if(!j('[name=email]').val()){j('.modal-body p').html('邮箱不能为空');j('.modal').modal();return}
+                    
                     for(var g in s)if(s[g].name=='content'){
                         s[g].name = 'type';s[g].value = 'pic';
                     }
@@ -39,6 +42,41 @@
                 }
 			})
         });
+        */
+            
+            if(!/image\/\w+/.test(file.type))return false; 
+            var reader = new FileReader(); 
+            reader.readAsDataURL(file); 
+            reader.onload = function(e){
+                var img = new Image();
+                img.onload = function(e){
+                    var cc = j('<canvas>'),c=cc[0],cxt=c.getContext("2d"),width = img.width,height = img.height;
+                    if(img.width>400){
+                        width = 400;height *= 400/img.width;
+                    }
+                    cc.attr({width:width,height:height});
+                    cxt.drawImage(img,0,0,width,height);
+                    j.ajax({
+                        url:'my/ajax/uploadpic',
+                        data:{picz:c.toDataURL()},
+                        success:function(d){
+                            if(d.code!=200){j('.modal-body p').html(d.desc);j('.modal').modal();return}
+                            var s = j('form').serializeArray();
+                            for(var g in s)if(s[g].name=='content'){
+                                s[g].name = 'type';s[g].value = 'pic';
+                            }
+                            s.push({name:'pic',value:d.desc});
+                            ws.send(JSON.stringify(s)); 
+                        },
+                        type:'post',
+                        dataType:'json',
+                        error:function(){
+                            j('.modal-body p').html('上传失败');j('.modal').modal();return
+                        }
+                    })
+                };
+                img.src = this.result;
+            }
     });
     (function(){
         var args = arguments;
