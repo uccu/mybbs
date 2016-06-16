@@ -8,7 +8,7 @@ class captcha extends \control\ajax{
     }
     function get_captcha(){
         $a = model('article')->find(1);
-        var_dump($a);
+        //var_dump($a);
         $this->success('captcha');
     }
 }

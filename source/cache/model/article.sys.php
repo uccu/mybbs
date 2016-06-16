@@ -1,0 +1,1 @@
+<?php $tableMap=array("article"=>array("aid","title","summary","description","ctime","display","type","reply_count")) ?>
