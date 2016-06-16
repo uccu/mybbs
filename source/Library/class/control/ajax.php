@@ -4,7 +4,6 @@ if(!defined('IN_PLAY')) {
 	exit('Access Denied');
 }
 class ajax extends \control{
-	protected $checkAJAX = 1;
 	function __construct(){
 		call_user_func_array(array(parent,'__construct'),func_get_args());
 		if($this->g->config['CHECK_AJAX'])if(!IS_AJAX)$this->error(400);

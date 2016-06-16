@@ -41,7 +41,7 @@ class base
             if(strpos($name, ':')){
                 list($plugin,$name) = explode(':', $name);
             }else{
-                $plugin = $config->plugin;
+                $plugin = PLUGIN_NAME;
             }
             $folder = '';
             if(strpos($name, '\\')){
@@ -110,7 +110,7 @@ class base
 		if(strpos($name, ':')){
 			list($plugin,$name) = explode(':', $name);
 		}else{
-            $plugin = $config->plugin;
+            $plugin = PLUGIN_NAME;
         }
         $folder = '';$kname = $name;
         if(strpos($name, '\\')){

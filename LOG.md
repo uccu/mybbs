@@ -1,0 +1,4 @@
+6.14 
+调用数据表，MODEL文件内如果tableMap没有设置，则自动生成tableMap参数，缓存文件放置在cache文件夹内。
+当调用没有MODEL文件的数据表时，也能够调用数据库内存在的表。对于tableMap参数同样会生成缓存。
+可以通过设置CONFIG的参数MODEL_DEBUG 强制每次都更新缓存。
