@@ -17,7 +17,7 @@ class init{
 	}
 	private function _init_input(){
 		if($_POST){
-			$_POST = str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$_POST);
+			$_POST = str_ireplace(array('<','>','"',"'"),array('&lt;','&gt;','&quot;','&#39;'),$_POST);
 			if($tran = control('tool:tran','format'))$_POST = $tran->t2c($_POST);
 		}
 
