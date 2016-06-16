@@ -26,7 +26,7 @@ class coherent{
 	}
 	function __construct(){
 		$class = get_class($this);
-		$this->tableName = basename($class);
+		$this->tableName = basename(str_replace('\\','/',$class));
 		if($class==='model'){
 			$args = func_get_args();
 			$t = model('logic')->fetch_all('SHOW TABLES');

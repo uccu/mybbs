@@ -31,7 +31,6 @@ class core
 			
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
-        
 		if(!isset(self::$_tables[$tname])){
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
 				self::$_tables[$tname] = new $tname;
@@ -39,7 +38,7 @@ class core
 				$uname = 'plugin\\' . PLUGIN_NAME .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 				self::$_tables[$tname] = new $uname;
 			}elseif($type==='model'){
-				self::$_tables[$tname] = new model($name);
+				self::$_tables[$tname] = new model(basename(str_replace('\\','/',$name)));
 			}else self::$_tables[$tname] = false;
 		}
 		
