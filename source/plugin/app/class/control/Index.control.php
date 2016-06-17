@@ -26,10 +26,10 @@ class Index extends api\ajax{
         return model('app:UserInfo')->safe_info()->add_count()->order(array('fans'=>'DESC'))->limit(7)->select();
     }
     function _teams(){
-        return model('team')->order(array('fans'=>'DESC'))->limit(4)->select();
+        return model('team')->order(array('fans'=>'DESC'))->limit(7)->select();
     }
     function _contest(){
-        
+        //4个
     }
     function _nomethod(){
         $this->g->template['banner'] = $this->_banner();
