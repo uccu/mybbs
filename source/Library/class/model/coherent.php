@@ -31,7 +31,7 @@ class coherent{
 			$args = func_get_args();
 			$t = model('logic')->fetch_all('SHOW TABLES');
 			foreach($t as &$v)$v = reset($v);
-			if(array_search($args[0],$t)===false)throw new \Exception('table lost: '.$args[0]);
+			if(array_search($this->g->config['prefix'].$args[0],$t)===false)throw new \Exception('table lost: '.$args[0]);
 			else $this->tableName = $args[0];
 		}
 		
