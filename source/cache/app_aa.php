@@ -1,1 +1,0 @@
-<?php defined('IN_PLAY') || exit('Access Denied');?><form action="<?php echo $g["template"]["baseurl"];?>_app/album/upload/1" method="post" enctype="multipart/form-data"><input type="file" name="file" /><input type="submit" value="submit" /></form><pre><?php foreach($g['template'] as $k=>$v){ ?><h2><?php echo $k ?></h2><p><?php var_dump($v) ?></p><?php } ?></pre>
