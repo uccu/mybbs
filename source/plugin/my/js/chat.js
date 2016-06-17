@@ -57,7 +57,7 @@
                     cc.attr({width:width,height:height});
                     cxt.drawImage(img,0,0,width,height);
                     j.ajax({
-                        url:'my/ajax/uploadpic',
+                        url:'_my/ajax/uploadpic',
                         data:{picz:c.toDataURL()},
                         success:function(d){
                             if(d.code!=200){j('.modal-body p').html(d.desc);j('.modal').modal();return}

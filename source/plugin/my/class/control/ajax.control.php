@@ -16,8 +16,8 @@ class ajax extends \control\ajax{
         if($picz){
             $picz = base64_decode(str_replace('data:image/png;base64,', '', $picz));
             $md5 = md5($picz);
-            file_put_contents(PLAY_ROOT.'cache/'.$md5.'.zz', $picz);
-            $imgsrc0 = PLAY_ROOT.'cache/'.$md5.'.zz';
+            file_put_contents(CACHE_ROOT.$md5.'.zz', $picz);
+            $imgsrc0 = CACHE_ROOT.$md5.'.zz';
         }else{
             $file = reset($_FILES);
             if($file['error'])$this->error(400,'上传失败,也许图片太大了');
