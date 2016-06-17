@@ -207,24 +207,7 @@ class logic{
 		return $str;
 		
 	}
-    function arraySortString($a,$u=0,$d=array(),$li=0){
-		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
-		$c=count($a);
-		for($i=$u;$i<$c&&$i-$u<10;$i++){
-			$e='';
-			if($i-$u<$li-1){
-				for($j=0;$j<$li-1-$i+$u;$j++)$e.='_';
-			}
-			
-			for($j=$u;$j<=$i;$j++)$e.=$a[$j];
-			$d[]=$e;
-		}
-		if(count($a)<=$u+$li){
-			$d=array_unique($d);
-			return implode(" ",$d);
-		}
-		else return $this->arraySortString($a,$u+1,$d,$li);
-	}
+
 	function arraySortArray($a,$u=0,$d=array(),$li=0){
 		if(!$li)$li = table('config')->config['LIMIT_SORT_LEN'];
 		$c=count($a);

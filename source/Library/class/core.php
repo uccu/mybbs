@@ -24,24 +24,22 @@ class core
 		new base\init;
 	}
 	public static function t($name, $type='', $folder='', $force=true){
-
 		$name = str_replace('/','\\',$name);
 		if(strpos($name, ':')){
 			list($plugin) = explode(':', $name);
 			$name = substr($name,strlen($plugin)+1);
+			
 		}
 		$tname = ($plugin?'plugin\\'.$plugin.'\\':'') . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
-        
 		if(!isset(self::$_tables[$tname])){
 			if(self::import(($folder?$folder.'\\':'').$name,$type,$plugin,false)){
 				self::$_tables[$tname] = new $tname;
-			}elseif(!$plugin && 
-				self::$config->plugin && 
-				self::import(($folder?$folder.'\\':'').$name,$type,self::$config->plugin,$force)){
-				$uname = 'plugin\\' . self::$config->plugin .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
+			}elseif(!$plugin && PLUGIN_NAME && self::import(($folder?$folder.'\\':'').$name,$type,PLUGIN_NAME,$force)){
+				$uname = 'plugin\\' . PLUGIN_NAME .'\\' . ($type?$type.'\\':'') . ($folder?$folder.'\\':'') .$name;
 				self::$_tables[$tname] = new $uname;
-				}elseif($type==='model')self::$_tables[$tname] = new model($name);
-			else self::$_tables[$tname] = false;
+			}elseif($type==='model'){
+				self::$_tables[$tname] = new model(basename(str_replace('\\','/',$name)));
+			}else self::$_tables[$tname] = false;
 		}
 		
 		return self::$_tables[$tname];
@@ -70,7 +68,9 @@ class core
 		$path = str_replace('\\','/',$path);
 		if(is_file($path)) {
 			include $path;return self::$_imports[$key] = true;
-		}elseif(!$force) return $_imports[$key] = false;
+		}elseif(!$force){
+			return $_imports[$key] = false;
+		}
 		else throw new Exception('file lost: '.(defined('SHOW_ERROR')?$path:$key));
 		
 	}

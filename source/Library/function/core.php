@@ -14,9 +14,9 @@ function dintval($int, $allowarray = false){
 	return $ret;
 }
 function template($t=true,$f=true){
-	$config = table('config');
 	if(is_bool($t)){
-		$f=$t;$t=$config->plugin.':'.($config->folder?$config->folder.'/':'').$config->control;
+		$f=$t;
+		$t=PLUGIN_NAME.':'.CONTROL_NAME;
 	}
 	return template\base::load($t,$f);
 	
@@ -29,11 +29,9 @@ function T($_t=true,$_f=true){
 }
 function table($t,$f='',$e='',$r=true){return C::t($t,$f,$e,$r);}
 function control($t=false,$f=''){
-	$config = table('config');
 	if(!$t){
-		$t = $config->plugin.':'.$config->control;$f=$config->folder;
+		$t = PLUGIN_NAME.':'.CONTROL_NAME;$f='';
 	}
-	//var_dump($t);die();
 	return C::c($t,$f);
 }
 function model($m,$f=''){return C::m($m,$f);}
@@ -74,9 +72,9 @@ function post($s,$r='',$e=''){
 }
 function addcss($c=0,$f=0,$p=0,$e=true){
 	$g = table('config');
-	if(!$c)$c = $g->control;
-	if(!$p)$p = $g->plugin;
-    if(!$f)$f = $g->folder;
+	if(!$c)$c = CONTROL_NAME;
+	if(!$p)$p = PLUGIN_NAME;
+    if(!$f)$f = '';
 	$base = dirname($g->template['baseurl'])=='http:' ? $g->template['baseurl']:dirname($g->template['baseurl']).'/';
 	$r = "<link rel=\"stylesheet\" type=\"text/css\" href=\"". $base."source/plugin/".$p."/css/".($f?$f.'/':'').$c.".css?".$g->template['cacheid']."\">";
 	if($e)echo $r;
@@ -84,9 +82,9 @@ function addcss($c=0,$f=0,$p=0,$e=true){
 }
 function addjs($c=0,$f=0,$p=0,$e=true){
 	$g = table('config');
-	if(!$c)$c = $g->control;
-	if(!$p)$p = $g->plugin;
-    if(!$f)$f = $g->folder;
+	if(!$c)$c = CONTROL_NAME;
+	if(!$p)$p = PLUGIN_NAME;
+    if(!$f)$f = '';
 	$base = dirname($g->template['baseurl'])=='http:'?$g->template['baseurl']:dirname($g->template['baseurl']).'/';
 	$r = '<script src="'.$base."source/plugin/".$p."/js/".($f?$f.'/':'').$c.'.js?'.$g->template['cacheid'].'" type="text/javascript"></script>';
 	if($e)echo $r;

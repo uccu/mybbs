@@ -17,26 +17,25 @@ class init{
 	}
 	private function _init_input(){
 		if($_POST){
-			$_POST = str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$_POST);
+			$_POST = str_ireplace(array('<','>','"',"'"),array('&lt;','&gt;','&quot;','&#39;'),$_POST);
 			if($tran = control('tool:tran','format'))$_POST = $tran->t2c($_POST);
 		}
+		define('PLUGIN_NAME',$_GET['plugin']);
+		if(!PLUGIN_NAME || !preg_match('/^[a-z][a-z0-9_]+$/i',PLUGIN_NAME))header('Location: /404.html');
+		
 
-		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['plugin']) || !$this->g->plugin=$_REQUEST['plugin']){
-			header('Location: /404.html');
-		}
-		define('PLUGIN_NAME',$this->g->plugin);
-		if(!preg_match('/^[a-z][a-z0-9_]+$/i',$_REQUEST['control']) || !$this->g->control = $_REQUEST['control']){
-			header('Location: /404.html');
-		}
-		define('CONTROL_NAME',$this->g->control);
-		if(file_exists(PLUGIN_ROOT.'/'.$this->g->plugin.'/config/config.php')){
-			require PLUGIN_ROOT.$this->g->plugin.'/config/config.php';
+		define('CONTROL_NAME',$_GET['control']);
+		if(!CONTROL_NAME || !preg_match('/^[a-z][a-z0-9_]+$/i',CONTROL_NAME))header('Location: /404.html');
+
+		define('PLUGIN_DIR',PLUGIN_ROOT.PLUGIN_NAME.'/');
+		if(file_exists(PLUGIN_ROOT.PLUGIN_NAME.'/config/config.php')){
+			require PLUGIN_ROOT.PLUGIN_NAME.'/config/config.php';
 			if($config)$this->g->config = array_merge($this->g->config,$config);
 		}
+		
 		$this->g->template['baseurl'] = $this->g->config['BASE_URL'];
-        $this->g->template['cacheid'] = model('cache')->get('cacheid');
+        if($cache = model('cache'))$this->g->template['cacheid'] = $cache->get('cacheid');
 		if(!$c = control()){
-            
 			if($file = template(false)){
 				$g=(array)$this->g;include $file;
 			}
