@@ -46,7 +46,7 @@ class init{
 			else header('Location: /404.html');
 		}else{
 			if(METHOD_NAME){
-				if(!method_exists($c,METHOD_NAME) || preg_match('/^[^a-z]$/i',METHOD_NAME[0]))header('Location: /404.html');
+				if(!method_exists($c,METHOD_NAME) || preg_match('/^[^a-z]$/i',$this->g->method[0]))header('Location: /404.html');
 				$getter = $_REQUEST['getter'];
 				if(!strlen($getter))$getter = array();
 				else $getter = explode($this->g->config['GETTER_SEPARATOR'],str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$getter));
