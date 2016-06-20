@@ -20,14 +20,17 @@ class init{
 			$_POST = str_ireplace(array('<','>','"',"'"),array('&lt;','&gt;','&quot;','&#39;'),$_POST);
 			if($tran = control('tool:tran','format'))$_POST = $tran->t2c($_POST);
 		}
-		define('PLUGIN_NAME',$_GET['plugin']);
+		define('PLUGIN_NAME',$_GET['plugin']);$this->g->plugin = PLUGIN_NAME;
+		define('PLUGIN_DIR',PLUGIN_ROOT.PLUGIN_NAME.'/');
+		define('CONTROL_NAME',$_GET['control']);$this->g->control = CONTROL_NAME;
+		define('METHOD_NAME',$_GET['method']);$this->g->method = METHOD_NAME;
 		if(!PLUGIN_NAME || !preg_match('/^[a-z][a-z0-9_]+$/i',PLUGIN_NAME))header('Location: /404.html');
 		
 
-		define('CONTROL_NAME',$_GET['control']);
+		
 		if(!CONTROL_NAME || !preg_match('/^[a-z][a-z0-9_]+$/i',CONTROL_NAME))header('Location: /404.html');
 
-		define('PLUGIN_DIR',PLUGIN_ROOT.PLUGIN_NAME.'/');
+		
 		if(file_exists(PLUGIN_ROOT.PLUGIN_NAME.'/config/config.php')){
 			require PLUGIN_ROOT.PLUGIN_NAME.'/config/config.php';
 			if($config)$this->g->config = array_merge($this->g->config,$config);
@@ -42,9 +45,8 @@ class init{
             //else{var_dump($c);die();}
 			else header('Location: /404.html');
 		}else{
-			if($this->g->method = $_REQUEST['method']){
-				if(!method_exists($c,$this->g->method) || preg_match('/^[^a-z]$/i',$this->g->method[0]))header('Location: /404.html');
-                define('METHOD_NAME',$this->g->method);
+			if(METHOD_NAME){
+				if(!method_exists($c,METHOD_NAME) || preg_match('/^[^a-z]$/i',METHOD_NAME[0]))header('Location: /404.html');
 				$getter = $_REQUEST['getter'];
 				if(!strlen($getter))$getter = array();
 				else $getter = explode($this->g->config['GETTER_SEPARATOR'],str_ireplace(array('<','>','"',"'",'\\'),array('&lt;','&gt;','&quot;','&#39;','/'),$getter));
