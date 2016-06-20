@@ -72,7 +72,19 @@
                         dataType:'json',
                         error:function(){
                             j('.modal-body p').html('上传失败');j('.modal').modal();return
-                        }
+                        },
+                        xhr:function(){
+                            var xhr = new XMLHttpRequest;
+                            xhr.upload.onprogress = function(e){
+                                j('.progressz').stop(1).fadeIn();
+                                j('.progressz').text(parseInt(e.loaded/e.total*100)+'%');
+                                if(e.loaded/e.total===1) j('.progressz').text('上传成功~');
+                                setTimeout(function(){
+                                    j('.progressz').fadeOut();
+                                },3000);
+                            };
+                            return xhr;
+                        } 
                     })
                 };
                 img.src = this.result;

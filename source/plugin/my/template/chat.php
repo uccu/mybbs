@@ -46,6 +46,9 @@
                         <input type="file">
                     </div>
                 </span>
+                 <span>
+                    <strong class="progressz dn" style="color:red"></strong>
+                </span>
             </div>
             <div class="form-group text-center">
                 <textarea id="textarea" class="form-control center-block" rows="10" name="content" style="resize:none" placeholder="发送消息"></textarea>
