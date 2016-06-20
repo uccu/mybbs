@@ -32,9 +32,9 @@ class index extends na\ba{
     function banner_detail($bid){
         $this->subnav = array_merge($this->subnav,array('banner_detail'=>'banner设置'));
         $this->_init();
-        $co = model('banner')->get_field();
-        if($co>4)$this->_header('banner');
         if(!$bid){
+            $co = model('banner')->get_field();
+            if($co>4)$this->_header('banner');
             T(CONTROL_NAME.'/'.__FUNCTION__);die();
         }
         if(!$b = model('banner')->find($bid))$this->_header('banner');
