@@ -18,7 +18,7 @@
     })  
     var breadcrumb = function(a){
         var d = j('.nav-tabs li.nav_'+folder[2]),
-        e = '<ol class="breadcrumb"><li><a href="'+pluginUrl+'index">Home</a></li><li>'+d.html()+'</li>';
+        e = '<ol class="breadcrumb"><li>'+d.html()+'</li>';
         if(a && folder[3]){
             e += '<li><a href="'+pluginUrl+folder[2]+'/'+folder[3]+'">'+a+'</a></li>';
             if(folder[4] && !folder[4].match(/\d+/i))

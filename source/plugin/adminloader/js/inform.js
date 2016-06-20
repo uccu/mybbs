@@ -5,7 +5,9 @@ j(function(j){
         if(d)j.post(s.attr('data-action'),d,function(c){
             if(c.code!==200){alert(c.code+':'+c.desc)}
             if(s.attr('data-action').match(/\/0$/))location = folder[1]+'/'+folder[2]+'/'+folder[3];
-            else location.reload(true)
+            else{
+                location.hash="saveSuccess";location.reload(true);
+            }
         },'json')
     });
     var defaultForm = j('form[data-default]');
@@ -35,7 +37,9 @@ j(function(j){
         j('.alert').slideDown().find('.yes').one('click',function(){
             j.post(url,function(d){
                 if(d.code!=200){alert(d.desc);return}
-                else location.reload(true)
+                else{
+                    location.hash="delSuccess";location.reload(true);
+                }
             })
         })
     });
