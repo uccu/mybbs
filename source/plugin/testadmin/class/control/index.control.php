@@ -33,10 +33,22 @@ class index extends na\ba{
         $this->g->template['list'] = model('recommend_stars')->add_table($table)->limit(4)->select();
         T(CONTROL_NAME.'/'.__FUNCTION__);
     }
-    function stars_detail(){
+    function stars_detail($id){
         $this->subnav = array_merge($this->subnav,array('stars_detail'=>'封面设置'));
         $this->_init();
+        $info = model('recommend_stars')->find($id);
+        if(!$info)$this->error(400,'no data');
+        $this->g->template['id'] = $info['sid'];
         T(CONTROL_NAME.'/'.__FUNCTION__);
+    }
+    function get_stars_detail($id){
+        $info = model('recommend_stars')->find($id);
+        if(!$info)$this->error(400,'no data');
+        $this->success($info);
+    }
+    function save_stars_detail($id){
+        $p = model('recommend_stars')->data($_POST)->save($id);
+        $this->success($p);
     }
     function add_stars($uid){
         if(!$uid)$this->error(400,'参数错误');
