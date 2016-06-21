@@ -19,6 +19,7 @@
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">
                                     <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/detail/{p.uid}">详情</a>
+                                    <button type="button" data-button="添加" data-title="确认添加?" data-content="<div class='form-inline'>覆盖到首页的推荐明星的第<input type='text' value='1' class='form-control text-center' size='1'>项内</div>" class="btn btn-success indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.uid}">推荐</button>
                                     <button type="button" data-button="永久删除" data-content="删除后将不能恢复"  class="btn btn-danger indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.uid}">删除</button>
                                 </div>
                             </td>

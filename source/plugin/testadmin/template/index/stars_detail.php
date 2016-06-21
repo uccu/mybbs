@@ -25,7 +25,7 @@
                     </tbody>
                 </table>
                 <div class="text-right fr">
-                    <a type="button" class="btn btn-info" href="{g.plugin}/user/search">选择用户</a>
+                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/0">添加</a>
                 </div>
                 <nav>
                     <ul class="pagination pageset">

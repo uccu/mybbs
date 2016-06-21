@@ -29,6 +29,11 @@ class index extends na\ba{
         $this->_init();
         T(CONTROL_NAME.'/'.__FUNCTION__);
     }
+    function stars_detail(){
+        $this->subnav = array_merge($this->subnav,array('stars_detail'=>'封面设置'));
+        $this->_init();
+        T(CONTROL_NAME.'/'.__FUNCTION__);
+    }
     function banner_detail($bid){
         $this->subnav = array_merge($this->subnav,array('banner_detail'=>'banner设置'));
         $this->_init();
