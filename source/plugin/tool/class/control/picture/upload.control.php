@@ -9,7 +9,8 @@ class upload extends \control\ajax{
         return $this->parsing_one();
     }
 
-    function parsing_one($box='common',$small=0,$large=0){
+
+    function parsing_one($box='common',$small=0,$large=0,$raw=0){
         $file = reset($_FILES);$pic = array();
         if(!$file)return $pic;
         if($file['error'])$this->error(402,'上传失败,也许图片太大了');
@@ -17,8 +18,8 @@ class upload extends \control\ajax{
         $circle = post('circle');
         $small = post('small',$small);
         $large = post('laege',$large);
+        $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
-        
         $imgsrc0 = $file['tmp_name'];
         if(!$imgsrc0)$this->error(403,'上传失败,无法获取缓存路径');
         $arr = getimagesize($imgsrc0);
@@ -59,9 +60,11 @@ class upload extends \control\ajax{
             $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1);
             $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
         }
+        if($raw){
+            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1);
+            $pic['raw'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
+        }
         $pic['e'] = $f.'/'.$ym.'/'.$d.'/'.$md5;
-
-
         return $pic;
 
 
