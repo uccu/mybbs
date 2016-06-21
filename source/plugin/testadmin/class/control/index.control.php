@@ -27,6 +27,10 @@ class index extends na\ba{
     }
     function stars(){
         $this->_init();
+        $table = array(
+            'user_info'=>array('_on'=>'uid','nickname')
+        );
+        $this->g->template['list'] = model('recommend_stars')->add_table($table)->limit(4)->select();
         T(CONTROL_NAME.'/'.__FUNCTION__);
     }
     function stars_detail(){
@@ -37,7 +41,7 @@ class index extends na\ba{
     function add_stars($uid){
         if(!$uid)$this->error(400,'参数错误');
         if(!$u = $this->userInfo->find($uid))$this->error(401,'未找到用户');
-        $data['sid'] = post('sid',1);
+        $sid = post('sid',1);
         $data['uid'] = $u['uid'];
         $s = model('recommend_stars')->data($data)->save($sid);
         $this->success($s);

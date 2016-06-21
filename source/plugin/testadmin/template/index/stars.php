@@ -12,7 +12,7 @@
                     <tbody>
                         <!--{loop $list $p}-->
                         <tr>
-                            <td>{p.bid}</td>
+                            <td>{p.sid}</td>
                             <td>{p.nickname}</a></td>
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">

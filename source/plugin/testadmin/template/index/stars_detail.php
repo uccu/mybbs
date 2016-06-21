@@ -1,38 +1,32 @@
 <!--{subtemplate adminloader:_header}-->
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <table class="text-center table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">位置序号</th>
-                            <th class="text-center">COSER</th>
-                            <th class="text-center">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--{loop $list $p}-->
-                        <tr>
-                            <td>{p.bid}</td>
-                            <td>{p.nickname}</a></td>
-                            <td>
-                                <div class="btn-group t" role="group" aria-label="opition">
-                                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/{p.bid}">设置封面</a>
-                                    <button type="button" data-button="删除" class="btn btn-danger indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.bid}">删除</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!--{/loop}-->
-                    </tbody>
-                </table>
-                <div class="text-right fr">
-                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/0">添加</a>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form id="form" class="form-horizontal" data-default="{g.plugin}/{g.control}/get_{g.method}/{id}">
+            <div class="form-group">
+                <label class="control-label col-sm-2">SID</label>
+                <div class="col-sm-2">
+                    <input type="text" disabled class="form-control" name="sid">
                 </div>
-                <nav>
-                    <ul class="pagination pageset">
-                        
-                    </ul>
-                </nav>
+            </div>    
+            <div class="form-group">
+                <label class="control-label col-sm-2">缩略图</label>
+                <div class="col-sm-4">
+                    <input type="file" id="pic" data-circle="0" data-box="recommend" />
+                    <p class="help-block"></p>
+                    <img id="pic_pic" class='img-responsive' style="width:100px"  />
+                    <input class="form-control" name="pic" type="text" value="" disabled="disabled"/>
+                    <input name="pic" type="hidden" value=""/>
+                </div>
+                
             </div>
-        </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1">
+                    <button type="button" class="btn btn-success insave t" for="form" data-action="{g.plugin}/{g.control}/save_{g.method}/{id}">保存</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
 
 <!--{subtemplate adminloader:_footer}-->
