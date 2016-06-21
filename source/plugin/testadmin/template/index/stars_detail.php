@@ -9,9 +9,9 @@
                 </div>
             </div>    
             <div class="form-group">
-                <label class="control-label col-sm-2">缩略图</label>
+                <label class="control-label col-sm-2">封面图</label>
                 <div class="col-sm-4">
-                    <input type="file" id="pic" data-circle="0" data-box="recommend" />
+                    <input type="file" id="pic" data-raw="1" data-box="recommend" />
                     <p class="help-block"></p>
                     <img id="pic_pic" class='img-responsive' style="width:100px"  />
                     <input class="form-control" name="pic" type="text" value="" disabled="disabled"/>
