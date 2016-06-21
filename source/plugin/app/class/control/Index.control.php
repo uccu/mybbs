@@ -6,13 +6,19 @@ class Index extends api\ajax{
         
     }
     function _banner(){
-
+        return model('banner')->order(array('bid'))->limit(4)->select();
     }
     function _character(){
-        //4个
+        return model('character')->limit(4)->order(array('fans'=>'DESC'))->select();
     }
     function _star(){
-        //4个
+        $table = array(
+            'user_info'=>array('_on'=>'uid','nickname','sign'),
+            'user_count'=>array('_on'=>'uid','fans')
+        );
+        $info = model('recommend_stars')->add_table($table)->limit(4)->order(array('sid'))->select();
+        foreach($info as &$v)$v['pic'] .= '.jpg';
+        return $info;
     }
     function _video(){
        $where['uid'] = array('logic',0,'>');
@@ -29,7 +35,7 @@ class Index extends api\ajax{
         return model('team')->order(array('fans'=>'DESC'))->limit(7)->select();
     }
     function _contest(){
-        //4个
+        return model('contest')->order(array('ctime'=>'DESC'))->limit(4)->select();
     }
     function _nomethod(){
         $this->g->template['banner'] = $this->_banner();

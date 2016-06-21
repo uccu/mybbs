@@ -44,6 +44,7 @@ class index extends na\ba{
     function get_stars_detail($id){
         $info = model('recommend_stars')->find($id);
         if(!$info)$this->error(400,'no data');
+        if($info['pic'])$info['pic'] .= '.jpg';
         $this->success($info);
     }
     function save_stars_detail($id){

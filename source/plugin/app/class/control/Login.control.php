@@ -73,6 +73,8 @@ class Login extends api\ajax{
 
         //创建用户
         if(!$rr = $this->coser->data($data)->add())$this->error(404,'创建失败');
+        if(!$rr2 = model('user_count')->data(array('uid'=>$rr))->add())$this->error(405,'创建失败');
+        if(!$rr3 = model('user_live')->data(array('uid'=>$rr))->add())$this->error(406,'创建失败');
 
         //输出用户id
         $this->success(array('uid'=>$rr));

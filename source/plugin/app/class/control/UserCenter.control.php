@@ -9,7 +9,7 @@ class UserCenter extends api\ajax{
         return model('app:UserInfo')->safe_info()->add_count()->find($uid);
     }
     function _blog_list(){
-
+        //二期
     }
     function _album($uid=0,$tid=0,$limit=1){
         $where = array();
@@ -28,14 +28,19 @@ class UserCenter extends api\ajax{
         if(!is_null($captain))$where['captain'] = $captain;
         if($uid)$where['uid'] = $uid;
         if($tid)$where['tid'] = $tid;
-        return model('app:UserTeam')->where($where)->order(array('zid'))->limit(9999)->select();
+        $table = array(
+            'team'=>array(
+                '_on'=>'tid','name','thumb'
+            )
+        );
+        return model('app:UserTeam')->add_table($table)->where($where)->order(array('zid'))->limit(9999)->select();
     }
     function _rank($fans){
         $where['fans'] = array('logic',$fans,'>');
         return model('app:UserCount')->where($where)->get_field()+1;
     }
-    function _my_live(){
-
+    function _live($uid){
+        return model('user_live')->find($uid);
     }
     function index($uid=0){
         $user = $this->g->template['coser'] = $this->_coser($uid);
@@ -48,6 +53,7 @@ class UserCenter extends api\ajax{
         $this->g->template['video'] = $this->_video($uid,0,4);
         $this->g->template['team'] = $this->_userTeam($uid);
         $this->g->template['captainTeam'] = $this->_userTeam($uid,0,1);
+        $this->g->template['live'] = $this->_live($uid);
         T('UserCenter');
     }
 }
