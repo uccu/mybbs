@@ -59,6 +59,13 @@ class Album extends api\ajax{
         $c = $this->picture->data($data)->add();
         $this->success(array('pid'=>$c));
     }
+    function admin(){
+        $this->user->_safe_login();
+        $where['uid'] = $this->user->uid;
+        $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
+        //var_dump($this->g->tempalte['list']);
+        T('album/admin');
+    }
 
 }
 

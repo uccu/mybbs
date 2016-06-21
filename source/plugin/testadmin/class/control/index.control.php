@@ -4,7 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class index extends na\ba{
     function _get_subnav(){
         return array(
-            'pictures_wall'=>'照片墙',
+            'logo'=>'LOGO',
             'banner'=>'banner设置',
             'stars'=>'推荐明星设置'
         );
