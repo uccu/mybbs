@@ -20,8 +20,8 @@ j(function(j){
         }
         })
     }
-    j('.indel').click(function(){
-        var t=j(this),url=t.attr('data-action'),z={};
+    j('.indel,.insav').click(function(){
+        var t=j(this),url=t.attr('data-action'),z={},del=j(this).hasClass('indel');
         j('.alert_box').html('')
         .append('<div id="alert" class="alert alert-'+
         (t.hasClass('btn-success')?'success':'danger')
@@ -39,7 +39,9 @@ j(function(j){
             j.post(url,z,function(d){
                 if(d.code!=200){alert(d.desc);return}
                 else{
-                    location.hash="delSuccess";location.reload(true);
+                    if(del)location.hash="delSuccess";
+                    else location.hash="saveSuccess";
+                    location.reload(true);
                 }
             })
         })
