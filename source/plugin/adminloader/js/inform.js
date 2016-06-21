@@ -50,9 +50,12 @@ j(function(j){
         var t=j(this),p=t.parent(),id=this.id,f={},form;
         if(t.attr('data-circle'))f.circle = t.attr('data-circle');
         if(t.attr('data-box'))f.box = t.attr('data-box');
+        if(t.attr('data-raw'))f.raw = t.attr('data-raw');
+        if(t.attr('data-small'))f.small = t.attr('data-small');
+        if(t.attr('data-large'))f.large = t.attr('data-large');
         form = packFormData('#'+id,f);
         j.ajax({
-            url:'weixin/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
+            url:folder[1]+'/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
             beforeSend:function(){
                 p.find('.help-block').html('uploading file waiting...')
             },success:function(d){
