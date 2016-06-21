@@ -63,8 +63,8 @@ j(function(j){
                     t.parent().find('.help-block').html('upload failed :'+d.desc);return
                 }
                 p.find('.help-block').html('upload successed');
-                p.find('[name='+id+']').val(d.data[0]);
-                p.find('[name='+id+'2]').val(d.data[0]);
+                p.find('[name='+id+']').val(d.data.e);
+                p.find('[name='+id+'2]').val(d.data.e);
                 if(d.data.small)p.find('img').attr('src','pic/'+d.data.small);
                 else if(d.data.large)p.find('img').attr('src','pic/'+d.data.large);
                 else if(d.data.raw)p.find('img').attr('src','pic/'+d.data.raw);
