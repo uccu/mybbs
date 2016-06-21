@@ -34,6 +34,14 @@ class index extends na\ba{
         $this->_init();
         T(CONTROL_NAME.'/'.__FUNCTION__);
     }
+    function add_stars($uid){
+        if(!$uid)$this->error(400,'参数错误');
+        if(!$u = $this->userInfo->find($uid))$this->error(401,'未找到用户');
+        $data['sid'] = post('sid',1);
+        $data['uid'] = $u['uid'];
+        $s = model('recommend_stars')->data($data)->save($sid);
+        $this->success($s);
+    }
     function banner_detail($bid){
         $this->subnav = array_merge($this->subnav,array('banner_detail'=>'banner设置'));
         $this->_init();
