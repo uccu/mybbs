@@ -92,7 +92,7 @@
     });
     (function(){
         var args = arguments;
-        ws = new WebSocket('ws:b.yoooo.co:8080/'+(folder[3]=='room' && folder[4] ? 'room/'+folder[4]:''));
+        ws = new WebSocket('ws:107.150.59.18:8080/'+(folder[3]=='room' && folder[4] ? 'room/'+folder[4]:''));
         ws.onopen = d=>{j('.chat-container').children().append('<div class="chat-body">link succeed</div>')};
         ws.onmessage = d=>{
             try{
