@@ -17,6 +17,8 @@ class upload extends \control\ajax{
         $circle = post('circle');
         $small = post('small',$small);
         $large = post('laege',$large);
+        $medium = post('laege');
+        $avatar = post('avatar');
         $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         
@@ -53,19 +55,18 @@ class upload extends \control\ajax{
         $largeWidth = 800;$largeHeight = 420;
 
         if($avatar){
-            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
-            $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
+            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight);
+            $pic['avatar'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.avatar.jpg';
         }if($small){
             $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
             $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
         }if($medium){
-            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
-            $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
+            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight);
+            $pic['medium'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.medium.jpg';
         }if($large){
             $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
             $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
-        }
-        if($raw){
+        }if($raw){
             $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight);
             $pic['raw'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
         }
