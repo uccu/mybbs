@@ -20,8 +20,8 @@ j(function(j){
         }
         })
     }
-    j('.indel').click(function(){
-        var t=j(this),url=t.attr('data-action');
+    j('.indel,.insav').click(function(){
+        var t=j(this),url=t.attr('data-action'),z={},del=j(this).hasClass('indel');
         j('.alert_box').html('')
         .append('<div id="alert" class="alert alert-'+
         (t.hasClass('btn-success')?'success':'danger')
@@ -34,11 +34,14 @@ j(function(j){
         +' yes" style="margin-right:10px">'+
         (t.attr('data-button')?t.attr('data-button'):'删除')
         +'</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
+        if(j('.alert form').html())z = j('.alert form').serializeArray();
         j('.alert').slideDown().find('.yes').one('click',function(){
-            j.post(url,function(d){
+            j.post(url,z,function(d){
                 if(d.code!=200){alert(d.desc);return}
                 else{
-                    location.hash="delSuccess";location.reload(true);
+                    if(del)location.hash="delSuccess";
+                    else location.hash="saveSuccess";
+                    location.reload(true);
                 }
             })
         })
@@ -47,9 +50,12 @@ j(function(j){
         var t=j(this),p=t.parent(),id=this.id,f={},form;
         if(t.attr('data-circle'))f.circle = t.attr('data-circle');
         if(t.attr('data-box'))f.box = t.attr('data-box');
+        if(t.attr('data-raw'))f.raw = t.attr('data-raw');
+        if(t.attr('data-small'))f.small = t.attr('data-small');
+        if(t.attr('data-large'))f.large = t.attr('data-large');
         form = packFormData('#'+id,f);
         j.ajax({
-            url:'weixin/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
+            url:folder[1]+'/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
             beforeSend:function(){
                 p.find('.help-block').html('uploading file waiting...')
             },success:function(d){
@@ -57,9 +63,11 @@ j(function(j){
                     t.parent().find('.help-block').html('upload failed :'+d.desc);return
                 }
                 p.find('.help-block').html('upload successed');
-                p.find('[name='+id+']').val(d.data[0]);
-                p.find('[name='+id+'2]').val(d.data[0]);
-                p.find('img').attr('src','pic/'+d.data[0]);
+                p.find('[name='+id+']').val(d.data.e);
+                p.find('[name='+id+'2]').val(d.data.e);
+                if(d.data.small)p.find('img').attr('src','pic/'+d.data.small);
+                else if(d.data.large)p.find('img').attr('src','pic/'+d.data.large);
+                else if(d.data.raw)p.find('img').attr('src','pic/'+d.data.raw);
             }
         })
     });

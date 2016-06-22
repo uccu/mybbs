@@ -22,7 +22,7 @@
             <span aria-hidden="true">×</span></button>
             <p>删除成功</p>
         </div>
-        <div id="saveSuccess" class="saveSuccess alert alert-danger alert-dismissible fade in dn" role="alert">
+        <div id="saveSuccess" class="saveSuccess alert alert-success alert-dismissible fade in dn" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span></button>
             <p>保存成功</p>
