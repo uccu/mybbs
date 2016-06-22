@@ -22,8 +22,12 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">图片</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="pic">
+                <div class="col-sm-4">
+                    <input type="file" id="pic" data-raw="1" data-box="banner" data-small="1"/>
+                    <p class="help-block"></p>
+                    <img id="pic_pic" class='img-responsive' />
+                    <input class="form-control" name="pic" type="text" value="" disabled="disabled"/>
+                    <input name="pic" type="hidden" value=""/>
                 </div>
             </div>
             <div class="form-group">

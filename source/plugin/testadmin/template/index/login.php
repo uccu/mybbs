@@ -14,12 +14,12 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.bid}</td>
-                            <td>{p.title}</a></td>
+                            <td><img class='img-responsive center-block' src="pic/{p.pic}.small.jpg" /></td>
                             <td class="changeToDate">{p.ctime}</td>
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">
-                                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/{p.bid}">详情</a>
-                                    <button type="button" data-button="永久删除" data-content="删除后将不能恢复"  class="btn btn-danger indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.bid}">删除</button>
+                                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/{p.bid}">修改图片</a>
+                                    <button type="button" data-button="删除"  class="btn btn-danger indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.bid}">删除</button>
                                 </div>
                             </td>
                         </tr>
