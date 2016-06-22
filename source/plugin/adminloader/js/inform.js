@@ -4,7 +4,7 @@ j(function(j){
         var s=j(this),f=s.attr('for'),d=j('form#'+f).serializeArray();
         if(d)j.post(s.attr('data-action'),d,function(c){
             if(c.code!==200){alert(c.code+':'+c.desc)}
-            if(s.attr('data-action').match(/\/0$/))location = folder[1]+'/'+folder[2]+'/'+folder[3];
+            if(s.attr('data-action').match(/\/0$/))location = folder[1]+'/'+folder[2]+'/'+folder[3]+"#saveSuccess";
             else{
                 location.hash="saveSuccess";location.reload(true);
             }
@@ -14,7 +14,7 @@ j(function(j){
     for(var i=0;i <defaultForm.length;i++){
         j.getJSON(j(defaultForm[i]).attr('data-default'),function(f){
             for(var g in f.data){
-                j('[name='+g+'],[name='+g+'2]').val(f.data[g]);
+                j('[name='+g+'],[name='+g+'2]').val(typeof f.data[g]=='string'?f.data[g].decodeh():'');
                 if(j('[name='+g+'].advancedTextarea')[0] && j('[name='+g+']')[0].tagName=='TEXTAREA')j('[name='+g+']').advancedTextarea(500);
                 if(f.data[g] && j('[name='+g+']').parent().find('[type=file]'))j('[name='+g+']').parent().find('img').attr('src','pic/'+f.data[g]);
         }
@@ -53,6 +53,9 @@ j(function(j){
         if(t.attr('data-raw'))f.raw = t.attr('data-raw');
         if(t.attr('data-small'))f.small = t.attr('data-small');
         if(t.attr('data-large'))f.large = t.attr('data-large');
+        if(t.attr('data-auto'))f.auto = t.attr('data-auto');
+        if(t.attr('data-medium'))f.medium = t.attr('data-medium');
+        if(t.attr('data-avatar'))f.avatar = t.attr('data-avatar');
         form = packFormData('#'+id,f);
         j.ajax({
             url:folder[1]+'/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
@@ -65,7 +68,9 @@ j(function(j){
                 p.find('.help-block').html('upload successed');
                 p.find('[name='+id+']').val(d.data.e);
                 p.find('[name='+id+'2]').val(d.data.e);
-                if(d.data.small)p.find('img').attr('src','pic/'+d.data.small);
+                if(d.data.avatar)p.find('img').attr('src','pic/'+d.data.avatar);
+                else if(d.data.small)p.find('img').attr('src','pic/'+d.data.small);
+                else if(d.data.medium)p.find('img').attr('src','pic/'+d.data.medium);
                 else if(d.data.large)p.find('img').attr('src','pic/'+d.data.large);
                 else if(d.data.raw)p.find('img').attr('src','pic/'+d.data.raw);
             }
