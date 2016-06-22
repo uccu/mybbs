@@ -53,9 +53,9 @@ j(function(j){
         if(t.attr('data-raw'))f.raw = t.attr('data-raw');
         if(t.attr('data-small'))f.small = t.attr('data-small');
         if(t.attr('data-large'))f.large = t.attr('data-large');
-        if(t.attr('data-auto'))f.large = t.attr('data-auto');
-        if(t.attr('data-medium'))f.large = t.attr('data-medium');
-        if(t.attr('data-avatar'))f.large = t.attr('data-avatar');
+        if(t.attr('data-auto'))f.auto = t.attr('data-auto');
+        if(t.attr('data-medium'))f.medium = t.attr('data-medium');
+        if(t.attr('data-avatar'))f.avatar = t.attr('data-avatar');
         form = packFormData('#'+id,f);
         j.ajax({
             url:folder[1]+'/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
