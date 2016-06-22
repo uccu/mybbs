@@ -3,8 +3,8 @@ j=jQuery.noConflict();
 btoa=function(s){return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(s))}
 atob=function(s){return CryptoJS.enc.Base64.parse(s).toString(CryptoJS.enc.Utf8)}
 folder =location.pathname.split("/");
-String.prototype.encodeh=function(){return this.replace(/[()'<>&"]/g,function(c){return {'(':'&222;',')':'&333;',"'":'&#039;','<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];})};
-String.prototype.decodeh=function(){return this.replace(/&222;|&333;|&#039;|&lt;|&gt;|&amp;|&quot;/g,function(c){return {'&222;':'(','&333;':')','&#039;':"'",'&lt;':'<','&gt;':'>','&amp;':'&','&quot;':'"'}[c]})};
+String.prototype.encodeh=function(){return this.replace(/[()'<>&"]/g,function(c){return {"'":'&#039;','<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];})};
+String.prototype.decodeh=function(){return this.replace(/&#039;|&lt;|&gt;|&amp;|&quot;/g,function(c){return {'&#039;':"'",'&lt;':'<','&gt;':'>','&amp;':'&','&quot;':'"'}[c]})};
 String.prototype.sizechange=function(){return this!=''?(this<1000?this+"MB":((parseInt(this/10.24))/100)+"GB"):"未知";};
 String.prototype.ltypechange=function(){return {'1':'Torrent','2':'Magnet','3':'Link','4':'Pan'}[this]};
 Number.prototype.t2=function(){if(this.toString().length===1)return '0'+this;else return this.toString()};
