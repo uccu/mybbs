@@ -14,7 +14,7 @@ j(function(j){
     for(var i=0;i <defaultForm.length;i++){
         j.getJSON(j(defaultForm[i]).attr('data-default'),function(f){
             for(var g in f.data){
-                j('[name='+g+'],[name='+g+'2]').val(f.data[g]);
+                j('[name='+g+'],[name='+g+'2]').val(typeof f.data[g]=='string'?f.data[g].decodeh():'');
                 if(j('[name='+g+'].advancedTextarea')[0] && j('[name='+g+']')[0].tagName=='TEXTAREA')j('[name='+g+']').advancedTextarea(500);
                 if(f.data[g] && j('[name='+g+']').parent().find('[type=file]'))j('[name='+g+']').parent().find('img').attr('src','pic/'+f.data[g]);
         }
