@@ -39,9 +39,25 @@ abstract class ba extends base{
         else $p = model($m)->data($_POST)->save($id);
         return $p;
     }
+    function _remove_suffix($z=''){
+        while(preg_match('/(\.[a-z]+)$/i',$z,$t)){
+            $z = str_ireplace($t[1],'',$z);
+        }
+        return $z;
+    }
+    function _detail($callback,$m,$id){
+        if(is_null($id))$this->_header($callback);
+        $info = model($m)->find($id);
+        $this->g->template['id'] = $info ? reset($info) : 0;
+    }
+    function _del($m,$id){
+        if(!$id)$this->error(400,'no data');
+        return model($m)->remove($id);
+    }
     protected function _header($s){
         header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$s);die();
     }
+    
     function _get_userInfo(){
         return model('App:UserInfo');
     }
