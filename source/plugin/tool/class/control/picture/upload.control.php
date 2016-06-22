@@ -87,9 +87,9 @@ class upload extends \control\ajax{
         }
         if($a)$image = imagecreatetruecolor($w0, $h0);
         else $image = imagecreatetruecolor($w, $h);
-        imagealphablending($image,false);
-        imagesavealpha($image,true);
-        $color = imagecolorallocatealpha($image, 255, 255, 255,0);
+        //imagealphablending($image,false);
+        //imagesavealpha($image,true);
+        $color = imagecolorallocatealpha($image, 255, 255, 255,127);
         imagefill($image, 0, 0, $color);
         if($a)imagecopyresampled($image, $m,0,0,0,0,$w0,$h0,$w1,$h1);
         else imagecopyresampled($image, $m,($w-$w0)/2,($h-$h0)/2,0,0,$w0,$h0,$w1,$h1);
