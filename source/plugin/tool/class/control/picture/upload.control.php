@@ -46,21 +46,27 @@ class upload extends \control\ajax{
         $d = date('d',TIME_NOW);
         if(!is_dir($dir.$ym))mkdir($dir.$ym);
         if(!is_dir($dir.$ym.'/'.$d))mkdir($dir.$ym.'/'.$d);
-
-
+        $autoHeight = post('auto',false)?true:false;
+        $avatarWidth = $avatarHeight = 100;
         $smallWidth = 180;$smallHeight = 120;
+        $mediumWidth = 400;$mediumHeight = 210;
         $largeWidth = 800;$largeHeight = 420;
 
-
-        if($small){
-            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg');
+        if($avatar){
+            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
             $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
+        }if($small){
+            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
+            $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
+        }if($medium){
+            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
+            $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
         }if($large){
-            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1);
+            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
             $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
         }
         if($raw){
-            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1);
+            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight);
             $pic['raw'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
         }
         $pic['e'] = $f.'/'.$ym.'/'.$d.'/'.$md5;
@@ -68,13 +74,13 @@ class upload extends \control\ajax{
 
 
     }
-    function parse($m,$w,$h,$w0,$h0,$src,$a=0){
+    function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false){
         $w1 = $w0;$h1=$h0;
         if($w0>$w){
             $h0 = $h0*$w/$w0;
             $w0 = $w;
         }
-        if($h0>$h){
+        if(!$autoHeight && $h0>$h){
             $w0 = $w0*$h/$h0;
             $h0 = $h;
         }
