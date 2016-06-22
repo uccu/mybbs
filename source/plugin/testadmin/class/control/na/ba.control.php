@@ -30,6 +30,15 @@ abstract class ba extends base{
     protected function _beginning(){
         
     }
+    function _add($m,$addTime=false){
+        if($addTime)$_POST['ctime'] = TIME_NOW;
+        return model($m)->data($_POST)->add();
+    }
+    function _save($m,$id,$allowAdd=false,$addTime=false){
+        if($allowAdd && !$id)return $this->_add($m,$addTime);
+        else $p = model($m)->data($_POST)->save($id);
+        return $p;
+    }
     protected function _header($s){
         header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$s);die();
     }

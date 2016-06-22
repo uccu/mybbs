@@ -15,7 +15,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.uid}</td>
-                            <td>{p.nickname}</a></td>
+                            <td>{p.nickname}</td>
                             <td class="changeToDate">{p.ctime}</td>
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">

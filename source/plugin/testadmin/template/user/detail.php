@@ -45,6 +45,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-2">状态</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="sign">
+                        <option selected=“selected” value="0">普通用户</option>
+                        <option value="1">签约明星</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2">重置密码</label>
                 <div class="col-sm-4">
                     <input type="password" class="form-control" name="password">

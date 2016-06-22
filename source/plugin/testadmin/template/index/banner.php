@@ -14,7 +14,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.bid}</td>
-                            <td>{p.title}</a></td>
+                            <td>{p.title}</td>
                             <td class="changeToDate">{p.ctime}</td>
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">
