@@ -17,8 +17,8 @@ class upload extends \control\ajax{
         $f = post('box',$box);
         $circle = post('circle');
         $small = post('small',$small);
-        $large = post('laege',$large);
-        $medium = post('laege');
+        $large = post('large',$large);
+        $medium = post('medium');
         $avatar = post('avatar');
         $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
