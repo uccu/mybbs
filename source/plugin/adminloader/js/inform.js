@@ -4,7 +4,7 @@ j(function(j){
         var s=j(this),f=s.attr('for'),d=j('form#'+f).serializeArray();
         if(d)j.post(s.attr('data-action'),d,function(c){
             if(c.code!==200){alert(c.code+':'+c.desc)}
-            if(s.attr('data-action').match(/\/0$/))location = folder[1]+'/'+folder[2]+'/'+folder[3];
+            if(s.attr('data-action').match(/\/0$/))location = folder[1]+'/'+folder[2]+'/'+folder[3]+"#saveSuccess";
             else{
                 location.hash="saveSuccess";location.reload(true);
             }
