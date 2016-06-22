@@ -73,6 +73,11 @@ class Character extends na\ba{
         if($p['thumb'])$p['thumb'] .= '.medium.jpg';
         $this->success($p);
     }
+    function get_provs_detail($id){
+        $p = model('provenance')->find($id);
+        if(!$p)$this->error(400,'no data');
+        $this->success($p);
+    }
     function chars_detail($id){
         $this->subnav = array_merge($this->subnav,array(__FUNCTION__=>'角色详情'));
         $this->_init();

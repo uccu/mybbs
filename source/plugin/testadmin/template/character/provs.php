@@ -20,7 +20,7 @@
                             <td class="changeToDate">{p.ctime}</td>
                             <td>
                                 <div class="btn-group t" role="group" aria-label="opition">
-                                    
+                                    <a type="button" class="btn btn-info" href="{g.plugin}/{g.control}/{g.method}_detail/{p.pid}">修改</a>
                                     <button type="button" data-button="删除" class="btn btn-danger indel" data-action="{g.plugin}/{g.control}/del_{g.method}/{p.pid}">删除</button>
                                 </div>
                             </td>
