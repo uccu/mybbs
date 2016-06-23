@@ -9,6 +9,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-2">团队ID</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="tid">
+                </div>
+                <div class="col-sm-1">
+                    <span class="pa cp" style="left:0;top:7px" data-toggle="tooltip" data-placement="bottom" title="团队里可查询到ID">?</span>
+                    <script>j('[data-toggle="tooltip"]').tooltip()</script>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">组长</label>
+                <div class="col-sm-2">
+                    <select class="form-control" name="captain">
+                        <option selected=“selected” value="0">普通团员</option>
+                        <option value="1">组长</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2">手机</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" disabled name="phone">
@@ -44,6 +63,7 @@
                     <input type="text" class="form-control" name="interest">
                 </div>
             </div>
+            
             <div class="form-group">
                 <label class="control-label col-sm-2">状态</label>
                 <div class="col-sm-6">

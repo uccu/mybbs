@@ -32,7 +32,7 @@
                     <input type="text" class="form-control" name="tid">
                 </div>
                 <div class="col-sm-1">
-                    <span class="pa cp" style="left:0;top:7px" data-toggle="tooltip" data-placement="bottom" title="查询团队的ID">?</span>
+                    <span class="pa cp" style="left:0;top:7px" data-toggle="tooltip" data-placement="bottom" title="团队里可查询到ID">?</span>
                     <script>j('[data-toggle="tooltip"]').tooltip()</script>
                 </div>
             </div>

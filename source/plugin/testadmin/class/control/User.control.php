@@ -27,8 +27,9 @@ class user extends na\ba{
         if($nickname = post('nickname'))$where['nickname'] = $nickname;
         if($phone = post('phone'))$where['phone'] = $phone;
         if($tid = post('tid'))$where['tid'] = $tid;
+        if($tid = post('captain'))$where['captain'] = $tid;
         $this->_init();
-        $maxRow = $this->g->tempalte['maxPage'] = $this->userInfo->where($where)->get_field();
+        $maxRow = $this->g->tempalte['maxPage'] = $this->userInfo->add_team()->where($where)->get_field();
         $maxPage = floor(($maxRow-1)/$limit)+1;
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
@@ -48,12 +49,20 @@ class user extends na\ba{
     function get_detail($uid){
         $userInfo = $this->userInfo->safe_info()->find($uid);
         if(!$userInfo)$this->error(400,'no user');
+        $zz = model('user_team')->where(array('uid'=>$uid))->find();
+        $userInfo['captain'] = $zz['captain'];
         $this->success($userInfo);
     }
     function save_detail($uid){
         if(!$uid)$this->error(400,'no user');
         if(!$_POST['password'])unset($_POST['password']);
         $p = $this->userInfo->data($_POST)->save($uid);
+        if($_POST['tid']){
+            $data['tid'] = $_POST['tid'];
+            $data['uid'] = $uid;
+            $data['captain'] = $_POST['captain']?1:0;
+            model('user_team')->data($data)->add(true);
+        }else model('user_team')->where(array('uid'=>$uid))->remove();
         $this->success($p);
     }
     function del_lists(){

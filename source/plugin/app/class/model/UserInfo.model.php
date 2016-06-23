@@ -12,6 +12,11 @@ class UserInfo extends \model{
             'follow','fans','_on'=>'uid'
         )
     );
+    protected $teamMap = array(
+        'user_team'=>array(
+            'captain','_on'=>'uid','_join'=>'LEFT JOIN'
+        )
+    );
     function _beginning(){
 
     }
@@ -22,6 +27,9 @@ class UserInfo extends \model{
     }
     function add_count(){
         return $this->add_table($this->countMap);
+    }
+    function add_team(){
+        return $this->add_table($this->teamMap);
     }
 
 
