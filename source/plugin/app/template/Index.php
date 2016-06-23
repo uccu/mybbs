@@ -1,150 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{title}</title>
-<base href="{baseurl}">
+<!--{subtemplate _header}-->
 <!--{eval addcss('main')}-->
-<script type="text/javascript">
-	
-function login1(){
-	document.getElementById("fugai1").style.display="block";
-	document.getElementById("bai").style.display="block";
-}
-function login2(){
-	document.getElementById("fugai1").style.display="none";
-	document.getElementById("bai").style.display="none";
-}
-function wjpwd1(){
-	document.getElementById("fugai1").style.display="none";
-	document.getElementById("bai").style.display="block";
-	document.getElementById("fugai_index_wj_pwd").style.display="block";
-}
-function wjpwd2(){
-	
-	document.getElementById("bai").style.display="none";
-	document.getElementById("fugai_index_wj_pwd").style.display="none";
-}
 
-function zhuce1(){
-	
-	document.getElementById("bai").style.display="block";
-	document.getElementById("fugai_index_zhuce").style.display="block";
-}
-function zhuce2(){
-	
-	document.getElementById("bai").style.display="none";
-	document.getElementById("fugai_index_zhuce").style.display="none";
-}
-function zhuce3(){
-	document.getElementById("bai").style.display="block";
-	document.getElementById("fugai1").style.display="none";
-	document.getElementById("fugai_index_zhuce").style.display="block";
-}
-		
-</script>
-<style>
-img{}
-.m1 {
-    
-    
-  -webkit-clip-path: url({href}#svgPath1);
-  clip-path: url({href}#svgPath1);
-}
-.m2 {
-   
-  -webkit-clip-path: url({href}#svgPath2);
-  clip-path: url({href}#svgPath2);
-}
-.m3 {
-   
-  -webkit-clip-path: url({href}#svgPath3);
-  clip-path: url({href}#svgPath3);
-}
-.m4 {
-    
-  -webkit-clip-path: url({href}#svgPath4);
-  clip-path: url({href}#svgPath4);
-}
-image:hover {
-  opacity: .5;
-}
-svg{position:absolute}
-</style>
-</head>
-
-<body>
-<!--{eval echo $_SERVER['EDIRECT_URL']}-->
-<div id="bai"></div>
-<div id="fugai1">
-	<div class="fugai_index_1" onclick="login2()"><img src="images/bc_03.png" class="fugai_index_tu1"/></div>
-    <div class="fugai_index_2">登录</div>
-    <div class="fugai_index_3"><input type="text" value="请输入您的手机号" onfocus="if ('请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_3"><input type="text" value="6-16位密码，区分大小写" onfocus="if (value =='6-16位密码，区分大小写'){value =''}" onblur="if (value ==''){value='6-16位密码，区分大小写'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_4" onclick="wjpwd1()">忘记密码</div>
-    <div class="fugai_index_5">登录</div>
-    <div class="fugai_index_6">
-    	<div class="fugai_index_6_1">
-        	<div class="fugai_index_che"><input type="checkbox" /></div>
-            <div class="fugai_index_pwd">记住密码</div>
-        </div>
-        <div class="fugai_index_6_2" onclick="zhuce3()">去注册</div>
-    </div>
-</div>
-
-<div id="fugai_index_wj_pwd">
-	<div class="fugai_index_1" onclick="wjpwd2()"><img src="images/bc_03.png" class="fugai_index_tu1"/></div>
-    <div class="fugai_index_2">忘记密码</div>
-    <div class="fugai_index_3">
-    	<input type="text" value="请输入您的手机号" onfocus="if (value =='请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}" class="fugai_index_3_text2"/>
-    	<div class="fugai_huoqu">获取验证码</div>
-    </div>
-    <div class="fugai_index_3"><input type="text" value="请输入验证码" onfocus="if (value =='请输入验证码'){value =''}" onblur="if (value ==''){value='请输入验证码'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_3"><input type="text" value="请输入新密码" onfocus="if (value =='请输入新密码'){value =''}" onblur="if (value ==''){value='请输入新密码'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_3"><input type="text" value="请确认新密码" onfocus="if (value =='请确认新密码'){value =''}" onblur="if (value ==''){value='请确认新密码'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_7">确定</div>
-</div>
-
-<div id="fugai_index_zhuce">
-	<div class="fugai_index_1" onclick="zhuce2()"><img src="images/bc_03.png" class="fugai_index_tu1"/></div>
-    <div class="fugai_index_2">注册</div>
-    <div class="fugai_index_3"><input type="text" value="请输入您的手机号" onfocus="if (value =='请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_3"><input type="text" value="6-16位密码，区分大小写" onfocus="if (value =='6-16位密码，区分大小写'){value =''}" onblur="if (value ==''){value='6-16位密码，区分大小写'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_3"><input type="text" value="请确认新密码" onfocus="if (value =='请确认新密码'){value =''}" onblur="if (value ==''){value='请确认新密码'}" class="fugai_index_3_text1"/></div>
-    <div class="fugai_index_7">注册</div>
-</div>
 <div class="banner">
-<!-- banner -->
-	<img src="pic/{banner.0.pic}.jpg" class="banner_tu1"/>
-    <div class="nav">
-        <div class="nav_z">
-            <div class="nav_z_left">
-                <div class="nav_z_left_1"><img src="images/xq_06.png" class="nav_tu1"/></div>
-                <a href="index.html"><div class="nav_z_left_2">主页</div></a>
-                <a href="twostar.html"><div class="nav_z_left_3">二次元明星</div></a>
-                <a href="#"><div class="nav_z_left_3">漫吧</div></a>
-                <a href="#"><div class="nav_z_left_3">漫展&周边</div></a>
-                <a href="center.html"><div class="nav_z_left_3">个人中心</div></a>
-            </div>
-            <div class="nav_z_right">
-                <div class="nav_z_right_1">
-                <input type="text" class="nav_text_1" value="搜索用户/标签" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"  /></div>
-                <div class="nav_z_right_2" onclick="zhuce1()">注册</div>
-                <div class="nav_z_right_3" onclick="login1()">登录</div>
+<!--{loop $banner $k=>$b}-->
+    <div class="banner_block"{if $k} style="display:none"{/if}>
+        <img src="pic/{b.pic}.jpg" class="banner_tu1"/>
+        <div class="jiaru">
+            <div class="jr_z">
+                <div class="jr_1"><img src="images/sy_04.png" /></div>
+                <div class="jr_2">
+                    <div class="jr_2_1">{b.title}</div>
+                    <div class="jr_2_2">{b.content}</div>
+                    {if $b['button']}<a href="{b.href}"><div class="jr_2_3">{b.button}</div></a>{/if}
+                </div>
+                <div class="jr_3"><img src="images/sy_06.png" /></div>
             </div>
         </div>
     </div>
-	<div class="jiaru">
-    	<div class="jr_z">
-        	<div class="jr_1"><img src="images/sy_04.png" /></div>
-            <div class="jr_2">
-            	<div class="jr_2_1">{banner.0.title}</div>
-                <div class="jr_2_2">{banner.0.content}</div>
-                <a href="{banner.0.href}"><div class="jr_2_3">{banner.0.button}</div></a>
-            </div>
-            <div class="jr_3"><img src="images/sy_06.png" /></div>
-        </div>
-    </div>
+    
+<!--{/loop}-->
+<script>
+(function(){
+    s=0,l=j('.banner_block').length,f=function(){
+        j('.banner_block').eq(s).fadeOut();
+        var t = s-1<0?l-1:s-1;
+        j('.banner_block').eq(t).fadeIn();
+        s=t;
+    },d=function(){
+        j('.banner_block').eq(s).fadeOut();
+        var t = s+1>l-1?0:s+1;
+        j('.banner_block').eq(t).fadeIn();
+        s=t;
+    };
+    j('.banner .jr_1').on('click',f);
+    j('.banner .jr_3').on('click',d)
+})();
+</script>
 </div>
 <div class="guanfang">
 	<div class="guanfang_1">
@@ -204,13 +95,13 @@ svg{position:absolute}
           </defs>
           <g>
             <a xlink:href="stardetails.html">
-            <image class="m1" xlink:href="pic/{star.0.pic}.jpg" x="000" y="0" height="420px" width="277px" /></a>
+            <image style="-webkit-clip-path: url({href}#svgPath1);clip-path: url({href}#svgPath1);" xlink:href="pic/{star.0.pic}.jpg" x="000" y="0" height="420px" width="277px" /></a>
             <a xlink:href="stardetails.html">
-            <image class="m2" xlink:href="pic/{star.1.pic}.jpg" x="149" y="0" height="420px" width="415px" /></a>
+            <image style="-webkit-clip-path: url({href}#svgPath2);clip-path: url({href}#svgPath2);" xlink:href="pic/{star.1.pic}.jpg" x="149" y="0" height="420px" width="415px" /></a>
             <a xlink:href="stardetails.html">
-            <image class="m3" xlink:href="pic/{star.2.pic}.jpg" x="436" y="0" height="420px" width="415px" /></a>
+            <image style="-webkit-clip-path: url({href}#svgPath3);clip-path: url({href}#svgPath3);" xlink:href="pic/{star.2.pic}.jpg" x="436" y="0" height="420px" width="415px" /></a>
             <a xlink:href="stardetails.html">
-            <image class="m4" xlink:href="pic/{star.3.pic}.jpg" x="723" y="0" height="420px" width="277px" /></a>
+            <image style="-webkit-clip-path: url({href}#svgPath4);clip-path: url({href}#svgPath4);" xlink:href="pic/{star.3.pic}.jpg" x="723" y="0" height="420px" width="277px" /></a>
           </g>
         </svg>
        <div class="con_fg_1">
@@ -440,7 +331,7 @@ svg{position:absolute}
         <!--{loop $team $k=>$t}-->
         {if $k>3}
         <div class="tuanti_2_2">
-        	<a href="teamdetails.html"><img src="pic/{t.thumb}.medium.jpg" class="tuanti_1_1_tu2"/>
+        	<a href="teamdetails.html"><img src="pic/{t.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">5</div></div>
                 <div class="tuanti_1_1_dw_2s">
@@ -465,39 +356,40 @@ svg{position:absolute}
 <div class="dasai">
 	<div class="dasai_1">
     	<a href="actually.html">
-        	<div class="dasai_1_1"><img src="images/sy_60.png" />
-        
+        	<div class="dasai_1_1" style="background-image:url(pic/{contest.0.thumb}.medium.jpg)">
         	<div class="dasai_1_fg"><img src="images/sj_03.png"></div>
         </div></a>
         <div class="dasai_1_2">
-        	<div class="dasai_1_2_1">炫漫线下cosplay大赛</div>
-            <div class="dasai_1_2_2">首届炫漫线下全民角色国际cosplay锦标赛打造原汁原味的顶级cosplay赛事，范围覆盖亚洲。</div>
+        	<div class="dasai_1_2_1">{contest.0.title}</div>
+            <div class="dasai_1_2_2">{contest.0.description}</div>
             <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html"><div class="dasai_1_1"><img src="images/sy_63.png" /><div class="dasai_1_fg"><img src="images/sj_03.png"></div></div>
+        <a href="actually.html">
+        <div class="dasai_1_1" style="background-image:url(pic/{contest.1.thumb}.medium.jpg)">
+        <div class="dasai_1_fg"><img src="images/sj_03.png"></div></div>
         	
         </a>
         <div class="dasai_1_2">
-        	<div class="dasai_1_2_1">炫漫线下cosplay大赛</div>
-            <div class="dasai_1_2_2">首届炫漫线下全民角色国际cosplay锦标赛打造原汁原味的顶级cosplay赛事，范围覆盖亚洲。</div>
+        	<div class="dasai_1_2_1">{contest.1.title}</div>
+            <div class="dasai_1_2_2">{contest.1.description}</div>
             <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
     </div>
    <div class="dasai_2">
         <div class="dasai_1_2">
-        	<div class="dasai_1_2_1">炫漫线下cosplay大赛</div>
-            <div class="dasai_1_2_2">首届炫漫线下全民角色国际cosplay锦标赛打造原汁原味的顶级cosplay赛事，范围覆盖亚洲。</div>
+        	<div class="dasai_1_2_1">{contest.2.title}</div>
+            <div class="dasai_1_2_2">{contest.2.description}</div>
             <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html"><div class="dasai_1_1"><img src="images/sy_66.png" />
+        <a href="actually.html"><div class="dasai_1_1" style="background-image:url(pic/{contest.2.thumb}.medium.jpg)">
         	<div class="dasai_2_fg"><img src="images/sj_06.png"></div>
         </div></a>
         <div class="dasai_1_2">
-        	<div class="dasai_1_2_1">炫漫线下cosplay大赛</div>
-            <div class="dasai_1_2_2">首届炫漫线下全民角色国际cosplay锦标赛打造原汁原味的顶级cosplay赛事，范围覆盖亚洲。</div>
+        	<div class="dasai_1_2_1">{contest.3.title}</div>
+            <div class="dasai_1_2_2">{contest.3.description}</div>
             <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html"><div class="dasai_1_1"><img src="images/sy_68.png" />
+        <a href="actually.html"><div class="dasai_1_1" style="background-image:url(pic/{contest.3.thumb}.medium.jpg)">
         	<div class="dasai_2_fg"><img src="images/sj_06.png"></div>
         </div></a>
     </div>

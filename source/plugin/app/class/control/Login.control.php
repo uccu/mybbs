@@ -69,7 +69,6 @@ class Login extends api\ajax{
         $data['ctime'] = TIME_NOW;
         $data['salt'] = $salt;
         $data['nickname'] = 'baka⑨';
-        $data['avatar'] = 'noavatar.png';
 
         //创建用户
         if(!$rr = $this->coser->data($data)->add())$this->error(404,'创建失败');

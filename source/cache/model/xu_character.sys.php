@@ -1,0 +1,1 @@
+<?php $tableMap=array("character"=>array("cid","fans","name","thumb","pid","ctime")) ?>
