@@ -17,7 +17,8 @@ abstract class base extends \control\ajax{
         $this->g->template['pageHeader'] = '<div class="page-header"><h1>'.$this->name.'<small>'.$this->subname.'</small></h1></div>';
         $nav = '<ul class="nav nav-tabs t">';
         foreach($this->nav as $k=>$v){
-            $k0 = end(explode('/',$k));
+            $z = explode('/',$k);
+            $k0 = end($z);
             $nav .= '<li role="presentation" class="nav_'.$k0.'"><a href="'.$this->baseurl.PLUGIN_NAME.'/'.$k.'">'.$v.'</a></li>';
         }
         $nav .= '</ul>';

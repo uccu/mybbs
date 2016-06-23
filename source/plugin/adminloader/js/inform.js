@@ -34,8 +34,8 @@ j(function(j){
         +' yes" style="margin-right:10px">'+
         (t.attr('data-button')?t.attr('data-button'):'删除')
         +'</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
-        if(j('.alert form').html())z = j('.alert form').serializeArray();
         j('.alert').slideDown().find('.yes').one('click',function(){
+            if(j('.alert form').html())z = j('.alert form').serializeArray();
             j.post(url,z,function(d){
                 if(d.code!=200){alert(d.desc);return}
                 else{
