@@ -35,7 +35,7 @@ class Index extends api\ajax{
         return model('team')->order(array('fans'=>'DESC'))->limit(7)->select();
     }
     function _contest(){
-        return model('contest')->order(array('ctime'=>'DESC'))->limit(4)->select();
+        return model('contest')->field(array('cid','title','description','thumb'))->order(array('ctime'=>'DESC'))->limit(4)->select();
     }
     function _nomethod(){
         $this->g->template['banner'] = $this->_banner();

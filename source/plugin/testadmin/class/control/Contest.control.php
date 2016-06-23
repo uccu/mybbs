@@ -30,6 +30,7 @@ class Contest extends na\ba{
     }
     
     function save_contests_detail($id){
+        $_POST['content'] = $this->_remove_suffix($_REQUEST['content']);
         $_POST['thumb'] = $this->_remove_suffix($_POST['thumb']);
         $p = $this->_save('contest',$id,true,true);
         $this->success($p);
@@ -47,8 +48,9 @@ class Contest extends na\ba{
 
     function get_contests_detail($id){
         $p = model('contest')->find($id);
-        if(!$p)$this->error(400,'no data');
+        //if(!$p)$this->error(400,'no data');
         if($p['thumb'])$p['thumb'] .= '.medium.jpg';
+        if(!$p['content'])$p['content'] = '';
         $this->success($p);
     }
 

@@ -62,7 +62,7 @@ class index extends na\ba{
         $table = array(
             'user_info'=>array('_on'=>'uid','nickname')
         );
-        $this->g->template['list'] = model('recommend_stars')->add_table($table)->limit(4)->select();
+        $this->g->template['list'] = model('recommend_stars')->add_table($table)->order(array('sid'))->limit(4)->select();
         T(CONTROL_NAME.'/'.__FUNCTION__);
     }
     function stars_detail($id){
