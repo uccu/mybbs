@@ -48,23 +48,23 @@ img{}
 .m1 {
     
     
-  -webkit-clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath1);
-  clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath1);
+  -webkit-clip-path: url({href}#svgPath1);
+  clip-path: url({href}#svgPath1);
 }
 .m2 {
    
-  -webkit-clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath2);
-  clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath2);
+  -webkit-clip-path: url({href}#svgPath2);
+  clip-path: url({href}#svgPath2);
 }
 .m3 {
    
-  -webkit-clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath3);
-  clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath3);
+  -webkit-clip-path: url({href}#svgPath3);
+  clip-path: url({href}#svgPath3);
 }
 .m4 {
     
-  -webkit-clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath4);
-  clip-path: url(<!--{eval echo $_SERVER['REDIRECT_URL']}-->#svgPath4);
+  -webkit-clip-path: url({href}#svgPath4);
+  clip-path: url({href}#svgPath4);
 }
 image:hover {
   opacity: .5;
@@ -297,11 +297,11 @@ svg{position:absolute}
     <div class="ip_tu_zong">
     	<div class="ip_tu_1s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="{cosers.0.thumb}" class="ip_tu1"/></a>
+            	<a href="stardetails.html"><img src="pic/{cosers.0.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_03.png" /></div>
             </div>
             <div class="ip_tu_1_2">
-            	<div class="ip_1_2_1"><img src="{cosers.0.avatar}" class="ip_tu3"/></div>
+            	<div class="ip_1_2_1"><img src="pic/{cosers.0.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.0.nickname}</div>
                 <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
                 <div class="ip_1_2_4">{cosers.0.fans}</div>
@@ -310,11 +310,11 @@ svg{position:absolute}
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="{cosers.1.thumb}" class="ip_tu1"/></a>
+            	<a href="stardetails.html"><img src="pic/{cosers.1.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_06.png" /></div>
             </div>
             <div class="ip_tu_1_2">
-            	<div class="ip_1_2_1"><img src="{cosers.1.avatar}" class="ip_tu3"/></div>
+            	<div class="ip_1_2_1"><img src="pic/{cosers.1.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.1.nickname}</div>
                 <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
                 <div class="ip_1_2_4">{cosers.1.fans}</div>
@@ -323,11 +323,11 @@ svg{position:absolute}
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="{cosers.2.thumb}" class="ip_tu1"/></a>
+            	<a href="stardetails.html"><img src="pic/{cosers.2.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_08.png" /></div>
             </div>
             <div class="ip_tu_1_2">
-            	<div class="ip_1_2_1"><img src="{cosers.2.avatar}" class="ip_tu3"/></div>
+            	<div class="ip_1_2_1"><img src="pic/{cosers.2.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.2.nickname}</div>
                 <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
                 <div class="ip_1_2_4">{cosers.2.fans}</div>
@@ -338,7 +338,7 @@ svg{position:absolute}
         
         	<div class="geren_left">4</div>
             <div class="geren_right">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="{cosers.3.avatar}" /></div></a>
+            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.3.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.3.nickname}</div>
                     <div class="geren_r_2_2">
@@ -349,7 +349,7 @@ svg{position:absolute}
             </div>
             <div class="geren_left">5</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="{cosers.4.avatar}" /></div></a>
+            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.4.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.4.nickname}</div>
                     <div class="geren_r_2_2">
@@ -360,7 +360,7 @@ svg{position:absolute}
             </div>
             <div class="geren_left">6</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="{cosers.5.avatar}" /></div></a>
+            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.5.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.5.nickname}</div>
                     <div class="geren_r_2_2">
@@ -371,7 +371,7 @@ svg{position:absolute}
             </div>
             <div class="geren_left">7</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="{cosers.6.avatar}" /></div></a>
+            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.6.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.6.nickname}</div>
                     <div class="geren_r_2_2">
@@ -392,84 +392,66 @@ svg{position:absolute}
 <div class="tuanti">
 	<div class="tuanti_1">
     	<div class="tuanti_1_1">
-        	<a href="teamdetails.html"><img src="images/fm_03.png" class="tuanti_1_1_tu1"/>
+        	<a href="teamdetails.html"><img src="pic/{team.0.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
         	<div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_11.png" /><div class="tuanti_1_fg_1">1</div></div>
                 <div class="tuanti_1_1_dw_2">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<font size="+1">{team.0.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
+                    {team.0.fans}
                 </div>
             </div></a>
         </div>
         <div class="tuanti_1_2">
-            <a href="teamdetails.html"><img src="images/sy_43.png" class="tuanti_1_1_tu1"/>
+            <a href="teamdetails.html"><img src="pic/{team.1.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
             <div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">2</div></div>
                 <div class="tuanti_1_1_dw_2">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<font size="+1">{team.1.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
+                    {team.1.fans}
                 </div>
             </div></a>
         </div>
         <div class="tuanti_1_2">
-        	<a href="teamdetails.html"><img src="images/sy_45.png" class="tuanti_1_1_tu1"/>
-        	<div class="tuanti_1_1_dw">
-            	<div class="tuanti_1_1_dw_1"><img src="images/qz_16.png" /><div class="tuanti_1_fg_1">3</div></div>
+            <a href="teamdetails.html"><img src="pic/{team.2.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+            <div class="tuanti_1_1_dw">
+            	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">3</div></div>
                 <div class="tuanti_1_1_dw_2">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<font size="+1">{team.2.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
+                    {team.2.fans}
                 </div>
             </div></a>
         </div>
     </div>
     <div class="tuanti_2">
     	<div class="tuanti_2_1">
-        	<a href="teamdetails.html"><img src="images/sy_49.png" class="tuanti_1_1_tu2"/>
+        	<a href="teamdetails.html"><img src="pic/{team.3.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">4</div></div>
                 <div class="tuanti_1_1_dw_2s">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<font size="+1">{team.3.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
+                    {team.3.fans}
                 </div>
             </div></a>
         </div>
+        <!--{loop $team $k=>$t}-->
+        {if $k>3}
         <div class="tuanti_2_2">
-        	<a href="teamdetails.html"><img src="images/sy_51.png" class="tuanti_1_1_tu2" />
+        	<a href="teamdetails.html"><img src="pic/{t.thumb}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">5</div></div>
                 <div class="tuanti_1_1_dw_2s">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                	<font size="+1">{t.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
+                    {t.fans}
                 </div>
             </div></a>
         </div>
-       	<div class="tuanti_2_2">
-        	<a href="teamdetails.html"><img src="images/sy_53.png" class="tuanti_1_1_tu2" />
-        	<div class="tuanti_1_1_dws">
-            	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">6</div></div>
-                <div class="tuanti_1_1_dw_2s">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
-                </div>
-            </div></a>
-        </div>
-        <div class="tuanti_2_2">
-        	<a href="teamdetails.html"><img src="images/sy_55.png" />
-        	<div class="tuanti_1_1_dws">
-            	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">7</div></div>
-                <div class="tuanti_1_1_dw_2s">
-                	<font size="+1">小豆芽</font>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
-                    6002
-                </div>
-            </div></a>
-        </div>
+       	{/if}
+        <!--{/loop}-->
     </div>
     
 </div>

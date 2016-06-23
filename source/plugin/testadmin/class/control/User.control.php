@@ -51,9 +51,15 @@ class user extends na\ba{
         if(!$userInfo)$this->error(400,'no user');
         $zz = model('user_team')->where(array('uid'=>$uid))->find();
         $userInfo['captain'] = $zz['captain'];
+        if($userInfo['thumb'])$userInfo['thumb'] = $userInfo['thumb'].'.medium.jpg';
+        if($userInfo['cover'])$userInfo['cover'] = $userInfo['cover'].'.large.jpg';
+        if($userInfo['avatar'])$userInfo['avatar'] = $userInfo['avatar'].'.avatar.jpg';
         $this->success($userInfo);
     }
     function save_detail($uid){
+        $_POST['thumb'] = $this->_remove_suffix($_POST['thumb']);
+        $_POST['avatar'] = $this->_remove_suffix($_POST['avatar']);
+        $_POST['cover'] = $this->_remove_suffix($_POST['cover']);
         if(!$uid)$this->error(400,'no user');
         if(!$_POST['password'])unset($_POST['password']);
         $p = $this->userInfo->data($_POST)->save($uid);

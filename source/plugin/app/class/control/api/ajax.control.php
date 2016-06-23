@@ -5,6 +5,7 @@ class ajax extends \control\ajax{
     function __construct(){
         call_user_func_array(array(parent,'__construct'),func_get_args());
         $this->g->template['me'] = $this->user->me;
+        $this->g->template['href'] = $_SERVER['REDIRECT_URL'];
     }
     protected function _get_user(){
         return control('app:base','api');

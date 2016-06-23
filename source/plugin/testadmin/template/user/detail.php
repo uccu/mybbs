@@ -19,6 +19,36 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-2">展示</label>
+                <div class="col-sm-4">
+                    <input type="file" id="thumb" data-medium="1" data-box="user" data-auto="1" />
+                    <p class="help-block"></p>
+                    <img id="pic_thumb" class='img-responsive' />
+                    <input class="form-control" name="thumb" type="text" value="" disabled="disabled"/>
+                    <input name="thumb" type="hidden" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">头像</label>
+                <div class="col-sm-4">
+                    <input type="file" id="avatar" data-avatar="1" data-box="user" />
+                    <p class="help-block"></p>
+                    <img id="pic_avatar" class='img-responsive' />
+                    <input class="form-control" name="avatar" type="text" value="" disabled="disabled"/>
+                    <input name="avatar" type="hidden" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">封面</label>
+                <div class="col-sm-4">
+                    <input type="file" id="cover" data-large="1" data-box="user" data-auto="1" />
+                    <p class="help-block"></p>
+                    <img id="pic_cover" class='img-responsive' />
+                    <input class="form-control" name="cover" type="text" value="" disabled="disabled"/>
+                    <input name="cover" type="hidden" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2">组长</label>
                 <div class="col-sm-2">
                     <select class="form-control" name="captain">

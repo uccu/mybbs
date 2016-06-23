@@ -101,6 +101,7 @@ appearance:none;
 .geren_left{width:20px;height:80px; float:left; color:#666; font-size:16px; line-height:80px;}
 .geren_right{width:213px;height:80px; float:left; border-bottom:1px solid #ccc; border-top:1px solid #ccc;}
 .geren_r_1{width:60px;height:60px; float:left;margin-top:10px; }
+.geren_r_1 img{width:60px;height:60px;}
 .geren_r_2{width:140px;height:60px; float:left; margin-left:13px; margin-top:10px;}
 .geren_r_2_1{width:140px;height:30px;line-height:30px;}
 .geren_r_2_2{width:140px;height:30px;}
