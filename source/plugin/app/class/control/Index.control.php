@@ -6,10 +6,17 @@ class Index extends api\ajax{
         
     }
     function _banner(){
-        return model('banner')->order(array('bid'))->limit(4)->select();
+        $t = model('banner')->order(array('bid'))->limit(4)->select();
+        foreach($t as &$v)$v['content'] = preg_replace('/\n/','<br>',$v['content']);
+        return $t;
     }
     function _character(){
-        return model('character')->limit(4)->order(array('fans'=>'DESC'))->select();
+        $table = array(
+            'provenance'=>array(
+                '_on'=>'pid','name'=>'pname'
+            )
+        );
+        return model('character')->add_table($table)->limit(4)->order(array('fans'=>'DESC'))->select();
     }
     function _star(){
         $table = array(
@@ -17,7 +24,6 @@ class Index extends api\ajax{
             'user_count'=>array('_on'=>'uid','fans')
         );
         $info = model('recommend_stars')->add_table($table)->limit(4)->order(array('sid'))->select();
-        foreach($info as &$v)$v['pic'] .= '.jpg';
         return $info;
     }
     function _video(){
