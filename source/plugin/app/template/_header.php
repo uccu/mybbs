@@ -1,5 +1,8 @@
 <!--{subtemplate tool:header}-->
 <!--{eval addcss('main')}-->
+<!--{eval addjs('p')}-->
+
+<div class="nav{if $g['control']=='index'} pa{else}" style="background: #333;{/if}">
 <!--{if !$me}-->
 <script type="text/javascript">
 	
@@ -41,15 +44,15 @@ function zhuce3(){
 </script>
 
 
-<div class="nav">
+
         <div class="nav_z">
             <div class="nav_z_left">
                 <div class="nav_z_left_1"><img src="images/xq_06.png" class="nav_tu1"/></div>
                 <a href="app/index"><div class="nav_z_left_2">主页</div></a>
                 <a href="app/twostar"><div class="nav_z_left_3">二次元明星</div></a>
-                <a><div class="nav_z_left_3">漫吧</div></a>
-                <a><div class="nav_z_left_3">漫展&周边</div></a>
-                <a href="center.html"><div class="nav_z_left_3">个人中心</div></a>
+                <a><div class="nav_z_left_3 cp">漫吧</div></a>
+                <a><div class="nav_z_left_3 cp">漫展&周边</div></a>
+                <a onclick="login1()"><div class="nav_z_left_3 cp">个人中心</div></a>
             </div>
             <div class="nav_z_right">
                 <div class="nav_z_right_1">
@@ -58,7 +61,7 @@ function zhuce3(){
                 <div class="nav_z_right_3" onclick="login1()">登录</div>
             </div>
         </div>
-    </div>
+
 <div id="bai"></div>
 <div id="fugai1">
 	<div class="fugai_index_1" onclick="login2()"><img src="images/bc_03.png" class="fugai_index_tu1"/></div>
@@ -110,22 +113,22 @@ function zhuce3(){
 {else}
 
 
-<div class="nav_cos">
-        <div class="nav_z_cos">
-            <div class="nav_z_left_cos">
+
+        <div class="nav_z">
+            <div class="nav_z_left">
                 <div class="nav_z_left_1"><img src="images/xq_06.png" class="nav_tu1"/></div>
                 <a href="app/index"><div class="nav_z_left_2">主页</div></a>
                 <a href="app/twostar"><div class="nav_z_left_3">二次元明星</div></a>
-                <a><div class="nav_z_left_3">漫吧</div></a>
-                <a><div class="nav_z_left_3">漫展&周边</div></a>
-                <a href="center.html"><div class="nav_z_left_3">个人中心</div></a>
+                <a><div class="nav_z_left_3 cp">漫吧</div></a>
+                <a><div class="nav_z_left_3 cp">漫展&周边</div></a>
+                <a href="app/usercenter/index/{me.uid}"><div class="nav_z_left_3">个人中心</div></a>
             </div>
             <div class="nav_z_right_cos">
                 <div class="nav_z_right_1_cos">
                 <input type="text" class="nav_text_1" value="搜索用户/标签" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"></div>
                 <div class="nav_nav_z">
                 	<div class="nav_nav_z_1"><img src="pic/{me.avatar}.avatar.jpg" class="nav_nav_tu1 img-circle"></div>
-                    <a href=""><div class="nav_nav_z_2">{me.nickname}</div></a>
+                    <a href="app/usercenter/index/{me.uid}"><div class="nav_nav_z_2">{me.nickname}</div></a>
                 </div>
                 <a><div class="nav_nav_right logout cp"><ins>退出登录</ins></div></a>
                 <script>
@@ -137,8 +140,9 @@ function zhuce3(){
                 </script>
             </div>
         </div>
-    </div>
+
 
 
 
 {/if}
+    </div>
