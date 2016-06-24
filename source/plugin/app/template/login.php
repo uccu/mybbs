@@ -121,15 +121,17 @@ j(function($){
         <a class="toLogin"><span class="pa cp" aria-hidden="true">×</span></a>
         <h3 class="">忘记密码</h3>
         
-        <form id="forgotForm">
+        
             <div class="form-group" style="padding:5px 20px 0 20px">
+                <form id="forgotForm">
                 <input class="form-control pr t" type="text" name="phone" value="请输入您的手机号" onfocus="if (value =='请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}">
                 <input class="form-control pr t" type="text" name="captcha" value="请输入验证码" onfocus="if (value =='请输入验证码'){value =''}" onblur="if (value ==''){value='请输入验证码'}" style="top:-1px">
                 <input class="form-control pr t" type="text" name="pwd" data-value="请输入新密码" value="请输入新密码" style="top:-2px">
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-3px">
+                </form>
                 <button class="getCaptcha t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 109px;right: 27px;z-index:20">获取验证码</button>
             </div>
-        </form>
+        
         
         <div style="padding:0 20px">
             <button class="forgot t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">修改</button>
