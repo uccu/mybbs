@@ -2,7 +2,7 @@
 <!--{eval addcss('main')}-->
 <!--{eval addjs('p')}-->
 
-<div class="nav{if $g['control']=='index'} pa{else}" style="background: #333;{/if}">
+
 <!--{if !$me}-->
 <script type="text/javascript">
 	
@@ -43,7 +43,7 @@ function zhuce3(){
 		
 </script>
 
-
+<div class="nav{if $g['control']=='index'} pa{else}" style="background: #333;{/if}">
 
         <div class="nav_z">
             <div class="nav_z_left">
@@ -61,7 +61,7 @@ function zhuce3(){
                 <div class="nav_z_right_3" onclick="login1()">登录</div>
             </div>
         </div>
-
+</div>
 <div id="bai"></div>
 <div id="fugai1">
 	<div class="fugai_index_1" onclick="login2()"><img src="images/bc_03.png" class="fugai_index_tu1"/></div>
@@ -112,7 +112,7 @@ function zhuce3(){
 
 {else}
 
-
+<div class="nav{if $g['control']=='index'} pa{else}" style="background: #333;{/if}">
 
         <div class="nav_z">
             <div class="nav_z_left">
@@ -140,9 +140,9 @@ function zhuce3(){
                 </script>
             </div>
         </div>
-
+</div>
 
 
 
 {/if}
-    </div>
+    
