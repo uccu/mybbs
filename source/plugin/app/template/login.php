@@ -127,7 +127,7 @@ j(function($){
                 <input class="form-control pr t" type="text" name="captcha" value="请输入验证码" onfocus="if (value =='请输入验证码'){value =''}" onblur="if (value ==''){value='请输入验证码'}" style="top:-1px">
                 <input class="form-control pr t" type="text" name="pwd" data-value="请输入新密码" value="请输入新密码" style="top:-2px">
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-3px">
-                <button class="forgot t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 109px;right: 27px;z-index:20">获取验证码</button>
+                <button class="getCaptcha t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 109px;right: 27px;z-index:20">获取验证码</button>
             </div>
         </form>
         
