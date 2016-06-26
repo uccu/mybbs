@@ -80,7 +80,31 @@ class Login extends api\ajax{
         
 
     }
+    function forgot($phone,$pwd,$captcha){
+        //已经登录
+        if($this->user->uid)$this->error(301,'已登入');
 
+        //验证参数
+        $phone = post('phone',$phone);
+        $pwd = post('pwd',$pwd);
+        $captcha = post('pwd',$captcha);
+        if(!$phone || !$pwd)$this->error(401,'手机号和密码不能为空');
+        if(!control('tool:captcha')->_check_captcha())$this->error(405,'验证码错误');
+        //if(!preg_match('/^1\d{10}$/',$phone))$this->error(402,'手机号格式不正确');
+        if(!preg_match('/^.{6,16}$/',$pwd))$this->error(403,'密码长度不正确');
+       
+        $where['phone'] = $phone;
+        $coser = $this->coser->where($where)->find();
+        if(!$coser)$this->error(406,'该用户未注册');
+        $salt = $coser['salt'];
+        //单向加密密码
+        $pwd = md5(md5($pwd).$salt);
+        $data['password'] = $pwd;
+        $this->coser->where($where)->data($data)->save();
+        $array['uid'] = $coser['uid'];
+        $this->success($array);
+
+    }
     function _nomethod(){
         $this->g->template['list'] = model('login_background')->limit(20)->order(array('bid'))->select();
         T();

@@ -12,8 +12,19 @@ input.form-control:focus{color:#555;z-index:13}
 .lo span:first-child{
     right:16px;top:10px
 }
+.show_alert_box{top:0;left:0;opacity:0;display:table;position: fixed;z-index:20;width: 100%;height: 100%;background-color:rgba(0,0,0,0.5)}
+.show_alert_box>div{display: table-cell;vertical-align: middle;text-align: center}
+.show_alert_box>div>span{font-size: 20px;position:relative;padding:30px 70px 30px 100px;z-index: 21;background-color: #FFF;border-radius: 5px;border: #f8f8f8 solid 2px;}
+.show_alert_box>div>span::before{content:'';background-image:url(/images/dg_03.png);position:absolute;width:48px;height:48px;top:16px;left:40px}
 </style>
 <script>
+function show_alert(status,words,f){
+    var d = '<div class="show_alert_box"><div><span>'+words+'</span></div></div>';
+    j('body').append(d);
+    j('.show_alert_box').animate({'opacity':1}).one('click',function(){
+        j(this).fadeOut(function(){j(this).remove();if(f)f(this)})
+    })
+}
 j(function($){
     var r = 0,l=$('.back').length,t=function(){
         $('.back').eq(r).fadeOut(1000);
@@ -67,13 +78,19 @@ j(function($){
                 
             </div>
         </form>
-        <p class="text-left cp toForgot" style="padding:0 20px"><a><strong style="color:#999">忘记密码</strong></a></p>
+        <p class="text-left cp toForgot" style="padding:0 20px"><a><strong style="color:#999">忘记密码</strong></a>
+        <label class="fr cp"><small class="login_error" style="color:red"></small></label></p>
         <div style="padding:0 20px">
             <button class="login t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">登录</button>
             <script>
             j('button.login').click(function(){
+                if(j('#loginForm [name=phone]').val()=='请输入您的手机号'){
+                    j('.login_error').text('手机号不能为空哦~');return
+                }
                 j.post('app/login/login',j('#loginForm').serializeArray(),function(d){
-                    if(d.code==200)location.reload(true);else j('.login_error').text(d.desc);
+                    if(d.code==200){
+                        show_alert(1,'登录成功',function(){location.reload(true);})
+                    }else j('.login_error').text(d.desc);
                 },'json')
             })
             
@@ -82,7 +99,7 @@ j(function($){
         <div style="padding:4px 20px 60px 20px;height:30px">
             <label class="fl cp"><input type="checkbox"/><small style="color:#ccc">记住密码</small></label>
             <label class="fr cp"><small class="toRegister" style="color:#999">去注册</small></label>
-            <label class="fr cp"><small class="register_error" style="color:red"></small></label>
+            
         </div>
     </div>
 
@@ -103,9 +120,11 @@ j(function($){
             <button class="register t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">注册</button>
             <script>
             j('button.register').click(function(){
-                if(j('#registerForm [name=pwd]').val()!=j('#registerForm [name=pwd2]').val()){j('.register_error').text('!2次密码不同');return}
+                if(j('#registerForm [name=pwd]').val()!=j('#registerForm [name=pwd2]').val()){j('.register_error').text('2次密码不同');return}
                 j.post('app/login/register',j('#registerForm').serializeArray(),function(d){
-                    if(d.code==200)location.reload(true);else j('.register_error').text(d.desc);
+                    if(d.code==200){
+                        show_alert(1,'注册成功，可以登录了哟~',function(){location.reload(true);})
+                    }else j('.register_error').text(d.desc);
                 },'json')
             })
             
@@ -130,6 +149,33 @@ j(function($){
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-3px">
                 </form>
                 <button class="getCaptcha t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 109px;right: 27px;z-index:20">获取验证码</button>
+                <script>
+                    (function(){
+                        var t=0,ge = function(){
+                            if(t==0)t=60;
+                            j('.getCaptcha').addClass('disabled').text('等待'+t+'秒');
+                            t--;
+                            if(t==0){
+                                j('.getCaptcha').text('获取验证码');j('.getCaptcha').removeClass('disabled').one('click',ge);
+                            }else setTimeout(ge,1000)
+                            
+                        },gt=function(){
+                            if(!j('#forgotForm [name=phone]').val().match(/1\d{10}/)){
+                                 j('.forgot_error').text('手机号错误');j('.getCaptcha').one('click',gt);return 
+                            }
+                            j.getJSON('/tool/captcha/get_captcha',j('#forgotForm').serializeArray(),function(d){
+                                if(d.code==200){
+                                    show_alert(1,'发送成功');j('#forgotForm [name=captcha]').val(d.desc);
+                                    ge();
+                                }else j('.forgot_error').text(d.desc);
+                            });
+                            
+                            
+                        };
+                        j('.getCaptcha').one('click',gt);
+                    })()
+                    
+                </script>
             </div>
         
         
@@ -137,9 +183,11 @@ j(function($){
             <button class="forgot t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">修改</button>
             <script>
             j('button.forgot').click(function(){
-                if(j('#forgotForm [name=pwd]').val()!=j('#forgotForm [name=pwd2]').val()){j('.forgot_error').text('!2次密码不同');return}
+                if(j('#forgotForm [name=pwd]').val()!=j('#forgotForm [name=pwd2]').val()){j('.forgot_error').text('2次密码不同');return}
                 j.post('app/login/forgot',j('#forgotForm').serializeArray(),function(d){
-                    if(d.code==200)location.reload(true);else j('.forgot_error').text(d.desc);
+                    if(d.code==200){
+                        show_alert(1,'修改成功，可以登录了哟~',function(){location.reload(true);})
+                    }else j('.forgot_error').text(d.desc);
                 },'json')
             })
             
@@ -147,7 +195,7 @@ j(function($){
         </div>
         <div style="padding:4px 20px 60px 20px;height:30px">
             <label class="fl cp"><small class="toLogin" style="color:#999">记得密码</small></label>
-            <label class="fr cp"><small class="register_error" style="color:red"></small></label>
+            <label class="fr cp"><small class="forgot_error" style="color:red"></small></label>
         </div>
     </div>
 </div>

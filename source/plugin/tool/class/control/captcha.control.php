@@ -7,9 +7,14 @@ class captcha extends \control\ajax{
         //var_dump($this->uid);die();
     }
     function get_captcha(){
-        $a = model('article')->find(1);
-        //var_dump($a);
-        $this->success('captcha');
+        $ss = 'abscefghijkimnopqrstuvwxyz1234567890';
+        for($i=0;$i<5;$i++)$s .=$ss[rand(0,35)];
+        cookie('captcha',base64_encode($s),0);
+        $this->success($s);
+    }
+    function _check_captcha(){
+        if(base64_decode(cookie('captcha'))!=$_POST['captcha'])return false;
+        return true;
     }
 }
 ?>
