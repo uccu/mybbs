@@ -1,1 +1,0 @@
-<?php $tableMap=array("login_background"=>array("bid","pic","ctime")) ?>

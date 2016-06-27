@@ -1,1 +1,0 @@
-<?php $tableMap=array("user_team"=>array("zid","captain","uid","tid")) ?>

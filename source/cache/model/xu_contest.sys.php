@@ -1,1 +1,0 @@
-<?php $tableMap=array("contest"=>array("cid","title","description","content","ctime","thumb")) ?>

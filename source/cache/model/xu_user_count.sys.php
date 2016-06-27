@@ -1,1 +1,0 @@
-<?php $tableMap=array("user_count"=>array("uid","fans","follow")) ?>

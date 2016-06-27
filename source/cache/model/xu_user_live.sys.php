@@ -1,1 +1,0 @@
-<?php $tableMap=array("user_live"=>array("uid","bilibili","yy","yahu")) ?>
