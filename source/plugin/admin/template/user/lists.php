@@ -174,6 +174,10 @@
                         <input type="text" class="form-control" name="score" placeholder="">
                     </div>
                     <div class="form-group">
+                        <label for="move">消费增加积分</label>
+                        <input type="text" class="form-control" name="shop" placeholder="">
+                    </div>
+                    <div class="form-group">
                         <label for="move">邀请人ID</label>
                         <input type="text" class="form-control" name="invate" placeholder="">
                     </div>

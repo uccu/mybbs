@@ -51,6 +51,7 @@ class in extends \control\ajax{
                 md5($uid.$until.$type.$this->g->config['LOGIN_SALT'])
             )));
         cookie('login_secury',$login_secury,$until?$until-$time:0);
+        control('user:score','api')->_add_score_detail('首次登录','login_first','in',$uid);
         if(post('cookie'))cookie('login_zz','1',$until?$until-$time:0);
         $out['login_secury'] = $login_secury;
         $out['user_info'] = $e?$this->model->where('uid='.$e)->field(array('uid','avatar','nickname','name','sex','age','area','marry','child','plastic','email',
@@ -176,6 +177,7 @@ class in extends \control\ajax{
             $this->error(404,'创建失败');
         $data['uid'] = $rr;
         $data['user_type'] = 0;
+        control('user:score','api')->_add_score_detail('注册','register','in',$rr);
         if($invate){
             if($user2 = $this->model->find($invate)){
                 $this->model->data(array('invate_num'=>array('add',1)))->save($user2['uid']);

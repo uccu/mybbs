@@ -95,6 +95,7 @@ class user extends \control\ajax{
         $data['diary'] = post('diary')?1:0;
         $data['plastic'] = post('plastic')?1:0;
         $data['child'] = post('child')?1:0;
+        $shop = post('shop',0,'%d');
         $data['interest'] = array('logic',post('interest',array()),'%s');
         if($pwd = post('pwd'))$data['password'] = md5(md5($pwd).$user['salt']);
         $m = $this->userModel->data($data)->save($uid);
@@ -112,7 +113,19 @@ class user extends \control\ajax{
         }
         $data2['uid'] = $uid;
         $data2['rtype'] = 'admin';
-        $this->scoreDetail->data($data2)->add();
+        if($data2['score'])$this->scoreDetail->data($data2)->add();
+        if($shop){
+            $shop = floor($shop);
+            control('user:score','api')->_add_score_detail('消费',$shop,'in',$uid);
+            $u1 = $this->userModel->find($uid);
+            if($u1['invate']){
+                control('user:score','api')->_add_score_detail('好友消费',floor($shop*0.4),'in',$u1['invate']);
+                $u2 = $this->userModel->find($u1['invate']);
+                if($u2['invate']){
+                    control('user:score','api')->_add_score_detail('二级好友消费',floor($shop*0.08),'in',$u2['invate']);
+                }
+            }
+        }
         $this->success($m);
     }
     

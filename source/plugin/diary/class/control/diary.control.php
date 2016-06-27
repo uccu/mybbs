@@ -46,6 +46,7 @@ class diary extends \control\ajax{
         $this->userModel->data($data3)->save($this->user->uid);
         $array = array('did'=>$id);
         $user = $this->userModel->find($this->user->uid);
+        control('user:score','api')->_add_score_detail('发布日记','diary','in',$this->user->uid);
         control('tool:captcha')->_pusher($user['adviser']);
         $this->success($array);
     }

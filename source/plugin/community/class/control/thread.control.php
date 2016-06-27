@@ -79,7 +79,10 @@ class thread extends \control\ajax{
         if(is_string($tag))$tag = explode(',',$tag);
         if(!is_array($tag))$this->error(401,'参数错误,TAG非数组');
         $data['pic'] = $this->tool->_up_pic('community');
-        if(post('pic1'))$data['pic'] = array(post('pic1'),post('pic2'));
+        if(post('pic1')){
+            $data['pic'] = array(post('pic1'),post('pic2'));
+            control('user:score','api')->_add_score_detail('社区发布日记','diary_to_community','in',$this->user->uid);
+        }
         if(!$data['title'] || !$data['content'])$this->error(401,'参数错误');
         $data['pic'] = serialize($data['pic']);
         $data['ctime'] = $data['last'] = time();
