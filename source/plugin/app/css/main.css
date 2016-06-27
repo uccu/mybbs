@@ -29,7 +29,7 @@ appearance:none;
 .nav_tu1{width:100px;height:38px; margin-top:14px;}
 .nav_z_left_2{width:auto;height:40px; float:left; margin:10px 8px 0 8px;color:#5cbac0; border-bottom:#5cbac0 solid 2px; line-height:40px;}
 .nav_z_left_3{width:auto;height:40px; float:left; margin:10px 8px 0 8px; color:#fff; line-height:40px;}
-.nav_z_right{width:415px;height:56px; margin-top:13px; float:right; font-size:15px;}
+.nav_z_right{width:415px;height:56px; margin-top:10px; float:right; font-size:15px;}
 .nav_z_right_1{width:200px;height:40px; float:left; border-radius:23px; background:rgba(153,153,153,0.3); }
 .nav_text_1{width:160px;height:40px;background:url(/images/xq_09.png) transparent no-repeat right; color:#FFF; border-radius:20px;font-size:14px; margin-left:20px;}
 .nav_z_right_2{width:80px; height:40px; float:left; text-align:center; background:#5cbac0; border-radius:5px; line-height:40px; color:#FFF; margin-left:23px;cursor:pointer;}
@@ -280,6 +280,7 @@ appearance:none;
 .d_zhibo_1_top{width:138px;height:138px; margin-top:10px; border-radius:69px;}
 .d_zhibo_1_bottom{width:138px;height:50px; text-align:center; line-height:50px; font-size:14px;}
 
+
 /*teamdetails*/
 .d_top_1_2_4{width:235px;height:50px; margin-top:80px; line-height:25px; color:#666; font-size:14px;}
 .e_jianjie{width:100%;margin-top:10px;}
@@ -419,11 +420,13 @@ appearance:none;
 .nh_top_z_left1{width:90px;height:375px;float:left; background:url(/images/juxing-16.png) no-repeat; border-radius:5px;}
 .nh_top_z_left1 div{width:50px;height:50px; transform:rotate(-45deg); color:#fd7c9a; text-align:center;}
 .nh_top_z_left2{width:260px;height:375px;float:left;}
-.nh_top_z_left2_1,.nh_top_z_left2_1 img{width:100px;height:100px;margin:50px auto 0 auto; border-radius:50px;}
+.nh_top_z_left2_1{text-align:center}
+.nh_top_z_left2_1 img{width:100px;height:100px;margin:50px auto 0 auto; border-radius:50px;text-align:center;}
 .nh_top_z_left2_2{width:260px;height:50px; line-height:50px; text-align:center; font-size:16px; color:#666;}
 .nh_top_z_left2_3{width:260px;height:60px; text-align:center; color:#5cbac0; line-height:30px;}
 .nh_top_z_left2_4{width:260px;heihgt:50px; text-align:center; line-height:25px; color:#999;margin-top:20px;}
 .nh_top_z_left2_1s{width:100px;height:100px;margin:30px auto 0 auto; border-radius:50px;}
+.nh_top_z_left2_1s img{width:100px;height:100px;margin:50px auto 0 auto; border-radius:50px; text-align:center;}
 .nh_top_z_left2_2s{width:260px;height:50px; line-height:50px; text-align:center; color:#666; font-size:16px;}
 .nh_top_z_left2_3s{width:260px;height:50px; text-align:center; color:#5cbac0; line-height:25px;}
 .nh_top_z_left2_4s{width:260px;heihgt:50px; text-align:center; line-height:25px; color:#999;margin-top:10px;}
@@ -438,8 +441,9 @@ appearance:none;
 
 .nh_more{width:auto;height:50px; line-height:50px; text-align:right; color:#5cbac0;}
 
-.nh_top_z_right{width:560px;height:375px;float:left; position:relative;}
-.nh_top_z_right_tu1{width:560px;height:375px;}
+.nh_top_z_right{width:558px;height:375px;float:left; position:relative;}
+.nh_top_z_right_tu1{width:558px;height:375px;}
+.d_shipin_1_1_tu1{width:225px;height:140px; border-radius:5px;}
 .nh_top_z_right_fg{width:38px;height:38px; position:absolute; top:10px; right:10px; background:url(/images/tc-87.png);}
 .nh_top_z_right_fg:hover{ background:url(/images/xiugai_03.png) no-repeat;}
 

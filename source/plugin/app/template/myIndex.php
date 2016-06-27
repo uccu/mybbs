@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="col-sm-3 myinfo hidden-xs">
-            <div class="myinfo"></div>
+            <div class="myinfo" style="background:#eee;height:300px"></div>
         
         </div>
        
