@@ -14,7 +14,7 @@
     <!--{loop $list $t}-->
     	<div class="c_td_1">
         	<div class="c_td_1_1">
-            	<a href="teamdetails.html" >
+            	<a href="/app/teamcenter/index/{t.tid}" >
                     <div class="c_td_1_1" style="background-image:url(/pic/{t.pic}.medium.jpg);background-size:cover">
                         <div class="c_td_1_1_z">
                             <div class="c_td_1_z_1 "><img class="img-circle" style="width:60px;height:60px" src="/pic/{t.thumb}.avatar.jpg"></div>

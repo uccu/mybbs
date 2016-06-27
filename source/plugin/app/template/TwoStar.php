@@ -11,7 +11,7 @@
     <!--{loop $cosers $k=>$c}-->
     {if $k<4}
     	<div class="ip_tu_{if !$k}1{else}2{/if}">
-        	<a href="stardetails.html"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>
+        	<a href="/app/usercenter/index/{c.uid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
@@ -32,7 +32,7 @@
     	<!--{loop $cosers $k=>$c}-->
     {if $k>3}
     	<div class="ip_tu_{if $k==4}1{else}2{/if}">
-        	<a href="stardetails.html"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>
+        	<a href="/app/usercenter/index/{c.uid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
@@ -66,7 +66,7 @@
     {/if}
 
     	<div class="c_td_{if $k==2||$k==0}1{else}2{/if}">
-        <a href="teamdetails.html" >
+        <a href="/app/teamcenter/index/{t.tid}" >
         	<div class="c_td_1_1" style="background-image:url(/pic/{t.pic}.medium.jpg);background-size:cover">
             	
             	<div class="c_td_1_1_z">

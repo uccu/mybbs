@@ -135,26 +135,13 @@ function nh_xiangce(){
         	<div class="d_p_z_1_left">社团活动</div>
             <a href="masslist.html"><div class="d_p_z_1_right">MORE</div></a>
         </div>
+        <!--{loop $activity $a}-->
     	<div class="e_st_z_1">
-        	<a href="huodongxiangqing.html"><div class="e_st_z_1_1"><img src="images/xq_102.png"></div></a>
-            <div class="e_st_z_1_2">团员面基~~</div>
-            <a href="huodongxiangqing.html"><div class="e_st_z_1_3">查看详情</div></a>
+        	<a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1"><img src="/pic/{a.pic}.medium.jpg"></div></a>
+            <div class="e_st_z_1_2">{a.title}</div>
+            <a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_3">查看详情</div></a>
         </div>
-        <div class="e_st_z_1">
-        	<a href="huodongxiangqing.html"><div class="e_st_z_1_1"><img src="images/xq_104.png"></div></a>
-            <div class="e_st_z_1_2">团员面基~~</div>
-            <a href="huodongxiangqing.html"><div class="e_st_z_1_3">查看详情</div></a>
-        </div>
-        <div class="e_st_z_1">
-        	<a href="huodongxiangqing.html"><div class="e_st_z_1_1"><img src="images/xq_106.png"></div></a>
-            <div class="e_st_z_1_2">团员面基~~</div>
-            <a href="huodongxiangqing.html"><div class="e_st_z_1_3">查看详情</div></a>
-        </div>
-        <div class="e_st_z_1">
-        	<a href="huodongxiangqing.html"><div class="e_st_z_1_1"><img src="images/xq_108.png"></div></a>
-            <div class="e_st_z_1_2">团员面基~~</div>
-            <a href="huodongxiangqing.html"><div class="e_st_z_1_3">查看详情</div></a>
-        </div>
+        <!--{/loop}-->
     </div>
 </div>
 

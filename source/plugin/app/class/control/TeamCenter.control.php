@@ -42,6 +42,9 @@ class TeamCenter extends api\ajax{
     function _live($uid){
         return model('user_live')->find($uid);
     }
+    function _activity($tid,$limit=1){
+        return model('activity')->where(array('tid'=>$tid))->limit($limit)->order(array('ctime'=>'DESC'))->select();
+    }
     function index($tid=0){
 
         $team = $this->g->template['team'] = model('team')->find($tid);
@@ -49,9 +52,12 @@ class TeamCenter extends api\ajax{
         $rank = $this->g->template['rank'] = model('team')->where(array('fans'=>array('logic',$team['fans'],'>')))->get_field()+1;
         $this->g->template['album'] = $this->_album(0,$tid,4);
         $this->g->template['video'] = $this->_video(0,$tid,4);
+        $this->g->template['activity'] = $this->_activity($tid,4);
         $captain = $this->g->template['captain'] = model('app:UserTeam')->add_table(array('user_info'=>array('_on'=>'uid','avatar','nickname')))->where(array('tid'=>$tid,'captain'=>1))->find();
         $this->g->template['member'] = model('app:UserTeam')->where(array('tid'=>$tid,'captain'=>0))->limit(999)->select();
-        
+        $this->g->template['title'] = $team['name'];
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = $team['description'];
 
         T('TeamCenter');
     }

@@ -38,7 +38,7 @@
 <div class="guanfang">
 	<div class="guanfang_1">
     	<div class="guanfang_1_1">官方IP授权COS</div>
-        <a href="cosrole.html"><div class="guanfang_1_2">MORE</div></a>
+        <a href="/app/character"><div class="guanfang_1_2">MORE</div></a>
     </div>
 </div>
 <div class="ip_tu">
@@ -153,7 +153,7 @@
         	<div class="sp_z_2_1">赛事视频</div>
             <!--{loop $contestVideo $v}-->
             <div class="sp_z_2_2">
-            	<a href="video.html"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
+            	<a href="/app/video/index/{v.vid}"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
             	<div class="sp_z_2_2_1">
                 	<div class="sp_z_2_2_1_text">{v.title}</div>
                     <div class="sp_z_2_2_1_tu1"><img src="images/xq_71.png" /></div>
@@ -165,7 +165,7 @@
         	<div class="sp_z_2_1">明星视频</div>
             <!--{loop $video $v}-->
             <div class="sp_z_2_2">
-            	<a href="video.html"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
+            	<a href="/app/video/index/{v.vid}"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
             	<div class="sp_z_2_2_1">
                 	<div class="sp_z_2_2_1_text">{v.title}</div>
                     <div class="sp_z_2_2_1_tu1"><img src="images/xq_71.png" /></div>
@@ -281,7 +281,7 @@
 <div class="tuanti">
 	<div class="tuanti_1">
     	<div class="tuanti_1_1">
-        	<a href="teamdetails.html"><img src="pic/{team.0.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+        	<a href="/app/teamcenter/index/{team.0.tid}"><img src="pic/{team.0.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
         	<div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_11.png" /><div class="tuanti_1_fg_1">1</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -292,7 +292,7 @@
             </div></a>
         </div>
         <div class="tuanti_1_2">
-            <a href="teamdetails.html"><img src="pic/{team.1.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+            <a href="/app/teamcenter/index/{team.1.tid}"><img src="pic/{team.1.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
             <div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">2</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -303,7 +303,7 @@
             </div></a>
         </div>
         <div class="tuanti_1_2">
-            <a href="teamdetails.html"><img src="pic/{team.2.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+            <a href="/app/teamcenter/index/{team.2.tid}"><img src="pic/{team.2.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
             <div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">3</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -316,7 +316,7 @@
     </div>
     <div class="tuanti_2">
     	<div class="tuanti_2_1">
-        	<a href="teamdetails.html"><img src="pic/{team.3.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
+        	<a href="/app/teamcenter/index/{team.3.tid}"><img src="pic/{team.3.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">4</div></div>
                 <div class="tuanti_1_1_dw_2s">
@@ -329,9 +329,9 @@
         <!--{loop $team $k=>$t}-->
         {if $k>3}
         <div class="tuanti_2_2">
-        	<a href="teamdetails.html"><img src="pic/{t.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
+        	<a href="/app/teamcenter/index/{t.tid}"><img src="pic/{t.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
-            	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">5</div></div>
+            	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2"><!--{eval echo $k+1}--></div></div>
                 <div class="tuanti_1_1_dw_2s">
                 	<font size="+1">{t.name}</font>&nbsp;&nbsp;&nbsp;&nbsp;
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;

@@ -1,7 +1,10 @@
-<pre>
-<!--{loop $g['template'] $k=>$v}-->
-<h2><!--{eval echo $k}--></h2>
-<p><!--{eval var_dump($v)}--></p>
-<!--{/loop}-->
-</pre>
-
+<!--{subtemplate _header}-->
+<div class="m_body">
+	<div class="m_body_z">
+    	<div class="m_body_z_text">{video.title}</div>
+        <div>
+            {video.iframe}
+        </div>
+    </div>
+</div>
+<!--{subtemplate _footer}-->
