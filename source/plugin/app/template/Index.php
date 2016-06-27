@@ -1,6 +1,4 @@
 <!--{subtemplate _header}-->
-<!--{eval addcss('main')}-->
-
 <div class="banner">
 <!--{loop $banner $k=>$b}-->
     <div class="banner_block"{if $k} style="display:none"{/if}>
