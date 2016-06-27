@@ -3,7 +3,7 @@
 <div class="guanfang">
 	<div class="guanfang_1">
     	<div class="guanfang_1_1">COS明星</div>
-        <a href="starlist.html"><div class="guanfang_1_2">MORE</div></a>
+        <a href="/app/starlist"><div class="guanfang_1_2">MORE</div></a>
     </div>
 </div>
 <div class="ip_tu">
@@ -51,7 +51,7 @@
 <div class="guanfang">
 	<div class="guanfang_1">
     	<div class="guanfang_1_1">COS团队</div>
-        <a href="teamlist.html"><div class="guanfang_1_2">MORE</div></a>
+        <a href="/app/teamlist"><div class="guanfang_1_2">MORE</div></a>
     </div>
 </div>
 

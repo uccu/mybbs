@@ -156,7 +156,7 @@ j(function($){
                             j('.getCaptcha').addClass('disabled').text('等待'+t+'秒');
                             t--;
                             if(t==0){
-                                j('.getCaptcha').text('获取验证码');j('.getCaptcha').removeClass('disabled').one('click',ge);
+                                j('.getCaptcha').text('获取验证码');j('.getCaptcha').removeClass('disabled').one('click',gt);
                             }else setTimeout(ge,1000)
                             
                         },gt=function(){

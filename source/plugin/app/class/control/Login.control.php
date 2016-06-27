@@ -107,6 +107,9 @@ class Login extends api\ajax{
     }
     function _nomethod(){
         $this->g->template['list'] = model('login_background')->limit(20)->order(array('bid'))->select();
+        if($this->user->uid){
+            header('Location:/app/myindex');die();
+        }
         T();
     }
 }

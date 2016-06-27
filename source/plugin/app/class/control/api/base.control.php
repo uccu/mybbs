@@ -34,7 +34,10 @@ class base extends \control\ajax{
     }
 
     public function _safe_login(){
-        if(!$this->uid)$this->error(406,'未登入');
+        if(!$this->uid){
+            if(IS_AJAX)$this->error(406,'未登入');
+            else header('Location:/app/login');
+        }
     }
     public function _safe_right($uid){
         if($this->uid == $uid)return true;

@@ -71,7 +71,7 @@
 <div class="guanfang">
  	<div class="guanfang_1">
     	<div class="guanfang_1_1">推荐明星</div>
-        <a href="starlist.html"><div class="guanfang_1_2">MORE</div></a>
+        <a href="/app/starlist"><div class="guanfang_1_2">MORE</div></a>
     </div>
 </div>
 <div class="mingxing">
@@ -92,18 +92,18 @@
              </clipPath>
           </defs>
           <g>
-            <a xlink:href="stardetails.html">
+            <a xlink:href="/app/usercenter/index/{star.0.uid}">
             <image style="-webkit-clip-path: url({href}#svgPath1);clip-path: url({href}#svgPath1);" xlink:href="pic/{star.0.pic}.jpg" x="000" y="0" height="420px" width="277px" /></a>
-            <a xlink:href="stardetails.html">
+            <a xlink:href="/app/usercenter/index/{star.1.uid}">
             <image style="-webkit-clip-path: url({href}#svgPath2);clip-path: url({href}#svgPath2);" xlink:href="pic/{star.1.pic}.jpg" x="149" y="0" height="420px" width="415px" /></a>
-            <a xlink:href="stardetails.html">
+            <a xlink:href="/app/usercenter/index/{star.2.uid}">
             <image style="-webkit-clip-path: url({href}#svgPath3);clip-path: url({href}#svgPath3);" xlink:href="pic/{star.2.pic}.jpg" x="436" y="0" height="420px" width="415px" /></a>
-            <a xlink:href="stardetails.html">
+            <a xlink:href="/app/usercenter/index/{star.3.uid}">
             <image style="-webkit-clip-path: url({href}#svgPath4);clip-path: url({href}#svgPath4);" xlink:href="pic/{star.3.pic}.jpg" x="723" y="0" height="420px" width="277px" /></a>
           </g>
         </svg>
        <div class="con_fg_1">
-       		<a href="stardetails.html"><div class="con_fg_1_1">
+       		<a href="/app/usercenter/index/{star.0.uid}"><div class="con_fg_1_1">
             	<div class="con_fg_1_top">
                 	<div class="con_fg_1_top_1">{star.0.nickname}</div>
                     <div class="con_fg_1_top_2"><img src="images/sy_11.png" class="con_fg_1_top_2_tu1"></div>
@@ -113,7 +113,7 @@
                     {if $star[0]['sign']}签约coser{/if}
                 </div>
             </div></a>
-            <a href="stardetails.html"><div class="con_fg_1_2">
+            <a href="/app/usercenter/index/{star.1.uid}"><div class="con_fg_1_2">
             	<div class="con_fg_1_top">
                 	<div class="con_fg_1_top_1">{star.1.nickname}</div>
                     <div class="con_fg_1_top_2"><img src="images/sy_11.png" class="con_fg_1_top_2_tu1"></div>
@@ -123,7 +123,7 @@
                     {if $star[1]['sign']}签约coser{/if}
                 </div>
             </div></a>
-            <a href="stardetails.html"><div class="con_fg_1_3">
+            <a href="/app/usercenter/index/{star.2.uid}"><div class="con_fg_1_3">
             	<div class="con_fg_1_top">
                 	<div class="con_fg_1_top_1">{star.2.nickname}</div>
                     <div class="con_fg_1_top_2"><img src="images/sy_11.png" class="con_fg_1_top_2_tu1"></div>
@@ -133,7 +133,7 @@
                     {if $star[2]['sign']}签约coser{/if}
                 </div>
             </div></a>
-            <a href="stardetails.html"><div class="con_fg_1_4">
+            <a href="/app/usercenter/index/{star.3.uid}"><div class="con_fg_1_4">
             	<div class="con_fg_1_top">
                 	<div class="con_fg_1_top_1">{star.3.nickname}</div>
                     <div class="con_fg_1_top_2"><img src="images/sy_11.png" class="con_fg_1_top_2_tu1"></div>
@@ -186,7 +186,7 @@
     <div class="ip_tu_zong">
     	<div class="ip_tu_1s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="pic/{cosers.0.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.0.uid}"><img src="pic/{cosers.0.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_03.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -199,7 +199,7 @@
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="pic/{cosers.1.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.1.uid}"><img src="pic/{cosers.1.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_06.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -212,7 +212,7 @@
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="stardetails.html"><img src="pic/{cosers.2.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.2.uid}"><img src="pic/{cosers.2.thumb}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_08.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -227,7 +227,7 @@
         
         	<div class="geren_left">4</div>
             <div class="geren_right">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.3.avatar}.avatar.jpg" /></div></a>
+            	<a href="/app/usercenter/index/{cosers.3.uid}"><div class="geren_r_1"><img src="pic/{cosers.3.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.3.nickname}</div>
                     <div class="geren_r_2_2">
@@ -238,7 +238,7 @@
             </div>
             <div class="geren_left">5</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.4.avatar}.avatar.jpg" /></div></a>
+            	<a href="/app/usercenter/index/{cosers.4.uid}"><div class="geren_r_1"><img src="pic/{cosers.4.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.4.nickname}</div>
                     <div class="geren_r_2_2">
@@ -249,7 +249,7 @@
             </div>
             <div class="geren_left">6</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.5.avatar}.avatar.jpg" /></div></a>
+            	<a href="/app/usercenter/index/{cosers.5.uid}"><div class="geren_r_1"><img src="pic/{cosers.5.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.5.nickname}</div>
                     <div class="geren_r_2_2">
@@ -260,7 +260,7 @@
             </div>
             <div class="geren_left">7</div>
             <div class="geren_rights">
-            	<a href="stardetails.html"><div class="geren_r_1"><img src="pic/{cosers.6.avatar}.avatar.jpg" /></div></a>
+            	<a href="/app/usercenter/index/{cosers.6.uid}"><div class="geren_r_1"><img src="pic/{cosers.6.avatar}.avatar.jpg" /></div></a>
                 <div class="geren_r_2">
                     <div class="geren_r_2_1">{cosers.6.nickname}</div>
                     <div class="geren_r_2_2">
@@ -347,22 +347,22 @@
 <div class="guanfang">
     <div class="guanfang_1">
         <div class="guanfang_1_1">大赛实况</div>
-        <a href=""><div class="guanfang_1_2">MORE</div></a>
+        <a href=""><div class="guanfang_1_2 dn">MORE</div></a>
     </div>
 </div>
     
 <div class="dasai">
 	<div class="dasai_1">
-    	<a href="actually.html">
+    	<a href="/app/actually/index/{contest.0.cid}">
         	<div class="dasai_1_1" style="background-image:url(pic/{contest.0.thumb}.medium.jpg)">
         	<div class="dasai_1_fg"><img src="images/sj_03.png"></div>
         </div></a>
         <div class="dasai_1_2">
         	<div class="dasai_1_2_1">{contest.0.title}</div>
             <div class="dasai_1_2_2">{contest.0.description}</div>
-            <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
+            <a href="/app/actually/index/{contest.0.cid}"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html">
+        <a href="/app/actually/index/{contest.1.cid}">
         <div class="dasai_1_1" style="background-image:url(pic/{contest.1.thumb}.medium.jpg)">
         <div class="dasai_1_fg"><img src="images/sj_03.png"></div></div>
         	
@@ -370,24 +370,24 @@
         <div class="dasai_1_2">
         	<div class="dasai_1_2_1">{contest.1.title}</div>
             <div class="dasai_1_2_2">{contest.1.description}</div>
-            <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
+            <a href="/app/actually/index/{contest.1.cid}"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
     </div>
    <div class="dasai_2">
         <div class="dasai_1_2">
         	<div class="dasai_1_2_1">{contest.2.title}</div>
             <div class="dasai_1_2_2">{contest.2.description}</div>
-            <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
+            <a href="/app/actually/index/{contest.2.cid}"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html"><div class="dasai_1_1" style="background-image:url(pic/{contest.2.thumb}.medium.jpg)">
+        <a href="/app/actually/index/{contest.2.cid}"><div class="dasai_1_1" style="background-image:url(pic/{contest.2.thumb}.medium.jpg)">
         	<div class="dasai_2_fg"><img src="images/sj_06.png"></div>
         </div></a>
         <div class="dasai_1_2">
         	<div class="dasai_1_2_1">{contest.3.title}</div>
             <div class="dasai_1_2_2">{contest.3.description}</div>
-            <a href="actually.html"><div class="dasai_1_2_3">查看全文</div></a>
+            <a href="/app/actually/index/{contest.3.cid}"><div class="dasai_1_2_3">查看全文</div></a>
         </div>
-        <a href="actually.html"><div class="dasai_1_1" style="background-image:url(pic/{contest.3.thumb}.medium.jpg)">
+        <a href="/app/actually/index/{contest.3.cid}"><div class="dasai_1_1" style="background-image:url(pic/{contest.3.thumb}.medium.jpg)">
         	<div class="dasai_2_fg"><img src="images/sj_06.png"></div>
         </div></a>
     </div>
