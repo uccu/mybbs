@@ -11,7 +11,7 @@ class ajax extends \control\ajax{
         return control('app:base','api');
     }
     protected function _get_coser(){
-        return model('app:userInfo');
+        return model('app:UserInfo');
     }
     protected function _get_album(){
         return model('app:Album');

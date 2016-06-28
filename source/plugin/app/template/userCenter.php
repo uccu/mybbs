@@ -5,18 +5,12 @@
 </style>
 <header nav="4"></header>
 <script type="text/jscript">
-function nh_blog(){
-	document.getElementById("nh_blog").style.display="block";
-	document.getElementById("nh_shipin").style.display="none";
-	document.getElementById("nh_xiangce").style.display="none";	
-}
+
 function nh_shipin(){
-	document.getElementById("nh_blog").style.display="none";
 	document.getElementById("nh_shipin").style.display="block";
 	document.getElementById("nh_xiangce").style.display="none";	
 }
 function nh_xiangce(){
-	document.getElementById("nh_blog").style.display="none";
 	document.getElementById("nh_shipin").style.display="none";
 	document.getElementById("nh_xiangce").style.display="block";	
 }
@@ -37,7 +31,7 @@ function nh_xiangce(){
 					关注 {coser.follow}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {coser.fans}<br />
 						<font color="#666">
 							{if $coser['area']}{coser.area}/{/if}
-							{if $coser['age']}{coser.age}岁/{els{/if}
+							{if $coser['age']}{coser.age}岁/{/if}
 							{if $coser['constel']}{coser.constel}{/if}
 						</font>
 					</div>
@@ -70,17 +64,26 @@ function nh_xiangce(){
         </div>
         <div class="nh_top_z_right" style="background-image:url(/pic/{coser.cover}.large.jpg);background-size:cover;background-position:center">
 			{if $me['uid'] == $coser['uid']}
-        	<div class="nh_top_z_right_fg"></div>
+        	<div class="nh_top_z_right_fg cp"></div>
 			<input type="file" style="display:none" name="cover" />
 			<script>
 			j('.nh_top_z_right_fg').click(function(){
 				j('[name=cover]').click();
 			});j('[name=cover]').change(function(){
+				if(!j(this).val())return;
 				var v = {large:1,medium:1,box:'user'},f = packFormData(j(this),v);
 				j.ajax({
-					data:f,contentType:false,processData:false,type:'post',url:'/_tool/picture/upload',
+					data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
 					success:function(d){
+						if(d.code==200)j.post('/app/usercenter/change_cover',{cover:d.data.e},function(){
+							show_alert(1,'更改成功',function(){
+								j('.nh_top_z_right').css('background-image','url(/pic/'+d.data.e+'.large.jpg)');
+							});
+						},'json');
+						
+							
 
+						
 					}
 				})
 			})
@@ -109,9 +112,12 @@ function nh_xiangce(){
 		<!--{loop $album $k=>$v}-->
 			
 			<div class="d_p_z_2_1">
-            	<div class="d_p_z_2_1_top">
-                	<a href="photoone.html"><img src="/pic/{$v.thumb}.medium.jpg" /></a>
-                    <div class="d_p_z_2_top_num">{$v.count}</div>
+            	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
+                	<a href="/app/album/index/{v.aid}">
+						<div class="pa" style="background-image:url(/pic/{$v.thumb}.medium.jpg);background-size:cover;width:167px;height:167px;top:16px;left:16px"></div>
+					</a>
+					<div class="d_p_z_2_top_num">{$v.count}</div>
+					
                 </div>
                 <div class="d_p_z_2_1_bottom">{$v.title}</div>
             </div>
@@ -137,7 +143,7 @@ function nh_xiangce(){
         <div class="nh_top2_z_bot">
 			<!--{loop $video $k=>$v}-->
 				<div class="d_shipin_1_1">
-					<a href="video.html"><img src="/pic/{$v.thumb}.medium.jpg"  class="d_shipin_1_1_tu1"/>
+					<a href="/app/video/index/{v.vid}"><img src="/pic/{$v.thumb}.medium.jpg"  class="d_shipin_1_1_tu1"/>
 					<div class="t_z_2_2_1">
 						<div class="t_z_2_2_1_text">{$v.title}</div>
 						<div class="t_z_2_2_1_tu1"><img src="/images/xq_71.png" /></div>
@@ -149,44 +155,7 @@ function nh_xiangce(){
         
     </div>
 </div>
-<div class="nh_top3" id="nh_blog">
-	<div class="nh_top1_z">
-    	<div class="nh_top1_z_top">
-        	<div class="nh_top1_z_top_1">
-            	<div class="nh_top1_z_top_1_2" onclick="nh_xiangce()">相册</div>
-            	<div class="nh_top1_z_top_1_2" onclick="nh_shipin()">视频</div>
-                <div class="nh_top1_z_top_1_1">BLOG</div>
-            </div>
-			{if $me['uid'] == $coser['uid']}
-            <div class="nh_top1_z_top_2"><a href="#"><div class="n_p_z_1_right_gl">管理</div></a></div>
-			{else}
-			<div class="nh_top1_z_top_2"><a href="blog.html"><div class="nh_more">MORE</div></a></div>
-			{/if}
-		</div>
-        <div class="nh_top1_z_bot">
-			<div class="e_st_z_1">
-                <a href="#"><div class="e_st_z_1_1"><img src="images/xq_102.png" /></div></a>
-                <div class="e_st_z_1_2">团员面基~~</div>
-                <a href="#"><div class="e_st_z_1_3">查看详情</div></a>
-            </div>
-            <div class="e_st_z_1">
-                <a href="#"><div class="e_st_z_1_1"><img src="images/xq_104.png" /></div></a>
-                <div class="e_st_z_1_2">团员面基~~</div>
-                <a href="#"><div class="e_st_z_1_3">查看详情</div></a>
-            </div>
-            <div class="e_st_z_1">
-                <a href="#"><div class="e_st_z_1_1"><img src="images/xq_106.png" /></div></a>
-                <div class="e_st_z_1_2">团员面基~~</div>
-                <a href="#"><div class="e_st_z_1_3">查看详情</div></a>
-            </div>
-            <div class="e_st_z_1">
-                <a href="#"><div class="e_st_z_1_1"><img src="images/xq_108.png" /></div></a>
-                <div class="e_st_z_1_2">团员面基~~</div>
-                <a href="#"><div class="e_st_z_1_3">查看详情</div></a>
-            </div>
-        </div>
-    </div>
-</div>
+
 {if $me['uid'] == $coser['uid']}
 <div class="n_tuandui">
 	<div class="n_tuandui_z">
@@ -195,16 +164,22 @@ function nh_xiangce(){
             <div class="n_p_z_1_right"></div>
         </div>
     	<div class="n_tuandui_z_1">
+		{if $team}
         	<div class="n_tuandui_z_1_text1">我加入的团队</div>
-            <div class="n_tuandui_z_1_tu1"><a href="teamdetails.html"><img src="/pic/{team.avatar}.avatar.jpg" class="n_tuandui_tu1"/></a></div>
+            <div class="n_tuandui_z_1_tu1"><a href="/app/teamcenter/index/{team.tid}"><img src="/pic/{team.thumb}.avatar.jpg" class="n_tuandui_tu1"/></a></div>
             <div class="n_tuandui_z_1_text2">{team.name}</div>
+			{/if}
         </div>
+		{if $captainTeam}
         <div class="n_tuandui_z_2">
+		
         	<div class="n_tuandui_z_2_text1">我管理的团队</div>
-            <div class="n_tuandui_z_2_tu1"><a href="teamdetails.html"><img src="/pic/{captainTeam.avatar}.avatar.jpg" class="n_tuandui_tu2"/></a></div>
+            <div class="n_tuandui_z_2_tu1"><a href="/app/teamcenter/index/{captainTeam.tid}"><img src="/pic/{captainTeam.thumb}.avatar.jpg" class="n_tuandui_tu2"/></a></div>
             <div class="n_tuandui_z_2_text2">{captainTeam.name}</div>
+		
         </div>
         <div class="n_tuandui_z_3"><a href="mybasis.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
+		{/if}
     </div>
 </div>
 

@@ -20,7 +20,7 @@ class Album extends api\ajax{
         $this->g->template['album'] = $album = $this->_album($aid);
         if(!$album)$this->error(401,'相册不存在');
         $this->g->template['pictures'] = $this->_picture($aid);
-        T('Album');
+        T('Album/index');
     }
 
     function create($title){
@@ -34,6 +34,13 @@ class Album extends api\ajax{
         $aid = $this->album->data($data)->add();
         $array['aid'] = $aid;
         $this->success($array);
+    }
+    function creationphoto(){
+        $this->g->template['title'] = '个人中心-相册创建';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('album/creationphoto');
+
     }
 
     function delete($aid){
@@ -63,8 +70,13 @@ class Album extends api\ajax{
         $this->user->_safe_login();
         $where['uid'] = $this->user->uid;
         $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
-        //var_dump($this->g->tempalte['list']);
+        $this->g->template['title'] = '个人中心-相册管理';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         T('album/admin');
+    }
+    function photoupdate(){
+        T('album/photoupdate');
     }
 
 }

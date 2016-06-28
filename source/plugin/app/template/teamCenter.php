@@ -91,13 +91,14 @@ function nh_xiangce(){
             <div class="nh_top1_z_top_2"><a href="photolist.html"><div class="nh_more">MORE</div></a></div>
         </div>
         <div class="nh_top1_z_bot">
-        <!--{loop $album $a}-->
+        <!--{loop $album $v}-->
             <div class="d_p_z_2_1">
-            	<div class="d_p_z_2_1_top">
-                	<a href="/app/album/index/{a.aid}"><img src="/pic/{a.thumb}.medium.jpg"></a>
-                    <div class="d_p_z_2_top_num">{a.count}</div>
+            	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
+                	<a href="photoone.html">
+					<div class="pa" style="background-image:url(/pic/{$v.thumb}.medium.jpg);background-size:cover;width:167px;height:167px;top:16px;left:16px"></div>
+                    <div class="d_p_z_2_top_num">{$v.count}</div>
                 </div>
-                <div class="d_p_z_2_1_bottom">{a.title}</div>
+                <div class="d_p_z_2_1_bottom">{$v.title}</div>
             </div>
             <!--{/loop}-->
         </div>

@@ -13,8 +13,8 @@ abstract class ba extends base{
             'ablum'=>'相册',
             'video'=>'视频',
             'picture'=>'图片',
-            'blog'=>'blog',
-            'permission'=>'权限',
+            //'blog'=>'blog',
+            //'permission'=>'权限',
         );
     }
     abstract protected function _get_defaultMethod();

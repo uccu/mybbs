@@ -33,7 +33,7 @@ class UserCenter extends api\ajax{
                 '_on'=>'tid','name','thumb'
             )
         );
-        return model('app:UserTeam')->add_table($table)->where($where)->order(array('zid'))->limit(9999)->select();
+        return model('app:UserTeam')->add_table($table)->where($where)->order(array('zid'))->limit(9999)->find();
     }
     function _rank($fans){
         $where['fans'] = array('logic',$fans,'>');
@@ -55,6 +55,13 @@ class UserCenter extends api\ajax{
         $this->g->template['captainTeam'] = $this->_userTeam($uid,0,1);
         $this->g->template['live'] = $this->_live($uid);
         T('UserCenter');
+    }
+    function change_cover(){
+        $this->user->_safe_login();
+        $cover = post('cover','');
+        if(!$cover)$this->error('400','无参数');
+        model('app:UserInfo')->data(array('cover'=>$cover))->save($this->user->uid);
+        $this->success();
     }
 }
 

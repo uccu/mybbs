@@ -21,9 +21,9 @@ class user extends na\ba{
         T(CONTROL_NAME.'/'.__FUNCTION__);   
     }
     
-    function lists($page = 1){
+    function lists($page = 1,$uid){
         $where = array();$limit = 10;
-        if($uid = post('uid'))$where['uid'] = $uid;
+        if($uid = post('uid',$uid))$where['uid'] = $uid;
         if($nickname = post('nickname'))$where['nickname'] = $nickname;
         if($phone = post('phone'))$where['phone'] = $phone;
         if($tid = post('tid'))$where['tid'] = $tid;
