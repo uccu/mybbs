@@ -25,7 +25,7 @@ class logic{
 		return $data;
 	}
 	function query($sql) {
-		$ret = $multi?$this->mb->multi_query($sql) : $this->mb->query($sql);
+		$ret = $this->multi?$this->mb->multi_query($sql) : $this->mb->query($sql);
 		if ($ret) {
 			$cmd = trim(strtoupper(substr($sql, 0, strpos($sql, ' '))));
 			if ($cmd === 'SELECT') {
