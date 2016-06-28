@@ -71,7 +71,7 @@ function nh_xiangce(){
 				j('[name=cover]').click();
 			});j('[name=cover]').change(function(){
 				if(!j(this).val())return;
-				var v = {large:1,medium:1,box:'user'},f = packFormData(j(this),v);
+				var v = {large:1,medium:1,box:'user'.auto:1},f = packFormData(j(this),v);
 				j.ajax({
 					data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
 					success:function(d){
@@ -103,7 +103,7 @@ function nh_xiangce(){
                 <div class="nh_top1_z_top_1_2">BLOG</div>
             </div>
 			{if $me['uid'] == $coser['uid']}
-            <div class="nh_top1_z_top_2"><a href="centerphotomanage.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
+            <div class="nh_top1_z_top_2"><a href="/app/album/admin"><div class="n_p_z_1_right_gl">管理</div></a></div>
 			{else}
 			<div class="nh_top1_z_top_2"><a href="blog.html"><div class="nh_more">MORE</div></a></div>
 			{/if}
