@@ -71,7 +71,7 @@ function nh_xiangce(){
 				j('[name=cover]').click();
 			});j('[name=cover]').change(function(){
 				if(!j(this).val())return;
-				var v = {large:1,medium:1,box:'user'.auto:1},f = packFormData(j(this),v);
+				var v = {large:1,medium:1,box:'user',auto:1},f = packFormData(j(this),v);
 				j.ajax({
 					data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
 					success:function(d){
