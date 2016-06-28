@@ -19,7 +19,7 @@ class upload extends \control\ajax{
         }elseif($file){
             if($file['error'])$this->error(402,'上传失败,也许图片太大了');
             $imgsrc0 = $file['tmp_name'];
-        }elseif(!$file)return $pic;
+        }else return $pic;
         
         $f = post('box',$box);
         $circle = post('circle');
