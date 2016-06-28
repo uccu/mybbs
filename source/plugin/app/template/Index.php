@@ -46,7 +46,7 @@
         <!--{loop $character $k=>$c}-->
         <!--{if !$k}-->
     	<div class="ip_tu_1">
-        	<a href="rolelist.html"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2" /></div>
@@ -56,7 +56,7 @@
         </div>
         <!--{else}-->
         <div class="ip_tu_2">
-        	<a href="rolelist.html"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2" /></div>

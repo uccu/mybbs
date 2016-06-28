@@ -58,11 +58,13 @@ function nh_xiangce(){
             {team.desc}
         </div>
         <div class="e_jianjie_z_2">
+        {if $captain}
         	<div class="e_jianjie_dz">
             	<div class="e_jianjie_dz_1">队长</div>
                 <a href="/app/usercenter/index/{captain.uid}"><div class="e_jianjie_dz_2"><img src="/pic/{captain.avatar}.avatar.jpg"></div></a>
                 <div class="e_jianjie_dz_3">{captain.nickname}</div>
             </div>
+            {/if}
             <!--{loop $member $m}-->
             <div class="e_jianjie_dy">
             	<div class="e_jianjie_dz_1"></div>

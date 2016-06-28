@@ -34,31 +34,31 @@ function nh_xiangce(){
 						<a href="centertupdate.html"><img src="images/tc-46.png" class="n_tu1"/></a>
 					</div>
 					<div class="nh_top_z_left2_3">
-					关注 {if $coser['follow']}{coser.follow}{else}0{/if}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {if $coser['fans']}{coser.fans}{else}0{/if}<br />
+					关注 {coser.follow}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {coser.fans}<br />
 						<font color="#666">
-							{if $coser['area']}{coser.area}/{else}{/if}
-							{if $coser['age']}{coser.age}岁/{else}{/if}
-							{if $coser['constel']}{coser.constel}{else}{/if}
+							{if $coser['area']}{coser.area}/{/if}
+							{if $coser['age']}{coser.age}岁/{els{/if}
+							{if $coser['constel']}{coser.constel}{/if}
 						</font>
 					</div>
 					<div class="nh_top_z_left2_4">
-						{if $coser['interest']}爱好：{coser.interest}{else}{/if}
+						{if $coser['interest']}爱好：{coser.interest}{/if}
 					</div>
 				</div>
 			{else}
 				<div class="nh_top_z_left2">
-					<div class="nh_top_z_left2_1s"><img src="images/zb_03.png" /></div>
+					<div class="nh_top_z_left2_1s" {if $coser['uid']!=$me['uid']}style="margin:auto"{/if}><img src="images/zb_03.png" /></div>
 					<div class="nh_top_z_left2_2s">{coser.nickname}</div>
 					<div class="nh_top_z_left2_3s">
-						关注 {if $coser['follow']}{coser.follow}{else}0{/if}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {if $coser['fans']}{coser.fans}{else}0{/if}<br />
+						关注 {coser.follow}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {coser.fans}<br />
 						<font color="#666">
-							{if $coser['area']}{coser.area}/{else}{/if}
-							{if $coser['age']}{coser.age}岁/{else}{/if}
-							{if $coser['constel']}{coser.constel}{else}{/if}
+							{if $coser['area']}{coser.area}/{/if}
+							{if $coser['age']}{coser.age}岁/{/if}
+							{if $coser['constel']}{coser.constel}{/if}
 						</font>
 					</div>
 					<div class="nh_top_z_left2_4s">
-						{if $coser['interest']}爱好：{coser.interest}{else}{/if}
+						{if $coser['interest']}爱好：{coser.interest}{/if}
 					</div>
 					<div class="nh_top_z_left2_5">
 						<div class="nh_top_z_left2_5_1"><img src="images/guanzhu_03.png" /></div>
@@ -68,10 +68,23 @@ function nh_xiangce(){
             {/if}
 			<div class="nh_top_z_left3"></div>
         </div>
-        <div class="nh_top_z_right">
-        	<img src="/pic/{coser.cover}.large.jpg" class="nh_top_z_right_tu1" />
+        <div class="nh_top_z_right" style="background-image:url(/pic/{coser.cover}.large.jpg);background-size:cover;background-position:center">
 			{if $me['uid'] == $coser['uid']}
         	<div class="nh_top_z_right_fg"></div>
+			<input type="file" style="display:none" name="cover" />
+			<script>
+			j('.nh_top_z_right_fg').click(function(){
+				j('[name=cover]').click();
+			});j('[name=cover]').change(function(){
+				var v = {large:1,medium:1,box:'user'},f = packFormData(j(this),v);
+				j.ajax({
+					data:f,contentType:false,processData:false,type:'post',url:'/_tool/picture/upload',
+					success:function(d){
+
+					}
+				})
+			})
+			</script>
 			{else}
 			{/if}
         </div>
@@ -194,7 +207,6 @@ function nh_xiangce(){
         <div class="n_tuandui_z_3"><a href="mybasis.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
     </div>
 </div>
-{else}
 
 {/if}
 <div class="d_zhibo">
@@ -214,7 +226,7 @@ function nh_xiangce(){
 					<div class="d_zhibo_1_bottom">yy语音</div>
 				</div>
 			</a>
-			{else}{/if}
+			{/if}
 			{if $live['bilibili']}
 			<a href="{live.bilibili}">
 				<div class="d_zhibo_1_1">
@@ -222,7 +234,7 @@ function nh_xiangce(){
 					<div class="d_zhibo_1_bottom">B站直播间</div>
 				</div>
 			</a>
-			{else}{/if}
+			{/if}
 			{if $live['yahu']}
 			<a href="{live.yahu}">
 				<div class="d_zhibo_1_1">
@@ -230,7 +242,7 @@ function nh_xiangce(){
 					<div class="d_zhibo_1_bottom">雅虎直播</div>
 				</div>
 			</a>
-			{else}{/if}
+			{/if}
         </div>
     </div>
 </div>
