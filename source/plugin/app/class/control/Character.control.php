@@ -17,6 +17,10 @@ class Character extends api\ajax{
     function _count(){
         return model('character')->get_field();
     }
+    function search($p){
+        $a = model('character')->where(array('pid'=>$p))->limit(999)->select();
+        $this->success($a);
+    }
     
     function ajax($page=2,$order=0){
         $page = post('page',$page);

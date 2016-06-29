@@ -88,7 +88,6 @@ function nh_xiangce(){
 				})
 			})
 			</script>
-			{else}
 			{/if}
         </div>
 	</div>
@@ -103,9 +102,9 @@ function nh_xiangce(){
                 <div class="nh_top1_z_top_1_2">BLOG</div>
             </div>
 			{if $me['uid'] == $coser['uid']}
-            <div class="nh_top1_z_top_2"><a href="/app/album/admin"><div class="n_p_z_1_right_gl">管理</div></a></div>
+            <div class="nh_top1_z_top_2"><a href="/app/album/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>
 			{else}
-			<div class="nh_top1_z_top_2"><a href="blog.html"><div class="nh_more">MORE</div></a></div>
+			<div class="nh_top1_z_top_2"><a href="/app/album/lists/{coser.uid}"><div class="nh_more">MORE</div></a></div>
 			{/if}
         </div>
         <div class="nh_top1_z_bot">
@@ -135,9 +134,9 @@ function nh_xiangce(){
                 <div class="nh_top1_z_top_1_2">BLOG</div>
             </div>
 			{if $me['uid'] == $coser['uid']}
-            <div class="nh_top1_z_top_2"><a href="videomanage.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
+            <div class="nh_top1_z_top_2"><a href="/app/video/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>
 			{else}
-			<div class="nh_top1_z_top_2"><a href="videolist.html"><div class="nh_more">MORE</div></a></div>
+			<div class="nh_top1_z_top_2"><a href="/app/video/lists/{coser.uid}"><div class="nh_more">MORE</div></a></div>
 			{/if}
         </div>
         <div class="nh_top2_z_bot">
@@ -190,7 +189,6 @@ function nh_xiangce(){
         	<div class="d_p_z_1_left">直播</div>
             {if $me['uid'] == $coser['uid']}
 			<div class="n_p_z_1_right"><a href="zhibo.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
-			{else}
 			{/if}
         </div>
     	<div class="d_zhibo_1">

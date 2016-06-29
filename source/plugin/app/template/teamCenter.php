@@ -88,15 +88,16 @@ function nh_xiangce(){
                 <div class="nh_top1_z_top_1_2" onclick="nh_shipin()">视频</div>
                 <div class="nh_top1_z_top_1_2" onclick="nh_blog()">BLOG</div>
             </div>
-            <div class="nh_top1_z_top_2"><a href="photolist.html"><div class="nh_more">MORE</div></a></div>
+            <div class="nh_top1_z_top_2"><a href="/app/album/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>
         <div class="nh_top1_z_bot">
         <!--{loop $album $v}-->
             <div class="d_p_z_2_1">
             	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
-                	<a href="photoone.html">
+                	<a href="/app/album/index/{v.aid}">
 					<div class="pa" style="background-image:url(/pic/{$v.thumb}.medium.jpg);background-size:cover;width:167px;height:167px;top:16px;left:16px"></div>
                     <div class="d_p_z_2_top_num">{$v.count}</div>
+                    </a>
                 </div>
                 <div class="d_p_z_2_1_bottom">{$v.title}</div>
             </div>
@@ -114,7 +115,7 @@ function nh_xiangce(){
                 <div class="nh_top1_z_top_1_1" onclick="nh_shipin()">视频</div>
                 <div class="nh_top1_z_top_1_2" onclick="nh_blog()">BLOG</div>
             </div>
-            <div class="nh_top1_z_top_2"><a href="videolist.html"><div class="nh_more">MORE</div></a></div>
+            <div class="nh_top1_z_top_2"><a href="/app/video/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>
         <div class="nh_top2_z_bot">
         <!--{loop $video $v}-->

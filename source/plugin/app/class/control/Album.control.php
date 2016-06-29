@@ -58,12 +58,27 @@ class Album extends api\ajax{
         $album = $this->album->find($aid);
         if(!$album)$this->error(401,'没有找到相册');
         $this->user->_safe_right($album['uid']);
-        $src = control('tool:upload','picture')->parsing_one('album',1,1);
+        $src = control('tool:upload','picture')->parsing_one('album',1,1,1);
         if(!$src)$this->success(array('count'=>0));
         $data['src'] = $src['e'];
         $data['aid'] = $aid;
+        $data['cid'] = post('cid');
+        $data['des'] = post('des');
+        $tag = post('tag');
+        if(is_array($tag)){
+            $data['tag'] = implode(',',(string)$tag);
+        }
         $data['uid'] = $this->user->uid;
         $c = $this->picture->data($data)->add();
+        if($c){
+            $data = array(
+                'count'=>array('add',1)
+            );
+            if($cover = post('cover')){
+                $data['thumb'] = $src['e'];
+            }
+            $this->album->data($data)->save($aid);
+        }
         $this->success(array('pid'=>$c));
     }
     function admin(){
@@ -75,7 +90,32 @@ class Album extends api\ajax{
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         T('album/admin');
     }
+    function lists($uid){
+        $where['uid'] = $uid?$uid:$this->user->uid;
+        $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
+         $this->g->template['thisuid'] = $where['uid'];
+        $this->g->template['title'] = '相册列表';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('album/lists');
+    }
+    function teamlists($tid){
+        $where['tid'] = $tid;
+        $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
+         $this->g->template['thisuid'] = -1;
+        $this->g->template['title'] = '相册列表';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('album/lists');
+    }
     function photoupdate(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-相册上传';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        $this->g->template['albums'] = model('album')->where(array('uid'=>$this->user->uid))->limit(9999)->select();
+        $this->g->template['provenance'] = model('provenance')->order(array('fans'=>'DESC'))->limit(9999)->select();
+         $this->g->template['tags'] = model('tag')->limit(9999)->select();
         T('album/photoupdate');
     }
 

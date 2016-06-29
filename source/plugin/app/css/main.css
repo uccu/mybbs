@@ -513,7 +513,7 @@ appearance:none;
 .p_body_con_x{width:145px;height:35px; text-align:center; line-height:35px; background:#5cbac0; color:#FFF; border-radius:5px;margin:60px auto 0 auto;font-size:14px; cursor:pointer;}
 
 /*.q*/
-.q_body{width:100%;margin-top:20px;margin-bottom:50px;}
+.q_body{width:100%;margin-top:20px;margin-bottom:50px;min-height:600px}
 .q_body_z{width:1000px;background:#FFF; border-radius:5px; border:#ddd 1px solid;margin:0 auto;}
 .q_body_z_1{width:970px;height:50px;margin:0 auto;}
 .q_body_z_1_1{width:75px;height:35px;float:right; border:#5cbac0 1px solid; color:#5cbac0; border-radius:5px; text-align:center; line-height:35px;margin-left:10px; cursor:pointer;}

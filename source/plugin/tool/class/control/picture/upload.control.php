@@ -9,7 +9,7 @@ class upload extends \control\ajax{
         return $this->parsing_one();
     }
 
-    function parsing_one($box='common',$small=0,$large=0,$raw=0){
+    function parsing_one($box='common',$small=0,$large=0,$medium=0,$raw=0){
         $file = reset($_FILES);$pic = array();$picz = post('raw_base64_picz');
         if($picz){
             $picz = base64_decode(str_replace('data:image/png;base64,', '', $picz));
@@ -25,7 +25,7 @@ class upload extends \control\ajax{
         $circle = post('circle');
         $small = post('small',$small);
         $large = post('large',$large);
-        $medium = post('medium');
+        $medium = post('medium',$medium);
         $avatar = post('avatar');
         $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
