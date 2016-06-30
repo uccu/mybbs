@@ -30,6 +30,7 @@ class Login extends api\ajax{
 
         //输出成功
         $array['uid'] = $user['uid'];
+        $this->coser->data(array('last'=>$user['last_login'],'last_login'=>TIME_NOW))->save($user['uid']);
         $this->success($array);
     }
 

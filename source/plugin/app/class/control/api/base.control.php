@@ -7,7 +7,7 @@ class base extends \control\ajax{
     }
     protected function _get_me(){
         if(!$this->uid)return array();
-        return model('app:UserInfo')->safe_info()->find($this->uid);
+        return model('app:UserInfo')->safe_info()->add_count()->find($this->uid);
     }
     protected function _get_tid(){
         if(!$this->uid)return 0;

@@ -16,7 +16,7 @@
             </form>
                 <div class="p_body_1_1">图片<button class="o_text_1" style="background:#ff6090;color:#fff">选择图片</button></div>
                 <div class="dn"><input type="file" id="thumbpic" accept="image/*"></div>
-                <div class="text-right" style="margin-top:20px"><img id="thumbp"></div>
+                <div class="text-left" style="margin-top:20px;margin-left: 125px;"><img style="height:100px" id="thumbp"></div>
         </div> 
     	
         <div class="s_body_z_2">上传</div>
@@ -31,7 +31,7 @@
                         var img=new Image();
                         img.onload=function(e){
                             var cc=j('<canvas>'),c=cc[0],cxt=c.getContext("2d"),width=img.width,height=img.height;
-                            if(img.width>200){width=200;height*=200/img.width}
+                            if(img.width>800){width=800;height*=800/img.width}
                             cc.attr({width:width,height:height});
                             cxt.drawImage(img,0,0,width,height);
                             j('#thumbp')[0].src=c.toDataURL();
@@ -44,7 +44,7 @@
                 var v = j('[name=title]').val(),z=j('[name=addr]').val();
                 if(!v || v=='标题')return;
                 if(!z || z=='地址')return;
-                j.post('/app/video/create',{title:v,addr:z,raw_base64_picz:j('#thumbp').attr('src'),medium:1,box:'video'},function(d){
+                j.post('/app/video/create',{title:v,addr:z,raw_base64_picz:j('#thumbp').attr('src'),large:1,medium:1,box:'video'},function(d){
                     if(d.code==200)show_alert(1,'创建成功',function(){
                         location = '/app/video/lists';
                     });

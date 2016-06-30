@@ -2,6 +2,12 @@
 <style type="text/css">
 .nh_top_z_right_tu1{width:558px;height:375px;}
 .d_shipin_1_1_tu1{width:225px;height:140px; border-radius:5px;}
+.disabled img{
+	-webkit-filter: saturate(0);
+	-o-filter: saturate(0);
+	-moz-filter:saturate(0);
+	-ms-filter:saturate(0);
+}
 </style>
 <header nav="4"></header>
 <script type="text/jscript">
@@ -55,8 +61,25 @@ function nh_xiangce(){
 						{if $coser['interest']}爱好：{coser.interest}{/if}
 					</div>
 					<div class="nh_top_z_left2_5">
-						<div class="nh_top_z_left2_5_1"><img src="images/guanzhu_03.png" /></div>
+						<div class="nh_top_z_left2_5_1 cp{if !$followed} disabled{/if}"><img src="images/guanzhu_03.png" /></div>
 						<div class="nh_top_z_left2_5_2"><img src="images/siliao_05.png" /></div>
+						<script>
+							j('.nh_top_z_left2_5_1.disabled').click(function(){
+								j.post('/app/usercenter/follow/'+'{coser.uid}',function(d){
+									if(d.code==200)show_alert(1,'关注成功~',function(){
+										location.reload(true)
+									});
+								},'json')
+							});
+							j('.nh_top_z_left2_5_1:not(.disabled)').click(function(){
+								j.post('/app/usercenter/unfollow/'+'{coser.uid}',function(d){
+									if(d.code==200)show_alert(1,'已取消关注~',function(){
+										location.reload(true)
+									});
+								},'json')
+							})
+						
+						</script>
 					</div>
 				</div>
             {/if}

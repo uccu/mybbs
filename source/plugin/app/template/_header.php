@@ -210,7 +210,7 @@ j(function(){
             </div>
             <div class="nav_z_right_cos">
                 <div class="nav_z_right_1_cos">
-                <input type="text" class="nav_text_1" value="搜索用户/标签" style="outline:0" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"></div>
+                <input type="text" class="nav_text_1" value="搜索用户/标签" style="outline:0;color:#ccc" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"></div>
                 <div class="nav_nav_z">
                 	<div class="nav_nav_z_1"><img src="pic/{me.avatar}.avatar.jpg" class="nav_nav_tu1 img-circle"></div>
                     <a href="app/usercenter/index/{me.uid}"><div class="nav_nav_z_2">{me.nickname}</div></a>
@@ -221,10 +221,17 @@ j(function(){
                         j.post('app/login/logout',function(){
                             show_alert(1,'退出成功~',function(){location.reload(true);})
                         })
-                    })
+                    });
+                    
                 </script>
 
             {/if}
+            <script>
+            j('input.nav_text_1').keypress(function(e){
+                if(e.which==13 && j(this).val()!='搜索用户/标签')
+                location = '/app/search/album/'+j(this).val()
+            });
+            </script>
             </div>
         </div>
 </div>

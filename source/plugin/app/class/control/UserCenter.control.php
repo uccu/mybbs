@@ -17,6 +17,7 @@ class UserCenter extends api\ajax{
         if($tid)$where['tid'] = $tid;
         return model('Album')->where($where)->order(array('ctime'=>'DESC'))->limit($limit)->select();
     }
+    
     function _video($uid=0,$tid=0,$limit=1){
         $where = array();
         if($uid)$where['uid'] = $uid;
@@ -54,6 +55,7 @@ class UserCenter extends api\ajax{
         $this->g->template['team'] = $this->_userTeam($uid);
         $this->g->template['captainTeam'] = $this->_userTeam($uid,0,1);
         $this->g->template['live'] = $this->_live($uid);
+        $this->g->template['followed'] = model('user_follow')->where(array('uid'=>$this->user->uid,'following'=>$uid))->get_field();
         T('UserCenter');
     }
     function change_cover(){
@@ -61,6 +63,50 @@ class UserCenter extends api\ajax{
         $cover = post('cover','');
         if(!$cover)$this->error('400','无参数');
         model('app:UserInfo')->data(array('cover'=>$cover))->save($this->user->uid);
+        $this->success();
+    }
+    function follow($uid){
+        $this->user->_safe_login();
+        $uid = post('uid',$uid,'%d');
+        if(!$uid)$this->error(400,'参数错误');
+        if($uid==$this->user->uid)$this->error(402,'不能关注自己');
+        if(!model('user_info')->find($uid))$this->error(403,'该用户不存在');
+        $data['uid'] = $this->user->uid;
+        $data['following'] = $uid;
+        $z = model('user_follow')->where($data)->find();
+        if($z)$this->error(300,'已经关注');
+        $data2['uid'] = $uid;
+        $data2['following'] = $this->user->uid;
+        $r = model('user_follow')->where($data2)->data(array('doub'=>1))->save();
+        if($r)$data['doub'] = 1;
+        $data['ctime'] = TIME_NOW;
+        model('user_follow')->data($data)->add();
+        $this->_correntCount($uid);
+        $this->_correntCount($this->user->uid);
+        $this->success();
+    }
+    function _correntCount($uid){
+        $data['fans'] = model('user_follow')->where(array('following'=>$uid))->get_field();
+        $data['follow'] = model('user_follow')->where(array('uid'=>$uid))->get_field();
+        model('user_count')->data($data)->save($uid);
+    }
+    function unfollow($uid){
+        $this->user->_safe_login();
+        $uid = post('uid',$uid,'%d');
+        if(!$uid)$this->error(400,'参数错误');
+        if($uid==$this->user->uid)$this->error(402,'不能关注自己');
+        if(!model('user_info')->find($uid))$this->error(403,'该用户不存在');
+        $data['uid'] = $this->user->uid;
+        $data['following'] = $uid;
+        $z = model('user_follow')->where($data)->find();
+        if(!$z)$this->error(301,'未关注');
+        $data2['uid'] = $uid;
+        $data2['following'] = $this->user->uid;
+        $r = model('user_follow')->where($data2)->find();
+        if($r)model('user_follow')->where($data2)->data(array('doub'=>0))->save();
+        model('user_follow')->where($data)->remove();
+        $this->_correntCount($uid);
+        $this->_correntCount($this->user->uid);
         $this->success();
     }
 }

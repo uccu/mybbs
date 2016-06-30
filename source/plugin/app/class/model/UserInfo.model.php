@@ -4,7 +4,7 @@ defined('IN_PLAY') || die('Access Denied');
 class UserInfo extends \model{
     protected $tableMap = array(
         'user_info'=>array(
-            'uid','nickname','area','age','constel','interest','password','salt','phone','avatar','ctime','cover','tid','sign','thumb'
+            'uid','nickname','area','age','constel','interest','password','salt','phone','avatar','ctime','cover','tid','sign','thumb','last','last_login'
         ),
     );
     protected $countMap = array(
@@ -22,7 +22,7 @@ class UserInfo extends \model{
     }
     function safe_info(){
         $this->tableMap['user_info'] = array(
-            'uid','nickname','area','age','constel','interest','phone','avatar','cover','tid','sign','thumb'
+            'uid','nickname','area','age','constel','interest','phone','avatar','cover','tid','sign','thumb','last','last_login'
         );return $this;
     }
     function add_count(){
