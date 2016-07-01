@@ -11,7 +11,7 @@ class actually extends api\ajax{
         $this->g->template['contest'] = &$c;
         
         if(!$c)header('Location:404.html');
-        $c['date'] = date('Y-m-d H:i:s');
+        $c['date'] = date('Y-m-d H:i:s',$c['ctime']);
         $this->g->template['title'] = $c['title'];
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = $c['description'];

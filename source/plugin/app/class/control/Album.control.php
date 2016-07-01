@@ -19,7 +19,11 @@ class Album extends api\ajax{
     function index($aid){
         $this->g->template['album'] = $album = $this->_album($aid);
         if(!$album)$this->error(401,'相册不存在');
-        $this->g->template['pictures'] = $this->_picture($aid);
+        $p = $this->_picture($aid);
+        $this->g->template['pictures'] = &$p;
+        foreach($p as &$v){
+            $v['tag'] = $v['tag']?explode(',',$v['tag']):array();
+        }
         T('Album/index');
     }
 
@@ -64,9 +68,9 @@ class Album extends api\ajax{
         $data['aid'] = $aid;
         $data['cid'] = post('cid');
         $data['des'] = post('des');
-        $tag = post('tag');
+        $tag = post('tags');
         if(is_array($tag)){
-            $data['tag'] = implode(',',(string)$tag);
+            $data['tag'] = implode(',',$tag);
         }
         $data['uid'] = $this->user->uid;
         $c = $this->picture->data($data)->add();

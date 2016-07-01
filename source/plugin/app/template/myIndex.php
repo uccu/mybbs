@@ -111,8 +111,8 @@ body{background:#eee}
                 </div>
                 {/if}
                 <div class="row conti">
-                    <div class="col_sm_6 col-xs-6 text-center like pr">&nbsp;</div>
-                    <a href="{d.href}"><div class="col_sm_6 col-xs-6 text-center detail pr cp">查看详情</div></a>
+                    <div class="col_sm_6 col-xs-6 text-center like pr" style="color:#999">浏览 100</div>
+                    <a href="{d.href}"><div class="col_sm_6 col-xs-6 text-center detail pr cp" style="color:#999">查看详情</div></a>
                 </div>
             </div>
             <!--{/loop}-->

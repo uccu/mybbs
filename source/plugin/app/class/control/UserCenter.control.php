@@ -131,6 +131,22 @@ class UserCenter extends api\ajax{
         //var_dump($list);die();
         T('user/myfollow');
     }
+    function zhibo(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-直播管理';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        $this->g->template['z'] = model('user_live')->find($this->user->uid);
+        T('user/zhibo');
+    }
+    function change_live(){
+        $this->user->_safe_login();
+        $data['yy'] = post('y');
+        $data['bilibili'] = post('b');
+        $data['yahu'] = post('h');
+        model('user_live')->data($data)->save($this->user->uid);
+        $this->success();
+    }
 }
 
 

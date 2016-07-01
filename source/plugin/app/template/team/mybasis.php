@@ -1,4 +1,5 @@
 <!--{subtemplate _header}-->
+<header nav="4"></header>
 <div class="u_body">
 	<div class="u_b_z">
 		<div class="u_b_z_1">
@@ -6,7 +7,7 @@
             <a href="/app/team/mybasis"><div class="u_b_z_1_2">基本信息</div></a>
             <a href="/app/team/myphoto"><div class="u_b_z_1_3">相册</div></a>
             <a href="/app/team/myvideo"><div class="u_b_z_1_3">视频</div></a>
-            <a href="/app/team/myrole"><div class="u_b_z_1_3">COS角色</div></a>
+
             <a href="/app/team/myactivity"><div class="u_b_z_1_3">社团活动</div></a>
         	<a href="/app/team/myapply"><div class="u_b_z_1_3">申请通知</div></a>
         </div>
@@ -64,7 +65,7 @@
                         j.post('/app/team/del_member',{uid:uid},function(d){
                             if(d.code==200){
                                 show_alert(1,'删除成功~~',function(){
-                                    location.relaod(true)
+                                    location.reload(true)
                                 });
                             }else alert('发生错误');
                         },'json')

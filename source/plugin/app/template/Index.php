@@ -110,7 +110,7 @@
                     <div class="con_fg_1_top_3">{star.0.fans}</div>
                 </div>
                 <div class="con_fg_1_bot">
-                    {if $star[0]['sign']}签约coser{/if}
+                    {if $star[0]['sign']}签约coser{else}明星coser{/if}
                 </div>
             </div></a>
             <a href="/app/usercenter/index/{star.1.uid}"><div class="con_fg_1_2">
@@ -120,7 +120,7 @@
                     <div class="con_fg_1_top_3">{star.1.fans}</div>
                 </div>
                 <div class="con_fg_1_bot">
-                    {if $star[1]['sign']}签约coser{/if}
+                    {if $star[1]['sign']}签约coser{else}明星coser{/if}
                 </div>
             </div></a>
             <a href="/app/usercenter/index/{star.2.uid}"><div class="con_fg_1_3">
@@ -130,7 +130,7 @@
                     <div class="con_fg_1_top_3">{star.2.fans}</div>
                 </div>
                 <div class="con_fg_1_bot">
-                    {if $star[2]['sign']}签约coser{/if}
+                    {if $star[2]['sign']}签约coser{else}明星coser{/if}
                 </div>
             </div></a>
             <a href="/app/usercenter/index/{star.3.uid}"><div class="con_fg_1_4">
@@ -140,7 +140,7 @@
                     <div class="con_fg_1_top_3">{star.3.fans}</div>
                 </div>
                 <div class="con_fg_1_bot">
-                    {if $star[3]['sign']}签约coser{/if}
+                    {if $star[3]['sign']}签约coser{else}明星coser{/if}
                 </div>
             </div></a>
        </div>

@@ -4,7 +4,7 @@ defined('IN_PLAY') || die('Access Denied');
 class Picture extends \model{
     protected $tableMap = array(
         'picture'=>array(
-            'pid','aid','uid','src'
+            'pid','aid','uid','src','cid','des','tag'
         ),
     );
 

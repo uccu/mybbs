@@ -160,7 +160,7 @@ function nh_xiangce(){
 	<div class="e_shetuan_z">
     	<div class="d_p_z_1">
         	<div class="d_p_z_1_left">社团活动</div>
-            <a href="masslist.html"><div class="d_p_z_1_right">MORE</div></a>
+            <a href="/app/activity/lists/{team.tid}"><div class="d_p_z_1_right">MORE</div></a>
         </div>
         <!--{loop $activity $a}-->
     	<div class="e_st_z_1">

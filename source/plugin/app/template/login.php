@@ -23,7 +23,8 @@ function show_alert(status,words,f){
     j('body').append(d);
     j('.show_alert_box').animate({'opacity':1}).one('click',function(){
         j(this).fadeOut(function(){j(this).remove();if(f)f(this)})
-    })
+    });
+    setTimeout(function(){j('.show_alert_box').click()},1000);
 }
 j(function($){
     var r = 0,l=$('.back').length,t=function(){

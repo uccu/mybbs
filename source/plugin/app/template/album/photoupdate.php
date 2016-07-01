@@ -1,4 +1,5 @@
 <!--{subtemplate _header}-->
+<header nav="4"></header>
 <style>
 .pp-block{color:#ccc}
 .pp-block .control-label{font-size:13px;}
@@ -7,6 +8,7 @@
 }
 .btn-group .btn{margin:10px;border-radius:6px;color:#ccc}
 select[disabled]{background:#f0f0f0}
+.listtwz img{width:100px;height:100px;margin:20px;float:left;border-radius:5px}
 </style>
 <div class="q_body">
 	<div class="q_body_z">
@@ -29,7 +31,15 @@ select[disabled]{background:#f0f0f0}
             <a href="/app/album/photoupdate"><div class="q_body_z_1_2">上传</div></a>
         </div>
         <div style="padding:0 50px" class="pr">
-            <div class="row listtw">
+            <div class="listtwz dn" style="padding:10px；">
+            <div class="listtwz2" style="overflow:hidden">
+                <img src="/images/xcsc_17.png" class="upchei cp">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-default" style="margin-bottom:50px">确认</button>
+                </div>
+            </div>
+            <div class="row listtw dn">
 
             </div>
             <div class="sample row dn">
@@ -89,7 +99,7 @@ select[disabled]{background:#f0f0f0}
         	<div class="r_body_z_1_1"><img src="images/xcsc_17.png"></div>
             <div class="r_body_z_1_2">选择图片</div>
         </div>
-        <a><div class="r_body_z_2 cp" style="margin-bottom:30px">开始上传</div></a>
+        <a><div class="r_body_z_2 cp dn" style="margin-bottom:30px">开始上传</div></a>
         <div class="d_p_z_2 dn">
             <input type="file" id="uppic" accept="image/*" multiple="multiple" />
         </div>
@@ -111,8 +121,12 @@ select[disabled]{background:#f0f0f0}
         },'json')
     };
     var raw_base64_picz = [];
-    j('.r_body_z_1 div').click(function(){
+    j('.r_body_z_1 div,.upchei').click(function(){
         j('#uppic').click();
+    });
+    j('.listtwz button').click(function(){
+        j('.listtwz').hide();
+        j('.listtw,.r_body_z_2').show();
     });
     j('#uppic').change(function(){
         var files = this.files;
@@ -136,6 +150,10 @@ select[disabled]{background:#f0f0f0}
                     var box = j(j('.sample').html());
                     box.find('.blpic')[0].src=c.toDataURL();
                     j('.listtw').append(box);
+                    var imgs = j('<img>');
+                    imgs[0].src = c.toDataURL();
+                    j('.upchei').before(imgs);
+                    j('.listtwz').show();
                 };
                 img.src=this.result;
                 

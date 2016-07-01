@@ -131,6 +131,9 @@ function nh_xiangce(){
 			{/if}
         </div>
         <div class="nh_top1_z_bot">
+		{if !$album}
+			<h1 class="text-center" style="padding-top:90px;color:#ccc">该用户很懒，没有上传任何东西~~</h1>
+		{/if}
 		<!--{loop $album $k=>$v}-->
 			
 			<div class="d_p_z_2_1">
@@ -163,6 +166,9 @@ function nh_xiangce(){
 			{/if}
         </div>
         <div class="nh_top2_z_bot">
+		{if !$video}
+			<h1 class="text-center" style="padding-top:50px;color:#ccc">该用户很懒，没有上传任何东西~~</h1>
+		{/if}
 			<!--{loop $video $k=>$v}-->
 				<div class="d_shipin_1_1">
 					<a href="/app/video/index/{v.vid}"><img src="/pic/{$v.thumb}.medium.jpg"  class="d_shipin_1_1_tu1"/>
@@ -211,10 +217,13 @@ function nh_xiangce(){
     	<div class="d_p_z_1">
         	<div class="d_p_z_1_left">直播</div>
             {if $me['uid'] == $coser['uid']}
-			<div class="n_p_z_1_right"><a href="zhibo.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
+			<div class="n_p_z_1_right"><a href="/app/usercenter/zhibo"><div class="n_p_z_1_right_gl">管理</div></a></div>
 			{/if}
         </div>
     	<div class="d_zhibo_1">
+		{if !$live['yy'] && !$live['bilibili'] && !$live['yahu']}
+			<h1 class="text-center" style="padding-top:50px;color:#ccc">没有任何直播~~</h1>
+		{/if}
 			{if $live['yy']}
 			<a href="{live.yy}">
 				<div class="d_zhibo_1_1">
