@@ -131,7 +131,7 @@ j(function($){
         </script>
         </div>
         <div style="padding:4px 20px 60px 20px;height:30px">
-            <label class="fl cp"><small class="toLogin" style="color:#999">已有账号</small></label>
+            
             <label class="fr cp"><small class="register_error" style="color:red"></small></label>
         </div>
     </div>
@@ -194,7 +194,7 @@ j(function($){
         </script>
         </div>
         <div style="padding:4px 20px 60px 20px;height:30px">
-            <label class="fl cp"><small class="toLogin" style="color:#999">记得密码</small></label>
+            
             <label class="fr cp"><small class="forgot_error" style="color:red"></small></label>
         </div>
     </div>

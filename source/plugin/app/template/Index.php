@@ -102,7 +102,7 @@
             <image style="-webkit-clip-path: url({href}#svgPath4);clip-path: url({href}#svgPath4);" xlink:href="pic/{star.3.pic}.jpg" x="723" y="0" height="420px" width="277px" /></a>
           </g>
         </svg>
-       <div class="con_fg_1">
+       <div class="con_fg_1" style="text-shadow: 0 0 10px #000;">
        		<a href="/app/usercenter/index/{star.0.uid}"><div class="con_fg_1_1">
             	<div class="con_fg_1_top">
                 	<div class="con_fg_1_top_1">{star.0.nickname}</div>
@@ -149,7 +149,7 @@
 <div class="tj_z">	
     <div class="sp_z">
     	<div class="sp_z_1">视频展示</div>
-        <div class="sp_z_2">
+        <div class="sp_z_2" style="text-shadow: 0 0 10px #000;">
         	<div class="sp_z_2_1">赛事视频</div>
             <!--{loop $contestVideo $v}-->
             <div class="sp_z_2_2">
@@ -161,7 +161,7 @@
             </div>
             <!--{/loop}-->
         </div>
-        <div class="sp_z_2">
+        <div class="sp_z_2" style="text-shadow: 0 0 10px #000;">
         	<div class="sp_z_2_1">明星视频</div>
             <!--{loop $video $v}-->
             <div class="sp_z_2_2">
@@ -279,7 +279,7 @@
     </div>
 </div>
 <div class="tuanti">
-	<div class="tuanti_1">
+	<div class="tuanti_1" style="text-shadow: 0 0 10px #000;">
     	<div class="tuanti_1_1">
         	<a href="/app/teamcenter/index/{team.0.tid}"><img src="pic/{team.0.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
         	<div class="tuanti_1_1_dw">
@@ -314,7 +314,7 @@
             </div></a>
         </div>
     </div>
-    <div class="tuanti_2">
+    <div class="tuanti_2" style="text-shadow: 0 0 10px #000;">
     	<div class="tuanti_2_1">
         	<a href="/app/teamcenter/index/{team.3.tid}"><img src="pic/{team.3.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
         	<div class="tuanti_1_1_dws">
