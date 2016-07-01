@@ -163,7 +163,7 @@ class other extends \control\ajax{
     function share(){
         $this->user->_safe_login();
         $o = array();
-        if($score = control('user:score','api')->_add_score_detail('分享','share')){
+        if($score = control('user:score','api')->_add_score_detail('分享','share','in',$this->user->uid)){
             $o['score'] = $score;
         }else $o['score'] = '0';
         $this->success($o);
