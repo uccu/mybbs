@@ -200,7 +200,7 @@ function nh_xiangce(){
             <div class="n_tuandui_z_2_text2">{captainTeam.name}</div>
 		
         </div>
-        <div class="n_tuandui_z_3"><a href="mybasis.html"><div class="n_p_z_1_right_gl">管理</div></a></div>
+        <div class="n_tuandui_z_3"><a href="/app/team/mybasis"><div class="n_p_z_1_right_gl">管理</div></a></div>
 		{/if}
     </div>
 </div>

@@ -8,7 +8,12 @@
     height: 375px;
     background-size:cover
 }
-
+.disabled img{
+	-webkit-filter: saturate(0);
+	-o-filter: saturate(0);
+	-moz-filter:saturate(0);
+	-ms-filter:saturate(0);
+}
 </style>
 <script>
 
@@ -36,8 +41,20 @@ function nh_xiangce(){
                 <div class="nh_top_z_left2_2">{team.name}</div>
                 <div class="nh_top_z_left2_3">粉丝 {team.fans}<br></div>
                	<div class="nh_top_z_left2_6" style="padding-left: 45px;">
-                	<div class="nh_top_z_left2_6_1 cp"><img src="images/guanzhu_03.png"></div>
-                    <div class="nh_top_z_left2_6_2"><img src="images/jiaru_1_03.png"></div>
+                    {if $me}<div class="nh_top_z_left2_6_1 cp"><img src="images/guanzhu_03.png"></div>{/if}
+                    {if $me}
+                    <div class="nh_top_z_left2_6_2 cp{if !$me['tid']} disabled{/if}"><img src="images/jiaru_1_03.png"></div>
+                    {if !$me['tid']}
+                    <script>
+                        j('.nh_top_z_left2_6_2').click(function(){
+                            j.post('/app/team/apply/{team.tid}',function(d){
+                                if(d.code==200)show_alert(1,'申请成功~',function(){
+                                    location.reload(true)
+                                });else alert(d.desc)
+                            },'json')
+                        })
+                    </script>
+                    {/if}{/if}
                 </div>
             </div>
             <div class="nh_top_z_left3"></div>
@@ -141,7 +158,7 @@ function nh_xiangce(){
         </div>
         <!--{loop $activity $a}-->
     	<div class="e_st_z_1">
-        	<a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1"><img src="/pic/{a.pic}.medium.jpg"></div></a>
+        	<a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1" style="background-image:url(/pic/{a.pic}.medium.jpg);background-size:cover"></div></a>
             <div class="e_st_z_1_2">{a.title}</div>
             <a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_3">查看详情</div></a>
         </div>

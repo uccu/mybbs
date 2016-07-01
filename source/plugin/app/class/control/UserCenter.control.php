@@ -109,6 +109,28 @@ class UserCenter extends api\ajax{
         $this->_correntCount($this->user->uid);
         $this->success();
     }
+    function myfans(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-我的粉丝';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        $list = $this->g->template['list'] = model('user_follow')->add_table(array(
+            'user_info'=>array('avatar','_on'=>'uid','nickname','interest')
+        ))->where(array('following'=>$this->user->uid))->limit(999)->select();
+        //var_dump($list);die();
+        T('user/myfans');
+    }
+    function myfollow(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-我的关注';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        $list = $this->g->template['list'] = model('user_follow')->add_table(array(
+            'user_info'=>array('avatar','_on'=>$this->g->config['prefix'].'user_follow.following=i.uid','_mapping'=>'i','nickname','interest')
+        ))->where(array('zuid'=>$this->user->uid))->limit(999)->select();
+        //var_dump($list);die();
+        T('user/myfollow');
+    }
 }
 
 

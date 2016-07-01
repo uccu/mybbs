@@ -7,11 +7,13 @@ class base extends \control\ajax{
     }
     protected function _get_me(){
         if(!$this->uid)return array();
-        return model('app:UserInfo')->safe_info()->add_count()->find($this->uid);
+        $z = model('app:UserInfo')->safe_info()->add_count()->find($this->uid);
+        $z['tid'] = $this->tid;
+        return $z;
     }
     protected function _get_tid(){
         if(!$this->uid)return 0;
-        return $this->me['tid'];
+        return model('user_team')->where(array('uid'=>$this->uid))->get_field('tid');
     }
     protected function _get_uid(){
         //获取cookie
