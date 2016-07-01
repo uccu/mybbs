@@ -43,7 +43,13 @@ function nh_xiangce(){
                	<div class="nh_top_z_left2_6" style="padding-left: 45px;">
                     {if $me}<div class="nh_top_z_left2_6_1 cp"><img src="images/guanzhu_03.png"></div>{/if}
                     {if $me}
-                    <div class="nh_top_z_left2_6_2 cp{if !$me['tid']} disabled{/if}"><img src="images/jiaru_1_03.png"></div>
+                    <div class="nh_top_z_left2_6_2 cp pr" style="font-size:14px;height:auto;width:auto;padding: 10px 14px;border-radius: 4px;float: left;color: #fff;padding-left: 30px;margin-left: 14px;background: #5cbac0;">
+                    {if !$me['tid']}
+                    <strong class="pa" style="font-size: 30px;left: 10px;top: 1px;">+</strong> 加入
+                    {else}
+                    <strong class="pa" style="left: 15px;top: 10px;font-weight: normal;">已</strong> 入团
+                    {/if}
+                    </div>
                     {if !$me['tid']}
                     <script>
                         j('.nh_top_z_left2_6_2').click(function(){

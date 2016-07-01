@@ -61,17 +61,17 @@ function nh_xiangce(){
 						{if $coser['interest']}爱好：{coser.interest}{/if}
 					</div>
 					<div class="nh_top_z_left2_5">
-						<div class="nh_top_z_left2_5_1 cp{if !$followed} disabled{/if}"><img src="images/guanzhu_03.png" /></div>
+						<div class="nh_top_z_left2_5_1 cp{if $followed} disabled{/if}"><img src="images/guanzhu_03.png" /></div>
 						<div class="nh_top_z_left2_5_2"><img src="images/siliao_05.png" /></div>
 						<script>
-							j('.nh_top_z_left2_5_1.disabled').click(function(){
+							j('.nh_top_z_left2_5_1:not(.disabled)').click(function(){
 								j.post('/app/usercenter/follow/'+'{coser.uid}',function(d){
 									if(d.code==200)show_alert(1,'关注成功~',function(){
 										location.reload(true)
 									});
 								},'json')
 							});
-							j('.nh_top_z_left2_5_1:not(.disabled)').click(function(){
+							j('.nh_top_z_left2_5_1.disabled').click(function(){
 								j.post('/app/usercenter/unfollow/'+'{coser.uid}',function(d){
 									if(d.code==200)show_alert(1,'已取消关注~',function(){
 										location.reload(true)
