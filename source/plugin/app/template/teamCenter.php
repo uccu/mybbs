@@ -41,8 +41,26 @@ function nh_xiangce(){
                 <div class="nh_top_z_left2_2">{team.name}</div>
                 <div class="nh_top_z_left2_3">粉丝 {team.fans}<br></div>
                	<div class="nh_top_z_left2_6" style="padding-left: 45px;">
-                    {if $me}<div class="nh_top_z_left2_6_1 cp"><img src="images/guanzhu_03.png"></div>{/if}
                     {if $me}
+                    <div class="nh_top_z_left2_6_1 cp {if $followed} disabled{/if}"><img src="images/guanzhu_03.png"></div>
+                    <script>
+							j('.nh_top_z_left2_6_1:not(.disabled)').click(function(){
+								j.post('/app/team/follow/'+'{team.tid}',function(d){
+									if(d.code==200)show_alert(1,'关注成功~',function(){
+										location.reload(true)
+									});
+								},'json')
+							});
+							j('.nh_top_z_left2_6_1.disabled').click(function(){
+								j.post('/app/team/unfollow/'+'{team.tid}',function(d){
+									if(d.code==200)show_alert(1,'已取消关注~',function(){
+										location.reload(true)
+									});
+								},'json')
+							})
+						
+						</script>
+
                     <div class="nh_top_z_left2_6_2 cp pr" style="font-size:14px;height:auto;width:auto;padding: 10px 14px;border-radius: 4px;float: left;color: #fff;padding-left: 30px;margin-left: 14px;background: #5cbac0;">
                     {if !$me['tid']}
                     <strong class="pa" style="font-size: 30px;left: 10px;top: 1px;">+</strong> 加入
@@ -56,7 +74,7 @@ function nh_xiangce(){
                             j.post('/app/team/apply/{team.tid}',function(d){
                                 if(d.code==200)show_alert(1,'申请成功~',function(){
                                     location.reload(true)
-                                });else alert(d.desc)
+                                });else show_alert(3,d.desc)
                             },'json')
                         })
                     </script>
@@ -109,7 +127,7 @@ function nh_xiangce(){
             	
             	<div class="nh_top1_z_top_1_1" onclick="nh_xiangce()">相册</div>
                 <div class="nh_top1_z_top_1_2" onclick="nh_shipin()">视频</div>
-                <div class="nh_top1_z_top_1_2" onclick="nh_blog()">BLOG</div>
+                <div class="nh_top1_z_top_1_2" onclick="nh_blog()" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
             <div class="nh_top1_z_top_2"><a href="/app/album/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>
@@ -136,7 +154,7 @@ function nh_xiangce(){
             	
             	<div class="nh_top1_z_top_1_2" onclick="nh_xiangce()">相册</div>
                 <div class="nh_top1_z_top_1_1" onclick="nh_shipin()">视频</div>
-                <div class="nh_top1_z_top_1_2" onclick="nh_blog()">BLOG</div>
+                <div class="nh_top1_z_top_1_2" onclick="nh_blog()" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
             <div class="nh_top1_z_top_2"><a href="/app/video/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>

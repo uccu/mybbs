@@ -22,9 +22,9 @@ select[disabled]{background:#f0f0f0}
             	<span class="r_select_2">上传到</span> 
                 <select class="r_select1 albumk" style="padding:0 20px;border: 1px solid #ccc;background-position:152px;outline:0;width:177px">
                     <!--{loop $albums $a}-->
-                        <option value="{a.aid}">{a.title}</option>
+                    <option value="{a.aid}">{a.title}</option>
                     <!--{/loop}-->
-                    </select>
+                </select>
             </div>
         	<a href="/app/album/admin"><div class="q_body_z_1_1">管理</div></a>
             <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
@@ -177,7 +177,10 @@ select[disabled]{background:#f0f0f0}
                 list.eq(k).remove();
                 if(k<raw_base64_picz.length-1)uploadp(aid,list,k+1);
                 else show_alert(1,'全部上传成功~',function(){
-                    location='/app/album/index/'+aid;
+                    j.post('/app/album/dongtai/'+aid+'/'+list.length,function(){
+                        location='/app/album/index/'+aid;
+                    })
+                    
                 });
             },'json');
     };

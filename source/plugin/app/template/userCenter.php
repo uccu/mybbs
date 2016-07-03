@@ -31,10 +31,10 @@ function nh_xiangce(){
 				<div class="nh_top_z_left2">
 					<div class="nh_top_z_left2_1"><img src="/pic/{coser.avatar}.avatar.jpg" /></div>
 					<div class="nh_top_z_left2_2">{coser.nickname} &nbsp;&nbsp;&nbsp;
-						<a href="centertupdate.html"><img src="images/tc-46.png" class="n_tu1"/></a>
+						<a href="/app/usercenter/centerupdate"><img src="images/tc-46.png" class="n_tu1"/></a>
 					</div>
 					<div class="nh_top_z_left2_3">
-					关注 {coser.follow}&nbsp;&nbsp;|&nbsp;&nbsp;粉丝 {coser.fans}<br />
+					<a href="/app/usercenter/myfollow" style="color:#5cbac0">关注 {coser.follow}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a style="color:#5cbac0" href="/app/usercenter/myfans">粉丝 {coser.fans}</a><br />
 						<font color="#666">
 							{if $coser['area']}{coser.area}/{/if}
 							{if $coser['age']}{coser.age}岁/{/if}
@@ -62,8 +62,9 @@ function nh_xiangce(){
 					</div>
 					<div class="nh_top_z_left2_5">
 						<div class="nh_top_z_left2_5_1 cp{if $followed} disabled{/if}"><img src="images/guanzhu_03.png" /></div>
-						<div class="nh_top_z_left2_5_2"><img src="images/siliao_05.png" /></div>
+						<div class="nh_top_z_left2_5_2"  ><img src="images/siliao_05.png" data-toggle="tooltip" data-placement="bottom" title="尽请期待"/></div>
 						<script>
+						
 							j('.nh_top_z_left2_5_1:not(.disabled)').click(function(){
 								j.post('/app/usercenter/follow/'+'{coser.uid}',function(d){
 									if(d.code==200)show_alert(1,'关注成功~',function(){
@@ -122,7 +123,7 @@ function nh_xiangce(){
         	<div class="nh_top1_z_top_1">
             	<div class="nh_top1_z_top_1_1" onclick="nh_xiangce()">相册</div>
             	<div class="nh_top1_z_top_1_2" onclick="nh_shipin()">视频</div>
-                <div class="nh_top1_z_top_1_2">BLOG</div>
+                <div class="nh_top1_z_top_1_2" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
 			{if $me['uid'] == $coser['uid']}
             <div class="nh_top1_z_top_2"><a href="/app/album/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>
@@ -157,7 +158,7 @@ function nh_xiangce(){
         	<div class="nh_top1_z_top_1">
             	<div class="nh_top1_z_top_1_2" onclick="nh_xiangce()">相册</div>
             	<div class="nh_top1_z_top_1_1" onclick="nh_shipin()">视频</div>
-                <div class="nh_top1_z_top_1_2">BLOG</div>
+                <div class="nh_top1_z_top_1_2" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
 			{if $me['uid'] == $coser['uid']}
             <div class="nh_top1_z_top_2"><a href="/app/video/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>

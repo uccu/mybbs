@@ -32,7 +32,7 @@
                         show_alert(1,yes==1?'已同意加入团队~':'已拒绝加入团队~',function(){
                             location.reload(true)
                         })
-                    }else alert(d.desc)
+                    }else show_alert(3,d.desc)
                 },'json')
             });
             j('.y_body_fb_1').click(function(){
@@ -41,7 +41,7 @@
                         show_alert(1,'已同意所有人加入团队~',function(){
                             location.reload(true)
                         })
-                    }else alert(d.desc)
+                    }else show_alert(3,d.desc)
                 },'json')
             })
         </script>

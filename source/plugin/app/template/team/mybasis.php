@@ -67,7 +67,7 @@
                                 show_alert(1,'删除成功~~',function(){
                                     location.reload(true)
                                 });
-                            }else alert('发生错误');
+                            }else show_alert(3,'发生错误');
                         },'json')
                     })
                 })

@@ -55,6 +55,9 @@
 
 </script>
 <div class="container" style="width: 1040px;overflow:hidden;height:auto;min-height:500px">
+{if !$list}
+    <h1 class="text-center" style="padding-top:90px;color:#ccc">没有搜索到任何东西~~</h1>
+{/if}
 <!--{loop $list $c}-->
     	<div class="ip_tu_1">
         	<a href="/app/album/index/{c.aid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>

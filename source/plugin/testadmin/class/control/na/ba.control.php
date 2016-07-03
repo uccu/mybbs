@@ -10,7 +10,7 @@ abstract class ba extends base{
             'team'=>'团队',
             'contest'=>'赛事',
             'character'=>'角色',
-            'ablum'=>'相册',
+            'album'=>'相册',
             'video'=>'视频',
             'picture'=>'图片',
             //'blog'=>'blog',

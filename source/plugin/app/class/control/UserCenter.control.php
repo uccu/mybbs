@@ -127,7 +127,7 @@ class UserCenter extends api\ajax{
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         $list = $this->g->template['list'] = model('user_follow')->add_table(array(
             'user_info'=>array('avatar','_on'=>$this->g->config['prefix'].'user_follow.following=i.uid','_mapping'=>'i','nickname','interest')
-        ))->where(array('zuid'=>$this->user->uid))->limit(999)->select();
+        ))->where(array('uid'=>$this->user->uid))->limit(999)->select();
         //var_dump($list);die();
         T('user/myfollow');
     }
@@ -145,6 +145,41 @@ class UserCenter extends api\ajax{
         $data['bilibili'] = post('b');
         $data['yahu'] = post('h');
         model('user_live')->data($data)->save($this->user->uid);
+        $this->success();
+    }
+    function change_avatar(){
+        $this->user->_safe_login();
+        $data['avatar'] = post('avatar');
+        model('user_info')->data($data)->save($this->user->uid);
+        $this->success();
+    }
+    function change_info(){
+        $this->user->_safe_login();
+        $this->coser->data($_POST)->save($this->user->uid);
+        $this->success();
+    }
+    function centerupdate(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-修改我的信息';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('user/centerupdate');
+    }
+    function centerupdatepwd(){
+        $this->user->_safe_login();
+        $this->g->template['title'] = '个人中心-修改密码';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('user/centerupdatepwd');
+    }
+    function change_password(){
+        $this->user->_safe_login();
+        $c = model('user_info')->find($this->user->uid);
+        $old = post('old');
+        if(md5(md5($old).$c['salt'])!=$c['password'])$this->error('570','旧密码错误');
+        $new = post('new');
+        if(!preg_match('/^.{6,16}$/',$new))$this->error(403,'密码长度不正确');
+        model('user_info')->data(array('password'=>md5(md5($new).$c['salt'])))->save($this->user->uid);
         $this->success();
     }
 }

@@ -47,5 +47,8 @@
 <div class="fooder1">
 	<div class="fooder1_content">Powered by Hanyu Copyright © 2011-2013 www.xuanman.com All rights reserved.沪ICP备13047191号</div>
 </div>
+<script>
+j('[data-toggle="tooltip"]').tooltip();
+</script>
 </body>
 </html>

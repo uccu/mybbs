@@ -58,7 +58,7 @@ class TeamCenter extends api\ajax{
         $this->g->template['title'] = $team['name'];
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = $team['description'];
-
+        $this->g->template['followed'] = model('team_follow')->where(array('tid'=>$tid,'uid'=>$this->user->uid))->get_field();
         T('TeamCenter');
     }
 }

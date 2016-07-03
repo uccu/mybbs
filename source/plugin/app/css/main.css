@@ -15,6 +15,7 @@ appearance:none;
 .show_alert_box>div{display: table-cell;vertical-align: middle;text-align: center}
 .show_alert_box>div>span{font-size: 20px;position:relative;padding:30px 70px 30px 100px;z-index: 21;background-color: #FFF;border-radius: 5px;border: #f8f8f8 solid 2px;}
 .show_alert_box>div>span::before{content:'';background-image:url(/images/dg_03.png);position:absolute;width:48px;height:48px;top:16px;left:40px}
+.show_alert_box.error>div>span::before{background-image:url(/images/x_03.png);}
 .show_alert_body{padding:40px 10px 40px 80px;position:relative;display:inline-block;background-color: #FFF;border-radius: 5px;border: #f8f8f8 solid 2px;}
 .show_alert_body h3{display:inline;margin-bottom:40px}
 .show_alert_body h3::before{content:' ';position:absolute;width:48px;height:48px;background:url(/images/wh_03.png);left:-70px;top:-12px}
@@ -74,7 +75,7 @@ appearance:none;
 .ip_tu_2{width:233px;height:360px; float:left; border:1px solid #CCC; border-radius:5px;margin-left:19px;}
 
 .ip_wenzi_left{width:135px;height:30px;float:left;color:#fd7c9a; line-height:30px; font-size:14px;}
-.ip_wenzi_right{width:70px;height:30px; float:left;color:#fd7c9a; line-height:30px; font-size:14px; text-align:right;}
+.ip_wenzi_right{width:75px;height:30px; float:left;color:#fd7c9a; line-height:30px; font-size:14px; text-align:right;}
 .ip_weizi_bot{width:213px;height:30px; margin:0 auto; color:#999; line-height:25px;}
 
 .mingxing{width:100%;height:420px; margin-top:10px;}

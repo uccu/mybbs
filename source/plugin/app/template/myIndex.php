@@ -5,7 +5,7 @@ body{background:#eee}
 .banner_pic,.banner_pic_block{width:100%;height:100%;background-color:#ccc;top:0;bottom:0}
 .banner_pic_block{background-size:cover;}
 .banner>span{position: absolute;right: 6px;bottom: 6px;z-index:3}
-.banner>span li{cursor:pointer}
+.banner>span li{cursor:pointer;padding:0 5px;text-shadow:0 0 5px #fff}
 .main-box{margin-top:25px;width:980px}
 .myinfo,.newfans,.dongtai{
     background:#fff;box-shadow:0 0 4px #ccc;border-radius:6px;padding:10px;margin-bottom:20px
@@ -26,7 +26,7 @@ body{background:#eee}
 .newfans_block img.avatar,.useri img.avatar{width:48px;height:48px;left:8px;top:5px}
 .newfans_block .follow{right:12px;top:17px;background:#5cbac0;padding:2px 5px 0 5px;border-radius:4px;color:#fff;}
 .newfans_block .follow.disabled{background:#ccc;cursor:default}
-.dongtai .detail::before{
+.dongtai .detail::before,.dongtai .like::before{
     content:' ';width:16px;height:16px;right:0;top:2px;left:100px;position:absolute;background:url(/images/dt_11.png);
 }
 
@@ -59,26 +59,45 @@ body{background:#eee}
 .picci2>div img{
     width:100%
 }
-}
+picci2 img.active{font-size:14px,transform:scale(1.4)}
+
 </style>
-
-
+<script type="text/javascript">
+	var imgs = Array('/images/xct_19.png','/images/xct_21.png','/images/xct_23.png');
+	
+	var st;
+	var times=5000;
+	function ways(val){
+		clearTimeout(st);
+		j("#img").css("background-image","url("+imgs[val]+")");
+		j('.list-inline li span').html('◇');
+        j('.list-inline li').remove('active');
+		j('#b'+val+' span').html('♦');
+		j('#b'+val).addClass('active');
+		val++;
+		if(val==3){
+			val=0;
+		}
+		st=setTimeout("ways("+val+")",times);
+	}
+	j(function(){
+		ways(0)
+	})
+</script>
 
 <div class="container main-box">
     <div class="row">
         <div class="col-sm-8">
             <div class="banner pr">
-
                 <div class="banner_pic pa">
-                    <div class="banner_pic_block pa" style="background-iamge:url()"></div>
-                    <div class="banner_pic_block pa"></div>
-                    <div class="banner_pic_block pa"></div>
+                    <div id="img" class="banner_pic_block pa" style="background-image:url(/images/xct_19.png)"></div>
+                    
                 </div>
                 <span>
                     <ul class="list-inline">
-                        <li>◇</li>
-                        <li style="font-size:14px;transform: scale(1.4);">♦</li>
-                        <li>◇</li>
+                        <li id="b0"><span onmouseover="ways(0)" >◇</span></li>
+                        <li id="b1"><span onmouseover="ways(1)">♦</span></li>
+                        <li id="b2"><span onmouseover="ways(2)">◇</span></li>
                     </ul>
                 </span>
             </div>
@@ -101,17 +120,17 @@ body{background:#eee}
                 </div>
                 {if $d['type']==1}
                 <div class="row picci">
-                    <div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic1}.medium.jpg)"></div></div>
-                    <div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic2}.medium.jpg)"></div></div>
-                    <div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic3}.medium.jpg)"></div></div>
+                    {if $d['pic1']}<div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic1}.medium.jpg)"></div></div>{/if}
+                    {if $d['pic2']}<div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic2}.medium.jpg)"></div></div>{/if}
+                    {if $d['pic3']}<div class="col_sm_4 col-xs-4" ><div style="background-image:url(/pic/{d.pic3}.medium.jpg)"></div></div>{/if}
                 </div>
                 {else}
                 <div class="picci2">
-                    <div><img src="/pic/{d.thumb}.large.jpg" class="img-responsive"></div>
+                    {if $d['thumb']}<div><img src="/pic/{d.thumb}.large.jpg" class="img-responsive"></div>{/if}
                 </div>
                 {/if}
                 <div class="row conti">
-                    <div class="col_sm_6 col-xs-6 text-center like pr" style="color:#999">浏览 100</div>
+                    <a href="/app/usercenter/index/{d.uid}"><div class="col_sm_6 col-xs-6 text-center like pr" style="color:#999">查看用户</div></a>
                     <a href="{d.href}"><div class="col_sm_6 col-xs-6 text-center detail pr cp" style="color:#999">查看详情</div></a>
                 </div>
             </div>

@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">封面图</label>
                 <div class="col-sm-4">
-                    <input type="file" id="thumb" data-medium="1" data-box="contest" data-auto="1" />
+                    <input type="file" id="thumb" data-medium="1" data-large="1" data-box="video" data-auto="1" />
                     <p class="help-block"></p>
                     <img id="pic_thumb" class='img-responsive' />
                     <input class="form-control" name="thumb" type="text" value="" disabled="disabled"/>

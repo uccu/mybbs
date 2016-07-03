@@ -11,6 +11,13 @@ function show_alert(status,words,f){
             j(this).fadeOut(function(){j(this).remove();if(f)f(this)})
         });
         setTimeout(function(){j('.show_alert_box').click()},1000);
+    }else if(status==3){
+        var d = '<div class="show_alert_box error"><div><span>'+words+'</span></div></div>';
+        j('body').append(d);
+        j('.show_alert_box').animate({'opacity':1}).one('click',function(){
+            j(this).fadeOut(function(){j(this).remove();if(f)f(this)})
+        });
+        setTimeout(function(){j('.show_alert_box').click()},1000);
     }else if(status==2){
         var d = '<div class="show_alert_box"><div>'+'<div class="show_alert_body">'+
         '<div><h3 class="pr">'+words+'</h3></div>'+

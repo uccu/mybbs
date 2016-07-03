@@ -24,7 +24,7 @@
     <script>
                 j('#thumbpic').change(function(){
                     var file = this.files[0];
-                    if(!file || !/image\/\w+/.test(file.type))alert('非图片类型文件！');
+                    if(!file || !/image\/\w+/.test(file.type))show_alert(3,'非图片类型文件！');
                     var reader=new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload=function(e){

@@ -31,7 +31,7 @@
                 j('#pica').change(function(){
                     j('.z_body_4 button').show();
                     var file = this.files[0];
-                    if(!file || !/image\/\w+/.test(file.type))alert('非图片类型文件！');
+                    if(!file || !/image\/\w+/.test(file.type))show_alert(3,'非图片类型文件！');
                     var reader=new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload=function(e){

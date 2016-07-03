@@ -12,6 +12,7 @@ class Video extends api\ajax{
     function index($vid){
         $video = $this->g->template['video'] = $this->_video($vid);
         if(!$video)$this->error(401,'视频不存在');
+        model('app:Video')->data(array('view'=>array('add',1)))->save($vid);
         T('Video');
     }
     function create($title){
@@ -28,8 +29,14 @@ class Video extends api\ajax{
         else $data['thumb'] = 'no_video_thumb';
         $data['uid'] = $this->user->uid;
         $data['tid'] = $this->user->tid;
-        $data['ctime'] = TIME_NOW;
+        $data2['ctime'] = $data['ctime'] = TIME_NOW;
         $vid = model('video')->data($data)->add();
+        $data2['uid'] = $this->user->uid;
+        $data2['thumb'] = $img['e'];
+        $data2['type'] = 2;
+        $data2['des'] = '发布了新视频"'.$title.'"';
+        $data2['href'] = '/app/video/index/'.$vid;
+        model('dongtai')->data($data2)->add();
         $array['vid'] = $vid;
         $this->success($array);
     }

@@ -50,6 +50,29 @@ class Team extends api\ajax{
         model('team')->data($data)->save($team['tid']);
         $this->success();
     }
+    function follow($tid){
+        $this->user->_safe_login();
+        $where['uid'] = $this->user->uid;
+        $where['tid'] = $tid = post('tid',$tid);
+        $team = model('team')->find($tid);
+        if(!$team)$this->error(404,'不存在团队');
+        $where['ctime'] = TIME_NOW;
+        model('team_follow')->data($where)->add(true);
+        $c = model('team_follow')->where(array('tid'=>$tid))->get_field();
+        model('team')->data(array('fans'=>$c))->save($tid);
+        $this->success();
+    }
+    function unfollow($tid){
+        $this->user->_safe_login();
+        $where['uid'] = $this->user->uid;
+        $where['tid'] = $tid = post('tid',$tid);
+        $team = model('team')->find($tid);
+        if(!$team)$this->error(404,'不存在团队');
+        model('team_follow')->where($where)->remove();
+        $c = model('team_follow')->where(array('tid'=>$tid))->get_field();
+        model('team')->data(array('fans'=>$c))->save($tid);
+        $this->success();
+    }
     function del_member(){
         $this->user->_safe_login();
         $team = model('user_team')->where(array('captain'=>1,'uid'=>$this->user->uid))->find();

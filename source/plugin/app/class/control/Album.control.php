@@ -19,11 +19,16 @@ class Album extends api\ajax{
     function index($aid){
         $this->g->template['album'] = $album = $this->_album($aid);
         if(!$album)$this->error(401,'相册不存在');
+        $this->album->data(array('view'=>array('add',1)))->save($aid);
         $p = $this->_picture($aid);
         $this->g->template['pictures'] = &$p;
+        $this->g->template['count'] = count($p);
         foreach($p as &$v){
             $v['tag'] = $v['tag']?explode(',',$v['tag']):array();
         }
+        $this->g->template['title'] = $album['title'];
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         T('Album/index');
     }
 
@@ -68,6 +73,7 @@ class Album extends api\ajax{
         $data['aid'] = $aid;
         $data['cid'] = post('cid');
         $data['des'] = post('des');
+        $data['ctime'] = TIME_NOW;
         $tag = post('tags');
         if(is_array($tag)){
             $data['tag'] = implode(',',$tag);
@@ -75,8 +81,9 @@ class Album extends api\ajax{
         $data['uid'] = $this->user->uid;
         $c = $this->picture->data($data)->add();
         if($c){
+            $count = $this->picture->where(array('aid'=>$aid))->get_field();
             $data = array(
-                'count'=>array('add',1)
+                'count'=>$count
             );
             if($cover = post('cover')){
                 $data['thumb'] = $src['e'];
@@ -89,10 +96,34 @@ class Album extends api\ajax{
         $this->user->_safe_login();
         $where['uid'] = $this->user->uid;
         $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
+        if(!$this->g->template['list'])header('Location:/app/album/creationphoto');
         $this->g->template['title'] = '个人中心-相册管理';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         T('album/admin');
+    }
+    function admin_pic(){
+        $this->user->_safe_login();
+        $where['uid'] = $this->user->uid;
+        $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
+        if(!$this->g->template['list'])header('Location:/app/album/creationphoto');
+        $this->g->template['title'] = '个人中心-相册管理';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        T('album/admin_pic');
+    }
+    function get_pic($aid){
+        $p = $this->_picture($aid);
+        $this->success($p);
+    }
+    function del_pic($pid){
+        $this->user->_safe_login();
+        $p = model('app:Picture')->find($pid);
+        $this->user->_safe_right($p['uid']);
+        model('app:Picture')->remove($pid);
+        $c = model('app:Picture')->where(array('aid'=>$p['aid']))->get_field();
+        $this->album->data(array('count'=>$c))->save($p['aid']);
+        $this->success();
     }
     function lists($uid){
         $where['uid'] = $uid?$uid:$this->user->uid;
@@ -118,9 +149,35 @@ class Album extends api\ajax{
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         $this->g->template['albums'] = model('album')->where(array('uid'=>$this->user->uid))->limit(9999)->select();
+        if(!$this->g->template['albums'])header('Location:/app/album/creationphoto');
         $this->g->template['provenance'] = model('provenance')->order(array('fans'=>'DESC'))->limit(9999)->select();
          $this->g->template['tags'] = model('tag')->limit(9999)->select();
         T('album/photoupdate');
+    }
+    function dongtai($aid,$num){
+        $aid = floor($aid);
+        $nn = $num = floor($num);
+        if(!$num)$this->success();
+        if($num>3)$num = 3;
+        $this->user->_safe_login();
+        $a = model('album')->find($aid);
+        if(!$a)$this->error(404,'，没有找到相册');
+        $data['uid'] = $this->user->uid;
+        $data['type'] = 1;
+        $data['des'] = '更新了相册"'.$a['title'].'"';
+        $data['href'] = '/app/videoalbum/index/'.$aid;
+        $n = 'img';
+        $pp = model('picture')->limit($num)->order(array('ctime'=>'DESC'))->where(array('aid'=>$aid))->select();
+        $data['pic1'] = $pp[0]['src'];
+        $data['pic2'] = $pp[1]['src'];
+        $data['pic3'] = $pp[2]['src'];
+        $data['tag'] = array();
+        foreach($pp as $p){
+            if($p['tag'])$data['tag'][]=$p['tag'];
+        }
+        $data['tag'] = implode(',',$data['tag']);
+        $data['ctime'] = TIME_NOW;
+        model('dongtai')->data($data)->add();
     }
 
 }

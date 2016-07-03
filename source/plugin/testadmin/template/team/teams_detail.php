@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">封面图</label>
                 <div class="col-sm-4">
-                    <input type="file" id="pic" data-medium="1" data-box="team" data-auto="1" />
+                    <input type="file" id="pic" data-large="1" data-medium="1" data-box="team" data-auto="1" />
                     <p class="help-block"></p>
                     <img id="pic_pic" class='img-responsive' />
                     <input class="form-control" name="pic" type="text" value="" disabled="disabled"/>
