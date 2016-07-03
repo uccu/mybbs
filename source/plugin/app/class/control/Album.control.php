@@ -45,6 +45,7 @@ class Album extends api\ajax{
         $this->success($array);
     }
     function creationphoto(){
+        $this->user->_safe_login();
         $this->g->template['title'] = '个人中心-相册创建';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
@@ -102,7 +103,8 @@ class Album extends api\ajax{
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         T('album/admin');
     }
-    function admin_pic(){
+    function admin_pic($aid){
+        if(!$aid)header('Location:/app/album/admin');
         $this->user->_safe_login();
         $where['uid'] = $this->user->uid;
         $this->g->template['list'] = $this->album->where($where)->limit(9999)->select();
@@ -113,6 +115,11 @@ class Album extends api\ajax{
         T('album/admin_pic');
     }
     function get_pic($aid){
+        $this->user->_safe_login();
+        $aid = post('aid',$aid);
+        $album = $this->album->find($aid);
+        if(!$album)$this->error(401,'没有找到相册');
+        $this->user->_safe_right($album['uid']);
         $p = $this->_picture($aid);
         $this->success($p);
     }
