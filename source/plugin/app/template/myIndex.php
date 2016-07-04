@@ -59,11 +59,11 @@ body{background:#eee}
 .picci2>div img{
     width:100%
 }
-picci2 img.active{font-size:14px,transform:scale(1.4)}
+.banner li.active{font-size:14px;transform:scale(1.4)}
 
 </style>
 <script type="text/javascript">
-	var imgs = Array('/images/xct_19.png','/images/xct_21.png','/images/xct_23.png');
+	var imgs = Array('/pic/{banner.0.pic}.jpg','/pic/{banner.1.pic}.jpg','/pic/{banner.2.pic}.jpg');
 	
 	var st;
 	var times=5000;
@@ -71,7 +71,7 @@ picci2 img.active{font-size:14px,transform:scale(1.4)}
 		clearTimeout(st);
 		j("#img").css("background-image","url("+imgs[val]+")");
 		j('.list-inline li span').html('◇');
-        j('.list-inline li').remove('active');
+        j('.list-inline li').removeClass('active');
 		j('#b'+val+' span').html('♦');
 		j('#b'+val).addClass('active');
 		val++;
@@ -90,7 +90,7 @@ picci2 img.active{font-size:14px,transform:scale(1.4)}
         <div class="col-sm-8">
             <div class="banner pr">
                 <div class="banner_pic pa">
-                    <div id="img" class="banner_pic_block pa" style="background-image:url(/images/xct_19.png)"></div>
+                    <div id="img" class="banner_pic_block pa" style="background-image:url(/pic/{banner.0.pic}.jpg)"></div>
                     
                 </div>
                 <span>

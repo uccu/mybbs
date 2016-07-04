@@ -1,4 +1,5 @@
 <!--{subtemplate _header}-->
+<header nav="4"></header>
 <div class="t_body_z" style="height:auto;margin: 50px auto;min-height:600px">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">视频</div>
@@ -6,7 +7,7 @@
         </div>
         <div class="q_body_z_1">
         	<a href="/app/video/admin"><div class="q_body_z_1_1">管理</div></a>
-            <a href="/app/video/update"><div class="q_body_z_1_1">上传</div></a>
+            <a href="/app/video/update"><div class="q_body_z_1_2">上传</div></a>
         </div>
     	<div class="p_body_1" style="height:auto">
             <form id="createVideo">

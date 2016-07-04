@@ -1,16 +1,17 @@
 <!--{subtemplate _header}-->
+<header nav="4"></header>
 <div class="t_body_z" style="height:auto;margin: 50px auto;min-height:600px">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">视频</div>
             <div class="h_p_z_1_right"></div>
         </div>
         <div class="q_body_z_1">
-        	<a href="/app/video/admin"><div class="q_body_z_1_1">管理</div></a>
+        	<a href="/app/video/admin"><div class="q_body_z_1_2">管理</div></a>
             <a href="/app/video/update"><div class="q_body_z_1_1">上传</div></a>
         </div>
     	<div class="d_shipin_1" style="overflow:hidden;height:auto">
             <!--{loop $list $v}-->
-            <div class="d_shipin_1_1" style="margin-bottom:20px">
+            <div class="d_shipin_1_1" style="margin-bottom:20px;text-shadow: 0 0 10px #000;">
             	<a>
             	<div class="t_z_2_2_1" style="background-image:url(/pic/{v.thumb}.medium.jpg);background-size:cover">
                 	<div class="t_z_2_2_1_text">{v.title}</div>

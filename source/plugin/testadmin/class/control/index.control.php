@@ -7,6 +7,7 @@ class index extends na\ba{
             //'logo'=>'LOGO',
             'login'=>'登录页面背景',
             'banner'=>'banner设置',
+            'banner2'=>'动态主页banner',
             'stars'=>'推荐明星设置'
         );
     }
@@ -129,6 +130,50 @@ class index extends na\ba{
     }
     function del_banner($id){
         $p = model('banner')->remove($id);
+        $this->success($p);
+    }
+    function banner2(){
+        $this->_init();
+        $this->g->template['list'] = model('banner2')->limit(9)->order(array('id'))->select();
+        T(CONTROL_NAME.'/'.__FUNCTION__);
+    }
+    function banner2_detail($id){
+        if(is_null($id))$this->_header('banner2');
+        $this->subnav = array_merge($this->subnav,array('banner2_detail'=>'动态主页banner'));
+        $this->_init();
+        if(!$id){
+            $co = model('banner2')->get_field();
+            if($co>4)$this->_header('banner2');
+            $this->g->template['id'] = 0;
+            T(CONTROL_NAME.'/'.__FUNCTION__);die();
+        }
+        if(!$b = model('banner2')->find($id))$this->_header('banner2');
+        
+        $this->g->template['id'] = $b['id'];
+        T(CONTROL_NAME.'/'.__FUNCTION__);
+    }
+    function save_banner2_detail($id){
+        $_POST['pic'] = str_ireplace(array('.small','.large','.raw','.jpg'),'',$_POST['pic']);
+        if($_POST['id'] && $_POST['id']!=$id){
+            if(model('banner2')->find($_POST['id'])){
+                $this->error(300,'ID不能重复');
+            }
+        }
+        $_POST['ctime'] = time();
+        if(!$id){
+            $p = model('banner2')->data($_POST)->add();
+        }
+        else $p = model('banner2')->data($_POST)->save($id);
+        $this->success($p);
+    }
+    function get_banner2_detail($id){
+        $info = model('banner2')->find($id);
+        if(!$info)$this->error(400,'no data');
+        if($info['pic'])$info['pic'] .= '.small.jpg';
+        $this->success($info);
+    }
+    function del_banner2($id){
+        $p = model('banner2')->remove($id);
         $this->success($p);
     }
 

@@ -4,6 +4,7 @@ use plugin\adminloader\control\lib\base;
 defined('IN_PLAY') || exit('Access Denied');
 abstract class ba extends base{
     protected function _get_nav(){
+        control('app:base','api')->_safe_type(3);
         return array(
             'index'=>'首页',
             'user'=>'用户',
@@ -16,6 +17,7 @@ abstract class ba extends base{
             //'blog'=>'blog',
             //'permission'=>'权限',
         );
+        
     }
     abstract protected function _get_defaultMethod();
     function _nomethod(){
@@ -59,7 +61,7 @@ abstract class ba extends base{
     }
     
     function _get_userInfo(){
-        return model('App:UserInfo');
+        return model('app:UserInfo');
     }
 
 }

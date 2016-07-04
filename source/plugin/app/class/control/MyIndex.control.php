@@ -28,6 +28,7 @@ class MyIndex extends api\ajax{
             $v['date'] = date('Y-m-d H:i');
             $v['tags'] = explode(',',$v['tag']);
         }
+        $this->g->template['banner'] = model('banner2')->order(array('id'))->limit(3)->select();
         $this->g->template['title'] = '动态首页';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';

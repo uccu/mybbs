@@ -4,7 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class Picture extends na\ba{
     function _get_subnav(){
         return array(
-            'pictures'=>'相册列表',
+            'pictures'=>'照片列表',
             'tag'=>'标签'
             
         );

@@ -45,6 +45,10 @@ class base extends \control\ajax{
         if($this->uid == $uid)return true;
         else $this->error(706,'权限不足');
     }
+    public function _safe_type($n){
+        if($this->me['type']<$n)$this->error(707,'权限不足');
+        return false;
+    }
     
 }
 ?>

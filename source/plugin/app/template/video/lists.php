@@ -1,4 +1,5 @@
 <!--{subtemplate _header}-->
+<header nav="4"></header>
 <div class="t_body_z" style="height:auto;margin: 50px auto;min-height:600px">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">视频</div>
@@ -10,7 +11,7 @@
             <a href="/app/video/update"><div class="q_body_z_1_1">上传</div></a>
         </div>
         {/if}
-    	<div class="d_shipin_1" style="overflow:hidden;height:auto">
+    	<div class="d_shipin_1" style="overflow:hidden;height:auto;text-shadow: 0 0 10px #000;">
             <!--{loop $list $v}-->
             <div class="d_shipin_1_1" style="margin-bottom:20px">
             	<a href="/app/video/index/{v.vid}">
