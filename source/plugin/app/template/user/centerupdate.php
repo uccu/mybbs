@@ -1,6 +1,6 @@
 <!--{template _header}-->
 
-<header nav="4"></header>
+<header nav="5"></header>
 <div class="o_body">
 	<div class="o_body_z">
     	<div class="o_body_z_top">
@@ -23,7 +23,7 @@
                     <input type="file" id="changeAvatar" style="display:none">
                 </div>
                 <div class="o_body_z_right">
-                	<img src="/pic/{me.thumb}.medium.jpg" class="o_body_z_right_tu1 thumb">
+                	<img src="/pic/if.medium.jpg" class="o_body_z_right_tu1 thumb">
                 	<div class="o_body_z_right_fg thumb cp">更换封面</div>
                     <input type="file" id="changeThumb" style="display:none">
                 </div>
@@ -42,7 +42,7 @@
                                         show_alert(1,'更改成功',function(){
                                             j('.o_body_z_right_tu1.avatar').attr('src','/pic/'+d.data.e+'.avatar.jpg');
                                         });
-                                    },'json');
+                                    },'json');else show_alert(3,d.desc)
                                 }
                             })
                         });
@@ -58,7 +58,7 @@
                                         show_alert(1,'更改成功',function(){
                                             j('.o_body_z_right_tu1.thumb').attr('src','/pic/'+d.data.e+'.medium.jpg');
                                         });
-                                    },'json');
+                                    },'json');else show_alert(3,d.desc)
                                 }
                             })
                         });
@@ -74,7 +74,7 @@
                             }
                             j.post('/app/usercenter/change_info',d,function(d){
                                 if(d.code)show_alert(1,'修改成功~',function(){
-                                    location.reload(true)
+                                    location="/app/usercenter/index/{me.uid}"
                                 })
                             },'json')
 

@@ -6,7 +6,7 @@ body{background:#eee}
 .banner_pic_block{background-size:cover;}
 .banner>span{position: absolute;right: 6px;bottom: 6px;z-index:3}
 .banner>span li{cursor:pointer;padding:0 5px;text-shadow:0 0 5px #fff}
-.main-box{margin-top:25px;width:980px}
+.main-box{margin-top:25px;width:980px;min-height:650px}
 .myinfo,.newfans,.dongtai{
     background:#fff;box-shadow:0 0 4px #ccc;border-radius:6px;padding:10px;margin-bottom:20px
 }
@@ -27,7 +27,12 @@ body{background:#eee}
 .newfans_block .follow{right:12px;top:17px;background:#5cbac0;padding:2px 5px 0 5px;border-radius:4px;color:#fff;}
 .newfans_block .follow.disabled{background:#ccc;cursor:default}
 .dongtai .detail::before,.dongtai .like::before{
-    content:' ';width:16px;height:16px;right:0;top:2px;left:100px;position:absolute;background:url(/images/dt_11.png);
+    content:' ';width:16px;height:16px;right:0;top:2px;left:100px;position:absolute;background:url(/images/qw_03.png);
+}
+.dongtai .like::before{background:url(/images/ll_03.png);    width: 18px;
+    height: 10px;
+    right: 0;
+    top: 5px;
 }
 
 .dongtai .detail::after{
@@ -84,7 +89,7 @@ body{background:#eee}
 		ways(0)
 	})
 </script>
-
+<header nav="0"></header>
 <div class="container main-box">
     <div class="row">
         <div class="col-sm-8">
@@ -142,15 +147,15 @@ body{background:#eee}
                 <p style="padding-bottom:30px;font-size:14px;color:#fd7c9a;">{me.nickname}</p>
                 <div class="row">
                     <div class="col-sm-4">
-                        <p>{me.follow}</p>
+                        <a href="/app/usercenter/myfollow"><p>{me.follow}</p></a>
                         <p>关注</p>
                     </div>
                     <div class="col-sm-4 pr">
-                            <p>{me.fans}</p>
+                            <a href="/app/usercenter/myfans"><p>{me.fans}</p></a>
                             <p>粉丝</p>
                     </div>
                     <div class="col-sm-4">
-                        <p>0</p>
+                         <a><p>0</p></a>
                         <p>博客</p>
                     </div>
                 </div>

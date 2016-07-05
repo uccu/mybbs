@@ -239,7 +239,7 @@ class Team extends api\ajax{
     }
     function apply($tid){
         $this->user->_safe_login();
-        if($this->user->tid)$this->error('300','已加入团队！');
+        if($this->user->tid)$this->error('300','您已加入一个团队！');
         $data['uid'] = $this->user->uid;
         $data['tid'] = $tid;
         $data['ctime'] = TIME_NOW;

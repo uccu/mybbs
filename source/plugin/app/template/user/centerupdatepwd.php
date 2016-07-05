@@ -1,5 +1,5 @@
 <!--{template _header}-->
-<header nav="4"></header>
+<header nav="5"></header>
 
 <div class="p_body">
 	<div class="p_body_z">
@@ -25,7 +25,7 @@
                 if(new1!=new2){show_alert(3,'两次新密码不同');return}
                 j.post('/app/usercenter/change_password',{old:pwdl,new:new1},function(d){
                     if(d.code==200)show_alert(1,'修改成功~',function(){
-                        location.reload(true)
+                        location="/app/usercenter/index/{me.uid}"
                     });else show_alert(3,d.desc)
                 },'json')
 

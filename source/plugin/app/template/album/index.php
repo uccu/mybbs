@@ -3,9 +3,9 @@
 	
 </script>
 {if $album['uid']==$me['uid']}
- <header nav="4"></header>
+ <header nav="5"></header>
  {else}
- <header nav="1"></header>
+ <header nav="2"></header>
  {/if}
 
 <ul class="dn dc-block">

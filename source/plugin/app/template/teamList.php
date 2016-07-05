@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav=1></header>
+<header nav="2"></header>
 <style>
 .c_td_1{margin:7px}
 </style>

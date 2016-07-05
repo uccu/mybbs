@@ -161,6 +161,10 @@ class UserCenter extends api\ajax{
     }
     function change_info(){
         $this->user->_safe_login();
+        if(strlen($_POST['nickname'])>20)$this->error(406,'昵称长度不正确');
+        if(strlen($_POST['area'])>20)$this->error(400,'地址长度过长');
+        if(strlen($_POST['constel'])>6)$this->error(400,'⑨：这真的是星座吗？');
+        if(strlen($_POST['interest'])>40)$this->error(400,'兴趣太多了，缩减一下吧~~');
         $this->coser->data($_POST)->save($this->user->uid);
         $this->success();
     }

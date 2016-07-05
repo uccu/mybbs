@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
+<header nav="5"></header>
 <style>
 .pp-block{color:#ccc}
 .pp-block .control-label{font-size:13px;}
@@ -14,8 +14,9 @@ select[disabled]{background:#f0f0f0}
 .ph1{width:100%;height:auto; overflow:hidden; }
 .ph1_1{height:120px;position:relative;}
 .ph1_1_tu{max-width:100%;max-height:120px;border-radius:10px;}
+.ph1_1.checked img{border: 2px solid #5cbac0;}
 .ph1_1.checked::after{
-    content:' ';position:absolute;width:24px;height:24px; top:10px; right:10px;background:url(/images/xzxz.png)
+    content:' ';position:absolute;width:24px;height:24px; top:7px; right:21px;background:url(/images/xzxz.png)
 }
 
 
@@ -53,8 +54,9 @@ select[disabled]{background:#f0f0f0}
                 </script>    
             </div>
         	<a href="/app/album/admin"><div class="q_body_z_1_2">管理</div></a>
-            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
             <a href="/app/album/photoupdate"><div class="q_body_z_1_1">上传</div></a>
+            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
+            
         </div>
 
         <div class="del">

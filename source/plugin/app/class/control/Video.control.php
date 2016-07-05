@@ -19,6 +19,7 @@ class Video extends api\ajax{
         $this->user->_safe_login();
         $title = $data['title'] = post('title',$title);
         if(!$title)$this->error(401,'标题不允许为空');
+        if(strlen($title)>20)$this->error(400,'地址长度过长');
         $addr = post('addr','');
         if(!$addr)$this->error(401,'FLASH地址不允许为空');
         $data['iframe'] = '<p style="text-align: center;"><embed type="application/x-shockwave-flash" class="edui-faked-video" pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.
@@ -36,6 +37,7 @@ class Video extends api\ajax{
         $data2['type'] = 2;
         $data2['des'] = '发布了新视频"'.$title.'"';
         $data2['href'] = '/app/video/index/'.$vid;
+        $data2['vid'] = $vid;
         model('dongtai')->data($data2)->add();
         $array['vid'] = $vid;
         $this->success($array);
@@ -52,6 +54,7 @@ class Video extends api\ajax{
         if(!$video)$this->success(array('count'=>0));
         $this->user->_safe_right($video['uid']);
         $c = model('video')->remove($id);
+        model('dongtai')->where($where)->remove();
         $this->success(array('count'=>$c));
     }
     function lists($uid){

@@ -36,7 +36,8 @@ class Album extends api\ajax{
         $this->user->_safe_login();
         $title = $data['title'] = post('title',$title);
         if(!$title)$this->error(401,'标题不允许为空');
-        $data['thumb'] = 'no_album_thumb.jpg';
+        if(strlen($title)>20)$this->error(400,'标题长度过长');
+        $data['thumb'] = '';
         $data['uid'] = $this->user->uid;
         $data['tid'] = $this->user->tid;
         $data['ctime'] = TIME_NOW;
@@ -60,6 +61,7 @@ class Album extends api\ajax{
         $this->user->_safe_right($album['uid']);
         $c = $this->album->remove($aid);
         $c2 = $this->picture->where($where)->remove();
+        model('dongtai')->where($where)->remove();
         $this->success(array('count'=>$c2));
     }
     function upload($aid){
@@ -86,7 +88,7 @@ class Album extends api\ajax{
             $data = array(
                 'count'=>$count
             );
-            if($cover = post('cover')){
+            if(!$album['thumb'] || $cover = post('cover')){
                 $data['thumb'] = $src['e'];
             }
             $this->album->data($data)->save($aid);
@@ -172,12 +174,13 @@ class Album extends api\ajax{
         $data['uid'] = $this->user->uid;
         $data['type'] = 1;
         $data['des'] = '更新了相册"'.$a['title'].'"';
-        $data['href'] = '/app/videoalbum/index/'.$aid;
+        $data['href'] = '/app/album/index/'.$aid;
         $n = 'img';
         $pp = model('picture')->limit($num)->order(array('ctime'=>'DESC'))->where(array('aid'=>$aid))->select();
         $data['pic1'] = $pp[0]['src'];
         $data['pic2'] = $pp[1]['src'];
         $data['pic3'] = $pp[2]['src'];
+        $data['aid'] = $aid;
         $data['tag'] = array();
         foreach($pp as $p){
             if($p['tag'])$data['tag'][]=$p['tag'];

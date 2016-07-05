@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
+<header nav="5"></header>
 <style>
 
 </style>
@@ -54,7 +54,7 @@
                     j.post('/app/team/new_activity',{title:v,content:z,raw_base64_picz:j('.z_body_4_1').attr('src'),large:1,raw:1,medium:1,box:'team'},function(d){
                         if(d.code==200)show_alert(1,'创建成功',function(){
                             location = '/app/team/myactivity';
-                        });
+                        });else show_alert(3,d.desc)
                     },'json')
                 })
             </script>

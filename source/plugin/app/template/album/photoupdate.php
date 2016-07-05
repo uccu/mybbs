@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
+<header nav="5"></header>
 <style>
 .pp-block{color:#ccc}
 .pp-block .control-label{font-size:13px;}
@@ -27,8 +27,9 @@ select[disabled]{background:#f0f0f0}
                 </select>
             </div>
         	<a href="/app/album/admin"><div class="q_body_z_1_1">管理</div></a>
-            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
             <a href="/app/album/photoupdate"><div class="q_body_z_1_2">上传</div></a>
+            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
+           
         </div>
         <div style="padding:0 50px" class="pr">
             <div class="listtwz dn" style="padding:10px；">

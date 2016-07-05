@@ -1,6 +1,6 @@
  <!--{subtemplate _header}-->
- <header nav="4"></header>
-<div class="q_body">
+ <header nav="5"></header>
+<div class="q_body" style="min-height:650px">
 	<div class="q_body_z">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">相册</div>
@@ -9,8 +9,9 @@
 {if $thisuid == $me['uid']}
     	<div class="q_body_z_1">
         	<a href="/app/album/admin"><div class="q_body_z_1_1">管理</div></a>
-            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
             <a href="/app/album/photoupdate"><div class="q_body_z_1_1">上传</div></a>
+            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
+            
         </div>
         {/if}
         <div class="d_p_z_2">

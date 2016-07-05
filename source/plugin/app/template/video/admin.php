@@ -1,6 +1,6 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
-<div class="t_body_z" style="height:auto;margin: 50px auto;min-height:600px">
+<header nav="5"></header>
+<div class="t_body_z" style="height:auto;margin: 50px auto;min-height:650px">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">视频</div>
             <div class="h_p_z_1_right"></div>
@@ -30,7 +30,7 @@ j('.t_z_2_2_1_del img').click(function(){
         j.post('/app/video/delete',{vid:vid},function(d){
             if(d.code==200)show_alert(1,'删除视频成功~',function(){
                 location.reload(true)
-            });
+            });else show_alert(3,d.desc);
         })
     })
 })

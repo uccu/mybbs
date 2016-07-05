@@ -2,7 +2,7 @@
  <style>
 .ip_tu_1s{margin:8px}
 .ip_tu_zong{height:auto;overflow:hidden}
-.tj_z1{height:;min-height:600px}
+.tj_z1{height:;min-height:650px}
  </style>
 <div class="a_cos_top">
 	<div class="b_cos_top_con">

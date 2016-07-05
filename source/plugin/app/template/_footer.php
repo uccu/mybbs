@@ -11,15 +11,15 @@
             <div class="f_c_t_2">
             	<div class="f_c_t_top">站点地图</div>
                 <div class="f_c_t_con">
-                	<a href="index.html">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                	<a href="twostar.html">二次元明星</a>
+                	<a href="/app/index">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<a href="/app/twostar">二次元明星</a>
                 </div>
                 <div class="f_c_t_con">
                 	<a href="#">漫&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吧</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="#">漫展&周边</a>
                 </div>
                 <div class="f_c_t_con">
-                	<a href="center.html">个人中心</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a {if $me}href="/app/usercenter/index/{me.uid}"{/if}>个人中心</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="zxns1.html">加入我们</a>
                 </div>
           </div>

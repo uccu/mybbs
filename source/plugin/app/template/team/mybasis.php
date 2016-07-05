@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
+<header nav="5"></header>
 <div class="u_body">
 	<div class="u_b_z">
 		<div class="u_b_z_1">
@@ -41,7 +41,7 @@
                                     show_alert(1,'更改成功',function(){
                                         j('.u_b_z_2_2_tu1').attr('src','/pic/'+d.data.e+'.small.jpg');
                                     });
-                                },'json');
+                                },'json');else show_alert(3,d.desc)
                             }
                         })
                     })
@@ -67,7 +67,7 @@
                                 show_alert(1,'删除成功~~',function(){
                                     location.reload(true)
                                 });
-                            }else show_alert(3,'发生错误');
+                            }else show_alert(3,d.desc)
                         },'json')
                     })
                 })
@@ -91,7 +91,7 @@
                                     show_alert(1,'更改成功',function(){
                                         j('.u_b_z_4_1_tu1').attr('src','/pic/'+d.data.e+'.medium.jpg');
                                     });
-                                },'json');
+                                },'json');else show_alert(3,d.desc)
                             }
                         })
                     })
@@ -106,7 +106,7 @@
                         show_alert(1,'修改成功',function(){
                             location.reload(true)
                         })
-                    }
+                    }else show_alert(3,d.desc)
                 },'json')
             })
         

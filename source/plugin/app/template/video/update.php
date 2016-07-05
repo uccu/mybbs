@@ -1,6 +1,6 @@
 <!--{subtemplate _header}-->
-<header nav="4"></header>
-<div class="t_body_z" style="height:auto;margin: 50px auto;min-height:600px">
+<header nav="5"></header>
+<div class="t_body_z" style="height:auto;margin: 50px auto;min-height:650px">
     	<div class="q_p_z_1">
         	<div class="h_p_z_1_left">视频</div>
             <div class="h_p_z_1_right"></div>
@@ -12,8 +12,7 @@
     	<div class="p_body_1" style="height:auto">
             <form id="createVideo">
                 <div class="p_body_1_1">标题<input type="text" name="title" class="o_text_1"></div>
-                <div class="p_body_1_1">地址<input type="text" name="addr" class="o_text_1"></div>
-                
+                <div class="p_body_1_1">Flash地址<input type="text" name="addr" class="o_text_1"></div>
             </form>
                 <div class="p_body_1_1">图片<button class="o_text_1" style="background:#ff6090;color:#fff">选择图片</button></div>
                 <div class="dn"><input type="file" id="thumbpic" accept="image/*"></div>
@@ -25,6 +24,7 @@
     <script>
                 j('#thumbpic').change(function(){
                     var file = this.files[0];
+                    if(!file)return;
                     if(!file || !/image\/\w+/.test(file.type))show_alert(3,'非图片类型文件！');
                     var reader=new FileReader();
                     reader.readAsDataURL(file);
@@ -41,14 +41,16 @@
                     }
                 });
                 j('.p_body_1_1 button').click(function(){j('#thumbpic').click()});
-            j('.s_body_z_2').click(function(){
+            j('.s_body_z_2').bind('click',function(){
                 var v = j('[name=title]').val(),z=j('[name=addr]').val();
-                if(!v || v=='标题')return;
-                if(!z || z=='地址')return;
+                if(!v || v=='标题'){show_alert(3,'标题不能为空');return}
+                if(!z || z=='地址'){show_alert(3,'地址不能为空');return}
+                if(!j('#thumbpic').val()){show_alert(3,'未选择图片');return}
+                j(this).unbind('click');
                 j.post('/app/video/create',{title:v,addr:z,raw_base64_picz:j('#thumbp').attr('src'),large:1,medium:1,box:'video'},function(d){
                     if(d.code==200)show_alert(1,'创建成功',function(){
                         location = '/app/video/lists';
-                    });
+                    });else show_alert(3,d.desc);
                 },'json')
             })
     </script>

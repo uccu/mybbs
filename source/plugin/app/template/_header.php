@@ -75,7 +75,7 @@ j(function(){
                 }
                 j.post('app/login/login',j('#loginForm').serializeArray(),function(d){
                     if(d.code==200){
-                        show_alert(1,'登录成功',function(){location.reload(true);})
+                        show_alert(1,'登录成功',function(){location='/'})
                     }else j('.login_error').text(d.desc);
                 },'json')
             })
@@ -97,6 +97,7 @@ j(function(){
         <form id="registerForm">
             <div class="form-group" style="padding:5px 20px 0 20px">
                 <input class="form-control pr t" type="text" name="phone" value="请输入您的手机号" onfocus="if (value =='请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}">
+                <input class="form-control pr t" type="text" name="nickname" value="请输入昵称" onfocus="if (value =='请输入昵称'){value =''}" onblur="if (value ==''){value='请输入昵称'}">
                 <input class="form-control pr t" type="text" name="pwd" data-value="6-16位密码，区分大小写" value="6-16位密码，区分大小写" style="top:-1px">
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-2px">
             </div>
@@ -190,11 +191,12 @@ j(function(){
 
         <div class="nav_z">
             <div class="nav_z_left">
-                <div class="nav_z_left_1"><img src="images/xq_06.png" class="nav_tu1"/></div>
-                <a href="app/index"><div class="nav_z_left_2">主页</div></a>
+                <a href="app/index"><div class="nav_z_left_1"><img src="images/xq_06.png" class="nav_tu1"/></div></a>
+                <a href="/"><div class="nav_z_left_3">动态主页</div></a>
+                <a href="app/index"><div class="nav_z_left_3">首页</div></a>
                 <a href="app/twostar"><div class="nav_z_left_3">二次元明星</div></a>
-                <a><div class="nav_z_left_3 cp">漫吧</div></a>
-                <a><div class="nav_z_left_3 cp">漫展&周边</div></a>
+                <a><div class="nav_z_left_3 cp" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫吧</div></a>
+                <a><div class="nav_z_left_3 cp" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫展&周边</div></a>
 
             {if !$me}
                 <a><div class="nav_z_left_3 cp toLogin toLogin2">个人中心</div></a>

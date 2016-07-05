@@ -3,7 +3,7 @@
 .ip_1_2_3{float:left}
 .ip_1_2_4{float:left;width:auto}
 </style>
-<header nav=1></header>
+<header nav="2"></header>
 <div class="guanfang">
 	<div class="guanfang_1">
     	<div class="guanfang_1_1">COS明星</div>

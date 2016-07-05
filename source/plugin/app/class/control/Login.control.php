@@ -49,8 +49,10 @@ class Login extends api\ajax{
 
         //验证参数
         $phone = post('phone',$phone);
+        $nickname = post('nickname');
         $pwd = post('pwd',$pwd);
         if(!$phone || !$pwd)$this->error(401,'手机号和密码不能为空');
+        if(!$nickname || strlen($nickname)>20)$this->error(406,'昵称长度不正确');
         if(!preg_match('/^1\d{10}$/',$phone))$this->error(402,'手机号格式不正确');
         if(!preg_match('/^.{6,16}$/',$pwd))$this->error(403,'密码长度不正确');
 
@@ -64,12 +66,14 @@ class Login extends api\ajax{
         //单向加密密码
         $pwd = md5(md5($pwd).$salt);
         $data['phone'] = $phone;
+        $data['nickname'] = 'baka⑨';
+        if($nickname)$data['nickname'] = $nickname;
         $data['password'] = $pwd;
 
         //其他属性设置默认值
         $data['ctime'] = TIME_NOW;
         $data['salt'] = $salt;
-        $data['nickname'] = 'baka⑨';
+        
 
         //创建用户
         if(!$rr = $this->coser->data($data)->add())$this->error(404,'创建失败');

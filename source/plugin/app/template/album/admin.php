@@ -1,5 +1,5 @@
  <!--{subtemplate _header}-->
- <header nav="4"></header>
+ <header nav="5"></header>
 <div class="q_body">
 	<div class="q_body_z">
     	<div class="q_p_z_1">
@@ -8,8 +8,9 @@
         </div>
     	<div class="q_body_z_1">
         	<a href="/app/album/admin"><div class="q_body_z_1_2">管理</div></a>
-            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
             <a href="/app/album/photoupdate"><div class="q_body_z_1_1">上传</div></a>
+            <a href="/app/album/creationphoto"><div class="q_body_z_1_1">创建</div></a>
+            
         </div>
         <div class="d_p_z_2">
         <!--{loop $list $v}-->
@@ -35,7 +36,7 @@ j('.d_p_z_2_top_del img').click(function(){
         j.post('/app/album/delete',{aid:aid},function(d){
             if(d.code==200)show_alert(1,'删除相册成功~',function(){
                 location.reload(true)
-            });
+            });else show_alert(3,d.desc)
         })
     })
 })

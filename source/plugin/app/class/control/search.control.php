@@ -11,6 +11,7 @@ class search extends api\ajax{
         $page = floor($page);
         if(!$page)$page = 1;$limit = 16;
         $where['title'] = array('contain','%'.$key.'%','LIKE');
+        $where['count'] = array('logic',0,'>');
         $this->g->template['title'] = '搜索-相册';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';

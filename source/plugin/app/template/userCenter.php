@@ -10,9 +10,9 @@
 }
 </style>
 {if $me['uid']==$coser['uid']}
-<header nav="4"></header>
+<header nav="5"></header>
 {else}
-<header nav="1"></header>
+<header nav="2"></header>
 {/if}
 <script type="text/jscript">
 
@@ -73,14 +73,14 @@ function nh_xiangce(){
 								j.post('/app/usercenter/follow/'+'{coser.uid}',function(d){
 									if(d.code==200)show_alert(1,'关注成功~',function(){
 										location.reload(true)
-									});
+									});else show_alert(3,d.desc)
 								},'json')
 							});
 							j('.nh_top_z_left2_5_1.disabled').click(function(){
 								j.post('/app/usercenter/unfollow/'+'{coser.uid}',function(d){
 									if(d.code==200)show_alert(1,'已取消关注~',function(){
 										location.reload(true)
-									});
+									});else show_alert(3,d.desc)
 								},'json')
 							})
 						
@@ -107,7 +107,7 @@ function nh_xiangce(){
 							show_alert(1,'更改成功',function(){
 								j('.nh_top_z_right').css('background-image','url(/pic/'+d.data.e+'.large.jpg)');
 							});
-						},'json');
+						},'json');else show_alert(3,d.desc)
 						
 							
 
@@ -129,9 +129,9 @@ function nh_xiangce(){
             	<div class="nh_top1_z_top_1_2" onclick="nh_shipin()">视频</div>
                 <div class="nh_top1_z_top_1_2" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
-			{if $me['uid'] == $coser['uid']}
+			{if $me['uid'] == $coser['uid'] }
             <div class="nh_top1_z_top_2"><a href="/app/album/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>
-			{else}
+			{elseif $album}
 			<div class="nh_top1_z_top_2"><a href="/app/album/lists/{coser.uid}"><div class="nh_more">MORE</div></a></div>
 			{/if}
         </div>
@@ -164,9 +164,9 @@ function nh_xiangce(){
             	<div class="nh_top1_z_top_1_1" onclick="nh_shipin()">视频</div>
                 <div class="nh_top1_z_top_1_2" data-toggle="tooltip" data-placement="bottom" title="尽请期待">BLOG</div>
             </div>
-			{if $me['uid'] == $coser['uid']}
+			{if $me['uid'] == $coser['uid'] }
             <div class="nh_top1_z_top_2"><a href="/app/video/lists"><div class="n_p_z_1_right_gl">管理</div></a></div>
-			{else}
+			{elseif $video}
 			<div class="nh_top1_z_top_2"><a href="/app/video/lists/{coser.uid}"><div class="nh_more">MORE</div></a></div>
 			{/if}
         </div>
@@ -196,6 +196,9 @@ function nh_xiangce(){
         	<div class="d_p_z_1_left">团队</div>
             <div class="n_p_z_1_right"></div>
         </div>
+		{if !$team}
+			<h1 class="text-center" style="padding-top:50px;color:#ccc">没有加入任何团队~~</h1>
+		{/if}
     	<div class="n_tuandui_z_1">
 		{if $team}
         	<div class="n_tuandui_z_1_text1">我加入的团队</div>
@@ -225,9 +228,12 @@ function nh_xiangce(){
 			<div class="n_p_z_1_right"><a href="/app/usercenter/zhibo"><div class="n_p_z_1_right_gl">管理</div></a></div>
 			{/if}
         </div>
+		
     	<div class="d_zhibo_1">
 		{if !$live['yy'] && !$live['bilibili'] && !$live['yahu']}
+		<div>
 			<h1 class="text-center" style="padding-top:50px;color:#ccc">没有任何直播~~</h1>
+			</div>
 		{/if}
 			{if $live['yy']}
 			<a href="{live.yy}">
@@ -254,6 +260,7 @@ function nh_xiangce(){
 			</a>
 			{/if}
         </div>
+		
     </div>
 </div>
 

@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<header nav="1"></header>
+<header nav="2"></header>
 <style>
 .team_cover{
     width: 560px;
@@ -56,20 +56,20 @@ function nh_xiangce(){
 								j.post('/app/team/unfollow/'+'{team.tid}',function(d){
 									if(d.code==200)show_alert(1,'已取消关注~',function(){
 										location.reload(true)
-									});
+									});else show_alert(3,d.desc)
 								},'json')
 							})
 						
 						</script>
 
                     <div class="nh_top_z_left2_6_2 cp pr" style="font-size:14px;height:auto;width:auto;padding: 10px 14px;border-radius: 4px;float: left;color: #fff;padding-left: 30px;margin-left: 14px;background: #5cbac0;">
-                    {if !$me['tid']}
-                    <strong class="pa" style="font-size: 30px;left: 10px;top: 1px;">+</strong> 加入
+                    {if $me['tid']!=$team['tid']}
+                    <strong class="pa" style="font-size: 30px;left: 4px;top: -3px;">＋</strong> 加入
                     {else}
                     <strong class="pa" style="left: 15px;top: 10px;font-weight: normal;">已</strong> 入团
                     {/if}
                     </div>
-                    {if !$me['tid']}
+                    {if $me['tid']!=$team['tid']}
                     <script>
                         j('.nh_top_z_left2_6_2').click(function(){
                             j.post('/app/team/apply/{team.tid}',function(d){
@@ -79,7 +79,13 @@ function nh_xiangce(){
                             },'json')
                         })
                     </script>
-                    {/if}{/if}
+                    {/if}
+                    {else}
+                    <div class="nh_top_z_left2_6_1 cp toLogin toLogin2"><img src="images/guanzhu_03.png"></div>
+                    <div class="nh_top_z_left2_6_2 cp pr toLogin toLogin2" style="font-size:14px;height:auto;width:auto;padding: 10px 14px;border-radius: 4px;float: left;color: #fff;padding-left: 30px;margin-left: 14px;background: #5cbac0;">
+                        <strong class="pa" style="font-size: 30px;left: 4px;top: -3px;">＋</strong> 加入
+                    </div>
+                    {/if}
                 </div>
             </div>
             <div class="nh_top_z_left3"></div>
