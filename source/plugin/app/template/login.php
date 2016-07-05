@@ -150,7 +150,7 @@ j(function($){
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-3px">
                 </form>
                 <button class="getCaptcha t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 109px;right: 27px;z-index:20">获取验证码</button>
-                <script>
+                <script>    
                     (function(){
                         var t=0,ge = function(){
                             if(t==0)t=60;

@@ -2,6 +2,12 @@
 <script type="text/javascript">
 	
 </script>
+{if $album['uid']==$me['uid']}
+ <header nav="4"></header>
+ {else}
+ <header nav="1"></header>
+ {/if}
+
 <ul class="dn dc-block">
 <!--{loop $pictures $p}-->
 <li e="{p.src}" pid="{p.pid}" des="{p.des}" tag="

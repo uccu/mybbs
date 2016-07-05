@@ -18,15 +18,19 @@
                     <div class="o_body_z_left_1">爱好<input type="text" value="{me.interest}" name="interest" onfocus="if (value =='{me.interest}'){value =''}" onblur="if (value ==''){value='{me.interest}'}" class="o_text_1"></div>
                 </div>
                 <div class="o_body_z_right">
-                	<img src="/pic/{me.avatar}.avatar.jpg" class="o_body_z_right_tu1">
-                	<div class="o_body_z_right_fg cp">更换头像</div>
+                	<img src="/pic/{me.avatar}.avatar.jpg" class="o_body_z_right_tu1 avatar">
+                	<div class="o_body_z_right_fg avatar cp">更换头像</div>
                     <input type="file" id="changeAvatar" style="display:none">
-                    
+                </div>
+                <div class="o_body_z_right">
+                	<img src="/pic/{me.thumb}.medium.jpg" class="o_body_z_right_tu1 thumb">
+                	<div class="o_body_z_right_fg thumb cp">更换封面</div>
+                    <input type="file" id="changeThumb" style="display:none">
                 </div>
             </div>
             <div class="o_body_con_x">保存</div>
                     <script>
-                        j('.o_body_z_right_fg').click(function(){
+                        j('.o_body_z_right_fg.avatar').click(function(){
                             j('#changeAvatar').click();
                         });j('#changeAvatar').change(function(){
                             if(!j(this).val())return;
@@ -36,7 +40,23 @@
                                 success:function(d){
                                     if(d.code==200)j.post('/app/usercenter/change_avatar',{avatar:d.data.e},function(){
                                         show_alert(1,'更改成功',function(){
-                                            j('.o_body_z_right_tu1').attr('src','/pic/'+d.data.e+'.avatar.jpg');
+                                            j('.o_body_z_right_tu1.avatar').attr('src','/pic/'+d.data.e+'.avatar.jpg');
+                                        });
+                                    },'json');
+                                }
+                            })
+                        });
+                        j('.o_body_z_right_fg.thumb').click(function(){
+                            j('#changeThumb').click();
+                        });j('#changeThumb').change(function(){
+                            if(!j(this).val())return;
+                            var v = {medium:1,box:'user',auto:1},f = packFormData(j(this),v);
+                            j.ajax({
+                                data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
+                                success:function(d){
+                                    if(d.code==200)j.post('/app/usercenter/change_thumb',{thumb:d.data.e},function(){
+                                        show_alert(1,'更改成功',function(){
+                                            j('.o_body_z_right_tu1.thumb').attr('src','/pic/'+d.data.e+'.medium.jpg');
                                         });
                                     },'json');
                                 }

@@ -153,6 +153,12 @@ class UserCenter extends api\ajax{
         model('user_info')->data($data)->save($this->user->uid);
         $this->success();
     }
+    function change_thumb(){
+        $this->user->_safe_login();
+        $data['thumb'] = post('thumb');
+        model('user_info')->data($data)->save($this->user->uid);
+        $this->success();
+    }
     function change_info(){
         $this->user->_safe_login();
         $this->coser->data($_POST)->save($this->user->uid);

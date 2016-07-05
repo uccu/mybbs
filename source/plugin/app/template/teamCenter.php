@@ -1,4 +1,5 @@
 <!--{subtemplate _header}-->
+<header nav="1"></header>
 <style>
 .team_cover{
     width: 560px;
@@ -132,6 +133,9 @@ function nh_xiangce(){
             <div class="nh_top1_z_top_2"><a href="/app/album/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>
         <div class="nh_top1_z_bot">
+        {if !$album}
+			<h1 class="text-center" style="padding-top:90px;color:#ccc">该团队很懒，没有上传任何东西~~</h1>
+		{/if}
         <!--{loop $album $v}-->
             <div class="d_p_z_2_1">
             	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
@@ -159,6 +163,9 @@ function nh_xiangce(){
             <div class="nh_top1_z_top_2"><a href="/app/video/teamlists/{team.tid}"><div class="nh_more">MORE</div></a></div>
         </div>
         <div class="nh_top2_z_bot">
+        {if !$video}
+			<h1 class="text-center" style="padding-top:50px;color:#ccc">该团队很懒，没有上传任何东西~~</h1>
+		{/if}
         <!--{loop $video $v}-->
             <div class="d_shipin_1_1">
             	<a href="/app/video/index/{v.vid}">
@@ -180,6 +187,9 @@ function nh_xiangce(){
         	<div class="d_p_z_1_left">社团活动</div>
             <a href="/app/activity/lists/{team.tid}"><div class="d_p_z_1_right">MORE</div></a>
         </div>
+        {if !$activity}
+			<h1 class="text-center" style="padding-top:90px;color:#ccc">该团队很懒，没有上传任何东西~~</h1>
+		{/if}
         <!--{loop $activity $a}-->
     	<div class="e_st_z_1">
         	<a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1" style="background-image:url(/pic/{a.pic}.medium.jpg);background-size:cover"></div></a>

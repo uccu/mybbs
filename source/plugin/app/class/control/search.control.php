@@ -15,7 +15,7 @@ class search extends api\ajax{
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
         $maxRow = model('album')->where($where)->get_field();
-        if(!preg_match('#/app/search#',$_SERVER['HTTP_REFERER']) && !$maxRow)header('Location:/app/search/user/'.$key);
+        if(!preg_match('#/app/search#',$_SERVER['HTTP_REFERER']) && !$maxRow)header('Location:/app/search/team/'.$key);
         $maxPage = floor(($maxRow-1)/$limit)+1;
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
@@ -40,8 +40,24 @@ class search extends api\ajax{
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
         $this->g->template['currentPage'] = $page;
-        $list = $this->g->template['list'] = $this->coser->add_count()->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        $list = $this->g->template['list'] = $this->coser->add_count()->where($where)->page($page,$limit)->order(array('fans'=>'DESC'))->select();
         T('search/user');
+    }
+    function team($key,$page){
+        $page = floor($page);
+        if(!$page)$page = 1;$limit = 16;
+        $where['name'] = array('contain','%'.$key.'%','LIKE');
+        $this->g->template['title'] = '搜索-团队';
+        $this->g->template['keywords'] = 'COS,炫漫';
+        $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
+        $maxRow = model('team')->where($where)->get_field();
+        if(!preg_match('#/app/search#',$_SERVER['HTTP_REFERER']) && !$maxRow)header('Location:/app/search/user/'.$key);
+        $maxPage = floor(($maxRow-1)/$limit)+1;
+        $this->g->template['maxRow'] = $maxRow;
+        $this->g->template['maxPage'] = $maxPage;
+        $this->g->template['currentPage'] = $page;
+        $list = $this->g->template['list'] = model('team')->where($where)->page($page,$limit)->order(array('fans'=>'DESC'))->select();
+        T('search/team');
     }
     
 }

@@ -1,4 +1,8 @@
 <!--{template _header}-->
+<style>
+.ip_1_2_3{float:left}
+.ip_1_2_4{float:left;width:auto}
+</style>
 <header nav=1></header>
 <div class="guanfang">
 	<div class="guanfang_1">
@@ -37,7 +41,7 @@
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
                 <div class="ip_wenzi_right">
-                {if $c['sign']}签约明星{/if}
+                {if $c['sign']}签约明星{else}明星COSER{/if}
                 </div>
             </div>
             <div class="ip_tu_1_3"><div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"></div>

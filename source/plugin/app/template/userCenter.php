@@ -9,7 +9,11 @@
 	-ms-filter:saturate(0);
 }
 </style>
+{if $me['uid']==$coser['uid']}
 <header nav="4"></header>
+{else}
+<header nav="1"></header>
+{/if}
 <script type="text/jscript">
 
 function nh_shipin(){

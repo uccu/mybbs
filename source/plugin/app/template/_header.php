@@ -67,7 +67,7 @@ j(function(){
         <p class="text-left cp toForgot" style="padding:0 20px"><a><strong style="color:#999">忘记密码</strong></a>
         <label class="fr cp"><small class="login_error" style="color:red"></small></label></p>
         <div style="padding:0 20px">
-            <button class="login t btn btn-default btn-lg btn-block" style="background-color:#ff6090;outline:0;color:#fff">登录</button>
+            <button class="login t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">登录</button>
             <script>
             j('button.login').click(function(){
                 if(j('#loginForm [name=phone]').val()=='请输入您的手机号'){
@@ -103,7 +103,7 @@ j(function(){
         </form>
         
         <div style="padding:0 20px">
-            <button class="register t btn btn-default btn-lg btn-block" style="background-color:#ff6090;outline:0;color:#fff">注册</button>
+            <button class="register t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">注册</button>
             <script>
             j('button.register').click(function(){
                 if(j('#registerForm [name=pwd]').val()!=j('#registerForm [name=pwd2]').val()){j('.register_error').text('2次密码不同');return}
@@ -134,7 +134,7 @@ j(function(){
                 <input class="form-control pr t" type="text" name="pwd" data-value="请输入新密码" value="请输入新密码" style="top:-2px">
                 <input class="form-control pr t" type="text" name="pwd2" data-value="请确认新密码" value="请确认新密码" style="top:-3px">
                 </form>
-                <button class="getCaptcha t btn btn-default pa" style="background-color:#ff6090;outline:0;color:#fff;top: 100px;right: 27px;z-index:20">获取验证码</button>
+                <button class="getCaptcha t btn btn-default pa" style="background-color:#61bac0;outline:0;color:#fff;top: 100px;right: 27px;z-index:20">获取验证码</button>
                 <script>
                     (function(){
                         var t=0,ge = function(){
@@ -166,7 +166,7 @@ j(function(){
         
         
         <div style="padding:0 20px">
-            <button class="forgot t btn btn-default btn-lg btn-block" style="background-color:#ff6090;outline:0;color:#fff">确定</button>
+            <button class="forgot t btn btn-default btn-lg btn-block" style="background-color:#61bac0;outline:0;color:#fff">确定</button>
             <script>
             j('button.forgot').click(function(){
                 if(j('#forgotForm [name=pwd]').val()!=j('#forgotForm [name=pwd2]').val()){j('.forgot_error').text('2次密码不同');return}
@@ -201,7 +201,7 @@ j(function(){
             </div>
             <div class="nav_z_right">
                 <div class="nav_z_right_1">
-                <input type="text" class="nav_text_1" value="搜索用户/标签" style="outline:0" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"  /></div>
+                <input type="text" class="nav_text_1" value="搜索..." style="outline:0" onfocus="if (value =='搜索...'){value =''}" onblur="if (value ==''){value='搜索...'}"  /></div>
                 <div class="nav_z_right_2 toLogin toRegister">注册</div>
                 <div class="nav_z_right_3 toLogin toLogin2" >登录</div>
             
@@ -210,7 +210,7 @@ j(function(){
             </div>
             <div class="nav_z_right_cos">
                 <div class="nav_z_right_1_cos">
-                <input type="text" class="nav_text_1" value="搜索用户/标签" style="outline:0;color:#ccc" onfocus="if (value =='搜索用户/标签'){value =''}" onblur="if (value ==''){value='搜索用户/标签'}"></div>
+                <input type="text" class="nav_text_1" value="搜索..." style="outline:0;color:#ccc" onfocus="if (value =='搜索...'){value =''}" onblur="if (value ==''){value='搜索...'}"></div>
                 <div class="nav_nav_z">
                 	<div class="nav_nav_z_1"><img src="pic/{me.avatar}.avatar.jpg" class="nav_nav_tu1 img-circle"></div>
                     <a href="app/usercenter/index/{me.uid}"><div class="nav_nav_z_2">{me.nickname}</div></a>
@@ -228,7 +228,7 @@ j(function(){
             {/if}
             <script>
             j('input.nav_text_1').keypress(function(e){
-                if(e.which==13 && j(this).val()!='搜索用户/标签')
+                if(e.which==13 && j(this).val()!='搜索...')
                 location = '/app/search/album/'+j(this).val()
             });
             </script>

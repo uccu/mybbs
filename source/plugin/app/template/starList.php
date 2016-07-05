@@ -2,6 +2,9 @@
 <header nav=1></header>
 <style>
 .ip_tu_1{margin:9px}
+.ip_1_2_3{float:left}
+.ip_1_2_4{float:left;width:auto}
+
 </style>
 <div class="a_cos_top">
 	<div class="a_cos_top_con">

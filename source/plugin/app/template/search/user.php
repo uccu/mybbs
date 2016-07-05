@@ -37,18 +37,19 @@
 }
 </style>
 <div class="container search" style="width: 1022px;">
-    <input type="text" class="t" /><button >搜索</button><strong class="fr cp t active">用户</strong><strong class="fr cp t" >相册</strong>
+    <input type="text" class="t" /><button >搜索</button>
+    <strong class="fr cp t" z='team'>团队</strong><strong class="fr cp t active" z='user'>用户</strong><strong class="fr cp t" z='album'>相册</strong>
 </div>
 <script>
 !function(){
     j('.search button').click(function(){
-        location = '/app/search/user/'+j('.search input').val()
+        location = '/app/search/'+folder[3]+'/'+j('.search input').val()
     });
     j('.search input').val(decodeURI(folder[4])).keypress(function(e){
         if(e.which==13)j('.search button').click();
     });
     j('.search strong:not(.active)').click(function(){
-        location = '/app/search/album/'+folder[4];
+        location = '/app/search/'+j(this).attr('z')+'/'+folder[4];
     })
 
 }()

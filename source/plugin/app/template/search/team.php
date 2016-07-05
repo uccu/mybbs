@@ -36,9 +36,9 @@
     color: #5cbac0;
 }
 </style>
-<div class="container search" style="width: 1022px;">
+<div class="container search" style="width: 1050px;">
     <input type="text" class="t" /><button >搜索</button>
-    <strong class="fr cp t" z='team'>团队</strong><strong class="fr cp t" z='user'>用户</strong><strong class="fr cp t active" z='album'>相册</strong>
+    <strong class="fr cp t active" z='team'>团队</strong><strong class="fr cp t" z='user'>用户</strong><strong class="fr cp t" z='album'>相册</strong>
 </div>
 <script>
 !function(){
@@ -55,18 +55,22 @@
 }()
 
 </script>
-<div class="container" style="width: 1040px;overflow:hidden;height:auto;min-height:500px">
+<div class="container" style="width: 1050px;overflow:hidden;height:auto;min-height:500px">
 {if !$list}
     <h1 class="text-center" style="padding-top:90px;color:#ccc">没有搜索到任何东西~~</h1>
 {/if}
-<!--{loop $list $c}-->
-    	<div class="ip_tu_1">
-        	<a href="/app/album/index/{c.aid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1"></div></a>
-            <div class="ip_tu_1_2">
-            	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
-                <div class="ip_1_2_2">{c.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
-                <div class="ip_1_2_4">{c.fans}</div>
+<!--{loop $list $t}-->
+    	<div class="c_td_1">
+        	<div class="c_td_1_1">
+            	<a href="/app/teamcenter/index/{t.tid}" >
+                    <div class="c_td_1_1" style="background-image:url(/pic/{t.pic}.medium.jpg);background-size:cover">
+                        <div class="c_td_1_1_z">
+                            <div class="c_td_1_z_1 "><img class="img-circle" style="width:60px;height:60px" src="/pic/{t.thumb}.avatar.jpg"></div>
+                            <div class="c_td_1_z_2">{t.name}</div>
+                        </div>
+                    </div>
+                </a>
+                <div class="c_td_1_2">{t.desc}</div>
             </div>
         </div>
 <!--{/loop}-->

@@ -1,4 +1,7 @@
 <!--{subtemplate _header}-->
+<style>
+
+</style>
 <div class="banner">
 <!--{loop $banner $k=>$b}-->
     <div class="banner_block"{if $k} style="display:none"{/if}>
@@ -49,8 +52,9 @@
         	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2" /></div>
-                <div class="ip_1_2_4">{c.fans}</div>
+                <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
+                <div class="ip_1_2_3" style="float:right"><img src="images/xqq_08.png" class="ip_tu2" /></div>
+                
             </div>
             <div class="ip_weizi_bot">出自：{c.pname}</div>
         </div>
@@ -59,8 +63,9 @@
         	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2" /></div>
-                <div class="ip_1_2_4">{c.fans}</div>
+                <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
+                <div class="ip_1_2_3" style="float:right"><img src="images/xqq_08.png" class="ip_tu2" /></div>
+                
             </div>
             <div class="ip_weizi_bot">出自：{c.pname}</div>
         </div>
@@ -192,8 +197,9 @@
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="pic/{cosers.0.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.0.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
-                <div class="ip_1_2_4">{cosers.0.fans}</div>
+                <div class="ip_1_2_4 fr" style="width:auto">{cosers.0.fans}</div>
+                <div class="ip_1_2_3 fr"><img src="images/xqq_08.png" class="ip_tu2"/></div>
+                
             </div>
             
         </div>
@@ -205,8 +211,9 @@
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="pic/{cosers.1.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.1.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
-                <div class="ip_1_2_4">{cosers.1.fans}</div>
+                <div class="ip_1_2_4 fr" style="width:auto">{cosers.1.fans}</div>
+                <div class="ip_1_2_3 fr"><img src="images/xqq_08.png" class="ip_tu2"/></div>
+                
             </div>
            
         </div>
@@ -218,8 +225,9 @@
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="pic/{cosers.2.avatar}.avatar.jpg" class="ip_tu3"/></div>
                 <div class="ip_1_2_2">{cosers.2.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
-                <div class="ip_1_2_4">{cosers.2.fans}</div>
+                <div class="ip_1_2_4 fr" style="width:auto">{cosers.2.fans}</div>
+                <div class="ip_1_2_3 fr"><img src="images/xqq_08.png" class="ip_tu2"/></div>
+                
             </div>
             
         </div>
