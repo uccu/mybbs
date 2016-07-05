@@ -38,10 +38,10 @@
                             j.ajax({
                                 data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
                                 success:function(d){
-                                    if(d.code==200)j.post('/app/usercenter/change_avatar',{avatar:d.data.e},function(){
-                                        show_alert(1,'更改成功',function(){
+                                    if(d.code==200)j.post('/app/usercenter/change_avatar',{avatar:d.data.e},function(d){
+                                        if(d.code==200)show_alert(1,'更改成功',function(){
                                             j('.o_body_z_right_tu1.avatar').attr('src','/pic/'+d.data.e+'.avatar.jpg');
-                                        });
+                                        });else show_alert(3,d.desc)
                                     },'json');else show_alert(3,d.desc)
                                 }
                             })
@@ -54,10 +54,10 @@
                             j.ajax({
                                 data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
                                 success:function(d){
-                                    if(d.code==200)j.post('/app/usercenter/change_thumb',{thumb:d.data.e},function(){
-                                        show_alert(1,'更改成功',function(){
+                                    if(d.code==200)j.post('/app/usercenter/change_thumb',{thumb:d.data.e},function(d){
+                                        if(d.code==200)show_alert(1,'更改成功',function(){
                                             j('.o_body_z_right_tu1.thumb').attr('src','/pic/'+d.data.e+'.medium.jpg');
-                                        });
+                                        });else show_alert(3,d.desc)
                                     },'json');else show_alert(3,d.desc)
                                 }
                             })
@@ -73,9 +73,9 @@
                                 show_alert(3,'昵称必须填写');return
                             }
                             j.post('/app/usercenter/change_info',d,function(d){
-                                if(d.code)show_alert(1,'修改成功~',function(){
+                                if(d.code==200)show_alert(1,'修改成功~',function(){
                                     location="/app/usercenter/index/{me.uid}"
-                                })
+                                });else show_alert(3,d.desc)
                             },'json')
 
                         })

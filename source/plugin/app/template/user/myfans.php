@@ -1,8 +1,8 @@
 <!--{template _header}-->
 <header nav="5"></header>
 
-<div class="gz_body">
-	<div class="gz_body_z">
+<div class="gz_body" style="min-height:650px">
+	<div class="gz_body_z" style="min-height:650px">
     	<div class="gz_body_top">粉丝</div>
         
         <div class="gz_body_bot">

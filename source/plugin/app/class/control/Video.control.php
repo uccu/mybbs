@@ -19,7 +19,7 @@ class Video extends api\ajax{
         $this->user->_safe_login();
         $title = $data['title'] = post('title',$title);
         if(!$title)$this->error(401,'标题不允许为空');
-        if(strlen($title)>20)$this->error(400,'地址长度过长');
+        if(strlen($title)>30)$this->error(400,'地址长度过长');
         $addr = post('addr','');
         if(!$addr)$this->error(401,'FLASH地址不允许为空');
         $data['iframe'] = '<p style="text-align: center;"><embed type="application/x-shockwave-flash" class="edui-faked-video" pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.

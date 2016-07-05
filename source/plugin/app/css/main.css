@@ -68,7 +68,7 @@ appearance:none;
 .ip_tu_1_1_dw{width:61px;height:61px; position:absolute; left:0;top:0; }
 .ip_tu_1_2{width:215px;height:35px; margin:12px auto 0 auto;}
 .ip_1_2_1{width:30px;height:30px; float:left; border-radius:15px;}
-.ip_1_2_2{width:100px;height:30px; float:left; margin-left:10px; line-height:30px; font-size:14px;}
+.ip_1_2_2{width:100px;height:30px; float:left; margin-left:10px; line-height:30px; font-size:14px;    text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .ip_1_2_3{width:22px;height:30px; float:left;}
 .ip_tu2{width:18px;height:16px; margin-top:7px; float:right;}
 .ip_tu3{width:30px;height:30px; border-radius:15px;}
@@ -117,7 +117,7 @@ appearance:none;
 .geren_r_1{width:60px;height:60px; float:left;margin-top:10px; }
 .geren_r_1 img{width:60px;height:60px;}
 .geren_r_2{width:140px;height:60px; float:left; margin-left:13px; margin-top:10px;}
-.geren_r_2_1{width:140px;height:30px;line-height:30px;}
+.geren_r_2_1{width:140px;height:30px;line-height:30px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .geren_r_2_2{width:140px;height:30px;}
 .geren_r_2_2_1{width:100px;height:30px; float:left; margin-left:10px;line-height:30px;}
 .geren_rights{width:213px;height:80px; float:left; border-bottom:1px solid #ccc;}

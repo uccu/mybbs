@@ -52,7 +52,7 @@ class Login extends api\ajax{
         $nickname = post('nickname');
         $pwd = post('pwd',$pwd);
         if(!$phone || !$pwd)$this->error(401,'手机号和密码不能为空');
-        if(!$nickname || strlen($nickname)>20)$this->error(406,'昵称长度不正确');
+        if(!$nickname || strlen($nickname)>30)$this->error(406,'昵称长度不正确');
         if(!preg_match('/^1\d{10}$/',$phone))$this->error(402,'手机号格式不正确');
         if(!preg_match('/^.{6,16}$/',$pwd))$this->error(403,'密码长度不正确');
 

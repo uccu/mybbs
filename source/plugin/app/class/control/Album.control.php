@@ -36,7 +36,7 @@ class Album extends api\ajax{
         $this->user->_safe_login();
         $title = $data['title'] = post('title',$title);
         if(!$title)$this->error(401,'标题不允许为空');
-        if(strlen($title)>20)$this->error(400,'标题长度过长');
+        if(strlen($title)>30)$this->error(400,'标题长度过长');
         $data['thumb'] = '';
         $data['uid'] = $this->user->uid;
         $data['tid'] = $this->user->tid;
