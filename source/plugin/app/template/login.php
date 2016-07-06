@@ -207,7 +207,7 @@ j(function($){
     </div>
 </div>
 </div>
-    <a href="/app/index" class="t btn btn-default pa" style="top:10px;right:10px;background-color:#61bac0;outline:0;color:#fff;padding:10px 30px">跳过 > ></a>
+    <a href="/app/index" class="t btn btn-default pa" style="top:10px;right:10px;background-color:#61bac0;outline:0;color:#fff;padding:10px 30px;z-index:10">跳过 > ></a>
 
 
 <!--{subtemplate tool:footer}-->

@@ -189,16 +189,16 @@ appearance:none;
 .nav_z_left_2_cos{width:auto;height:40px; float:left; margin:10px 8px 0 8px;color:#ff6090; border-bottom:#ff6090 solid 2px; line-height:40px;}
 .nav_z_left_3_cos{width:auto;height:40px; float:left; margin:10px 8px 0 8px; color:#fff; line-height:40px;}
 .nav_z_left_3_cos:hover{width:auto;height:40px; float:left;color:#ff6090; border-bottom:#ff6090 solid 2px; line-height:40px;}
-.nav_z_right_cos{width:415px;height:50px; margin-top:13px; float:right; font-size:15px;}
+.nav_z_right_cos{height:50px; margin-top:13px; float:right; font-size:15px;}
 .nav_z_right_1_cos{width:200px;height:41px; float:left; border-radius:23px; background:rgba(102,102,102,0.5)}
 .nav_text_1_cos{width:160px;height:40px;background:url(/images/xq_09.png) transparent no-repeat right; color:#FFF; font-size:14px; border-radius:20px; margin-left:20px;}
 .nav_z_right_2_cos{width:80px; height:40px; float:left; text-align:center; background:#5cbac0; border-radius:5px; line-height:40px; color:#FFF; margin-left:23px;}
 .nav_z_right_3_cos{width:80px; height:36px; float:left; text-align:center; line-height:36px; color:#FFF;margin-left:23px; border:#FFF 2px solid;border-radius:5px;}
 
-.nav_nav_z{width:110px;height:40px; float:left; margin-left:10px;}
+.nav_nav_z{height:40px; float:left; margin-left:10px;}
 .nav_nav_z_1{width:40px;height:40px; float:left;}
 .nav_nav_tu1{width:40px;height:40px;}
-.nav_nav_z_2{width:60px;height:40px;float:left; line-height:40px; color:#FFF; margin-left:10px;}
+.nav_nav_z_2{height:40px;float:left; line-height:40px; color:#FFF; margin-left:10px;}
 .nav_nav_right{width:80px;height:40px; float:left;margin-left:10px; line-height:40px; color:#FFF;}
 
 .banner_tu1_cos{width:100%;height:200px;}
