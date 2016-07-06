@@ -17,7 +17,7 @@ class Login extends api\ajax{
         $where['phone'] = $phone;
         $user = $this->coser->where($where)->find();
         if(!$user)$this->error(402,'该用户未注册');
-
+        if($user['sign']==-1)$this->error(402,'该用户被封禁');
         //验证密码
         if(md5(md5($pwd).$user['salt'])!==$user['password'])$this->error(403,'密码错误');
 

@@ -5,7 +5,7 @@
 <div class="banner">
 <!--{loop $banner $k=>$b}-->
     <div class="banner_block"{if $k} style="display:none"{/if}>
-        <img src="pic/{b.pic}.jpg" class="banner_tu1"/>
+        <div style="background-image:url(pic/{b.pic}.jpg)" class="banner_tu1"></div>
         <div class="jiaru">
             <div class="jr_z">
                 <div class="jr_1"><img src="images/sy_04.png" /></div>

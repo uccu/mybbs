@@ -29,7 +29,7 @@
                 </div>
                 <nav>
                     <ul class="pagination pageset">
-                        
+                        <p>1,4图片必须为283x420; 2,3图片必须为420x420</p>
                     </ul>
                 </nav>
             </div>

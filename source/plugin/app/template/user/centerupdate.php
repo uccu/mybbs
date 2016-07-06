@@ -18,8 +18,8 @@
                     <div class="o_body_z_left_1">爱好<input type="text" value="{me.interest}" name="interest" onfocus="if (value =='{me.interest}'){value =''}" onblur="if (value ==''){value='{me.interest}'}" class="o_text_1"></div>
                 </div>
                 <div class="o_body_z_right">
-                	<img src="/pic/{me.avatar}.medium.jpg" class="o_body_z_right_tu1 avatar">
-                	<div class="o_body_z_right_fg avatar cp">更换头像</div>
+                	<img src="/pic/{me.avatar}.medium.jpg" class="o_body_z_right_tu1 avatar" >
+                	<div class="o_body_z_right_fg avatar cp" data-toggle="tooltip" data-placement="right" title="推荐 233x233">更换头像</div>
                     <input type="file" id="changeAvatar" style="display:none">
                 </div>
                 

@@ -88,11 +88,10 @@ function nh_xiangce(){
 					</div>
 				</div>
             {/if}
-			<div class="nh_top_z_left3"></div>
         </div>
         <div class="nh_top_z_right" style="background-image:url(/pic/{coser.cover}.large.jpg);background-size:cover;background-position:center">
 			{if $me['uid'] == $coser['uid']}
-        	<div class="nh_top_z_right_fg cp"></div>
+        	<div class="nh_top_z_right_fg cp" data-toggle="tooltip" data-placement="right" title="推荐 600x375"></div>
 			<input type="file" style="display:none" name="cover" />
 			<script>
 			j('.nh_top_z_right_fg').click(function(){

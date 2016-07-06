@@ -31,7 +31,7 @@
                 </div>
                 <nav>
                     <ul class="pagination pageset">
-                        
+                        <p>建议图片像素大小：1400x500</p>
                     </ul>
                 </nav>
             </div>
