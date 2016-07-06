@@ -195,8 +195,8 @@ j(function(){
                 <a href="/"><div class="nav_z_left_3">动态主页</div></a>
                 <a href="app/index"><div class="nav_z_left_3">首页</div></a>
                 <a href="app/twostar"><div class="nav_z_left_3">二次元明星</div></a>
-                <a><div class="nav_z_left_3 cp" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫吧</div></a>
-                <a><div class="nav_z_left_3 cp" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫展&周边</div></a>
+                <a><div class="nav_z_left_3 cp dn" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫吧</div></a>
+                <a><div class="nav_z_left_3 cp dn" data-toggle="tooltip" data-placement="bottom" title="尽请期待">漫展&周边</div></a>
 
             {if !$me}
                 <a><div class="nav_z_left_3 cp toLogin toLogin2">个人中心</div></a>

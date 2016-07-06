@@ -44,7 +44,7 @@ class Team extends na\ba{
     function del_teams($id){
         $p = $this->_del('team',$id);
         $this->userInfo->data(array('tid'=>0))->where(array('tid'=>$id))->save();
-        model('user_team')->data(array('tid'=>$id))->remove();
+        model('user_team')->where(array('tid'=>$id))->remove();
         $this->success($p);
     }
 

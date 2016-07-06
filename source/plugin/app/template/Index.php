@@ -22,19 +22,24 @@
 <!--{/loop}-->
 <script>
 (function(){
-    s=0,l=j('.banner_block').length,f=function(){
+    var ggg,s=0,l=j('.banner_block').length,f=function(){
+        clearTimeout(ggg);
         j('.banner_block').eq(s).fadeOut();
         var t = s-1<0?l-1:s-1;
         j('.banner_block').eq(t).fadeIn();
         s=t;
+        ggg = setTimeout(function(){j('.banner .jr_3').eq(0).click()},10000);
     },d=function(){
+        clearTimeout(ggg);
         j('.banner_block').eq(s).fadeOut();
         var t = s+1>l-1?0:s+1;
         j('.banner_block').eq(t).fadeIn();
         s=t;
+        ggg = setTimeout(function(){j('.banner .jr_3').eq(0).click()},10000);
     };
-    j('.banner .jr_1').on('click',f);
-    j('.banner .jr_3').on('click',d)
+    j('.banner .jr_1').bind('click',f);
+    j('.banner .jr_3').bind('click',d);
+    ggg = setTimeout(function(){j('.banner .jr_3').eq(0).click()},10000);
 })();
 </script>
 </div>
@@ -50,7 +55,7 @@
         <!--{loop $character $k=>$c}-->
         <!--{if !$k}-->
     	<div class="ip_tu_1">
-        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
@@ -61,7 +66,7 @@
         </div>
         <!--{else}-->
         <div class="ip_tu_2">
-        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"/></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
@@ -192,7 +197,7 @@
     <div class="ip_tu_zong">
     	<div class="ip_tu_1s">
         	<div class="ip_tu_1_1">
-            	<a href="/app/usercenter/index/{cosers.0.uid}"><img src="pic/{cosers.0.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.0.uid}"><img src="pic/{cosers.0.avatar}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_03.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -206,7 +211,7 @@
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="/app/usercenter/index/{cosers.1.uid}"><img src="pic/{cosers.1.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.1.uid}"><img src="pic/{cosers.1.avatar}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_06.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -220,7 +225,7 @@
         </div>
         <div class="ip_tu_2s">
         	<div class="ip_tu_1_1">
-            	<a href="/app/usercenter/index/{cosers.2.uid}"><img src="pic/{cosers.2.thumb}.medium.jpg" class="ip_tu1"/></a>
+            	<a href="/app/usercenter/index/{cosers.2.uid}"><img src="pic/{cosers.2.avatar}.medium.jpg" class="ip_tu1"/></a>
             	<div class="ip_tu_1_1_dw"><img src="images/123_08.png" /></div>
             </div>
             <div class="ip_tu_1_2">
@@ -267,17 +272,7 @@
                     </div>
                 </div>
             </div>
-            <div class="geren_left">7</div>
-            <div class="geren_rights">
-            	<a href="/app/usercenter/index/{cosers.6.uid}"><div class="geren_r_1"><img src="pic/{cosers.6.avatar}.avatar.jpg" /></div></a>
-                <div class="geren_r_2">
-                    <div class="geren_r_2_1">{cosers.6.nickname}</div>
-                    <div class="geren_r_2_2">
-                    	<div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
-                        <div class="geren_r_2_2_1">{cosers.6.fans}</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div> 

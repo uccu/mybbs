@@ -18,15 +18,11 @@
                     <div class="o_body_z_left_1">爱好<input type="text" value="{me.interest}" name="interest" onfocus="if (value =='{me.interest}'){value =''}" onblur="if (value ==''){value='{me.interest}'}" class="o_text_1"></div>
                 </div>
                 <div class="o_body_z_right">
-                	<img src="/pic/{me.avatar}.avatar.jpg" class="o_body_z_right_tu1 avatar">
+                	<img src="/pic/{me.avatar}.medium.jpg" class="o_body_z_right_tu1 avatar">
                 	<div class="o_body_z_right_fg avatar cp">更换头像</div>
                     <input type="file" id="changeAvatar" style="display:none">
                 </div>
-                <div class="o_body_z_right">
-                	<img src="/pic/if.medium.jpg" class="o_body_z_right_tu1 thumb">
-                	<div class="o_body_z_right_fg thumb cp">更换封面</div>
-                    <input type="file" id="changeThumb" style="display:none">
-                </div>
+                
             </div>
             <div class="o_body_con_x">保存</div>
                     <script>
@@ -34,34 +30,19 @@
                             j('#changeAvatar').click();
                         });j('#changeAvatar').change(function(){
                             if(!j(this).val())return;
-                            var v = {avatar:1,box:'user',auto:1},f = packFormData(j(this),v);
+                            var v = {avatar:1,box:'user',auto:1,medium:1},f = packFormData(j(this),v);
                             j.ajax({
                                 data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
                                 success:function(d){
-                                    if(d.code==200)j.post('/app/usercenter/change_avatar',{avatar:d.data.e},function(d){
+                                    if(d.code==200)j.post('/app/usercenter/change_avatar',{avatar:d.data.e},function(d2){
                                         if(d.code==200)show_alert(1,'更改成功',function(){
-                                            j('.o_body_z_right_tu1.avatar').attr('src','/pic/'+d.data.e+'.avatar.jpg');
-                                        });else show_alert(3,d.desc)
+                                            j('.o_body_z_right_tu1.avatar').attr('src','/pic/'+d.data.e+'.medium.jpg');
+                                        });else show_alert(3,d2.desc)
                                     },'json');else show_alert(3,d.desc)
                                 }
                             })
                         });
-                        j('.o_body_z_right_fg.thumb').click(function(){
-                            j('#changeThumb').click();
-                        });j('#changeThumb').change(function(){
-                            if(!j(this).val())return;
-                            var v = {medium:1,box:'user',auto:1},f = packFormData(j(this),v);
-                            j.ajax({
-                                data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
-                                success:function(d){
-                                    if(d.code==200)j.post('/app/usercenter/change_thumb',{thumb:d.data.e},function(d){
-                                        if(d.code==200)show_alert(1,'更改成功',function(){
-                                            j('.o_body_z_right_tu1.thumb').attr('src','/pic/'+d.data.e+'.medium.jpg');
-                                        });else show_alert(3,d.desc)
-                                    },'json');else show_alert(3,d.desc)
-                                }
-                            })
-                        });
+                        
                         j('.o_body_con_x').click(function(){
                             var d = {};
                                 d.nickname = j('[name=nickname]').val(),

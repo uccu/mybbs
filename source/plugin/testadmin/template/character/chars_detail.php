@@ -14,7 +14,7 @@
                     <input type="text" class="form-control" name="pid">
                 </div>
                 <div class="col-sm-1">
-                    <span class="pa cp" style="left:0;top:7px" data-toggle="tooltip" data-placement="bottom" title="查询出处的PID">?</span>
+                    <span class="pa cp" style="left:0;top:7px" data-toggle="tooltip" data-placement="bottom" title="请在出处查找对应的PID">?</span>
                     <script>j('[data-toggle="tooltip"]').tooltip()</script>
                 </div>
             </div>

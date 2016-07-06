@@ -62,9 +62,9 @@ appearance:none;
 .ip_tu{width:100%; margin-top:10px;}
 .ip_tu_z{width:980px;height:362px; margin:0 auto;}
 .ip_tu_zs{width:1002px; margin:0 auto;overflow:hidden}
-.ip_tu_1{width:233px;height:360px; float:left; border:1px solid #CCC; border-radius:5px}
-.ip_tu_1_1{width:233px;height:280px;border-radius:5px 5px 0 0; position:relative;}
-.ip_tu1{width:233px;height:280px;}
+.ip_tu_1{width:233px; float:left; border:1px solid #CCC; border-radius:5px}
+.ip_tu_1_1{width:233px;border-radius:5px 5px 0 0; position:relative;}
+.ip_tu1{width:233px;height:233px;}
 .ip_tu_1_1_dw{width:61px;height:61px; position:absolute; left:0;top:0; }
 .ip_tu_1_2{width:215px;height:35px; margin:12px auto 0 auto;}
 .ip_1_2_1{width:30px;height:30px; float:left; border-radius:15px;}
@@ -74,7 +74,7 @@ appearance:none;
 .ip_tu3{width:30px;height:30px; border-radius:15px;}
 .ip_1_2_4{width:40px;height:30px; float:left; margin-left:6px; line-height:30px; text-align:right; color:#CCC; font-size:15px;}
 .ip_tu_1_3{width:213px;height:30px; margin:0 auto; color:#fd7c9a; line-height:25px;}
-.ip_tu_2{width:233px;height:360px; float:left; border:1px solid #CCC; border-radius:5px;margin-left:19px;}
+.ip_tu_2{width:233px;float:left; border:1px solid #CCC; border-radius:5px;margin-left:19px;}
 
 .ip_wenzi_left{width:135px;height:30px;float:left;color:#fd7c9a; line-height:30px; font-size:14px;}
 .ip_wenzi_right{width:75px;height:30px; float:left;color:#fd7c9a; line-height:30px; font-size:14px; text-align:right;}
@@ -107,20 +107,20 @@ appearance:none;
 .sp_z_2_2_1_text{width:208px;height:50px; font-size:16px; color:#FFF; text-align:center; line-height:50px;}
 .sp_z_2_2_1_tu1{width:30px;height:30px; float:left;margin-left:10px;margin-top:10px;}
 
-.tj_z1{width:100%;height:345px;}
-.ip_tu_zong{width:1000px;height:330px; margin:10px auto 0 auto;}
-.ip_tu_1s{width:233px;height:330px; float:left; border:1px solid #CCC; border-radius:5px;}
-.ip_tu_2s{width:233px;height:330px; float:left; border:1px solid #CCC; border-radius:5px;margin-left:19px;}
+.tj_z1{width:100%;height:345px}
+.ip_tu_zong{width:1000px;height:290px; margin:10px auto 0 auto;}
+.ip_tu_1s{width:233px;float:left; border:1px solid #CCC; border-radius:5px;}
+.ip_tu_2s{width:233px; float:left; border:1px solid #CCC; border-radius:5px;margin-left:19px;}
 .ip_tu_2s_1{width:233px;height:330px; float:left; border-radius:5px;margin-left:19px;}
 .geren_left{width:20px;height:80px; float:left; color:#666; font-size:16px; line-height:80px;}
-.geren_right{width:213px;height:80px; float:left; border-bottom:1px solid #ccc; border-top:1px solid #ccc;}
+.geren_right{width:213px;height:90px; float:left; border-bottom:1px solid #ccc; border-top:1px solid #ccc;}
 .geren_r_1{width:60px;height:60px; float:left;margin-top:10px; }
 .geren_r_1 img{width:60px;height:60px;}
 .geren_r_2{width:140px;height:60px; float:left; margin-left:13px; margin-top:10px;}
 .geren_r_2_1{width:140px;height:30px;line-height:30px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .geren_r_2_2{width:140px;height:30px;}
 .geren_r_2_2_1{width:100px;height:30px; float:left; margin-left:10px;line-height:30px;}
-.geren_rights{width:213px;height:80px; float:left; border-bottom:1px solid #ccc;}
+.geren_rights{width:213px;height:96px; float:left; border-bottom:1px solid #ccc;}
 
 .tuanti{width:100%;height:320px; margin-top:10px;}
 .tuanti_1{width:1000px;height:160px; margin:0 auto;}
@@ -516,8 +516,8 @@ appearance:none;
 .o_body_z_left_1{width:545px;height:40px; font-size:14px; color:#999; line-height:40px; margin-top:20px;}
 .o_text_1{width:435px;height:40px; border:1px solid #ddd; margin-left:25px; border-radius:5px;padding-left:15px; font-size:14px; color:#999;}
 .o_text_2{width:435px;height:40px; border:1px solid #ddd; margin-left:25px; border-radius:5px;padding-left:15px; font-size:14px; color:#999; text-align:center;}
-.o_body_z_right{width:145px;height:150px;float:left; position:relative; background:#CCC; margin-top:20px;}
-.o_body_z_right_tu1{width:145px;height:150px;}
+.o_body_z_right{width:145px;height:145px;float:left; position:relative; background:#CCC; margin-top:20px;}
+.o_body_z_right_tu1{width:145px;height:145px;}
 .o_body_z_right_fg{width:145px;height:30px; position:absolute; bottom:0;left:0; background:rgba(0,0,0,0.5); text-align:center; line-height:30px; color:#FFF;}
 .o_body_con_x{width:145px;height:35px; text-align:center; line-height:35px; background:#5cbac0; color:#FFF; border-radius:5px;margin:10px auto 0 auto;font-size:14px; cursor:pointer;}
 
