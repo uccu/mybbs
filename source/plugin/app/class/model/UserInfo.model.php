@@ -22,7 +22,7 @@ class UserInfo extends \model{
     }
     function safe_info(){
         $this->tableMap['user_info'] = array(
-            'uid','nickname','area','age','constel','interest','phone','avatar','cover','tid','sign','thumb','last','last_login','type'
+            'uid','nickname','area','age','constel','interest','phone','avatar','cover','tid','sign','thumb','last','last_login','type','ctime'
         );return $this;
     }
     function add_count(){

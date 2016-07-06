@@ -27,7 +27,7 @@ class Album extends na\ba{
         $this->g->template['maxPage'] = $maxPage;
         $this->g->template['currentPage'] = $page;
         $this->g->template['list'] = model('album')->add_table(array('user_info'=>array('_on'=>'uid','nickname')))->where($where)->page($page,$limit)->order(array('aid'=>'DESC'))->select();
-        T(CONTROL_NAME.'/'.__FUNCTION__);   
+        T(CONTROL_NAME.'/'.__FUNCTION__);
     }
     
     function save_albums_detail($id){

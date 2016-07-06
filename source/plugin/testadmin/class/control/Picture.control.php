@@ -26,7 +26,7 @@ class Picture extends na\ba{
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
         $this->g->template['currentPage'] = $page;
-        $this->g->template['list'] = model('picture')->add_table(array('album'=>array('_on'=>'aid','title')))->where($where)->page($page,$limit)->order(array('pid'=>'DESC'))->select();
+        $this->g->template['list'] = model('picture')->add_table(array('album'=>array('_on'=>'aid','title','_join'=>'LEFT JOIN')))->where($where)->page($page,$limit)->order(array('pid'=>'DESC'))->select();
         T(CONTROL_NAME.'/'.__FUNCTION__);   
     }
     
