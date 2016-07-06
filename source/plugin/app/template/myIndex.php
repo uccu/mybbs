@@ -166,8 +166,19 @@ body{background:#eee}
                 <!--{loop $newfans $f}-->
                 <div class="newfans_block pr">
                     <p>{f.nickname}</p>
-                    <img class="avatar img-circle pa" src="/pic/{f.avatar}.avatar.jpg" />
-                    <div class="follow pa cp{if $f['doub']} disabled{/if}">♡</div>
+                    <a href="/app/usercenter/index/{f.uid}"><img class="avatar img-circle pa" src="/pic/{f.avatar}.avatar.jpg" /></a>
+                    {if !$f['doub']}
+                    <div class="follow pa cp" uid="{f.uid}">♡</div>
+                    <script>
+                        j('.follow').click(function(){
+								j.post('/app/usercenter/follow/'+j(this).attr('uid'),function(d){
+									if(d.code==200)show_alert(1,'关注成功~',function(){
+										location.reload(true)
+									});else show_alert(3,d.desc)
+								},'json')
+							});
+                    </script>
+                    {/if}
                     <p>关注了你</p>
                 </div>
                 <!--{/loop}-->

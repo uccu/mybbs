@@ -18,11 +18,11 @@
 <!--{/loop}-->
 </ul>
 <div class="l_body">
-	<div class="l_body_z">
+	<div class="l_body_z" style="display:table">
     	<div class="l_body_z_bottom">{album.title}（<font color="#5cbac0">1</font>/{count}）</div>
     	<div class="l_body_z_top">
             <div class="l_body_z_top_content">
-            	<img class="l_body_tu2 center-block" style="height:auto;width:auto;max-height:425px"/>
+            	<img class="l_body_tu2 center-block" style="max-height:425px"/>
             	<div class="l_body_left"><img src="images/xc_03.png" /></div>
                 <div class="l_body_right"><img src="images/xc_05.png" /></div>
             </div>

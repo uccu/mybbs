@@ -35,6 +35,8 @@
     border-bottom: 2px solid #5cbac0;
     color: #5cbac0;
 }
+.ip_1_2_3{float:left}
+.ip_1_2_4{float:left;width:auto}
 </style>
 <div class="container search" style="width: 1022px;">
     <input type="text" class="t" /><button >搜索</button>
@@ -65,8 +67,9 @@
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
                 <div class="ip_1_2_4">{c.fans}</div>
+                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"/></div>
+                
             </div>
         </div>
 <!--{/loop}-->
