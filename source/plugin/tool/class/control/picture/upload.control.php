@@ -27,6 +27,7 @@ class upload extends \control\ajax{
         $large = post('large',$large);
         $medium = post('medium',$medium);
         $avatar = post('avatar');
+        $cut = post('cut');
         $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         
@@ -63,19 +64,19 @@ class upload extends \control\ajax{
         $largeWidth = 800;$largeHeight = 420;
 
         if($avatar){
-            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight);
+            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight,$cut);
             $pic['avatar'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.avatar.jpg';
         }if($small){
-            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
+            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight,$cut);
             $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
         }if($medium){
-            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight);
+            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight,$cut);
             $pic['medium'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.medium.jpg';
         }if($large){
-            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
+            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight,$cut);
             $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
         }if($raw){
-            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight);
+            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight,$cut);
             $pic['raw'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
         }
         $pic['e'] = $f.'/'.$ym.'/'.$d.'/'.$md5;
@@ -84,17 +85,33 @@ class upload extends \control\ajax{
 
 
     }
-    function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false){
+    function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false,$cut=false){
         $w1 = $w0;$h1=$h0;
         if($w0>$w){
             $h0 = $h0*$w/$w0;
             $w0 = $w;
+            if($cut){
+                if($h0<$h){
+                    $w0=$w1;$h0=$h1;
+                    if($h0>$h){
+                        $w0 = $w0*$h/$h0;
+                        $h0 = $h;
+                    }
+                }
+            }
+        }elseif($cut && $h0>$h){
+            $w0 = $w0*$h/$h0;
+            $h0 = $h;
         }
         if(!$autoHeight && $h0>$h){
             $w0 = $w0*$h/$h0;
             $h0 = $h;
         }
         if($a)$image = imagecreatetruecolor($w0, $h0);
+        elseif($cut){
+
+            $image = imagecreatetruecolor($w<$w0?$w:$w0, $h<$h0?$h:$h0);
+        }
         else $image = imagecreatetruecolor($w, $h);
         //imagealphablending($image,false);
         //imagesavealpha($image,true);
