@@ -19,7 +19,9 @@
             <div class="d_p_z_2_1">
             	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
                 	<a href="/app/album/index/{v.aid}">
+						{if $v['thumb']}
 						<div class="pa" style="background-image:url(/pic/{$v.thumb}.medium.jpg);background-size:cover;width:167px;height:167px;top:16px;left:16px"></div>
+						{/if}
 					</a>
 					<div class="d_p_z_2_top_num">{$v.count}</div>
                 </div>

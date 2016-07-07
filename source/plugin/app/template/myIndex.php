@@ -131,7 +131,10 @@ body{background:#eee}
                 </div>
                 {else}
                 <div class="picci2">
-                    {if $d['thumb']}<div><img src="/pic/{d.thumb}.large.jpg" class="img-responsive"></div>{/if}
+                    {if $d['thumb']}<div><img src="/pic/{d.thumb}.large.jpg" class="img-responsive">
+                    
+                    <div style="background: url(/images/xq_71.png);width: 30px;height: 30px;position: absolute;bottom: 110px;left: 46px;"></div>
+                    </div>{/if}
                 </div>
                 {/if}
                 <div class="row conti">

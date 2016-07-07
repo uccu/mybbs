@@ -2,7 +2,7 @@
 <header nav="2"></header>
 <style>
 .team_cover{
-    width: 560px;
+    width: 600px;
     position: absolute;
     right: 0;
     top: 0;
@@ -88,9 +88,8 @@ function nh_xiangce(){
                     {/if}
                 </div>
             </div>
-            <div class="nh_top_z_left3"></div>
         </div>
-        <div class="team_cover" style="background-image:url(/pic/{team.pic}.medium.jpg)"></div>
+        <div class="team_cover" style="background-image:url(/pic/{team.pic}.large.jpg)"></div>
 	</div>
 </div>
 
@@ -146,7 +145,9 @@ function nh_xiangce(){
             <div class="d_p_z_2_1">
             	<div class="d_p_z_2_1_top pr" style="background-repeat: no-repeat;background-image: url(/images/xq_48.png);">
                 	<a href="/app/album/index/{v.aid}">
+                    {if $v['thumb']}
 					<div class="pa" style="background-image:url(/pic/{$v.thumb}.medium.jpg);background-size:cover;width:167px;height:167px;top:16px;left:16px"></div>
+                    {/if}
                     <div class="d_p_z_2_top_num">{$v.count}</div>
                     </a>
                 </div>
@@ -173,7 +174,7 @@ function nh_xiangce(){
 			<h1 class="text-center" style="padding-top:50px;color:#ccc">该团队很懒，没有上传任何东西~~</h1>
 		{/if}
         <!--{loop $video $v}-->
-            <div class="d_shipin_1_1">
+            <div class="d_shipin_1_1" style="margin-bottom:20px;text-shadow: 0 0 10px #000;">
             	<a href="/app/video/index/{v.vid}">
             	<div class="t_z_2_2_1" style="background-image:url(/pic/{v.thumb}.medium.jpg);background-size:cover">
                 	<div class="t_z_2_2_1_text">{v.title}</div>

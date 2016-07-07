@@ -440,9 +440,9 @@ appearance:none;
 .nh_top{width:100%;height:375px;margin-top:20px;}
 .nh_top_z{width:1000px;height:375px;margin:0 auto; border:1px #ddd solid; background:#def1f2;border-radius:5px;}
 .nh_top_z_left{height:375px;float:left; background:#def1f2;}
-.nh_top_z_left1{width:70px;height:375px;float:left; background:url(/images/juxing-16.png) no-repeat; border-radius:5px;}
+.nh_top_z_left1{width:90px;height:375px;float:left; background:url(/images/juxing-16.png) no-repeat; border-radius:5px;}
 .nh_top_z_left1 div{width:50px;height:50px; transform:rotate(-45deg); color:#fd7c9a; text-align:center;}
-.nh_top_z_left2{width:260px;height:375px;float:left;}
+.nh_top_z_left2{width:260px;height:375px;float:left;position: relative;left: -20px;}
 .nh_top_z_left2_1{text-align:center}
 .nh_top_z_left2_1 img{width:100px;height:100px;margin:50px auto 0 auto; border-radius:50px;text-align:center;}
 .nh_top_z_left2_2{width:260px;height:50px; line-height:50px; text-align:center; font-size:16px; color:#666;}
@@ -701,7 +701,7 @@ appearance:none;
 .gz_body_bot_1_left{width:110px;float:left;}
 .gz_body_bot_1_left_top{width:66px;height:66px; border-radius:33px;margin:20px auto 0 auto;}
 .gz_body_bot_1_left_top img{width:66px;height:66px;}
-.gz_body_bot_1_left_bottom{width:110px;height:auto; text-align:center; font-size:15px; color:#666;margin-top:5px;}
+.gz_body_bot_1_left_bottom{width:110px;height:auto; text-align:center; font-size:15px; color:#666;margin-top:5px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 .gz_body_bot_1_right{width:172px;float:right;margin-right:20px;}
 .gz_body_bot_1_right_top{width:172px;height:70px; line-height:25px; color:#999;margin-top:20px;}
 .gz_body_bot_1_right_bottom{width:172px;height:40px;}

@@ -14,7 +14,7 @@
                 <div class="p_body_1_1">标题<input type="text" name="title" class="o_text_1"></div>
                 <div class="p_body_1_1">Flash地址<input type="text" name="addr" class="o_text_1"></div>
             </form>
-                <div class="p_body_1_1">图片<button class="o_text_1" style="background:#ff6090;color:#fff">选择图片</button></div>
+                <div class="p_body_1_1">图片<button class="o_text_1" style="background:#ff6090;color:#fff" data-toggle="tooltip" data-placement="right" title="推荐 600x375">选择图片</button></div>
                 <div class="dn"><input type="file" id="thumbpic" accept="image/*"></div>
                 <div class="text-left" style="margin-top:20px;margin-left: 125px;"><img style="height:100px" id="thumbp"></div>
         </div> 

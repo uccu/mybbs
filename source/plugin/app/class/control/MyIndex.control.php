@@ -8,6 +8,10 @@ class MyIndex extends api\ajax{
     
     function _nomethod(){
         $this->user->_safe_login();
+        $sql = 'SELECT * FROM '.$this->g->config['prefix'].'dongtai where `aid` not in (select `aid` from '.$this->g->config['prefix'].'album)';
+        model('logic')->query($sql);
+        $sql = 'SELECT * FROM '.$this->g->config['prefix'].'dongtai where `vid` not in (select `vid` from '.$this->g->config['prefix'].'video)';
+        model('logic')->query($sql);
         $this->g->template['newfans'] = model('user_follow')->add_table(array(
             'user_info'=>array(
                 '_on'=>'uid','nickname','avatar'

@@ -19,9 +19,9 @@
     	<div class="z_body_2"><input type="text" class="z_body_2_text1" value="标题" onfocus="if (value =='标题'){value =''}" onblur="if (value ==''){value='标题'}"></div>
     	<div class="z_body_3"><textarea class="z_body_text2"></textarea></div>
     	<div class="z_body_4 pr">
-        	<img src="images/xcsc_17.png" class="z_body_4_1 cp" style="height:auto">
+        	<img src="images/xcsc_17.png" class="z_body_4_1 cp" style="height:auto" data-toggle="tooltip" data-placement="right" title="推荐 250x200">
             <input type="file" style="display:none" id="pica" />
-            <button class="btn btn-default pr dn" style="left:20px;color:#999">重新选择</button>
+            <button class="btn btn-default pr dn" style="left:20px;color:#999" data-toggle="tooltip" data-placement="right" title="推荐 250x200">重新选择</button>
 
         </div>
         <a><div class="z_body_5 cp">发布</div></a>
@@ -47,10 +47,15 @@
                     }
                 });
                 j('.z_body_4_1,.z_body_4 button').click(function(){j('#pica').click()});
-                j('.z_body_5').click(function(){
+                j('.z_body_5').bind('click',function(){
                     var v = j('.z_body_2_text1').val(),z=j('.z_body_text2').val();
-                    if(!v || v=='标题')return;
-                    if(!z)return;
+                    if(!v || v=='标题'){
+                        show_alert(3,'标题不能为空');
+                        return;
+                    }
+                    if(!z){show_alert(3,'内容不能为空');return;}
+                    if(!j('[type=file]').val()){show_alert(3,'图片不能为空');return;}
+                    j('.z_body_5').unbind('click');
                     j.post('/app/team/new_activity',{title:v,content:z,raw_base64_picz:j('.z_body_4_1').attr('src'),large:1,raw:1,medium:1,box:'team'},function(d){
                         if(d.code==200)show_alert(1,'创建成功',function(){
                             location = '/app/team/myactivity';

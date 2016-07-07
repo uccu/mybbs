@@ -26,14 +26,14 @@
             </div>
             <div class="u_b_z_2_2">
             	<img src="/pic/{team.thumb}.small.jpg" class="u_b_z_2_2_tu1">
-            	<div class="u_b_z_2_fg cp">更换头像</div>
+            	<div class="u_b_z_2_fg cp" data-toggle="tooltip" data-placement="right" title="推荐 140x140">更换头像</div>
                 <input type="file" style="display:none" id="changeAvatar" />
                 <script>
                     j('.u_b_z_2_fg').click(function(){
                         j('#changeAvatar').click();
                     });j('#changeAvatar').change(function(){
                         if(!j(this).val())return;
-                        var v = {avatar:1,small:1,box:'team',auto:1},f = packFormData(j(this),v);
+                        var v = {avatar:1,small:1,box:'team',auto:1,cut:1,circle:1},f = packFormData(j(this),v);
                         j.ajax({
                             data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
                             success:function(d){
@@ -76,7 +76,7 @@
 		<div class="u_b_z_4">
         	<div class="u_b_z_4_left">社团封面</div>
             <div class="u_b_z_4_1"><img src="/pic/{team.pic}.medium.jpg" class="u_b_z_4_1_tu1">
-            	<div class="u_b_z_4_fg">更换封面</div>
+            	<div class="u_b_z_4_fg" data-toggle="tooltip" data-placement="right" title="推荐 600x375">更换封面</div>
                 <input type="file" style="display:none" id="changePic" />
                 <script>
                     j('.u_b_z_4_fg').click(function(){
