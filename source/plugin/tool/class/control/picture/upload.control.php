@@ -86,45 +86,47 @@ class upload extends \control\ajax{
 
     }
     function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false,$cut=false,$circle=false){
-        if($circle){
-            if($w0<$h0){
-                $w=$h=$w0;
-            }else{
-                $w=$h=$h0;
-            }
-        }
         $w1 = $w0;$h1=$h0;
-        if($w0>$w){
-            $h0 = $h0*$w/$w0;
-            $w0 = $w;
-            if($cut){
-                if($h0<$h){
-                    $w0=$w1;$h0=$h1;
-                    if($h0>$h){
-                        $w0 = $w0*$h/$h0;
-                        $h0 = $h;
-                    }
+        if($circle){
+            $h=$w;
+            if($w0<=$h0){
+                if($w0<=$w){
+                    $h=$w=$w0;
+                }else{
+                    $h0 = $h0*$w/$w0;
+                    $w0 = $w;
                 }
+            }elseif($w0>=$h0){
+                if($h0<=$w){
+                    $h=$w=$h0;
+                }else{
+                    $w0 = $w0*$w/$h0;
+                    $h0 = $w;
+                }    
             }
-        }elseif($cut && $h0>$h){
-            $w0 = $w0*$h/$h0;
-            $h0 = $h;
+        }elseif(!$cut){
+            if($w0>$w){
+                $h0 = $h0*$w/$w0;
+                $w0 = $w;
+            }
+            if(!$autoHeight && $h0>$h){
+                $w0 = $w0*$h/$h0;
+                $h0 = $h;
+            }
         }
-        if(!$autoHeight && $h0>$h){
-            $w0 = $w0*$h/$h0;
-            $h0 = $h;
-        }
-        if($a)$image = imagecreatetruecolor($w0, $h0);
-        elseif($cut){
+        if($cut){
 
-            $image = imagecreatetruecolor($w<$w0?$w:$w0, $h<$h0?$h:$h0);
+            $image = imagecreatetruecolor($w, $h);
         }
+        elseif($a)$image = imagecreatetruecolor($w0, $h0);
         else $image = imagecreatetruecolor($w, $h);
         //imagealphablending($image,false);
         //imagesavealpha($image,true);
         $color = imagecolorallocatealpha($image, 255, 255, 255,127);
         imagefill($image, 0, 0, $color);
-        if($a)imagecopyresampled($image, $m,0,0,0,0,$w0,$h0,$w1,$h1);
+        if($cut){
+            imagecopyresampled($image, $m,($w-$w0)/2,($h-$h0)/2,0,0,$w0,$h0,$w1,$h1);
+        }elseif($a)imagecopyresampled($image, $m,0,0,0,0,$w0,$h0,$w1,$h1);
         else imagecopyresampled($image, $m,($w-$w0)/2,($h-$h0)/2,0,0,$w0,$h0,$w1,$h1);
         imagejpeg($image,$src,75);
         imagedestroy($image);
