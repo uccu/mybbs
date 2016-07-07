@@ -111,7 +111,7 @@ j('.l_body_right').click(function(){
     cl(now);cn(now);ct(now);ca(now);cd(now);
 });
 j('.l_lunbo_z_3').click(function(){
-    now = j(this).attr('to');
+    now = parseInt(j(this).attr('to'));
     cl(now);cn(now);ct(now);ca(now);cd(now);
 });
 j('.pre_x').click(function(){

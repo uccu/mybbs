@@ -17,14 +17,23 @@ class Album extends api\ajax{
     }
 
     function index($aid){
+        $this->picture->add_table(array(
+            'character'=>array('_on'=>'cid','pid','name'=>'cname','_mapping'=>'c','_join'=>'LEFT JOIN'),
+            'provenance'=>array('_on'=>'c.pid=p.pid','name'=>'pname','_mapping'=>'p','_join'=>'LEFT JOIN')
+        ));
         $this->g->template['album'] = $album = $this->_album($aid);
         if(!$album)$this->error(401,'相册不存在');
         $this->album->data(array('view'=>array('add',1)))->save($aid);
         $p = $this->_picture($aid);
         $this->g->template['pictures'] = &$p;
         $this->g->template['count'] = count($p);
+        
         foreach($p as &$v){
+            if($v['cname'] && $v['tag'])$v['tag'] .= ','.$v['cname'];
+            if($v['pname'] && $v['tag'])$v['tag'] .= ','.$v['pname'];
+            
             $v['tag'] = $v['tag']?explode(',',$v['tag']):array();
+            
         }
         $this->g->template['title'] = $album['title'];
         $this->g->template['keywords'] = 'COS,炫漫';
