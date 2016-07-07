@@ -30,7 +30,7 @@
                             j('#changeAvatar').click();
                         });j('#changeAvatar').change(function(){
                             if(!j(this).val())return;
-                            var v = {avatar:1,box:'user',auto:1,medium:1,cut:1},f = packFormData(j(this),v);
+                            var v = {avatar:1,box:'user',auto:1,medium:1,cut:1,circle:1},f = packFormData(j(this),v);
                             j.ajax({
                                 data:f,contentType:false,processData:false,type:'post',url:'/app/picture/upload',
                                 success:function(d){
