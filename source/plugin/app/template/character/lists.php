@@ -1,4 +1,9 @@
  <!--{subtemplate _header}-->
+  <header nav="1"></header>
+ <style>
+ .ip_1_2_3{float:left}
+.ip_1_2_4{float:left;width:auto}
+ </style>
 <div class="a_cos_top">
 	<div class="a_cos_top_con">
     	<div class="a_cos_top_con_1">COS角色</div>
@@ -14,8 +19,9 @@
         	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"></div></a>
             <div class="ip_tu_1_2">
             	<div class="ip_wenzi_left">{c.name}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"></div>
                 <div class="ip_1_2_4">{c.fans}</div>
+                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"></div>
+                
             </div>
             <div class="ip_weizi_bot">出自：{c.pname}</div>
         </div>

@@ -1,8 +1,11 @@
  <!--{subtemplate _header}-->
+  <header nav="1"></header>
  <style>
 .ip_tu_1s{margin:8px}
 .ip_tu_zong{height:auto;overflow:hidden}
 .tj_z1{height:;min-height:650px}
+.ip_1_2_3{float:left}
+.ip_1_2_4{float:left;width:auto}
  </style>
 <div class="a_cos_top">
 	<div class="b_cos_top_con">
@@ -21,8 +24,9 @@
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
-                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"></div>
                 <div class="ip_1_2_4">{c.fans}</div>
+                <div class="ip_1_2_3"><img src="images/xqq_08.png" class="ip_tu2"></div>
+                
             </div>
         </div>
         

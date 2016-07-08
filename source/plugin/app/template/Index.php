@@ -12,7 +12,7 @@
                 <div class="jr_2">
                     <div class="jr_2_1">{b.title}</div>
                     <div class="jr_2_2">{b.content}</div>
-                    {if $b['button']}<a href="{b.href}"><div class="jr_2_3">{b.button}</div></a>{/if}
+                    {if $b['button']}<a href="{b.href}" target="_blank"><div class="jr_2_3">{b.button}</div></a>{/if}
                 </div>
                 <div class="jr_3"><img src="images/sy_06.png" /></div>
             </div>
@@ -193,7 +193,7 @@
     </div>
 </div>
    
-<div class="tj_z1">
+<div class="tj_z1" style="height:290px">
     <div class="ip_tu_zong">
     	<div class="ip_tu_1s">
         	<div class="ip_tu_1_1">
@@ -237,7 +237,7 @@
             </div>
             
         </div>
-        <div class="ip_tu_2s_1">
+        <div class="ip_tu_2s_1" style="height:auto">
         
         	<div class="geren_left">4</div>
             <div class="geren_right">

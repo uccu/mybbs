@@ -2,7 +2,7 @@
 <header nav="2"></header>
 <style>
 .team_cover{
-    width: 600px;
+    width: 660px;
     position: absolute;
     right: 0;
     top: 0;

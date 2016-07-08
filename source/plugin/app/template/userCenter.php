@@ -27,7 +27,7 @@ function nh_xiangce(){
 
 </script>
 <div class="nh_top">
-	<div class="nh_top_z">
+	<div class="nh_top_z pr">
     	<div class="nh_top_z_left">
         	<div class="nh_top_z_left1"><div><font size="+2">{if $rank < 100 }{rank}{else}99+{/if}</font><br />排行榜</span></div></div>
             
@@ -89,9 +89,9 @@ function nh_xiangce(){
 				</div>
             {/if}
         </div>
-        <div class="nh_top_z_right" style="background-image:url(/pic/{coser.cover}.large.jpg);background-size:cover;background-position:center">
+        <div class="nh_top_z_right" style="position:absolute;background-image:url(/pic/{coser.cover}.large.jpg);background-size:cover;background-position:center;right:0;top:0">
 			{if $me['uid'] == $coser['uid']}
-        	<div class="nh_top_z_right_fg cp" data-toggle="tooltip" data-placement="right" title="推荐 600x375"></div>
+        	<div class="nh_top_z_right_fg cp" data-toggle="tooltip" data-placement="right" title="推荐 660x375"></div>
 			<input type="file" style="display:none" name="cover" />
 			<script>
 			j('.nh_top_z_right_fg').click(function(){
