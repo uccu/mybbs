@@ -83,6 +83,8 @@ class UserCenter extends api\ajax{
         model('user_follow')->data($data)->add();
         $this->_correntCount($uid);
         $this->_correntCount($this->user->uid);
+        $sql = 'UPDATE `'.$this->g->config['prefix'].'character` SET fans = fans + 1 WHERE cid IN (SELECT cid FROM `'.$this->g->config['prefix'].'picture` WHERE uid = '.$uid.')';
+		model('logic')->query($sql);
         $this->success();
     }
     function _correntCount($uid){
