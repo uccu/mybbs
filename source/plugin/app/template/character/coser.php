@@ -4,8 +4,8 @@
 .ip_tu_1s{margin:8px}
 .ip_tu_zong{height:auto;overflow:hidden}
 .tj_z1{height:;min-height:650px}
-.ip_1_2_3{float:left}
-.ip_1_2_4{float:left;width:auto}
+.ip_1_2_3{float:right}
+.ip_1_2_4{float:right;width:auto}
  </style>
 <div class="a_cos_top">
 	<div class="b_cos_top_con">
