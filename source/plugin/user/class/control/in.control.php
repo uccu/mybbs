@@ -157,6 +157,7 @@ class in extends \control\ajax{
         $phone = post('phone','');
         $pwd = post('pwd','');
         $captcha = post('captcha','');
+        $adviser = post('adviser','');
         if(!$phone || !$pwd || !$captcha)
             $this->error(401,'参数错误');
         $this->captcha->_check_captcha($captcha);
@@ -170,6 +171,12 @@ class in extends \control\ajax{
         $data['password'] = $pwd;
         $data['ctime'] = $time;
         $data['salt'] = $salt;
+        if($adviser){
+            $adviser = $this->model->find($adviser);
+            if($adviser && $adviser['user_type']==1){
+                $data['adviser'] = $adviser['uid'];
+            }
+        }
         if($invate = post('invate'))$data['invate'] = $invate;
         $data['nickname'] = '用户_'.$time;
         $data['avatar'] = 'noavatar.png';
