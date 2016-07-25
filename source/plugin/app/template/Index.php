@@ -55,7 +55,7 @@
         <!--{loop $character $k=>$c}-->
         <!--{if !$k}-->
     	<div class="ip_tu_1">
-        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1" style="background-image:url(pic/{c.thumb}.medium.jpg);background-position:center;background-size:cover;height: 280px;"></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
@@ -66,7 +66,7 @@
         </div>
         <!--{else}-->
         <div class="ip_tu_2">
-        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"/></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1" style="background-image:url(pic/{c.thumb}.medium.jpg);background-position:center;background-size:cover;height: 280px;"></div></a>
             <div class="ip_tu_1_2">
                 <div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_4" style="float:right;width:auto">{c.fans}</div>
@@ -163,25 +163,27 @@
         <div class="sp_z_2" style="text-shadow: 0 0 10px #000;">
         	<div class="sp_z_2_1">赛事视频</div>
             <!--{loop $contestVideo $v}-->
-            <div class="sp_z_2_2">
-            	<a href="/app/video/index/{v.vid}"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
+            <a href="/app/video/index/{v.vid}">
+            <div class="sp_z_2_2 bips" style="background-image:url(pic/{v.thumb}.medium.jpg)">
             	<div class="sp_z_2_2_1">
                 	<div class="sp_z_2_2_1_text">{v.title}</div>
                     <div class="sp_z_2_2_1_tu1"><img src="images/xq_71.png" /></div>
-                </div></a>
+                </div>
             </div>
+            </a>
             <!--{/loop}-->
         </div>
         <div class="sp_z_2" style="text-shadow: 0 0 10px #000;">
         	<div class="sp_z_2_1">明星视频</div>
             <!--{loop $video $v}-->
-            <div class="sp_z_2_2">
-            	<a href="/app/video/index/{v.vid}"><img src="pic/{v.thumb}.medium.jpg" class="sp_tu1"/>
+            <a href="/app/video/index/{v.vid}">
+            <div class="sp_z_2_2 bips" style="background-image:url(pic/{v.thumb}.medium.jpg)">
             	<div class="sp_z_2_2_1">
                 	<div class="sp_z_2_2_1_text">{v.title}</div>
                     <div class="sp_z_2_2_1_tu1"><img src="images/xq_71.png" /></div>
-                </div></a>
+                </div>
             </div>
+            </a>
             <!--{/loop}-->
         </div>
     </div>
@@ -284,8 +286,9 @@
 </div>
 <div class="tuanti">
 	<div class="tuanti_1" style="text-shadow: 0 0 10px #000;">
-    	<div class="tuanti_1_1">
-        	<a href="/app/teamcenter/index/{team.0.tid}"><img src="pic/{team.0.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+        <!--1-->
+        <a href="/app/teamcenter/index/{team.0.tid}">
+    	<div class="tuanti_1_1 bips" style="background-image:url(pic/{team.0.pic}.medium.jpg)">
         	<div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_11.png" /><div class="tuanti_1_fg_1">1</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -293,10 +296,12 @@
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
                     {team.0.fans}
                 </div>
-            </div></a>
+            </div>
         </div>
-        <div class="tuanti_1_2">
-            <a href="/app/teamcenter/index/{team.1.tid}"><img src="pic/{team.1.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+        </a>
+        <!--2-->
+        <a href="/app/teamcenter/index/{team.1.tid}">
+        <div class="tuanti_1_2 bips" style="background-image:url(pic/{team.1.pic}.medium.jpg)">
             <div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">2</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -304,10 +309,12 @@
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
                     {team.1.fans}
                 </div>
-            </div></a>
+            </div>
         </div>
-        <div class="tuanti_1_2">
-            <a href="/app/teamcenter/index/{team.2.tid}"><img src="pic/{team.2.pic}.medium.jpg" class="tuanti_1_1_tu1"/>
+        </a>
+        <!--3-->
+        <a href="/app/teamcenter/index/{team.2.tid}">
+        <div class="tuanti_1_2 bips" style="background-image:url(pic/{team.2.pic}.medium.jpg)">
             <div class="tuanti_1_1_dw">
             	<div class="tuanti_1_1_dw_1"><img src="images/qz_14.png" /><div class="tuanti_1_fg_1">3</div></div>
                 <div class="tuanti_1_1_dw_2">
@@ -315,12 +322,13 @@
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
                     {team.2.fans}
                 </div>
-            </div></a>
+            </div>
         </div>
+        </a>
     </div>
     <div class="tuanti_2" style="text-shadow: 0 0 10px #000;">
-    	<div class="tuanti_2_1">
-        	<a href="/app/teamcenter/index/{team.3.tid}"><img src="pic/{team.3.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
+    	<a href="/app/teamcenter/index/{team.3.tid}">
+        <div class="tuanti_2_1 bips" style="background-image:url(pic/{team.3.pic}.medium.jpg)">
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2">4</div></div>
                 <div class="tuanti_1_1_dw_2s">
@@ -328,12 +336,13 @@
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
                     {team.3.fans}
                 </div>
-            </div></a>
+            </div>
         </div>
+        </a>
         <!--{loop $team $k=>$t}-->
         {if $k>3}
-        <div class="tuanti_2_2">
-        	<a href="/app/teamcenter/index/{t.tid}"><img src="pic/{t.pic}.medium.jpg" class="tuanti_1_1_tu2"/>
+        <a href="/app/teamcenter/index/{t.tid}">
+        <div class="tuanti_2_2 bips" style="background-image:url(pic/{t.pic}.medium.jpg)">
         	<div class="tuanti_1_1_dws">
             	<div class="tuanti_1_1_dw_1s"><img src="images/qz_19.png" /><div class="tuanti_1_fg_2"><!--{eval echo $k+1}--></div></div>
                 <div class="tuanti_1_1_dw_2s">
@@ -341,8 +350,9 @@
                     <img src="images/sy_11.png" class="tuanti_1_1_dw_2_tu1"/>&nbsp;
                     {t.fans}
                 </div>
-            </div></a>
+            </div>
         </div>
+        </a>
        	{/if}
         <!--{/loop}-->
     </div>

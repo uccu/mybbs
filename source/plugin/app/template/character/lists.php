@@ -16,7 +16,7 @@
 	<div class="ip_tu_zs">
 <!--{loop $list $c}-->
     	<div class="ip_tu_1" style="    margin: 8px;">
-        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1"><img src="/pic/{c.thumb}.medium.jpg" class="ip_tu1" style="height: 280px;"></div></a>
+        	<a href="/app/character/coser/{c.cid}"><div class="ip_tu_1_1 bips" style="background-image:url(pic/{c.thumb}.medium.jpg);height: 280px;"></div></a>
             <div class="ip_tu_1_2">
             	<div class="ip_wenzi_left">{c.name}</div>
                 <div class="ip_1_2_4">{c.fans}</div>

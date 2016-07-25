@@ -10,7 +10,9 @@ appearance:none;
 -moz-appearance:none;
 -webkit-appearance:none;
 }
-
+.bips{
+	background-size:cover !important;background-position:center !important
+}
 .show_alert_box{top:0;left:0;opacity:0;display:table;position: fixed;z-index:20;width: 100%;height: 100%;background-color:rgba(0,0,0,0.5)}
 .show_alert_box>div{display: table-cell;vertical-align: middle;text-align: center}
 .show_alert_box>div>span{font-size: 20px;position:relative;padding:30px 70px 30px 100px;z-index: 21;background-color: #FFF;border-radius: 5px;border: #f8f8f8 solid 2px;}

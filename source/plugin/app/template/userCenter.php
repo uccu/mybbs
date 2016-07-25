@@ -176,13 +176,15 @@ function nh_xiangce(){
 			<h1 class="text-center" style="padding-top:50px;color:#ccc">该用户很懒，没有上传任何东西~~</h1>
 		{/if}
 			<!--{loop $video $k=>$v}-->
-				<div class="d_shipin_1_1" style="margin-bottom:20px;text-shadow: 0 0 10px #000;">
-					<a href="/app/video/index/{v.vid}"><img src="/pic/{$v.thumb}.medium.jpg"  class="d_shipin_1_1_tu1"/>
+			<a href="/app/video/index/{v.vid}">
+				<div class="d_shipin_1_1 bips" style="margin-bottom:20px;text-shadow: 0 0 10px #000;background-image:url(/pic/{$v.thumb}.medium.jpg)">
+					
 					<div class="t_z_2_2_1">
 						<div class="t_z_2_2_1_text">{$v.title}</div>
 						<div class="t_z_2_2_1_tu1"><img src="/images/xq_71.png" /></div>
-					</div></a>
+					</div>
 				</div>
+			</a>
 			<!--{/loop}-->
             
         </div>

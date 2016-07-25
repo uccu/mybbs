@@ -12,7 +12,7 @@
 		<div class="k_shetuan_z">
            <!--{loop $activity $a}-->
             <div class="e_st_z_1">
-                <a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1" style="background-image:url(/pic/{a.pic}.medium.jpg);background-size:cover"></div></a>
+                <a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_1 bips" style="background-image:url(/pic/{a.pic}.medium.jpg);background-size:cover"></div></a>
                 <div class="e_st_z_1_2">{a.title}</div>
                 <a href="/app/activity/index/{a.aid}"><div class="e_st_z_1_3">查看详情</div></a>
             </div>

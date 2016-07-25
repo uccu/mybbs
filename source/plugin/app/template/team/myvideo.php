@@ -14,7 +14,7 @@
             <!--{loop $list $v}-->
             <div class="d_shipin_1_1" style="margin-bottom:20px">
             	<a href="/app/video/index/{v.vid}">
-            	<div class="t_z_2_2_1" style="background-image:url(/pic/{v.thumb}.medium.jpg);background-size:cover">
+            	<div class="t_z_2_2_1 bips" style="background-image:url(/pic/{v.thumb}.medium.jpg);background-size:cover">
                 	<div class="t_z_2_2_1_text">{v.title}</div>
                     <div class="t_z_2_2_1_tu1"><img src="images/xq_71.png"></div>
                 </div></a>
