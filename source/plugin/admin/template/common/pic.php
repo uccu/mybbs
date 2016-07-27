@@ -102,12 +102,12 @@
                     <div class="form-group">
                         <label for="exampleInputFile">链接类型</label>
                         <select class="form-control" name="type">
-                            <option value="article">资料</option>
-                            <option value="forum">帖子</option>
+                            <!--<option value="article">资料</option>
+                            <option value="forum">帖子</option>-->
                             <option value="project">项目</option>
                             <option value="product">产品</option>
-                            <option value="shop">商品</option>
-                            <option value="link">外部链接</option>
+                            <!--<option value="shop">商品</option>
+                            <option value="link">外部链接</option>-->
                             <option value="none" selected=“selected”>无</option>
                         </select>
                      </div>

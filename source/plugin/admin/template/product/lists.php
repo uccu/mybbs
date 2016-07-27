@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <label>缩略图</label>
-                        <input type="file" id="dthumb" data-circle="1" />
+                        <input type="file" id="dthumb"  />
                         <p class="help-block help-block1"></p>
                         <img id="pic_dthumb" class='img-responsive' style="width:100px"  />
                     </div>
