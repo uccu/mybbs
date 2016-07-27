@@ -3,7 +3,7 @@
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
         <li><a href="common">基本设置</a></li>
-        <li><a href="common/area">地区列表</a></li>
+        <li><a href="common/qa">QA列表</a></li>
     </ol>
     <div class="alert_box"></div>
 </div>
@@ -14,46 +14,36 @@
             <a href="common/pic" class="list-group-item">切图设置</a>
             <a href="common/ad" class="list-group-item">社区广告</a>
             <a href="common/shop" class="list-group-item">商城切图</a>
-            <a class="list-group-item active cd">地区列表</a>
+            <a href="common/area" class="list-group-item">地区列表</a>
             <a href="common/work" class="list-group-item">工作列表</a>
             <a href="common/tag" class="list-group-item">TAG列表</a>
-            <a href="common/qa" class="list-group-item">QA列表</a>
+            <a class="list-group-item active cd">QA列表</a>
         </div>
        
     </div>
     <div class="col-md-10">
-       <div class="panel panel-default">
-            <div class="panel-body form-inline">
-                 <div class="form-group" style="margin-right:10px">
-                    <label for="exampleInputName2">省市</label>
-                    <input type="text" class="form-control" id="example1" placeholder="">
-                </div>
-                <div class="form-group" style="margin-right:10px">
-                    <label for="exampleInputEmail2">城市</label>
-                    <input type="text" class="form-control" id="example2" placeholder="">
-                </div>
-                <button type="submit" class="btn btn-default search">搜索</button>
-            </div>
+        <div class="panel panel-default">
+            
         </div>
         <div class="panel panel-default">
             <div class="panel-body">
                 <table class="text-center table table-striped sortable-theme-bootstrap" data-sortable>
                     <thead>
                         <tr>
-                            <th class="text-center">省市</th>
-                            <th class="text-center">城市</th>
-                            <th class="text-center">区县</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">问题</th>
+                            
                             <th class="text-center">操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!--{loop $list $p}-->
                         <tr>
-                            <td>{p.province}</td>
-                            <td>{p.city}</td>
-                            <td>{p.district}</td>
+                            <td>{p.qid}</td>
+                            <td>{p.title}</td>
+                            
                             <td>
-                                <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">修改</button>-->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">详情</button>
                                 <button type="button" style="margin-left:10px" class="btn btn-danger del">删除</button>
                             </td>
                         </tr>
@@ -61,7 +51,7 @@
                     </tbody>
                 </table>
                 <div class="text-right fr">
-                    <button type="button" class="btn btn-success add" data-toggle="modal" data-target="#myModal">添加</button>
+                    <button type="button" class="btn btn-success add" data-toggle="alert" data-target="#alert">添加</button>
                     
                 </div>
                 <nav>
@@ -82,20 +72,20 @@
             </div>
             <div class="modal-body">
                 <form>
-                    
                     <div class="form-group">
-                        <label for="move">省市</label>
-                        <input type="text" class="form-control" name="province" >
+                        <label for="move">ID</label>
+                        <input type="text" class="form-control" disabled="disabled" id="qid" name="qid2">
+                        <input type="hidden" class="form-control" id="qid" name="qid">
                     </div>
                     <div class="form-group">
-                        <label for="move">城市</label>
-                        <input type="text" class="form-control" name="city" >
+                        <label for="move">问题</label>
+                        <input type="text" class="form-control" name="title">
                     </div>
                     <div class="form-group">
-                        <label for="move">区县</label>
-                        <input type="text" class="form-control" name="district" >
+                        <label for="value">答案</label>
+                        <textarea class="form-control" name="des" ></textarea>
                     </div>
-                    
+                   
                 </form>
             </div>
             <div class="modal-footer">
@@ -106,33 +96,63 @@
     </div>
 </div>
 <script>
-   var goods = 'area',control = 'common';
-   j('.search').click(()=>{
-        var a1=j('#example1').val(),a2=j('#example2').val();
-        a1=a1?a1:0;a2=a2?a2:0;
-        location = control+'/area/'+a1+'/'+a2
-    });
+   var goods = 'qa',control = 'common';
+
    j('#myModal').on('show.bs.modal',function(e){
-        var b=j(e.relatedTarget),t=b.parent().parent(),m=j(this);
-        m.find('input').val('');
-        m.find('[name=province]').val(t.find('td:eq(0)').text());
-        m.find('[name=city]').val(t.find('td:eq(1)').text());
-        m.find('[name=district]').val(t.find('td:eq(2)').text());
+        var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
+        j.post(location.origin+'/_admin/'+control+'/get_'+goods+'_detail/'+id,(d)=>{
+            for(var k in d.data){
+                m.find('[name='+k+']').val(d.data[k]);
+                m.find('[name='+k+'2]').val(d.data[k]);
+                m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
+            }
+            m.find('[name=interest]').attr('checked',false);
+            for(var k in d.data.interest)m.find('[name=interest][value='+d.data.interest[k]+']').click();
+        },'json');
         m.find('.help-block').html('');
     });
-   
+   j('#myModal [type=file]').change(function(){
+        var that = j(this),id = that.attr('id'),f = that.attr('data-circle') ? {circle:1} : {},
+        form = packFormData('#'+id,f);
+        j.ajax({
+            url:location.origin+'/admin/common/up_pic/'+goods,
+            data:form,
+            contentType:false,
+            processData:false,
+            type:'post',
+            beforeSend:()=>
+                that.parent().find('.help-block').html('uploading file waiting...')
+            ,success:d=>{
+                if(d.code!==200){
+                    that.parent().find('.help-block').html('upload failed');return
+                }
+                that.parent().find('.help-block').html('upload successed');
+                j('#myModal [name='+id+']').val(d.data[0]);
+                j('#myModal [name='+id+'2]').val(d.data[0]);
+                that.parent().find('img').attr('src',location.origin+'/pic/'+d.data[0]);
+            }
+        })
+    });
     j('#myModal .save').click(function(){
         var s=j(this),d=j('#myModal form').serializeArray();
+        for(e in d){d[e].name = d[e].name=='interest'?'interest[]':d[e].name}
         j.post(control+'/change_'+goods,d,function(){
             location.reload(true)
         })
     });
-
+    j('.add').click(function(){
+        j('.alert_box').html('').append('<div id="alert" class="alert alert-success alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认添加？</h4><p></p><p><button type="button" class="btn btn-success yes" style="margin-right:10px">添加</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
+        j('.alert').slideDown().find('.yes').one('click',function(){
+            j.post(control+'/add_'+goods,function(){
+                location.reload(true)
+            })
+        })
+    });
     j('.del').click(function(){
-        var t=j(this).parent().parent(),province=t.find('td:eq(0)').text(),city=t.find('td:eq(1)').text(),district=t.find('td:eq(2)').text();
+        var id=j(this).parent().parent().find('td:eq(0)').text();
         j('.alert_box').html('').append('<div id="alert" class="alert alert-danger alert-dismissible fade in dn" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4>确认删除？</h4><p></p><p><button type="button" class="btn btn-danger yes" style="margin-right:10px">删除</button><button type="button" class="btn btn-default" data-dismiss="alert">取消</button></p></div>');
         j('.alert').slideDown().find('.yes').one('click',function(){
-            j.post(control+'/del_'+goods,{province:province,city:city,district:district},function(){
+            j.post(control+'/del_'+goods+'/'+id,function(){
                 location.reload(true)
             })
         })

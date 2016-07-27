@@ -17,6 +17,7 @@
             <a href="common/area" class="list-group-item">地区列表</a>
             <a class="list-group-item active cd">工作列表</a>
             <a href="common/tag" class="list-group-item">TAG列表</a>
+            <a href="common/qa" class="list-group-item">QA列表</a>
         </div>
        
     </div>

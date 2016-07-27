@@ -49,6 +49,31 @@ class common extends \control\ajax{
         table('config')->template['list'] = $list;
         T('admin:common/work');
     }
+    function qa(){
+        $list = model('tool:qa')->limit(9999)->order(array('qid'=>'DESC'))->select();
+        table('config')->template['list'] = $list;
+        T('admin:common/qa');
+    }
+    function change_qa(){
+        $m = model('tool:qa')->data($_POST)->add(true);
+        $this->success($m);
+    }
+    function del_qa($id){
+        $m = model('tool:qa')->where(array('qid'=>$id))->remove();
+        $this->success($m);
+    }
+    function add_qa(){
+        $data=array(
+                'title'=>'问题',
+        );
+        $d = model('tool:qa')->data($data)->add();
+        $this->success($d);
+    }
+    function get_qa_detail($id){
+        $d = model('tool:qa')->find($id);
+        if(!$d)$this->error(411,'获取失败');
+        $this->success($d);
+    }
     function change_work(){
         $m = $this->work->data($_POST)->add(true);
         $this->success($m);
