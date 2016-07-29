@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <label>缩略图</label>
-                        <input type="file" id="athumb" data-circle="1" />
+                        <input type="file" id="athumb"  />
                         <p class="help-block help-block1"></p>
                         <img id="pic_athumb" class='img-responsive' style="width:100px"  />
                     </div>
