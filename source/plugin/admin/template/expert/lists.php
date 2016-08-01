@@ -121,6 +121,7 @@
     </div>
 </div>
 <script>
+    if(folder[5])j('.add').hide();
    var goods = 'expert',control = 'expert';
    j('.search').click(()=>{
         var a1=j('#example1').val();

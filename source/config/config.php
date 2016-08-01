@@ -4,8 +4,8 @@ if(!defined('IN_PLAY')) {
 }
 $config=array(
 	'GETTER_SEPARATOR'=>'/',
-	'BASE_URL'=>'http://a.baka/',
-    'HOST'=>'a.baka',
+	'BASE_URL'=>'http://'.$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT']==80?'':':'.$_SERVER['SERVER_PORT']).'/', 
+    'HOST'=>$_SERVER['SERVER_NAME'], 
     'LOGIN_SALT'=>'gtiekFamdojga4owied7',
 	'LIMIT_SORT_LEN'=>2,
 	'CHECK_IP'=>0,

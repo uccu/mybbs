@@ -113,7 +113,7 @@
                     </div>
                     <div class="form-group">
                         <label>展示图</label>
-                        <input type="file" id="jpic" />
+                        <input type="file" id="amedia" />
                         <p class="help-block help-block2"></p>
                         <img id="pic_amedia" class='img-responsive' style="width:100px"  />
                     </div>

@@ -1,0 +1,1 @@
+php D:\phpStudy\WWW\auto.php
