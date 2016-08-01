@@ -8,11 +8,58 @@ class captcha extends \control\ajax{
     function _get_user(){
         return control('user:base','api');
     }
-    function get_captcha(){
-        $this->success();
+    function get_captcha($phone=''){
+		$code = rand(1000,9999);
+		$phone = post('phone',$phone);
+		$ch=curl_init();
+		$headers = array();
+        $headers[] = 'X-Apple-Tz: 0';
+        $headers[] = 'X-Apple-Store-Front: 143444,12';
+        $headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+        $headers[] = 'Accept-Encoding: gzip, deflate';
+        $headers[] = 'Accept-Language: en-US,en;q=0.5';
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Content-type:text/xml; charset=utf-8';
+        $headers[] = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0';
+        $headers[] = 'X-MicrosoftAjax: Delta=true';
+		$p = '<?xml version="1.0" encoding="utf-8"?>
+<mtpacket>
+  <cpid>4149</cpid>
+  <userpass>4764782a16498b3fa3c5c4871c83b137</userpass>
+  <port>531800</port>
+  <cpmid>0'.time().'</cpmid>
+  
+  <mobile><![CDATA['.$phone.']]></mobile>
+  <message><![CDATA[【塔莉亚】您好：本次验证码是'.$code.'，请妥善保管，勿泄露给他人！]]></message>
+  <respDataType>JSON</respDataType>
+</mtpacket>';
+/*$p = '<?xml version="1.0" encoding="utf-8"?>
+<property>
+  <cpid>10003</cpid>
+  <userpass>D5CDFHDFHDF82FE4EB6</userpass>
+  <port>188</port>
+  <respDataType>JSON</respDataType>
+</property>
+';*/
+        curl_setopt($ch, CURLOPT_URL, 'http://api.ict-china.com/do/smsApi!mt.shtml');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		//curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($p));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $p);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$output = curl_exec($ch);
+		curl_close($ch);
+        session_start();
+		$_SESSION['captcha'] = $code;
+		$z = json_decode($output,true);
+		$z['phone'] = $phone;
+        $this->success($z);
     }
     function _check_captcha($a){
+		session_start();
+		if($_SESSION['captcha']==$a)
         return true;
+		else $this->error(501,'验证码错误');
     }
     function _get_setting(){
         return model('user:score_setting');

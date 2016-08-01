@@ -57,7 +57,7 @@ class store extends \control\ajax{
     }
     function get_expert_list($sid=0){
         $where['sid'] = post('sid',$sid,'%d');
-        $m = $this->expert->where($where)->limit(9999)->select();
+        $m = $this->expert->where($where)->limit(9999)->order(array('eid'=>'DESC'))->select();
         $this->success($m);
     }
     function booking(){

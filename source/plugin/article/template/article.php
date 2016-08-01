@@ -12,7 +12,7 @@
 </div>
 
 <div class="container">
-    <p>{g.description}</p>
+    <p>{g.template.description}</p>
     
 </div>
 <!--{subtemplate tool:footer}-->
