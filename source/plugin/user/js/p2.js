@@ -1,5 +1,5 @@
 j(function(){
-    alert('2');
+
     folder =location.pathname.split("/");
   j('[name=invate]').val(folder[3]);
   j('.register').click(function(){
