@@ -37,14 +37,15 @@ class init{
 		}
 		
 		$this->g->template['baseurl'] = $this->g->config['BASE_URL'];
-        if($cache = model('cache'))$this->g->template['cacheid'] = $cache->get('cacheid');
+        
 		if(!$c = control()){
 			if($file = template(false)){
-				$g=(array)$this->g;include $file;
+				$g=(array)$this->g;foreach($g['template'] as $k=>$v)$$k = $v;include $file;
 			}
             //else{var_dump($c);die();}
 			else header('Location: /404.html');
 		}else{
+			if(isset($this->g->config['prefix']))if($cache = model('cache'))$this->g->template['cacheid'] = $cache->get('cacheid');
 			if(METHOD_NAME){
 				if(!method_exists($c,METHOD_NAME) || preg_match('/^[^a-z]$/i',$this->g->method[0]))header('Location: /404.html');
 				$getter = $_REQUEST['getter'];
