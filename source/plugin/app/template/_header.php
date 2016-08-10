@@ -19,5 +19,28 @@
       <script src="//apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
       <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<!--{eval addjs('smooth')}-->
 </head>
 <body>
+<!--  头部导航  -->
+<div class="header pa">
+    <!--  设置1200px  -->
+	<div class="container mediaz">
+        <!--  logo  -->
+		<div class="logo fl"><a href="#"><img src="pic/logo.png" width="144" height="58" alt="logo"></a></div>
+		<!--  导航项目  -->
+		<ul class="list-inline nav_menu fr t">
+			<li><a>涵予观点</a></li>
+            <li><a>网站开发</a></li>
+            <li><a>APP开发</a></li>
+            <li><a>AR/VR开发</a></li>
+            <li><a>案例展示</a></li>
+            <li><a>app/网站维护</a></li>
+            <li><a>合作流程</a></li>
+            <li><a>联系我们</a></li>
+        </ul>
+        <!--  主页  -->
+        <div class="nav_home fr t-3"><a href="index.do"><span class="dib"></span></a></div>
+        
+	</div>
+</div>
