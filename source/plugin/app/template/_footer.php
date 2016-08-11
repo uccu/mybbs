@@ -1,4 +1,8 @@
-
+<style type="text/css">
+.f_c_t_11{width:70px;height:92px;float:left;margin-right:20px;}
+.f_c_t_11_1 img{width:70px;height:70px;}
+.f_c_t_11_2{width:70px;height:20px; line-height:20px; text-align:center; color:#ccc;}
+</style> 	
 <div class="fooder">
 	<div class="fooder_content">
     	<div class="fooder_content_top">
@@ -25,20 +29,18 @@
           </div>
             <div class="f_c_t_3">
             	<div class="f_c_t_top">关注我们</div>
-                <div class="f_tu">
-                	<a href="#"><img src="images/xq_118.png"  class="f_tu1"/></a>
-                    <a href="#"><img src="images/xq_120.png" class="f_tu1"/></a>
-                    <a href="#"><img src="images/xq_122.png" class="f_tu1"/></a>
-                    <a href="#"><img src="images/xq_124.png" class="f_tu1"/></a>
-                    <a href="#"><img src="images/xq_126.png" class="f_tu1"/></a>
-                    <a href="#"><img src="images/xq_128.png" class="f_tu1"/></a>
+                <div class="f_c_t_11">
+                	<div class="f_c_t_11_1"><img src="images/weibo.jpg" /></div>
+                    <div class="f_c_t_11_2">微博</div>
                 </div>
-            </div>
-            <div class="f_c_t_4">
-            	<div class="f_tu2"><img src="images/xq_115.png" /></div>
-            </div>
-            <div class="f_c_t_5">
-            	<div class="f_c_t_5_1">扫一扫<br />下载APP</div>
+               <div class="f_c_t_11">
+                	<div class="f_c_t_11_1"><img src="images/weixin.jpg" /></div>
+                    <div class="f_c_t_11_2">微信</div>
+                </div>
+                <div class="f_c_t_11">
+                	<div class="f_c_t_11_1"><img src="images/bzhan.jpg" /></div>
+                    <div class="f_c_t_11_2">B站直播间</div>
+                </div>
             </div>
         </div>
         
