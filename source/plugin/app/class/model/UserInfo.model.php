@@ -9,7 +9,7 @@ class UserInfo extends \model{
     );
     protected $countMap = array(
         'user_count'=>array(
-            'follow','fans','_on'=>'uid'
+            'follow','fans','_on'=>'uid','extend','_mapping'=>'c'
         )
     );
     protected $teamMap = array(
