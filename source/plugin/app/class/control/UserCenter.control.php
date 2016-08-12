@@ -37,8 +37,8 @@ class UserCenter extends api\ajax{
         return model('app:UserTeam')->add_table($table)->where($where)->order(array('zid'))->limit(9999)->find();
     }
     function _rank($fans){
-        $where['fans'] = array('logic',$fans,'>');
-        return model('app:UserCount')->where($where)->get_field()+1;
+        //$where['fans'] = array('logic',$fans,'>');
+        return model('app:UserCount')->where('fans+extend>'.floor($fans))->get_field()+1;
     }
     function _live($uid){
         return model('user_live')->find($uid);
@@ -46,7 +46,7 @@ class UserCenter extends api\ajax{
     function index($uid=0){
         $user = $this->g->template['coser'] = $this->_coser($uid);
         if(!$user)$this->error();
-        $this->g->template['rank'] = $this->_rank($user['fans']);
+        $this->g->template['rank'] = $this->_rank($user['fans']+$user['expend']);
         $this->g->template['title'] = '个人中心';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';

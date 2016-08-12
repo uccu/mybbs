@@ -6,7 +6,7 @@ class TwoStar extends api\ajax{
         
     }
     function _cosers(){
-        return model('app:UserInfo')->safe_info()->add_count()->order(array('fans'=>'DESC'))->limit(8)->select();
+        return model('app:UserInfo')->safe_info()->add_count()->order('(c.fans+c.extend) desc')->limit(8)->select();
     }
     
     function _teams(){

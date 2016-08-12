@@ -47,7 +47,7 @@ class user extends na\ba{
         T('user/detail');
     }
     function get_detail($uid){
-        $userInfo = $this->userInfo->safe_info()->find($uid);
+        $userInfo = $this->userInfo->safe_info()->add_count()->find($uid);
         if(!$userInfo)$this->error(400,'no user');
         $zz = model('user_team')->where(array('uid'=>$uid))->find();
         $userInfo['captain'] = $zz['captain'];
@@ -69,6 +69,9 @@ class user extends na\ba{
             $data['captain'] = $_POST['captain']?1:0;
             model('user_team')->data($data)->add(true);
         }else model('user_team')->where(array('uid'=>$uid))->remove();
+        if(isset($_POST['extend'])){
+            model('user_count')->data(array('extend'=>$_POST['extend']))->save($uid);
+        }
         $this->success($p);
     }
     function del_lists(){

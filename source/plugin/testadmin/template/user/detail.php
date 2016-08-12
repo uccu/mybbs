@@ -84,7 +84,12 @@
                     <input type="text" class="form-control" name="interest">
                 </div>
             </div>
-            
+            <div class="form-group">
+                <label class="control-label col-sm-2">附加排名权重</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="extend">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">状态</label>
                 <div class="col-sm-6">

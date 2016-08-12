@@ -10,7 +10,7 @@ class search extends api\ajax{
         //var_dump($_SERVER);die();
         $page = floor($page);
         if(!$page)$page = 1;$limit = 16;
-        $where['title'] = array('contain','%'.$key.'%','LIKE');
+        if($key)$where['title'] = array('contain','%'.$key.'%','LIKE');
         $where['count'] = array('logic',0,'>');
         $this->g->template['title'] = '搜索-相册';
         $this->g->template['keywords'] = 'COS,炫漫';
@@ -32,7 +32,7 @@ class search extends api\ajax{
     function user($key,$page){
         $page = floor($page);
         if(!$page)$page = 1;$limit = 16;
-        $where['nickname'] = array('contain','%'.$key.'%','LIKE');
+        if($key)$where['nickname'] = array('contain','%'.$key.'%','LIKE');
         $this->g->template['title'] = '搜索-用户';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';
@@ -41,13 +41,13 @@ class search extends api\ajax{
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
         $this->g->template['currentPage'] = $page;
-        $list = $this->g->template['list'] = $this->coser->add_count()->where($where)->page($page,$limit)->order(array('fans'=>'DESC'))->select();
+        $list = $this->g->template['list'] = $this->coser->add_count()->where($where)->page($page,$limit)->order('(c.fans+c.extend) desc')->select();
         T('search/user');
     }
     function team($key,$page){
         $page = floor($page);
         if(!$page)$page = 1;$limit = 16;
-        $where['name'] = array('contain','%'.$key.'%','LIKE');
+        if($key)$where['name'] = array('contain','%'.$key.'%','LIKE');
         $this->g->template['title'] = '搜索-团队';
         $this->g->template['keywords'] = 'COS,炫漫';
         $this->g->template['description'] = '炫漫重视所有的的coser，尊重coser的自主意愿和需求，致力将您打造成高人气的二次元明星';

@@ -7,7 +7,7 @@ class StarList extends api\ajax{
     }
     function _cosers($page,$order){
         $order = $order?'fans':'uid';
-        return model('app:UserInfo')->safe_info()->add_count()->order(array('fans'=>'DESC'))->page($page,16)->order(array($order=>'DESC'))->select();
+        return model('app:UserInfo')->safe_info()->add_count()->order('(c.fans+c.extend) desc')->page($page,16)->order(array($order=>'DESC'))->select();
     }
     function _count(){
         return model('app:UserInfo')->get_field();

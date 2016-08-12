@@ -45,7 +45,7 @@
     j('.search button').click(function(){
         location = '/app/search/'+folder[3]+'/'+j('.search input').val()
     });
-    j('.search input').val(decodeURI(folder[4])).keypress(function(e){
+    j('.search input').val(decodeURI(folder[4]!='0'?folder[4]:'')).keypress(function(e){
         if(e.which==13)j('.search button').click();
     });
     j('.search strong:not(.active)').click(function(){
@@ -82,7 +82,7 @@
 <nav class="text-center">
                     <ul class="pagination pageset">
                         <script>
-                            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/{g.method}/'+folder[4]+'/',
+                            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/{g.method}/'+(folder[4]?folder[4]:'0')+'/',
                             (folder[6]?'/'+folder[6]:'')+
                             (folder[7]?'/'+folder[7]:''));
                             j('.a_cos_top_con_3 a').eq(folder[5]?1:0).css('color','#75cbdb')

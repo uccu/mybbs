@@ -47,7 +47,7 @@
     j('.search button').click(function(){
         location = '/app/search/'+folder[3]+'/'+j('.search input').val()
     });
-    j('.search input').val(decodeURI(folder[4])).keypress(function(e){
+    j('.search input').val(decodeURI(folder[4]!='0'?folder[4]:'')).keypress(function(e){
         if(e.which==13)j('.search button').click();
     });
     j('.search strong:not(.active)').click(function(){
@@ -63,7 +63,7 @@
 {/if}
 <!--{loop $list $c}-->
     	<div class="ip_tu_1">
-        	<a href="/app/album/index/{c.aid}"><div class="ip_tu_1_1"><img src="/pic/{c.avatar}.medium.jpg" class="ip_tu1"></div></a>
+        	<a href="/app/album/index/{c.aid}" target="_blank"><div class="ip_tu_1_1"><img src="/pic/{c.avatar}.medium.jpg" class="ip_tu1"></div></a>
             <div class="ip_tu_1_2">
             	<div class="ip_1_2_1"><img src="/pic/{c.avatar}.avatar.jpg" class="ip_tu3"></div>
                 <div class="ip_1_2_2">{c.nickname}</div>
@@ -81,7 +81,7 @@
 <nav class="text-center">
                     <ul class="pagination pageset">
                         <script>
-                            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/{g.method}/'+folder[4]+'/',
+                            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/{g.method}/'+(folder[4]?folder[4]:'0')+'/',
                             (folder[6]?'/'+folder[6]:'')+
                             (folder[7]?'/'+folder[7]:''));
                             j('.a_cos_top_con_3 a').eq(folder[5]?1:0).css('color','#75cbdb')

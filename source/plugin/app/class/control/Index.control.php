@@ -34,9 +34,6 @@ class Index extends api\ajax{
         $where['uid'] = 0;
         return model('app:Video')->where($where)->order(array('ctime'=>'DESC'))->limit(4)->select();
     }
-    function tcosers(){
-        echo model('app:UserInfo')->safe_info()->sql()->add_count()->order('(c.fans+c.extend) desc')->limit(7)->select();
-    }
     function _cosers(){
         return model('app:UserInfo')->safe_info()->add_count()->order('(c.fans+c.extend) desc')->limit(7)->select();
     }
