@@ -23,12 +23,14 @@ a:focus, a:hover{text-decoration: none}
 .logo{padding:25px 5px 21px 0;}
 .nav_menu li{padding:2px}
 .nav_menu li a{
-    font-size: 13px;
+    font-size: 13px;position:relative;
     display:inline-block;padding:5.5px;width:100px;text-align: center;color:#fff;margin:auto;cursor:pointer;border-radius:3px
 }
-.nav_menu li a:hover{
-    background:#f53f50;box-shadow:0 0 20px #000;transform: scale(1.05)
+.nav_menu li a:hover,.nav_menu li a.active{
+    background:#f53f50;box-shadow:0 0 20px #000;transform: scale(1.02)
 }
+.nav_menu li a.active{box-shadow:0 0 9px #000;transform: scale(1)}
+.nav_menu li a:hover{z-index:2}
 .nav_home{
     padding-top:39px;padding-right:15px
 }
@@ -46,7 +48,39 @@ a:focus, a:hover{text-decoration: none}
 }
 hr{border-top: 1px solid #ccc;margin:0}
 .nav_menu{padding-top:37px}
+.banner{
+    width:100%;min-width:1200px;height:580px;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.anli-block{
+    padding:16px 15px;
+}
 
+.anli-block-in{
+    height:296px;background:white;
+}
+.anli-block-in:hover{
+    box-shadow: 0 0 30px #aaa
+}
+.anli-pic{
+    width:100%;height:215px;background-color:#f0f0f0;
+    background-position:center;
+    background-size:cover;
+}
+.anli-block-in h4{
+    font-size:16px;color:#000;padding-left:20px;
+    line-height: 16px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.anli-block-in:hover h4{
+    color:#1d92d0;
+}
+.anli-block-in p{
+    font-size:12px;color:#666;padding-left:20px
+}
 
 
 

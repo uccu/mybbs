@@ -5,9 +5,9 @@
     <div class="container mediaz clear">
         <div class="clear t">
             <div class="Bot1 fl clear">
-                <a href="#" class="fl">
+                <a class="fl">
                     <img src="pic/bottom/sian.png" width="182" height="32"></a>
-                <a href="#" class="fl">
+                <a class="fl">
                     <img src="pic/bottom/ten.png" width="207" height="32">
                 </a>
             </div>
@@ -25,7 +25,7 @@
             <br>
             <span>
                 专业的互联网设计制作公司、高端的定制服务</span> <span>Copyright  ©  2006 -2014 
-                <a href="index.html">涵予科技</a> 
+                <a href="http://www.hanyu365.com.cn:8080/Hanyu/index.do">涵予科技</a> 
                 All  Rights  Reserved. &nbsp;&nbsp;&nbsp;沪ICP备09021243号
             </span>
         </p>

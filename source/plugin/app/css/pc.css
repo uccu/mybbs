@@ -1,0 +1,21 @@
+h2{
+    margin:auto;padding-top:50px;padding-bottom:40px;color:#333;font-weight: bold;
+}
+h2._{
+    margin:auto;padding-top:110px;padding-bottom:45px;color:#333;font-weight: bold;
+}
+.picView{
+    padding-bottom:70px;
+}
+.thumbList{margin-bottom:30px}
+.thumb-block{
+    background:#ddd;padding:5px;margin:0 5px;
+}
+.thumb-block:hover,.thumb-block.active{
+    background:#9e9e9e;
+}
+.thumb{
+    width:75px;height:75px;background-size:contain;background-repeat: no-repeat;background-position:center;
+}
+.largeList img{width:100%}
+.anli-block{margin-bottom:45px}

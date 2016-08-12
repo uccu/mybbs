@@ -3,9 +3,7 @@
 <!--{eval addjs('case')}-->
 
 
-<div class="banner">
-    <img src="pic/case/banner.png" style="width:100%;min-width:1200px" />
-</div>
+<div class="banner" style="background-image:url(pic/case/banner.png)"></div>
 <div class="subnav">
     <div class="container mediaz">
         <ul class="list-inline t">

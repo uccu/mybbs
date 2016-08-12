@@ -49,6 +49,10 @@ class cases extends \control\ajax{
         $this->g->template['subsubnav'] = $subnavsArray;
         T();
     }
+    function anli($aid){
+        if(!$aid)header('Location:/app/cases');
+        T('anli/pc');
+    }
     
 
 
