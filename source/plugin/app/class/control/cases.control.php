@@ -16,15 +16,17 @@ class cases extends \control\ajax{
     }
     function get_list($id,$limit,$timeline){
         if(!$limit)$limit = 15;
-        $ze = model('subnav')->where(array('tid'=>$id))->find();
+        if($id)$wherez = array('tid'=>$id);
+        $ze = model('subnav')->where($wherez)->find();
         if(!$ze)$this->error(400,'没有该分类');
-        $z = model('subnav')->where(array('sid'=>$id))->get_field();
+        if($id)$wherez = array('sid'=>$id);
+        $z = model('subnav')->where($wherez)->get_field();
         if(!$z){
-            $where = array('tid'=>$id);
+           if($id)$where = array('tid'=>$id);
             if($timeline)$where['ctime'] = array('logic',floor($timeline),'<');
             $z = model('anli')->where($where)->limit($limit)->order(array('ctime'=>'DESC'))->select();
         }else{
-            $where = array('td'=>$id);
+            if($id)$where = array('td'=>$id);
             if($timeline)$where['ctime'] = array('logic',floor($timeline),'<');
             $z = model('anli')->table(array(
                 'anli'=>array(

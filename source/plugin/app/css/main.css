@@ -18,7 +18,7 @@ a:focus, a:hover{text-decoration: none}
 .clear::after{clear: both;width: 100%;height: 0px;font-size: 0px;line-height: 0px;display:block;overflow: hidden;visibility: hidden;content:' '}
 
 
-.mediaz{width:1200px;margin-left:auto;margin-right:auto}
+.mediaz{width:1200px;margin-left:auto;margin-right:auto;padding:0}
 .header{width:100%}
 .logo{padding:25px 5px 21px 0;}
 .nav_menu li{padding:2px}
