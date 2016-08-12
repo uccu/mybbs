@@ -328,11 +328,12 @@ class coherent{
 			$this->order = '';
 			return $this;
 		}
-		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
 		if(is_string($field) && !$order){
 			$this->order = ' ORDER BY '.$field;
 			return $this;
 		}
+		$order = strtoupper($order) == 'ASC' || !$order ? 'ASC' : 'DESC';
+		
 		if(!is_array($field))$field=array($field=>$order);
 		foreach($field as $k=>$v)
 			if($oo = model('logic')->quote_field_in(is_string($k)?$k:$v,$this->tableMap))
