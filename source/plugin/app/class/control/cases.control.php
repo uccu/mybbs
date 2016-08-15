@@ -51,7 +51,18 @@ class cases extends \control\ajax{
     }
     function anli($aid){
         if(!$aid)header('Location:/app/cases');
-        T('anli/pc');
+        $this->g->template['anli'] = $a = model('anli')->find($aid);
+        
+        if(!$a)header('Location:/app/cases');
+        $this->g->template['lastAnli'] = $last = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'<')))->find();
+        $this->g->template['nextAnli'] = $next = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'>')))->find();
+        if($a['type']=='pc'){
+
+            T('anli/pc');
+        }else{
+            header('Location:/app/cases');
+        }
+        
     }
     
 

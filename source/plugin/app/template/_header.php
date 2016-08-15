@@ -40,7 +40,7 @@
             <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/contact.jsp">联系我们</a></li>
         </ul>
         <!--  主页  -->
-        <div class="nav_home fr t-3"><a href="index.do"><span class="dib"></span></a></div>
+        <div class="nav_home fr t-3"><a href="http://www.hanyu365.com.cn:8080/Hanyu/index.do"><span class="dib"></span></a></div>
         
 	</div>
 </div>

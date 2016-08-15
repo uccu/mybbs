@@ -19,7 +19,7 @@ a:focus, a:hover{text-decoration: none}
 
 
 .mediaz{width:1200px;margin-left:auto;margin-right:auto;padding:0}
-.header{width:100%}
+.header{width:100%;z-index:2}
 .logo{padding:25px 5px 21px 0;}
 .nav_menu li{padding:2px}
 .nav_menu li a{
@@ -82,10 +82,36 @@ hr{border-top: 1px solid #ccc;margin:0}
     font-size:12px;color:#666;padding-left:20px
 }
 
-
-
-
-
+.anliMenu{
+    width:100%;bottom:-24px;
+}
+.anliMenu .row{
+    width:300px;margin:auto
+}
+.anliMenu .row .col-xs-4{
+    height:48px;
+}
+.anliMenu span{
+    width:48px;height:48px;background-position: center;background-repeat: no-repeat;background-size: 100%;
+}
+.anliMenu span.lastAnli{
+    background-image:url(/pic/last.png)
+}
+.anliMenu span.listAnli{
+    background-image:url(/pic/list.png)
+}
+.anliMenu span.nextAnli{
+    background-image:url(/pic/next.png)
+}
+.anliMenu span.lastAnli:hover{
+    background-image:url(/pic/last-c.png)
+}
+.anliMenu span.listAnli:hover{
+    background-image:url(/pic/list-c.png)
+}
+.anliMenu span.nextAnli:hover{
+    background-image:url(/pic/next-c.png)
+}
 
 
 
