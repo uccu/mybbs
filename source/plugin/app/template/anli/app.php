@@ -1,35 +1,32 @@
 <!--{subtemplate _header}-->
-<!--{eval addcss('pc')}-->
-<!--{eval addjs('pc')}-->
+<!--{eval addcss('app')}-->
+<!--{eval addjs('app')}-->
 
 
-<div class="banner pr" style="background-image:url({anli.header});">
-	<div class="ban_zong">
-		<div class="ban_z">
-			<div class="ban_z1">
-				{anli.name}
-			</div>
-			<div class="ban_z2">
-				<div class="ban_z2_left">
-					<div class="ban_z2_left_1">
-						<div class="ban_z2_left_1_1">相关信息</div>
-						<div class="ban_z2_left_1_2">{anli.prama1}</div>
-						<div class="ban_z2_left_1_3">{anli.suport}</div>
-						<a href="{anli.website}"><div class="ban_z2_left_1_4">访问网址</div></a>
-					</div>
-				</div>
-				<span class="ban_span"></span>
-				<div class="ban_z2_right">
-					<div class="ban_z2_right_1">
-						<div class="ban_z2_right_1_1">项目背景</div>
-						<div class="ban_z2_right_1_2">
-							{anli.background}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+<div class="banner pr" style="background-image:url({anli.header});height:500px">
+	<div class="banner_in pa tc">
+        <div class="container mediaz tl" style="margin:auto">
+            <h3>{anli.name}</h3>
+            <footer>{anli.suport}</footer>
+        </div>
 	</div>
+</div>
+<div class="infoView pr">
+    <div class="container mediaz tc">
+        <div class="row">
+            <div class="col-xs-7 tl" style="background:#ccc;padding-left:120px;padding-right:80px;">
+                <h4>项目背景</h4>
+                <p>bakabaka bakabaka bakabaka bakabaka bakabaka bakabaka bakabaka bakabaka </p>
+            </div>
+            <div class="col-xs-5 tl" style="background:#aaa">
+                <h4>联系顾问</h4>
+                <phone>400 8166 717</phone>
+            </div>
+        
+        </div>
+
+
+    </div>
 </div>
 <div class="picView pr">
     <div class="container mediaz tc">

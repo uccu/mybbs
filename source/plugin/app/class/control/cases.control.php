@@ -51,14 +51,25 @@ class cases extends \control\ajax{
     }
     function anli($aid){
         if(!$aid)header('Location:/app/cases');
-        $this->g->template['anli'] = $a = model('anli')->find($aid);
+        $a = model('anli')->find($aid);
         
         if(!$a)header('Location:/app/cases');
-        $this->g->template['lastAnli'] = $last = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'<')))->find();
-        $this->g->template['nextAnli'] = $next = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'>')))->find();
+        $this->g->template['lastAnli'] = $last = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'<')))->order(array('ctime'=>'desc'))->find();
+        $this->g->template['nextAnli'] = $next = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'>')))->order(array('ctime'))->find();
+        $this->g->template['pic'] = $pic = model('anli_pic')->where(array('aid'=>$aid))->limit(999)->select();
+        $this->g->template['rand'] = $rand = model('anli')->where(array('tid'=>$a['tid'],'aid'=>array('logic',$aid,'!=')))->limit(3)->order('rand()')->select();
+        //var_dump($rand);
+        //var_dump($next);
         if($a['type']=='pc'){
-
+            $pc = model('anli_pc')->find($aid);
+            if($pc)$a = array_merge($a,$pc);
+            $this->g->template['anli'] = $a;
             T('anli/pc');
+        }elseif($a['type']=='app'){
+            $pc = model('anli_pc')->find($aid);
+            if($pc)$a = array_merge($a,$pc);
+            $this->g->template['anli'] = $a;
+            T('anli/app');
         }else{
             header('Location:/app/cases');
         }

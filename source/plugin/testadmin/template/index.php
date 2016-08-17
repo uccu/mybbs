@@ -1,4 +1,5 @@
-<!--{subtemplate _header}-->
+<!--{subtemplate adminloader:_header}-->
 
 <!-- -->
-<!--{subtemplate _footer}-->
+<!-- -->
+<!--{subtemplate adminloader:_footer}-->

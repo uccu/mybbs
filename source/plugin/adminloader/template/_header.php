@@ -1,4 +1,4 @@
-<!--{subtemplate tool:header}-->
+<!--{subtemplate tool:_header}-->
 <!--{eval addjs('p',0,'adminloader')}-->
 <!--{eval addjs('inform',0,'adminloader')}-->
 <!--<script type="text/javascript" src='ueditor/ueditor.config.js'></script>

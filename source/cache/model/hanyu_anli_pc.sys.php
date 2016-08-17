@@ -1,0 +1,1 @@
+<?php $tableMap=array("anli_pc"=>array("aid","prama1","prama2","contract","website")) ?>

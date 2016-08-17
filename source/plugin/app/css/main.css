@@ -27,9 +27,9 @@ a:focus, a:hover{text-decoration: none}
     display:inline-block;padding:5.5px;width:100px;text-align: center;color:#fff;margin:auto;cursor:pointer;border-radius:3px
 }
 .nav_menu li a:hover,.nav_menu li a.active{
-    background:#f53f50;box-shadow:0 0 20px #000;transform: scale(1.02)
+    background:#f53f50;box-shadow:0 0 20px #333;transform: scale(1.02)
 }
-.nav_menu li a.active{box-shadow:0 0 9px #000;transform: scale(1)}
+.nav_menu li a.active{box-shadow:0 0 9px #333;transform: scale(1)}
 .nav_menu li a:hover{z-index:2}
 .nav_home{
     padding-top:39px;padding-right:15px
@@ -62,12 +62,16 @@ hr{border-top: 1px solid #ccc;margin:0}
     height:296px;background:white;
 }
 .anli-block-in:hover{
+    transform: translateY(-5px);
     box-shadow: 0 0 30px #aaa
 }
 .anli-pic{
     width:100%;height:215px;background-color:#f0f0f0;
     background-position:center;
-    background-size:cover;
+    background-size:100%;
+}
+.anli-block-in:hover .anli-pic{
+    background-size:120%
 }
 .anli-block-in h4{
     font-size:16px;color:#000;padding-left:20px;
@@ -83,7 +87,7 @@ hr{border-top: 1px solid #ccc;margin:0}
 }
 
 .anliMenu{
-    width:100%;bottom:-24px;
+    width:100%;bottom:24px;z-index:5
 }
 .anliMenu .row{
     width:300px;margin:auto
