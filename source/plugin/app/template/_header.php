@@ -19,7 +19,7 @@
       <script src="//apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
       <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<!--{eval addjs('smooth')}-->
+<!---{eval addjs('smooth')}-->
 </head>
 <body>
 <!--  头部导航  -->

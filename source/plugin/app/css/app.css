@@ -7,15 +7,15 @@ h2._{
 .picView{
     padding-bottom:70px;
 }
-.thumbList{margin-bottom:30px}
-.thumb-block{
-    background:#ddd;padding:5px;margin:0 5px;
+.picList{top:0;left:0;width:3000px}
+.pic-block{
+    background:#ddd;padding:5px;margin:0 30px;
 }
-.thumb-block:hover,.thumb-block.active{
+.pic-block:hover,.pic-block.active{
     background:#9e9e9e;
 }
-.thumb{
-    width:75px;height:75px;background-size:contain;background-repeat: no-repeat;background-position:center;
+.pic{
+    width:100px;height:200px;background-size:contain;background-repeat: no-repeat;background-position:center;
 }
 .largeList img{width:100%}
 .anli-block{margin-bottom:45px}
