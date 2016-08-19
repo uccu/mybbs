@@ -1,5 +1,5 @@
 <!--{subtemplate _header}-->
-<!--{eval addcss('app')}-->
+<!--{eval addcss('wx')}-->
 <!--{eval addjs('app')}-->
 
 
@@ -12,17 +12,17 @@
 	</div>
 </div>
 <div class="infoView pr">
-    <div class="container mediaz tc">
-        <div class="row">
-            <div class="col-xs-8 tl pr" style="padding-left:120px;padding-right:80px;">
+    <div class="container mediaz tc" >
+        <div class="row" >
+            <div class="col-xs-5 tl pr">
+                <h4>扫码浏览</h4>
+                <img src="/pic/wx_01.png">
+                <img src="/pic/wx_02.png" class="pa" style="top:35px;right:60px">
+                <span class="db pa" style="height:130px;width:130px;background:#ccc;top:40px;right:66px;background-size:100% 100%;background-image:url({anli.download})"></span>
+            </div>
+            <div class="col-xs-7 tl" style="padding-left:80px;padding-bottom:65px;height:267px">
                 <h4>项目背景</h4>
                 <p>{anli.background}</p>
-            </div>
-            <div class="col-xs-4 tl" style="padding-left:80px;padding-bottom:65px">
-                <h4>联系顾问</h4>
-                <h3>400 8166 717</h3>
-                <p>{anli.prama1}</p>
-                <p>{anli.prama2}</p>
             </div> 
         </div>
     </div>

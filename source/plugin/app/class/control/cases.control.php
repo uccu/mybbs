@@ -66,10 +66,15 @@ class cases extends \control\ajax{
             $this->g->template['anli'] = $a;
             T('anli/pc');
         }elseif($a['type']=='app'){
-            $pc = model('anli_pc')->find($aid);
+            $pc = model('anli_app')->find($aid);
             if($pc)$a = array_merge($a,$pc);
             $this->g->template['anli'] = $a;
             T('anli/app');
+        }elseif($a['type']=='wx'){
+            $pc = model('anli_wx')->find($aid);
+            if($pc)$a = array_merge($a,$pc);
+            $this->g->template['anli'] = $a;
+            T('anli/wx');
         }else{
             header('Location:/app/cases');
         }

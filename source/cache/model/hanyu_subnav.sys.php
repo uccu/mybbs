@@ -1,1 +1,0 @@
-<?php $tableMap=array("subnav"=>array("tid","name","sid")) ?>

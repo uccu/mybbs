@@ -4,13 +4,13 @@ h2{
 h2._{
     margin:auto;padding-top:110px;padding-bottom:45px;color:#333;font-weight: bold;
 }
-.infoView .col-xs-8::after{
+.infoView .col-xs-5::after{
     content:' ';position:absolute;background:#ccc;height:180px;width:1px;right:0;top:35px
 }
 .infoView h3{
     font-size:30px;font-weight:bold;font-style: italic;margin-bottom:20px;
 }
-.infoView .col-xs-8 p,.infoView .col-xs-4 p{
+.infoView .col-xs-7 p,.infoView .col-xs-7 p{
     color:#666;font-size:12px
 }
 

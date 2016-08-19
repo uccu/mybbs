@@ -1,1 +1,0 @@
-<?php $tableMap=array("anli_pic"=>array("pid","aid","path")) ?>
