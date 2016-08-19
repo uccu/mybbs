@@ -14,7 +14,7 @@
 					<div class="ban_z2_left_1">
 						<div class="ban_z2_left_1_1">相关信息</div>
 						<div class="ban_z2_left_1_2">{anli.prama1}</div>
-						<div class="ban_z2_left_1_3">{anli.suport}</div>
+						<div class="ban_z2_left_1_3">{anli.prama2}</div>
 						<a href="{anli.website}"><div class="ban_z2_left_1_4">访问网址</div></a>
 					</div>
 				</div>

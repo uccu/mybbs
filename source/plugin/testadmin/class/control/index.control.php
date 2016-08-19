@@ -34,6 +34,9 @@ class index extends base{
         $this->_init();
         T(METHOD_NAME);
     }
+    function nav(){
+
+    }
     function lists($type,$page){
         $this->_init();
         $limit = 10;
@@ -52,7 +55,7 @@ class index extends base{
         $this->subnav = array_merge($this->subnav,array('upnav'=>'选择分类'));
         $this->_init();
         $this->g->template['list'] = $list = model('subnav')->where(array('sid'=>0))->limit(9999)->select();
-        var_dump($list);
+        //var_dump($list);
         T(METHOD_NAME);
     }
     function upsubnav($sid){
@@ -61,14 +64,22 @@ class index extends base{
         if(!$sid)$this->error(400,'没有找到分类');
         $this->g->template['list'] = $list = model('subnav')->where(array('sid'=>$sid))->limit(9999)->select();
         if(!$list)header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/upanli/'.$sid);
-        var_dump($list);
+        //var_dump($list);
         T(METHOD_NAME);
     }
-    function upanli($sid){
+    function upanli($tid){
         $this->subnav = array_merge($this->subnav,array('upanli'=>'完善资料'));
         $this->_init();
-        
+        $this->g->template['id'] = 0;
+        $this->g->template['tid'] = $tid;
         T(METHOD_NAME);
+    }
+    function updanli($id){
+        $this->subnav = array_merge($this->subnav,array('updanli'=>'修改案例资料'));
+        $this->_init();
+        if(!model('anli')->find($id))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['id'] = $id;
+        T('upanli');
     }
 
 }

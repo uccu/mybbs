@@ -16,7 +16,7 @@ j(function(j){
             for(var g in f.data){
                 j('[name='+g+'],[name='+g+'2]').val(typeof f.data[g]=='string'?f.data[g].decodeh():'');
                 if(j('[name='+g+'].advancedTextarea')[0] && j('[name='+g+']')[0].tagName=='TEXTAREA')j('[name='+g+']').advancedTextarea(500);
-                if(f.data[g] && j('[name='+g+']').parent().find('[type=file]'))j('[name='+g+']').parent().find('img').attr('src','pic/'+f.data[g]);
+                if(f.data[g] && j('[name='+g+']').parent().find('[type=file]'))j('[name='+g+']').parent().find('img').attr('src',f.data[g]);
         }
         })
     }
@@ -58,7 +58,7 @@ j(function(j){
         if(t.attr('data-avatar'))f.avatar = t.attr('data-avatar');
         form = packFormData('#'+id,f);
         j.ajax({
-            url:folder[1]+'/admin/up_pic',data:form,contentType:false,processData:false,type:'post',
+            url:folder[1]+'/api/up_pic',data:form,contentType:false,processData:false,type:'post',
             beforeSend:function(){
                 p.find('.help-block').html('uploading file waiting...')
             },success:function(d){
@@ -66,8 +66,10 @@ j(function(j){
                     t.parent().find('.help-block').html('upload failed :'+d.desc);return
                 }
                 p.find('.help-block').html('upload successed');
-                p.find('[name='+id+']').val(d.data.e);
-                p.find('[name='+id+'2]').val(d.data.e);
+                var uuul = 'pic/'+d.data.e;
+                if(t.attr('data-whole-url'))uuul = 'pic/'+d.data.e+'.jpg';
+                p.find('[name='+id+']').val(uuul);
+                p.find('[name='+id+'2]').val(uuul);
                 if(d.data.avatar)p.find('img').attr('src','pic/'+d.data.avatar);
                 else if(d.data.small)p.find('img').attr('src','pic/'+d.data.small);
                 else if(d.data.medium)p.find('img').attr('src','pic/'+d.data.medium);
