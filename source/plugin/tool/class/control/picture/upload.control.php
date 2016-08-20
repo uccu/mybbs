@@ -9,20 +9,29 @@ class upload extends \control\ajax{
         return $this->parsing_one();
     }
 
-    function parsing_one($box='common',$small=0,$large=0,$raw=0){
-        $file = reset($_FILES);$pic = array();
-        if(!$file)return $pic;
-        if($file['error'])$this->error(402,'上传失败,也许图片太大了');
+    function parsing_one($box='common',$small=0,$large=0,$medium=0,$raw=0){
+        $file = reset($_FILES);$pic = array();$picz = post('raw_base64_picz');
+        if($picz){
+            $picz = base64_decode(str_replace('data:image/png;base64,', '', $picz));
+            $md5 = md5($picz);
+            file_put_contents(CACHE_ROOT.$md5.'.zz', $picz);
+            $imgsrc0 = CACHE_ROOT.$md5.'.zz';
+        }elseif($file){
+            if($file['error'])$this->error(402,'上传失败,也许图片太大了');
+            $imgsrc0 = $file['tmp_name'];
+        }else return $pic;
+        
         $f = post('box',$box);
         $circle = post('circle');
         $small = post('small',$small);
         $large = post('large',$large);
-        $medium = post('medium');
+        $medium = post('medium',$medium);
         $avatar = post('avatar');
+        $cut = post('cut');
         $raw = post('raw',$raw);
         $dir = PLAY_ROOT.'pic/'.$f.'/';
         
-        $imgsrc0 = $file['tmp_name'];
+        
         if(!$imgsrc0)$this->error(403,'上传失败,无法获取缓存路径');
         $arr = getimagesize($imgsrc0);
         switch($arr[2]){
@@ -55,43 +64,69 @@ class upload extends \control\ajax{
         $largeWidth = 800;$largeHeight = 420;
 
         if($avatar){
-            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight);
+            $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight,$cut,$circle);
             $pic['avatar'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.avatar.jpg';
         }if($small){
-            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight);
+            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight,$cut,$circle);
             $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
         }if($medium){
-            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight);
+            $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight,$cut,$circle);
             $pic['medium'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.medium.jpg';
         }if($large){
-            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight);
+            $this->parse($img,$largeWidth,$largeHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.large.jpg',1,$autoHeight,$cut,$circle);
             $pic['large'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.large.jpg';
         }if($raw){
-            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight);
+            $this->parse($img,$arr[0],$arr[1],$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.jpg',1,$autoHeight,$cut,$circle);
             $pic['raw'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.jpg';
         }
         $pic['e'] = $f.'/'.$ym.'/'.$d.'/'.$md5;
+        if($picz)unlink($imgsrc0);
         return $pic;
 
 
     }
-    function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false){
+    function parse($m,$w,$h,$w0,$h0,$src,$a=0,$autoHeight=false,$cut=false,$circle=false){
         $w1 = $w0;$h1=$h0;
-        if($w0>$w){
-            $h0 = $h0*$w/$w0;
-            $w0 = $w;
+        if($circle){
+            $h=$w;
+            if($w0<=$h0){
+                if($w0<=$w){
+                    $h=$w=$w0;
+                }else{
+                    $h0 = $h0*$w/$w0;
+                    $w0 = $w;
+                }
+            }elseif($w0>=$h0){
+                if($h0<=$w){
+                    $h=$w=$h0;
+                }else{
+                    $w0 = $w0*$w/$h0;
+                    $h0 = $w;
+                }    
+            }
+        }elseif(!$cut){
+            if($w0>$w){
+                $h0 = $h0*$w/$w0;
+                $w0 = $w;
+            }
+            if(!$autoHeight && $h0>$h){
+                $w0 = $w0*$h/$h0;
+                $h0 = $h;
+            }
         }
-        if(!$autoHeight && $h0>$h){
-            $w0 = $w0*$h/$h0;
-            $h0 = $h;
+        if($cut){
+
+            $image = imagecreatetruecolor($w, $h);
         }
-        if($a)$image = imagecreatetruecolor($w0, $h0);
+        elseif($a)$image = imagecreatetruecolor($w0, $h0);
         else $image = imagecreatetruecolor($w, $h);
         //imagealphablending($image,false);
         //imagesavealpha($image,true);
         $color = imagecolorallocatealpha($image, 255, 255, 255,127);
         imagefill($image, 0, 0, $color);
-        if($a)imagecopyresampled($image, $m,0,0,0,0,$w0,$h0,$w1,$h1);
+        if($cut){
+            imagecopyresampled($image, $m,($w-$w0)/2,($h-$h0)/2,0,0,$w0,$h0,$w1,$h1);
+        }elseif($a)imagecopyresampled($image, $m,0,0,0,0,$w0,$h0,$w1,$h1);
         else imagecopyresampled($image, $m,($w-$w0)/2,($h-$h0)/2,0,0,$w0,$h0,$w1,$h1);
         imagejpeg($image,$src,75);
         imagedestroy($image);
