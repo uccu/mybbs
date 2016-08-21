@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.1
+-- version 4.6.0
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 19, 2016 at 12:10 下午
--- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.2
+-- Generation Time: Aug 21, 2016 at 02:57 PM
+-- Server version: 5.5.47
+-- PHP Version: 7.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -43,22 +43,23 @@ CREATE TABLE `hanyu_anli` (
 --
 
 INSERT INTO `hanyu_anli` (`aid`, `ctime`, `name`, `des`, `thumb`, `tid`, `type`, `header`, `background`) VALUES
-(1, 765501, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', 'pic/pc/banner.png', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号\r\n成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源'),
-(2, 2887145, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'app', 'pic/app/banner.png', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号\n'),
-(3, 139222, 'ceshi2~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'wx', 'pic/app/banner.png', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号2'),
-(4, 1034675, 'ceshi~~', '让生活更美好3', 'pic/case/anli_1.png', 5, 'pc', '', ''),
-(5, 1755709, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(6, 2674522, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(7, 2105482, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(8, 2503845, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(9, 202780, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(10, 2502364, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(11, 2903483, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(12, 1010324, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(13, 2341169, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(14, 2674876, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(15, 350874, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL),
-(16, 2729741, 'ceshi~~', '让生活更美好', 'pic/case/anli_1.png', 5, 'pc', '', NULL);
+(1, 765501, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号\r\n成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源'),
+(2, 2887145, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'app', 'pic/anli/201608/21/1ec005880f1bb9aab9938fd440e462be.jpg', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号'),
+(3, 139222, 'ceshi2~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'wx', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', '总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号世外桃源总部坐落于成都市武侯区科华北路65号2'),
+(4, 1034675, 'ceshi~~', '让生活更美好3', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', ''),
+(5, 1755709, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(6, 2674522, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(7, 2105482, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(8, 2503845, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(9, 202780, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(10, 2502364, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(11, 2903483, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', '222'),
+(12, 1010324, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(13, 2341169, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(14, 2674876, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(15, 350874, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(16, 2729741, 'ceshi~~', '让生活更美好', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 5, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', NULL),
+(21, 1471777622, 'zz', '', 'pic/anli/201608/21/0fce4dd2d7007580f0382aa3686cb66c.jpg', 7, 'pc', 'pic/anli/201608/21/cb24f8a767f4c2eca0a64cd8e2564340.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,8 @@ CREATE TABLE `hanyu_anli_pc` (
 --
 
 INSERT INTO `hanyu_anli_pc` (`aid`, `prama1`, `prama2`, `contract`, `website`) VALUES
-(1, '周期：1970-01-01至1971-05-31', '兼容：1IE、搜狗、谷歌、360、火狐等主流浏览器', 'pic/pc/banner.png', 'http://www.baidu.com');
+(1, '周期：1970-01-01至1971-05-31', '兼容：1IE、搜狗、谷歌、360、火狐等主流浏览器', 'pic/pc/banner.png', 'http://www.baidu.com'),
+(11, '123', '123', '', '123');
 
 -- --------------------------------------------------------
 
@@ -120,12 +122,14 @@ CREATE TABLE `hanyu_anli_pic` (
 --
 
 INSERT INTO `hanyu_anli_pic` (`pid`, `aid`, `path`, `priority`) VALUES
-(1, 1, 'pic/anli/201608/17/1', 0),
-(2, 1, 'pic/anli/201608/17/2', 0),
-(3, 2, 'pic/app/anli_1.png', 0),
-(4, 2, 'pic/app/anli_1.png', 0),
-(5, 3, 'pic/app/anli_1.png', 0),
-(6, 3, 'pic/app/anli_1.png', 0);
+(1, 1, 'pic/anli/201608/21/fe8b4ab2cb8cc8544afaa791b43504f9', 0),
+(2, 1, 'pic/anli/201608/21/fe8b4ab2cb8cc8544afaa791b43504f9', 0),
+(3, 2, 'pic/anli/201608/21/b197b890656d296e59191d5b742bc70b', 0),
+(4, 2, 'pic/anli/201608/21/b197b890656d296e59191d5b742bc70b', 0),
+(5, 3, 'pic/anli/201608/21/b197b890656d296e59191d5b742bc70b', 0),
+(6, 3, 'pic/anli/201608/21/b197b890656d296e59191d5b742bc70b', 0),
+(7, 14, 'pic/anli/201608/21/404f71b562a7204b8a88d40a58829978', 2),
+(9, 3, 'pic/anli/201608/21/b197b890656d296e59191d5b742bc70b', 0);
 
 -- --------------------------------------------------------
 
@@ -164,7 +168,7 @@ CREATE TABLE `hanyu_cache` (
 --
 
 INSERT INTO `hanyu_cache` (`type`, `des`) VALUES
-('handleException', 'a:4:{s:7:"message";s:30:"tplfile not exist: updanli.php";s:4:"file";s:83:"/Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/template/base.php";s:4:"line";i:11;s:5:"trace";s:1244:"#0 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/template/base.php(52): template\\base::ifexist(\'/Applications/X...\')\n#1 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/template/base.php(129): template\\base::ttoc(\'updanli\', \'\', \'testadmin\')\n#2 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/function/core.php(21): template\\base::load(\'updanli\', true)\n#3 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/function/core.php(25): template(\'updanli\', true)\n#4 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/plugin/testadmin/class/control/index.control.php(82): T(\'updanli\')\n#5 [internal function]: plugin\\testadmin\\control\\index->updanli(\'1\')\n#6 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/base/init.php(54): call_user_func_array(Array, Array)\n#7 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/base/init.php(16): base\\init->_init_input()\n#8 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/core.php(24): base\\init->__construct()\n#9 /Applications/XAMPP/xamppfiles/vhosts/baka-a/source/Library/class/core.php(15): core::init()\n#10 /Applications/XAMPP/xamppfiles/vhosts/baka-a/d.php(14): require(\'/Applications/X...\')\n#11 {main}";}'),
+('handleException', 'a:4:{s:7:"message";s:61:"Call to undefined function plugin\\testadmin\\control\\replace()";s:4:"file";s:72:"F:\\myproject\\mybbs\\source\\plugin\\testadmin\\class\\control\\api.control.php";s:4:"line";i:90;s:5:"trace";s:477:"#0 [internal function]: plugin\\testadmin\\control\\api->set_pic(\'7\')\n#1 F:\\myproject\\mybbs\\source\\Library\\class\\base\\init.php(54): call_user_func_array(Array, Array)\n#2 F:\\myproject\\mybbs\\source\\Library\\class\\base\\init.php(16): base\\init->_init_input()\n#3 F:\\myproject\\mybbs\\source\\Library\\class\\core.php(24): base\\init->__construct()\n#4 F:\\myproject\\mybbs\\source\\Library\\class\\core.php(15): core::init()\n#5 F:\\myproject\\mybbs\\d.php(14): require(\'F:\\\\myproject\\\\my...\')\n#6 {main}";}'),
 ('handleError', 'a:4:{i:0;i:2;i:1;s:16:"Division by zero";i:2;s:100:"/Applications/XAMPP/xamppfiles/vhosts/baka-a/source/plugin/testadmin/class/control/index.control.php";i:3;i:38;}');
 
 -- --------------------------------------------------------
@@ -234,7 +238,7 @@ ALTER TABLE `hanyu_anli_pc`
 --
 ALTER TABLE `hanyu_anli_pic`
   ADD PRIMARY KEY (`pid`),
-  ADD KEY `aid` (`aid`);
+  ADD KEY `aid` (`aid`,`priority`,`pid`) USING BTREE;
 
 --
 -- Indexes for table `hanyu_anli_wx`
@@ -264,12 +268,12 @@ ALTER TABLE `hanyu_subnav`
 -- AUTO_INCREMENT for table `hanyu_anli`
 --
 ALTER TABLE `hanyu_anli`
-  MODIFY `aid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '案例ID', AUTO_INCREMENT=17;
+  MODIFY `aid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '案例ID', AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `hanyu_anli_pic`
 --
 ALTER TABLE `hanyu_anli_pic`
-  MODIFY `pid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `hanyu_subnav`
 --
