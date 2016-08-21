@@ -5,7 +5,7 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'localhost',
+	 'host'=>'127.0.0.1',
 	 'user'=>'hanyu',
 	 'password'=>'hanyu365',
 	 'db'=>'hanyu',

@@ -36,7 +36,7 @@
             <ul class="picList list-inline pa t tl">
                 <!--{loop $pic $k=>$v}-->
                 <li class="pic-block cp z-pic-d">
-                    <span class="pic db" style="background-image:url({v.path})"></span>
+                    <span class="pic db" style="background-image:url({v.path}.jpg)"></span>
                 </li>
                 <!--{/loop}-->
             </ul>

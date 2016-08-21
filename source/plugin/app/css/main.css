@@ -68,10 +68,10 @@ hr{border-top: 1px solid #ccc;margin:0}
 .anli-pic{
     width:100%;height:215px;background-color:#f0f0f0;
     background-position:center;
-    background-size:100%;
+    background-size:100% 100%;
 }
 .anli-block-in:hover .anli-pic{
-    background-size:120%
+    background-size:120% 120%
 }
 .anli-block-in h4{
     font-size:16px;color:#000;padding-left:20px;

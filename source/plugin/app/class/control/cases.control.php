@@ -57,7 +57,12 @@ class cases extends \control\ajax{
         $this->g->template['lastAnli'] = $last = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'<')))->order(array('ctime'=>'desc'))->find();
         $this->g->template['nextAnli'] = $next = model('anli')->where(array('ctime'=>array('logic',$a['ctime'],'>')))->order(array('ctime'))->find();
         $this->g->template['pic'] = $pic = model('anli_pic')->where(array('aid'=>$aid))->order(array('priority'=>'DESC'))->limit(999)->select();
-        $this->g->template['rand'] = $rand = model('anli')->where(array('tid'=>$a['tid'],'aid'=>array('logic',$aid,'!=')))->limit(3)->order('rand()')->select();
+        $rand = model('anli')->where(array('tid'=>$a['tid'],'aid'=>array('logic',$aid,'!=')))->limit(3)->order('rand()')->select();
+        if(count($rand)<3){
+            $rand2 = model('anli')->where(array('aid'=>array('logic',$aid,'!=')))->limit(3-count($rand))->order('rand()')->select();
+            $rand = array_merge($rand,$rand2);
+        }
+        $this->g->template['rand'] = $rand;
         //var_dump($rand);
         //var_dump($next);
         if($a['type']=='pc'){

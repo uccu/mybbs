@@ -30,34 +30,7 @@
 <div class="anli">
     <div class="container mediaz">
         <div class="row t">
-            <div class="col-xs-4 anli-block">
-                <div class="anli-block-in pr cp">
-                    <div class="anli-pic"></div>
-                    <h4>印象旅行</h4>
-                    <p>让美好旅程从这开始</p>
-                </div>
-            </div>
-            <div class="col-xs-4 anli-block">
-                <div class="anli-block-in pr cp">
-                    <div class="anli-pic"></div>
-                    <h4>印象旅行</h4>
-                    <p>让美好旅程从这开始</p>
-                </div>
-            </div>
-            <div class="col-xs-4 anli-block">
-                <div class="anli-block-in pr cp">
-                    <div class="anli-pic"></div>
-                    <h4>印象旅行</h4>
-                    <p>让美好旅程从这开始</p>
-                </div>
-            </div>
-            <div class="col-xs-4 anli-block">
-                <div class="anli-block-in pr cp">
-                    <div class="anli-pic"></div>
-                    <h4>印象旅行</h4>
-                    <p>让美好旅程从这开始</p>
-                </div>
-            </div>
+            
         </div>
     </div>
     

@@ -67,7 +67,7 @@ class upload extends \control\ajax{
             $this->parse($img,$avatarWidth,$avatarHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.avatar.jpg',0,$autoHeight,$cut,$circle);
             $pic['avatar'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.avatar.jpg';
         }if($small){
-            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',0,$autoHeight,$cut,$circle);
+            $this->parse($img,$smallWidth,$smallHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.small.jpg',1,$autoHeight,$cut,$circle);
             $pic['small'] = $f.'/'.$ym.'/'.$d.'/'.$md5.'.small.jpg';
         }if($medium){
             $this->parse($img,$mediumWidth,$mediumHeight,$arr[0],$arr[1],$dir.$ym.'/'.$d.'/'.$md5.'.medium.jpg',1,$autoHeight,$cut,$circle);

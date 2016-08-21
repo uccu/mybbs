@@ -14,7 +14,12 @@
             <td>{v.aid}</td>
             <td>{v.name}</td>
             <td>{v.typename}</td>
-            <td>修改删除</td>
+            <td>
+                <a href="{g.plugin}/{g.control}/updanli/{v.aid}">[修改]</a>
+                <a href="{g.plugin}/{g.control}/updanli_{v.type}/{v.aid}">[模板]</a>
+                <a href="{g.plugin}/{g.control}/piclists/{v.aid}">[图片]</a>
+                <a class="indel cp" data-action="{g.plugin}/api/del_anli/{v.aid}">[删除]</a>
+            </td>
         </tr>
     <!--{/loop}-->
     </tbody>

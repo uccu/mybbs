@@ -37,7 +37,7 @@ class index extends base{
     function nav(){
 
     }
-    function lists($type,$page){
+    function lists($type,$page,$aid){
         $this->_init();
         $limit = 10;
         $page = floor($page)>0?floor($page):1;
@@ -68,6 +68,7 @@ class index extends base{
         T(METHOD_NAME);
     }
     function upanli($tid){
+        if(!$tid)header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
         $this->subnav = array_merge($this->subnav,array('upanli'=>'完善资料'));
         $this->_init();
         $this->g->template['id'] = 0;
@@ -81,5 +82,59 @@ class index extends base{
         $this->g->template['id'] = $id;
         T('upanli');
     }
+    function updanli_pc($id){
+        $this->subnav = array_merge($this->subnav,array('updanli_pc'=>'PC模板资料'));
+        $this->_init();
+        if(!model('anli')->find($id))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['id'] = $id;
+        T(METHOD_NAME);
+    }
+    function updanli_app($id){
+        $this->subnav = array_merge($this->subnav,array('updanli_app'=>'APP模板资料'));
+        $this->_init();
+        if(!model('anli')->find($id))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['id'] = $id;
+        T(METHOD_NAME);
+    }
+    function updanli_wx($id){
+        $this->subnav = array_merge($this->subnav,array('updanli_wx'=>'微信模板资料'));
+        $this->_init();
+        if(!model('anli')->find($id))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['id'] = $id;
+        T(METHOD_NAME);
+    }
+    function piclists($aid,$page){
+        $this->subnav = array_merge($this->subnav,array('piclists'=>'案例图片'));
+        $this->subnav = array_merge($this->subnav,array('uppic/'.$aid=>'上传图片'));
+        $this->_init();
+        $limit = 10;
+        $page = floor($page)>0?floor($page):1;
 
+        $where = array('aid'=>$aid);
+        $this->g->template['list'] = $list = model('anli_pic')->where($where)->page($page,$limit)->order(array('priority'=>'DESC','pid'))->select();
+        $maxRow = $this->g->tempalte['maxPage'] = model('anli_pic')->where($where)->get_field();
+        $maxPage = floor(($maxRow-1)/$limit)+1;
+        $this->g->template['maxRow'] = $maxRow;
+        $this->g->template['maxPage'] = $maxPage;
+        $this->g->template['currentPage'] = $page;
+        T(METHOD_NAME);
+    }
+    function uppic($aid){
+        $this->subnav = array_merge($this->subnav,array('piclists/'.$aid=>'案例图片'));
+        $this->subnav = array_merge($this->subnav,array('uppic'=>'上传图片'));
+        $this->_init();
+        if(!model('anli')->find($aid))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['aid'] = $aid;
+        T(METHOD_NAME);
+    }
+    function updpic($pid){
+        if(!$p = model('anli_pic')->find($pid))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $aid = $p['aid'];
+        $this->subnav = array_merge($this->subnav,array('piclists/'.$aid=>'案例图片'));
+        $this->subnav = array_merge($this->subnav,array('uppic/'.$aid=>'上传图片'));
+        $this->subnav = array_merge($this->subnav,array('updpic'=>'修改图片'));
+        $this->_init();
+        $this->g->template['id'] = $pid;
+        T('uppic');
+    }
 }

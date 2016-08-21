@@ -42,16 +42,16 @@
             <!--{/loop}-->
         </ul>
         <div class="largeList pr" style="min-height:200px">
-            <img >
-            <div class="pa pic-left t cp" style="width:76px;height:76px;left:-38px;top:45%;background:url(/pic/pic-left.png)"></div>
-            <div class="pa pic-right t cp" style="width:76px;height:76px;right:-38px;top:45%;background:url(/pic/pic-right.png)"></div>
+            <img class="img-responsive center-block">
+            <div class="pa pic-left t cp" style="width:76px;height:76px;left:-38px;top:45%;background:url(/pic/pic-left.png);z-index:10"></div>
+            <div class="pa pic-right t cp" style="width:76px;height:76px;right:-38px;top:45%;background:url(/pic/pic-right.png);z-index:10"></div>
         </div>
         <script>
             $('.thumb-block').bind('click',function(){
                 var t = $(this).find('span');
                 $('.thumb-block').removeClass('active');
                 $(this).addClass('active');
-                $('.largeList img').attr('data-which',$(this).index()).attr('src',t.attr('data-path')+'.large.jpg');
+                $('.largeList img').attr('data-which',$(this).index()).attr('src',t.attr('data-path')+'.jpg');
             }).eq(0).click();
             $('.pic-left').bind('click',function(){
                 var e = parseInt($('.largeList img').attr('data-which'))-1;

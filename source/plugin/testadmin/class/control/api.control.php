@@ -28,6 +28,7 @@ class api extends \control\ajax{
         $z = model('anli')->find($aid);
         $this->success($z);
     }
+
     function get_anli_pc($aid){
         $z = model('anli_pc')->find($aid);
         $this->success($z);
@@ -57,7 +58,7 @@ class api extends \control\ajax{
         if(!$anli = model('anli')->find($aid))$this->error(400,'未找到案例');
         if(model('anli_pc')->find($aid)){
             $z = model('anli_pc')->data($_POST)->where(array('aid'=>$aid))->save();
-        }else $z = model('anli_pc')->data($_POST)->add();
+        }else $z = model('anli_pc')->data($_POST)->add(true);
         if($z)$this->success();
         else $this->error(400,'创建失败');
     }
@@ -66,7 +67,7 @@ class api extends \control\ajax{
         if(!$anli = model('anli')->find($aid))$this->error(400,'未找到案例');
         if(model('anli_app')->find($aid)){
             $z = model('anli_app')->data($_POST)->where(array('aid'=>$aid))->save();
-        }else $z = model('anli_app')->data($_POST)->add();
+        }else $z = model('anli_app')->data($_POST)->add(true);
         if($z)$this->success();
         else $this->error(400,'创建失败');
     }
@@ -75,11 +76,19 @@ class api extends \control\ajax{
         if(!$anli = model('anli')->find($aid))$this->error(400,'未找到案例');
         if(model('anli_wx')->find($aid)){
             $z = model('anli_wx')->data($_POST)->where(array('aid'=>$aid))->save();
-        }else $z = model('anli_wx')->data($_POST)->add();
+        }else $z = model('anli_wx')->data($_POST)->add(true);
         if($z)$this->success();
         else $this->error(400,'创建失败');
     }
+    function get_pic($aid){
+        $z = model('anli_pic')->find($aid);
+        if($z)$z['path'] .= '.small.jpg';
+        $this->success($z);
+    }
     function set_pic($pid){
+        if($_POST['path']){
+            $_POST['path'] = str_replace('.small.jpg','',$_POST['path']);
+        }
         if($pid){
             $z = model('anli_pic')->find($pid);
             if(!$z)$this->error(400,'图片不存在');

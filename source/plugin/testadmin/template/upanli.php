@@ -2,7 +2,7 @@
 <form id="form" data-default="{g.plugin}/api/get_anli/{id}">
     <div class="form-group">
         
-        <input type="hidden" name="aid">
+        <input type="hidden" name="aid" value="{id}">
         <input type="hidden" name="tid" value="{tid}">
     </div>
     <div class="form-group">
