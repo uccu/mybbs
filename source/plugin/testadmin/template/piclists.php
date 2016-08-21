@@ -23,7 +23,7 @@
 <nav>
     <ul class="pagination pageset">
         <script>
-            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/piclists/'+(folder[4]?'/'+folder[4]:'0')+'/',
+            getPageSet({currentPage},{maxPage},'href','{g.plugin}/{g.control}/piclists/'+(folder[4]?folder[4]:'0')+'/',
             '/'+(folder[6]?'/'+folder[6]:'')+
             (folder[7]?'/'+folder[7]:''));
             </script>
