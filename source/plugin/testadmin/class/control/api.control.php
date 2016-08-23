@@ -13,6 +13,7 @@ class api extends \control\ajax{
     function set_anli($aid){
         if($aid){
             $z = model('anli')->find($aid);
+            $_POST['ctime'] = time();
             if(!$z)$this->error(400,'案例不存在');
             else $z = model('anli')->data($_POST)->save($aid);
             if($z)$this->success();
@@ -106,6 +107,22 @@ class api extends \control\ajax{
     }
     function up_pic(){
         $z = control('tool:upload','picture')->_get_srcs();
+        $this->success($z);
+    }
+
+
+    function set_navc(){
+        $z = model('subnav')->data($_POST)->add(true);
+        $this->success($z);
+    }
+    function get_navc($tid){
+        $z = model('subnav')->find($tid);
+        $this->success($z);
+    }
+    function del_navc($tid){
+        if(!$tid)$this->error(400,'参数错误');
+        $z = model('subnav')->where(array('sid'=>$tid))->remove();
+        $z = model('subnav')->remove($tid);
         $this->success($z);
     }
 }

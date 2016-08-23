@@ -5,9 +5,10 @@ defined('IN_PLAY') || exit('Access Denied');
 class index extends base{
     protected function _get_subnav(){
         return array(
+            'selnav'=>'案例分类',
             'lists'=>'案例列表',
             //'search'=>'案例搜索',
-            'upnav'=>'上传案例'
+            //'upnav'=>'上传案例'
         );
     }
     protected function _get_nav(){
@@ -37,19 +38,47 @@ class index extends base{
     function nav(){
 
     }
-    function lists($type,$page,$aid){
+    function lists($tid,$page,$aid){
         $this->_init();
         $limit = 10;
+        $where = array();
+        if($tid)$where['tid'] = $tid;
         $page = floor($page)>0?floor($page):1;
-        $this->g->template['list'] = $list = model('anli')->add_table(array(
-            'subnav'=>array('_on'=>'tid','name'=>'typename')
-        ))->page($page,$limit)->order(array('ctime'=>'desc'))->select();
-        $maxRow = $this->g->tempalte['maxPage'] = model('anli')->get_field();
+        $subnav = model('subnav')->limit(9999)->select('tid');
+        $list = model('anli')->add_table(array(
+            'subnav'=>array('_on'=>'tid','name'=>'typename','_mapping'=>'s1'),
+        ))->where($where)->page($page,$limit)->order(array('pos','ctime'=>'desc'))->select();
+        foreach($list as &$v){
+            if($subnav[$v['tid']]['sid']){
+                $v['typename'] = $subnav[$subnav[$v['tid']]['sid']]['name'].'-'.$v['typename'];
+            }
+            $v['date'] = date('m-d H:i',$v['ctime']);
+        }
+        $this->g->template['list'] = $list;
+        $maxRow = $this->g->tempalte['maxPage'] = model('anli')->where($where)->get_field();
         $maxPage = floor(($maxRow-1)/$limit)+1;
         $this->g->template['maxRow'] = $maxRow;
         $this->g->template['maxPage'] = $maxPage;
         $this->g->template['currentPage'] = $page;
+        $this->g->template['tid'] = $tid?$tid:0;
         T(METHOD_NAME);
+    }
+    function selnav($sid){
+        if($sid){
+            $this->_init();
+            if(!$sid)$this->error(400,'没有找到分类');
+            $this->g->template['list'] = $list = model('subnav')->where(array('sid'=>$sid))->limit(9999)->order(array('pos','tid'=>'DESC'))->select();
+            if(!$list)header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/lists/'.$sid);
+            $this->g->template['sid'] = $sid;
+            T(METHOD_NAME);
+        }else{
+            $this->_init();
+            $this->g->template['sid'] = 0;
+            $this->g->template['list'] = $list = model('subnav')->where(array('sid'=>0))->limit(9999)->select();
+            //var_dump($list);
+            T(METHOD_NAME);
+        }
+        
     }
     function upnav(){
         $this->subnav = array_merge($this->subnav,array('upnav'=>'选择分类'));
@@ -61,7 +90,7 @@ class index extends base{
     function upsubnav($sid){
         $this->subnav = array_merge($this->subnav,array('upsubnav'=>'选择子分类'));
         $this->_init();
-        if(!$sid)$this->error(400,'没有找到分类');
+        if(!$sid)header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/upnav');
         $this->g->template['list'] = $list = model('subnav')->where(array('sid'=>$sid))->limit(9999)->select();
         if(!$list)header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/upanli/'.$sid);
         //var_dump($list);
@@ -136,5 +165,16 @@ class index extends base{
         $this->_init();
         $this->g->template['id'] = $pid;
         T('uppic');
+    }
+    function up_navs($sid){
+        $this->_init();
+        $this->g->template['sid'] = $sid;
+        T('up_navc');
+    }
+    function up_navt($tid){
+        $this->_init();
+        if(!$n = model('subnav')->find($tid))header('Location:/'.PLUGIN_NAME.'/'.CONTROL_NAME.'/'.$first);
+        $this->g->template['id'] = $tid;
+        T('up_navc');
     }
 }

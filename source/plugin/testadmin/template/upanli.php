@@ -10,6 +10,10 @@
         <input type="text" class="form-control"  name="name">
     </div>
     <div class="form-group">
+        <label>排序</label>
+        <input type="text" class="form-control"  name="pos">
+    </div>
+    <div class="form-group">
         <label>缩略图</label>
         <input type="file" id="thumb" data-raw="1" data-small="1" data-whole-url="1" data-box="anli" />
         <p class="help-block"></p>

@@ -8,9 +8,9 @@ class cases extends \control\ajax{
     }
     function get_subnav($sid){
         if($sid){
-            $z = model('subnav')->where(array('sid'=>$sid))->limit(9999)->select();
+            $z = model('subnav')->where(array('sid'=>$sid))->limit(9999)->order(array('pos','tid'=>'DESC'))->select();
         }else{
-            $z = model('subnav')->where(array('sid'=>0))->limit(9999)->select();
+            $z = model('subnav')->where(array('sid'=>0))->limit(9999)->order(array('pos','tid'=>'DESC'))->select();
         }
         $this->success($z);
     }
@@ -40,7 +40,7 @@ class cases extends \control\ajax{
         $this->success($z);
     }
     function _nomethod(){
-        $subnavs = model('subnav')->limit(9999)->select();
+        $subnavs = model('subnav')->limit(9999)->order(array('pos','tid'=>'DESC'))->select();
         $subnavsArray = array();
         foreach($subnavs as $v)$subnavsArray[$v['sid']][] = $v;
         
