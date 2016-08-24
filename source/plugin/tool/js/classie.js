@@ -76,7 +76,7 @@ if ( typeof define === 'function' && define.amd ) {
   // browser global
   window.classie = classie;
 }
-  j(()=>{
+  j(function(){
       if (!String.prototype.trim) {
 					(function() {
 						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
