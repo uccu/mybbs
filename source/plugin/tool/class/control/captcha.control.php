@@ -7,9 +7,15 @@ class captcha extends \control\ajax{
         //var_dump($this->uid);die();
     }
     function get_captcha(){
-        $a = model('article')->find(1);
-        //var_dump($a);
-        $this->success('captcha');
+        $out = array(
+            'captcha'=>'1234'
+        );
+        $this->success($out);
+    }
+    function check_captcha(){
+
+
+        return true;
     }
 }
 ?>
