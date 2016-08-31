@@ -26,6 +26,13 @@ class home extends base\basic{
     function unorder(){
 
     }
+    function order_info(){
+        
+    }
+
+    function remind(){
+        
+    }
 
 }
 ?>
