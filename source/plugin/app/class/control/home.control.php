@@ -2,38 +2,52 @@
 namespace plugin\app\control;
 defined('IN_PLAY') || exit('Access Denied');
 class home extends base\basic{
-    
+    private $out = true;
     function _beginning(){
         
 
 
     }
+    function banner(){
+        $z = model('banner')->limit(999)->select();
+        $q['bannerList'] = $z;
+        if($this->out)$this->success($q);
+    }
+    function nav(){
+        $z = model('nav')->limit(999)->select();
+        $q['navList'] = $z;
+        if($this->out)$this->success($q);
+    }
 
-    function get_c($rank,$c,$k){
-        $a = $k*0.1;
-        $b = array(0.1,0.2,0.3,0.4);
-        if($k==4)$b = array(0.1,0.2,0.3,0.3,0.1);
-        $rank = floor($rank);
-        if($rank==1)return ($c*$a*$b[0]);
-        $rankz = $rank;
-        for($i=0;$i<4;$i++){
-            $rankz -= pow(10,$i);
-            if($rankz>pow(10,$i+1))continue;
-            if($rankz<=pow(10,$i+1)*0.1){
-                return floor($c*$a*$b[$i+1]*0.2/(pow(10,$i+1)*0.1));
-            }elseif($rankz<=pow(10,$i+1)*0.3){
-                return floor($c*$a*$b[$i+1]*0.3/(pow(10,$i+1)*0.2));
-            }elseif($rankz<=pow(10,$i+1)*0.6){
-                return floor($c*$a*$b[$i+1]*0.3/(pow(10,$i+1)*0.3));
-            }else{
-                return floor($c*$a*$b[$i+1]*0.2/(pow(10,$i+1)*0.4));
-            }
+    function activity(){
+        $now = TIME_NOW;
+        $where['zz'] = 'stime<$now AND etime>$now';
+        $z = model('activity')->where($where)->find();
+        $q['activityInfo'] = $z;
+        if($z){
+            $where2['stime'] = array('logic',$z['stime'],'>');
+            $z2 = model('activity')->where($where2)->order(array('stime'))->find();
+        }else{
+            $where2['stime'] = array('logic',$now,'>');
+            $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }
-        return 0;
+        $q['nextActivityInfo'] = $z2;
+        if($z2){
+            $where3['stime'] = array('logic',$z2['stime'],'>');
+            $z3 = model('activity')->where($where3)->order(array('stime'))->select();
+        }else{
+            $z3 = array();
+        }
+        $q['previewActivityList'] = $z3;
+        if($this->out)$this->success($q);
     }
-    function get($rank,$c){
-        echo $this->get_c($rank,$c,4);
+    function recommand(){
+
+
+
+        $q['recommandList'] = array();
+        if($this->out)$this->success($q);
     }
-    
+
 }
 ?>

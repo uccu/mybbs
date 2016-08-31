@@ -29,8 +29,8 @@ class in extends base\basic{
         $this->_out_info($info,true);
     }
     function login_third(){
-        $type = post('type');
-        $value = post('value','');
+        $type = post('platform');
+        $value = post('key','');
         if(!$value)$this->errorCode(404);
         if($type=='qq'){
             $where['qq'] = $value;
@@ -44,6 +44,13 @@ class in extends base\basic{
         $info = model('user')->where($where)->find();
         if(!$info)$this->errorCode(401);
         $this->_out_info($info,true);
+    }
+    function unbind(){
+
+    }
+
+    function bind(){
+        
     }
 
     function register(){

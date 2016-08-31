@@ -12,7 +12,7 @@ class captcha extends \control\ajax{
         );
         $this->success($out);
     }
-    function check_captcha(){
+    function _check_captcha(){
 
 
         return true;

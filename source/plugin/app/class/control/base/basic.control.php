@@ -27,6 +27,7 @@ class basic extends \control\ajax{
         if(!$uid || !$md5)return '0';
         $info = model('user')->find($uid);
         if(!$info)return '0';
+        $this->userInfo = $info;
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '0';
     }
     function _check_login(){
