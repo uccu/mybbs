@@ -41,16 +41,61 @@ class in extends base\basic{
         }else{
             $this->errorCode(403);
         }
+        if(!$value)$this->errorCode(403);
         $info = model('user')->where($where)->find();
-        if(!$info)$this->errorCode(401);
+        if(!$info){
+            $info = $where;
+            $info['password'] = md5(time());
+            $this->_add_user($info);
+        }
         $this->_out_info($info,true);
     }
-    function unbind(){
-
+    function bind(){
+        $this->_check_login();
+        $uid = $this->uid;
+        $type = post('platform','');
+        $value = post('key','');
+        if($type=='qq'){
+            $data['qq'] = $value;
+        }elseif($type=='wb'){
+            $data['wb'] = $value;
+        }elseif($type=='wx'){
+            $data['wx'] = $value;
+        }elseif(preg_match('#^1\d{10}$#',$type)){
+            $phone = $type;
+            if(model('user')->where(array('phone'=>$phone))->find()){
+                $this->errorCode(405);
+            }
+            $password = post('password','');
+            $this->_check_password($password);
+            $password = md5(md5($password).$this->salt);
+            $data['password'] = $password;
+            $data['phone'] = $phone;
+        }else{
+            $this->errorCode(403);
+        }
+        if(!$value)$this->errorCode(403);
+        $z = model('user')->data($data)->save($uid);
+        $info = model('user')->find($uid);
+        $this->_out_info($info,true);
     }
 
-    function bind(){
-        
+    function unbind(){
+        $this->_check_login();
+        $uid = $this->uid;
+        $type = post('platform','');
+        if($type=='qq'){
+            $data['qq'] = '';
+        }elseif($type=='wb'){
+            $data['wb'] = '';
+        }elseif($type=='wx'){
+            $data['wx'] = '';
+        }else{
+            $this->errorCode(403);
+        }
+        $z = model('user')->data($data)->save($uid);
+        if(!$z)$this->errorCode(409);
+        $this->success();
     }
 
     function register(){
@@ -59,7 +104,7 @@ class in extends base\basic{
         if(model('user')->where(array('phone'=>$phone))->find()){
             $this->errorCode(405);
         }
-        control('tool:captcha')->check_captcha();
+        control('tool:captcha')->_check_captcha();
         $password = post('password','');
         $this->_check_password($password);
         $password = md5(md5($password).$this->salt);
@@ -99,7 +144,7 @@ class in extends base\basic{
         if(!$info = model('user')->where(array('phone'=>$phone))->find()){
             $this->errorCode(401);
         }
-        control('tool:captcha')->check_captcha();
+        control('tool:captcha')->_check_captcha();
         $password = post('password','');
         $this->_check_password($password);
         $password = md5(md5($password).$this->salt);

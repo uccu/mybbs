@@ -33,5 +33,9 @@ class basic extends \control\ajax{
     function _check_login(){
         if(!$this->uid)$this->errorCode(410);
     }
+    function _get_microtime(){
+        list($usec, $sec) = explode(" ", microtime());
+        return floor(((float)$usec + (float)$sec)*1000)/1000;
+    }
 }
 ?>

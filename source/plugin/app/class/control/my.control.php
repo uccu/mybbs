@@ -19,16 +19,7 @@ class home extends base\basic{
 
         $this->success($q);
     }
-    function order_list(){
-        $q['itemList'] = array();
-        $this->success($q);
-    }
-    function unorder(){
 
-    }
-    function order_info(){
-        
-    }
 
     function remind(){
         

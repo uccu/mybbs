@@ -34,7 +34,7 @@ class home extends base\basic{
         $q['nextActivityInfo'] = $z2;
         if($z2){
             $where3['stime'] = array('logic',$z2['stime'],'>');
-            $z3 = model('activity')->where($where3)->order(array('stime'))->select();
+            $z3 = model('activity')->where($where3)->order(array('stime'))->limit(999)->select();
         }else{
             $z3 = array();
         }
@@ -42,9 +42,8 @@ class home extends base\basic{
         if($this->out)$this->success($q);
     }
     function recommand(){
-
-
-
+        $where['recommand'] = 1;
+        $z = model('activity')->where($where)->limit(999)->select();
         $q['recommandList'] = array();
         if($this->out)$this->success($q);
     }
