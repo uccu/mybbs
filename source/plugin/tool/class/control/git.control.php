@@ -6,8 +6,10 @@ class git extends \control\ajax{
         
     }
     function pull(){
-        system('d:\wamp\www\git_pull.bat',$out);
-        $this->success($out);
+        $last_line = system('d:\wamp\www\git_pull.bat',$retval);
+        $array['last_line'] = $last_line;
+        $array['retval'] = $retval;
+        $this->success($array);
     }
     function ls(){
         system('ls',$out);
