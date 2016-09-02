@@ -9,6 +9,10 @@ class git extends \control\ajax{
         system('d:\wamp\www\git_pull.bat',$out);
         $this->success($out);
     }
+    function ls(){
+        system('ls',$out);
+        $this->success($out);
+    }
 
 }
 ?>
