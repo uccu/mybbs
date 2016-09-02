@@ -46,6 +46,19 @@ class home extends base\basic{
     function rank_dou(){
 
     }
+    function my_rank_gou(){
+
+    }
+    function my_rank_xiang(){
+
+    }
+    function my_rank_bang(){
+
+    }
+
+    function my_rank_dou(){
+
+    }
     function coin(){
 
 
@@ -72,6 +85,7 @@ class home extends base\basic{
     function close_push(){
 
     }
+    
     function open_push(){
         
     }
@@ -105,6 +119,12 @@ class home extends base\basic{
     }
     function my_collect(){
         
+    }
+    function my_fans(){
+
+    }
+    function set_pay_password(){
+
     }
 
 }
