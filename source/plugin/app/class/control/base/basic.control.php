@@ -30,6 +30,11 @@ class basic extends \control\ajax{
         $this->userInfo = $info;
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '0';
     }
+    function _get_aid(){
+        $where['zz'] = 'stime<$now AND etime>$now';
+        $z = model('activity')->where($where)->find();
+        return $z ? $z['aid'] : 0;
+    }
     function _check_login(){
         if(!$this->uid)$this->errorCode(410);
     }

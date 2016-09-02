@@ -10,32 +10,50 @@ class home extends base\basic{
     }
 
 
-    function lists(){
-
-        $q['itemList'] = array();
+    function lists($lid){
+        $lid = post('lid',$lid);
+        if($lid)$where['lid'] = $lid;
+        $where['del'] = 1;
+        $q['itemList'] = model('goods')->where($where)->limit(999)->select();
         $this->success($q);
     }
     function types(){
-        
-        $q['typeList'] = array();
+        $q['typeList'] = model('goods_list')->limit(999)->select();
         $this->success($q);
     }
-    function info(){
-        $q['itemInfo'] = array();
+    function info($tid){
+        $tid = post('lid',$lid);
+        $q['itemInfo'] = model('goods')->find($tid);
         $this->success($q);
     }
-    function collect(){
-
+    function collect($tid){
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+        $data['tid'] = post('tid',$tid);
+        if(!$data['tid'])$this->errorCode(411);
+        if(model('collect')->where($data)->find())$this->errorCode(412);
+        $data['ctime'] = TIME_NOW;
+        model('collect')->data($data)->add(true);
         $this->success();
     }
 
-    function uncollect(){
-
+    function uncollect($tid){
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+        $data['tid'] = post('tid',$tid);
+        if(!$data['tid'])$this->errorCode(411);
+        model('collect')->where($data)->remove();
         $this->success();
     }
 
-    function add_cart(){
-
+    function add_cart($tid,$num=1){
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+        $data['tid'] = post('tid',$tid);
+        if(!$data['tid'])$this->errorCode(411);
+        $data['num'] = post('num',$num);
+        if(!$data['num'])$this->errorCode(413);
+        $data['ctime'] = TIME_NOW;
         $this->success();
     }
 
