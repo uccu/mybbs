@@ -127,7 +127,7 @@ class in extends base\basic{
     }
     function _out_info($info,$cookie = false){
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
-        if($cookie)cookie('user_token',$user_token);
+        if($cookie)cookie('user_token',$user_token,0);
         $out = array(
             'user_token'=>$user_token
         );
