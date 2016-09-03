@@ -60,6 +60,7 @@ class my extends base\basic{
         $where['status'] = array('contain',array(2,3,4,5),'IN');
         $where2 = '(`balance` != 0 OR `coin` != 0)';
         $z['list'] = model('order')->where($where)->where($where2)->limit(999)->sql()->select();
+        var_dump($where);
         $this->success($z);
 
     }
