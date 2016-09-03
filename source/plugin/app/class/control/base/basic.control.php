@@ -26,10 +26,15 @@ class basic extends \control\ajax{
         list($md5,$uid) = explode('|',$e);
         if(!$uid || !$md5)return '0';
         $info = model('user')->find($uid);
+        $this->userInfo = $info;
         if(!$info)return '0';
         $this->userInfo = $info;
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '0';
     }
+    function _get_userInfo(){
+        return array();
+    }
+    
     function _get_aid(){
         $where['zz'] = 'stime<$now AND etime>$now';
         $z = model('activity')->where($where)->find();
