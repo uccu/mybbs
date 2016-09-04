@@ -38,6 +38,7 @@ class basic extends \control\ajax{
     function _get_aid(){
         $where['zz'] = 'stime<$now AND etime>$now';
         $z = model('activity')->where($where)->find();
+        if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
     function _check_login(){
@@ -46,6 +47,12 @@ class basic extends \control\ajax{
     function _get_microtime(){
         list($usec, $sec) = explode(" ", microtime());
         return floor(((float)$usec + (float)$sec)*1000)/1000;
+    }
+    function _get_today(){
+        return strtotime(date('Y-m-d',TIME_NOW));
+    }
+    function _get_yesterday(){
+        return $this->today-24*3600;
     }
 }
 ?>
