@@ -4,7 +4,8 @@ defined('IN_PLAY') || exit('Access Denied');
 class in extends base\basic{
     
     function _beginning(){
-        
+        //测试
+        if(!$_POST)$_POST = $_GET;
     }
     function _check_phone($z){
         if(!is_string($z))$this->errorCode(700);
