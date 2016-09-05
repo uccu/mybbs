@@ -4,8 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class in extends base\basic{
     
     function _beginning(){
-        //测试
-        if(!$_POST)$_POST = $_GET;
+        
     }
     function _check_phone($z){
         if(!is_string($z))$this->errorCode(700);
@@ -20,9 +19,9 @@ class in extends base\basic{
         if(strlen($z)<6)$this->errorCode(406);
         return $z;
     }
-    function login(){
-        $password = post('password','');
-        $phone = post('phone','z');
+    function login($phone,$password){
+        $password = post('password','',$password);
+        $phone = post('phone','',$phone);
         $where['phone'] = $phone;
         $info = model('user')->where($where)->find();
         if(!$info)$this->errorCode(401);

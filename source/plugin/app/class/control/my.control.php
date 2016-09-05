@@ -4,8 +4,7 @@ defined('IN_PLAY') || exit('Access Denied');
 class my extends base\basic{
     private $out = true;
     function _beginning(){
-        //测试
-        if(!$_POST)$_POST = $_GET;
+        
         $this->_check_login();
 
 
