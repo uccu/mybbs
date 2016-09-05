@@ -145,7 +145,7 @@ class home extends base\basic{
         $oid = post('oid',$oid);
         $z = model('order')->find($oid);
         if($z['uid']==$this->uid)model('order')->remove($oid);
-        $this->success($q);
+        $this->success();
     }
     function _useCoin(){
 
