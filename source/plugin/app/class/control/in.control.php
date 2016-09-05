@@ -2,7 +2,7 @@
 namespace plugin\app\control;
 defined('IN_PLAY') || exit('Access Denied');
 class in extends base\basic{
-    
+    private $cookie=false;
     function _beginning(){
         
     }
@@ -23,10 +23,14 @@ class in extends base\basic{
         $password = post('password',$password);
         $phone = post('phone',$phone);
         $where['phone'] = $phone;
+        if($cookie = post('cookie')){
+            $this->cookie = true;
+        }
+
         $info = model('user')->where($where)->find();
         if(!$info)$this->errorCode(401);
         if(md5(md5($password).$this->salt)!=$info['password'])$this->errorCode(402);
-        $this->_out_info($info,true);
+        $this->_out_info($info,$this->cookie);
     }
     function login_third(){
         $type = post('platform');
@@ -48,7 +52,7 @@ class in extends base\basic{
             $info['password'] = md5(time());
             $this->_add_user($info);
         }
-        $this->_out_info($info,true);
+        $this->_out_info($info,$this->cookie);
     }
     function bind(){
         $this->_check_login();
@@ -77,7 +81,7 @@ class in extends base\basic{
         if(!$value)$this->errorCode(403);
         $z = model('user')->data($data)->save($uid);
         $info = model('user')->find($uid);
-        $this->_out_info($info,true);
+        $this->_out_info($info,$this->cookie);
     }
 
     function unbind(){
@@ -122,7 +126,7 @@ class in extends base\basic{
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
         $info['uid'] = $z;
-        $this->_out_info($info,true);
+        $this->_out_info($info,$this->cookie);
 
     }
     function _out_info($info,$cookie = false){
