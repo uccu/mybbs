@@ -20,8 +20,8 @@ class in extends base\basic{
         return $z;
     }
     function login($phone,$password){
-        $password = post('password','',$password);
-        $phone = post('phone','',$phone);
+        $password = post('password',$password);
+        $phone = post('phone',$phone);
         $where['phone'] = $phone;
         $info = model('user')->where($where)->find();
         if(!$info)$this->errorCode(401);

@@ -34,7 +34,7 @@ class my extends base\basic{
         $this->success();
     }
     function default_address($id){
-        $id = post('id',0,$id);
+        $id = post('id',$id);
         $z = model('user_address')->find($id);
         if(!$z || $z['uid']!=$this->uid)$this->errorCode(415);
         $where['uid'] = $this->uid;
@@ -96,7 +96,7 @@ class my extends base\basic{
 
 
     function avatar($avatar){
-        if($avatar = post('avatar','',$avatar)){
+        if($avatar = post('avatar',$avatar)){
             model('user')->data(array('avatar'=>$avatar))->save($this->uid);
         }else{
             $this->errorCode(416);
@@ -105,7 +105,7 @@ class my extends base\basic{
     }
 
     function username($username){
-        if($username = post('username','',$username)){
+        if($username = post('username',$username)){
             model('user')->data(array('username'=>$username))->save($this->uid);
         }else{
             $this->errorCode(416);
@@ -113,7 +113,7 @@ class my extends base\basic{
         $this->success();
     }
     function sex($sex){
-        if($sex = post('sex','',$sex)){
+        if($sex = post('sex',$sex)){
             model('user')->data(array('sex'=>$sex))->save($this->uid);
         }else{
             $this->errorCode(416);
@@ -122,7 +122,7 @@ class my extends base\basic{
     }
 
     function birth($z){
-        $z = post('birth','',$z);
+        $z = post('birth',$z);
         if($z!=''){
             model('user')->data(array('birth'=>$z))->save($this->uid);
         }else{
@@ -217,7 +217,7 @@ class my extends base\basic{
 
 
     function exchange($tid){
-        $tid = post('tid',0,$tid);
+        $tid = post('tid',$tid);
         $t = model('goods')->find($tid);
         if(!$t)$this->errorCode(411);
         if(!$t['score'])$this->errorCode(422);
