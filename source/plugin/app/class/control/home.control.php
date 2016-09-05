@@ -41,13 +41,13 @@ class home extends base\basic{
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }
         $q['nextActivityInfo'] = $z2;
-        if($z2){
-            $where3['stime'] = array('logic',$z2['stime'],'>');
-            $z3 = model('activity')->where($where3)->order(array('stime'))->limit(999)->select();
-        }else{
-            $z3 = array();
-        }
-        $q['previewActivityList'] = $z3;
+        // if($z2){
+        //     $where3['stime'] = array('logic',$z2['stime'],'>');
+        //     $z3 = model('activity')->where($where3)->order(array('stime'))->limit(999)->select();
+        // }else{
+        //     $z3 = array();
+        // }
+        // $q['previewActivityList'] = $z3;
         if($this->out)$this->success($q);
         return $q;
     }
