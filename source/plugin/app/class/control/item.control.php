@@ -128,8 +128,9 @@ class item extends base\basic{
         $this->success($q);
     }
 
-    function change_cart(){
+    function change_cart($cid){
         $this->_check_login();
+        $cid = post('cid',$cid);
         $z = model('cart')->find($cid);
         if(!$z)$this->errorCode(424);
         
