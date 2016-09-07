@@ -31,8 +31,8 @@ class item extends base\basic{
     function collect($tid){
         $this->_check_login();
         $data['uid'] = $this->uid;
-        $data['tid'] = post('tid',$tid);
-        if(!$data['tid'])$this->errorCode(411);
+        $data['tid'] = $tid = post('tid',$tid);
+        $this->_check_tid($tid);
         if(model('collect')->where($data)->find())$this->errorCode(412);
         $data['ctime'] = TIME_NOW;
         model('collect')->data($data)->add(true);
@@ -48,33 +48,49 @@ class item extends base\basic{
         $this->success();
     }
 
-    function add_cart($tid,$num=1){
-        $this->_check_login();
-        $data['aid'] = $this->aid;
-        $data['uid'] = $this->uid;
-        $data['tid'] = post('tid',$tid);
-        if(!$data['tid'])$this->errorCode(411);
-        $data['num'] = post('num',$num,'%d');
+    function add_cart($tid){
 
-        $where['aid'] = $data['aid'];
-        $where['tid'] = $data['tid'];
-        $where['uid'] = $data['uid'];
-        $t = model('goods')->find($tid);
-        if(!$t)$this->errorCode(411);
-        $c = $cart = model('cart')->where($where)->find();
-        $c = $c?$c['num']:0;
+        //登录判断
+        $this->_check_login();
+
+        //商品存在判断+商品是否当前活动判断
+        $tid = post('tid',$tid);
+        $t = $this->_check_tid($tid,$this->aid);
+
+        //定义已经购买的数量
+        $has = 0;
+        $num = 1;
+
+        $where['aid'] = $this->aid;
+        $where['tid'] = $tid;
+        $where['uid'] = $this->uid;
+
+        //检查购物车已添加数量是否超过阈值
+        $cart = model('cart')->where($where)->find();
+        $c = $cart?$cart['num']:0;$has += $c;
+        if($t['limit']<=$has)$this->errorCode(420);
+
+        //检查订单已购买数量是否超过阈值
         if($t['limit']){
             $o = model('order')->field('SUM(`num`) as `s`')->where($where)->get_field('s');
-            $o = $o?$o:0;
-            if($t['limit']<=$o+$c)$this->errorCode(420);
+            $o = $o?$o:0;$has += $o;
+            if($t['limit']<=$has)$this->errorCode(420);
         }
-        if(!$data['num'])$this->errorCode(413);
-        $data['ctime'] = TIME_NOW;
+
+        
+        //添加购物车
         if($cart){
             $data['num'] = array('add',1);
-            model('cart')->data($data)->save($cart['cid']);
+            $data['ctime'] = TIME_NOW;
+            model('cart')->where($where)->data($data)->save();
+        }else{
+            $data['aid'] = $this->aid;
+            $data['tid'] = $tid;
+            $data['uid'] = $this->uid;
+            $data['num'] = 1;
+            $data['ctime'] = TIME_NOW;
+            model('cart')->data($data)->add();
         }
-        else model('cart')->data($data)->add();
         $this->success();
     }
 
@@ -83,6 +99,7 @@ class item extends base\basic{
         $cid = post('cid',$cid);
         $z = model('cart')->find($cid);
         if($z['uid']==$this->uid)model('cart')->remove($cid);
+        else $this->errorCode(700);
         $this->success();
     }
 
@@ -102,13 +119,23 @@ class item extends base\basic{
 
     function change_cart(){
         $this->_check_login();
-        $data['aid'] = $this->aid;
-        $data['uid'] = $this->uid;
         $z = model('cart')->find($cid);
+        if(!$z){
+            $this->errorCode(424);
+        }
         if($z['uid']==$this->uid){
             $num = post('num',0,'%d');
-            $data['num'] = array('add',$num);
-            model('cart')->data($data)->save($cid);
+            if($num>0){
+                $_POST['tid'] = $z['tid'];
+                $this->add_cart();
+            }elseif($num>=$z['num']){
+                $this->errorCode(413);
+            }else{
+                $data['num'] = array('add',$num);
+                model('cart')->data($data)->save($cid);
+            }
+        }else{
+            $this->errorCode(700);
         }
         $this->success();
     }

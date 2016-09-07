@@ -54,5 +54,16 @@ class basic extends \control\ajax{
     function _get_yesterday(){
         return $this->today-24*3600;
     }
+    function _check_tid($tid,$aid=false){
+        $where['tid'] = $tid;
+        $where['del'] = 1;
+        if(!$z = model('goods')->where($where)->find())$this->errorCode(411);
+        if($aid){
+            $w['aid'] = $aid;
+            $w['tid'] = $tid;
+            if(!model('activity_list')->where($where)->find())$this->errorCode(423);
+        }
+        return $z;
+    }
 }
 ?>
