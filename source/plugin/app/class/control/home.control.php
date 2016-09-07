@@ -55,7 +55,7 @@ class home extends base\basic{
     }
     function recommend(){
         $where['recommend'] = 1;
-        $z = model('activity')->where($where)->limit(4)->select();
+        $z = model('goods')->where($where)->limit(4)->select();
         $q['recommendList'] = array();
         if($this->out)$this->success($q);
         return $q;
@@ -63,7 +63,7 @@ class home extends base\basic{
     function recommend_c(){
         $where['recommend'] = 1;
         $page = post('page',2);
-        $z = model('activity')->where($where)->page($page,4)->select();
+        $z = model('goods')->where($where)->page($page,4)->select();
         $q['recommendList'] = array();
         if($this->out)$this->success($q);
         return $q;
