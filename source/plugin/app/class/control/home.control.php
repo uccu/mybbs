@@ -55,16 +55,14 @@ class home extends base\basic{
     }
     function recommend(){
         $where['recommend'] = 1;
-        $z = model('goods')->where($where)->limit(4)->select();
-        $q['recommendList'] = array();
+        $q['recommendList'] = model('goods')->where($where)->limit(4)->select();
         if($this->out)$this->success($q);
         return $q;
     }
     function recommend_c(){
         $where['recommend'] = 1;
         $page = post('page',2);
-        $z = model('goods')->where($where)->page($page,4)->select();
-        $q['recommendList'] = array();
+        $q['recommendList'] = model('goods')->where($where)->page($page,4)->select();
         if($this->out)$this->success($q);
         return $q;
     }
