@@ -18,12 +18,14 @@ class item extends base\basic{
         $this->success($q);
     }
     function types(){
-        $q['list'] = model('goods_list')->limit(999)->select();
+        $where['del'] = 1;
+        $q['list'] = model('goods_list')->where($where)->limit(999)->select();
         $this->success($q);
     }
     function info($tid){
-        $tid = post('lid',$lid);
-        $q['info'] = model('goods')->find($tid);
+        $tid = post('tid',$tid);
+        $q['info'] = model('goods')->where($where)->find($tid);
+        if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
         $this->success($q);
     }
     function collect($tid){
