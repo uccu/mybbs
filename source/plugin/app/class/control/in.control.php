@@ -19,7 +19,7 @@ class in extends base\basic{
         if(strlen($z)<6)$this->errorCode(406);
         return $z;
     }
-    function login($phone,$password){
+    function login($phone,$password,$cookie){
         $password = post('password',$password);
         $phone = post('phone',$phone);
         $where['phone'] = $phone;
