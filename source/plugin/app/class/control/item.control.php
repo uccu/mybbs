@@ -59,20 +59,19 @@ class item extends base\basic{
 
         //定义已经购买的数量
         $has = 0;
-        $num = 1;
-
+        
         $where['aid'] = $this->aid;
         $where['tid'] = $tid;
         $where['uid'] = $this->uid;
 
-        //检查购物车已添加数量是否超过阈值
-        
-
-        //检查订单已购买数量是否超过阈值
         if($t['limits']){
+
+            //检查购物车已添加数量是否超过阈值
             $cart = model('cart')->where($where)->find();
             $c = $cart?$cart['num']:0;$has += $c;
             if($t['limits']<=$has)$this->errorCode(420);
+
+            //检查订单已购买数量是否超过阈值
             $o = model('order')->field('SUM(`num`) as `s`')->where($where)->get_field('s');
             $o = $o?$o:0;$has += $o;
             if($t['limits']<=$has)$this->errorCode(420);
