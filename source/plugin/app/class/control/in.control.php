@@ -109,7 +109,7 @@ class in extends base\basic{
             $this->errorCode(405);
         }
         control('tool:captcha')->_check_captcha();
-        $password = post('password',password);
+        $password = post('password',$password);
         $this->_check_password($password);
         $password = md5(md5($password).$this->salt);
         if($referee = post('referee','0')){
