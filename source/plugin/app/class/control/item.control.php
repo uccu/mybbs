@@ -127,9 +127,8 @@ class item extends base\basic{
     function change_cart(){
         $this->_check_login();
         $z = model('cart')->find($cid);
-        if(!$z){
-            $this->errorCode(424);
-        }
+        if(!$z)$this->errorCode(424);
+        
         if($z['uid']==$this->uid){
             $num = post('num',0,'%d');
             if($num>0){
@@ -181,8 +180,11 @@ class item extends base\basic{
             $z = model('order')->data($data)->add();
             if(!$z)$this->errorCode(421);
             $data['oid'] = $z;
+            model('cart')->remove($cid);
         }else $this->errorCode(700);
-        $q['order'] = $data;
+
+        $q['list'] = array($data);
+        $q['money'] = $data['money'];
         if($this->out)$this->success($q);
         return $data;
     }
@@ -190,8 +192,13 @@ class item extends base\basic{
         $this->out = false;
         $cids = post('cids',$cids);
         $cid = implode(',',$cids);
-        foreach($cid as &$v)$v = $this->order($v);
+        $money = 0;
+        foreach($cid as &$v){
+            if($v['money'])$money+=$v['money'];
+            $v = $this->order($v);
+        }
         $q['list'] = $cid;
+        $q['money'] = $money;
         $this->success($q);
 
     }
