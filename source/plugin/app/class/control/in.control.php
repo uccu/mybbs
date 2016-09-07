@@ -23,7 +23,7 @@ class in extends base\basic{
         $password = post('password',$password);
         $phone = post('phone',$phone);
         $where['phone'] = $phone;
-        if($cookie = post('cookie')){
+        if($cookie = post('cookie',$cookie)){
             $this->cookie = true;
         }
 
