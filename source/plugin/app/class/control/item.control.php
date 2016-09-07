@@ -1,7 +1,7 @@
 <?php
 namespace plugin\app\control;
 defined('IN_PLAY') || exit('Access Denied');
-class home extends base\basic{
+class item extends base\basic{
     private $out = true;
     function _beginning(){
         

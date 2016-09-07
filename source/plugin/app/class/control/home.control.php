@@ -42,25 +42,22 @@ class home extends base\basic{
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }
         $q['nextActivityInfo'] = $z2;
-         if($z2){
+        if($z2){
              $q['nextActivityInfo']['message'] = '总关注100W';
-        //     $where3['stime'] = array('logic',$z2['stime'],'>');
-        //     $z3 = model('activity')->where($where3)->order(array('stime'))->limit(999)->select();
-        // }else{
-        //     $z3 = array();
         }
-        // $q['previewActivityList'] = $z3;
         if($this->out)$this->success($q);
         return $q;
     }
     function recommend(){
         $where['recommend'] = 1;
+        $where['del'] = 1;
         $q['recommendList'] = model('goods')->where($where)->limit(4)->select();
         if($this->out)$this->success($q);
         return $q;
     }
     function recommend_c(){
         $where['recommend'] = 1;
+        $where['del'] = 1;
         $page = post('page',2);
         $q['recommendList'] = model('goods')->where($where)->page($page,4)->select();
         if($this->out)$this->success($q);
