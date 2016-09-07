@@ -120,7 +120,7 @@ class item extends base\basic{
                     '_on'=>'tuan_cart.uid=c.uid AND tuan_cart.tid=c.tid','id'=>'collected','_mapping'=>'c','_join'=>'LEFT JOIN'
                 ),
                 'goods'=>array(
-                    'name','thumb','bean','price_act','price','_on'=>'tid'
+                    'name','thumb','bean','price_act','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
                 ),
             )
         )->where($data)->limit(999)->select();
