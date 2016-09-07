@@ -65,5 +65,23 @@ class basic extends \control\ajax{
         }
         return $z;
     }
+    function _pusher($content='测试~',$uid=0){
+        if(!$uid){
+            $uid = $this->uid;
+            if(!$uid)return false;
+            if(!$this->userInfo['push'])return false;
+        }else{
+            $userInfo = model('user')->find($uid);
+            if(!$userInfo)return false;
+            if(!$userInfo['push'])return false;
+        }
+        require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
+        $client = new \JPush('6505eff9f988de697771e58b', '29a604d9acbeba974b11d3c6');
+        $result = $client->push()
+            ->setPlatform('all')
+            ->addAlias('A'.$uid)
+            ->setNotificationAlert($content)
+            ->send();
+    }
 }
 ?>

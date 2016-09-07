@@ -14,7 +14,8 @@ class item extends base\basic{
         $lid = post('lid',$lid);
         if($lid)$where['lid'] = $lid;
         $where['del'] = 1;
-        $where['aid'] = post('aid',$aid);
+        $aid = post('aid',$aid);
+        $where['aid'] = $aid;
         $q['list'] = model('goods')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid')
         ))->where($where)->limit(999)->select();
@@ -176,11 +177,23 @@ class item extends base\basic{
             $data['money'] = $data['num']*$t['price_act'];
             $data['bean'] = $data['num']*$t['bean'];
             $data['coin'] = $data['num']*$t['coin'];
+            $data['ctime'] = TIME_NOW;
             $z = model('order')->data($data)->add();
             if(!$z)$this->errorCode(421);
-            $q['oid'] = $z;
+            $data['oid'] = $z;
         }else $this->errorCode(700);
+        $q['order'] = $data;
+        if($this->out)$this->success($q);
+        return $data;
+    }
+    function order_muti($cids){
+        $this->out = false;
+        $cids = post('cids',$cids);
+        $cid = implode(',',$cids);
+        foreach($cid as &$v)$v = $this->order($v);
+        $q['list'] = $cid;
         $this->success($q);
+
     }
     function unorder($oid){
         $this->_check_login();
