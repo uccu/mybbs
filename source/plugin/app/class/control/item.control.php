@@ -10,22 +10,27 @@ class item extends base\basic{
     }
 
 
-    function lists($lid){
+    function lists($lid,$aid){
         $lid = post('lid',$lid);
         if($lid)$where['lid'] = $lid;
         $where['del'] = 1;
-        $q['list'] = model('goods')->where($where)->limit(999)->select();
+        $where['aid'] = post('aid',$aid);
+        $q['list'] = model('goods')->add_table(array(
+            'activity'=>array('aid','_on'=>'tid')
+        ))->where($where)->limit(999)->select();
         $this->success($q);
     }
     function types(){
         $where['del'] = 1;
-        $q['list'] = model('goods_list')->where($where)->limit(999)->select();
+        $q['list'] = model('goods_list')->where($where)->order(array('orders'))->limit(999)->select();
         $this->success($q);
     }
     function info($tid){
         $tid = post('tid',$tid);
         $q['info'] = model('goods')->where($where)->find($tid);
         if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
+        $q['collected'] =0;
+        if($this->uid && model('collect')->where(array('uid'=>$this->uid,'tid'=>$tid))->find())$q['collected'] =1;
         $this->success($q);
     }
     function collect($tid){
@@ -84,6 +89,7 @@ class item extends base\basic{
             $data['ctime'] = TIME_NOW;
             model('cart')->where($where)->data($data)->save();
         }else{
+            $data['referee'] = post('referee',0);
             $data['aid'] = $this->aid;
             $data['tid'] = $tid;
             $data['uid'] = $this->uid;
@@ -128,7 +134,7 @@ class item extends base\basic{
             if($num>0){
                 $_POST['tid'] = $z['tid'];
                 $this->add_cart();
-            }elseif($num>=$z['num']){
+            }elseif($num+$z['num']<1){
                 $this->errorCode(413);
             }else{
                 $data['num'] = array('add',$num);
@@ -149,24 +155,31 @@ class item extends base\basic{
         $this->success($q);
     }
     function order($cid){
+        //验证登录
         $this->_check_login();
+
+        //验证购物车
         $cid = post('cid',$cid);
         $z = model('cart')->find($cid);
+        if(!$z)$this->errorCode(424);
+        $tid = $z['tid'];
+
         if($z['uid']==$this->uid){
-            $t = model('goods')->find($tid);
+            $t = $this->_check_tid($tid,$this->aid);
             if(!$t)$this->errorCode(411);
             $data['aid'] = $this->aid;
             $data['uid'] = $this->uid;
             $data['tid'] = $z['tid'];
+            $data['referee'] = $z['referee'];
             $data['status'] = 1;
             $data['num'] = $z['num'];
             $data['money'] = $data['num']*$t['price_act'];
-            $data['bean'] = $t['bean'];
-            $data['coin'] = $t['coin'];
+            $data['bean'] = $data['num']*$t['bean'];
+            $data['coin'] = $data['num']*$t['coin'];
             $z = model('order')->data($data)->add();
             if(!$z)$this->errorCode(421);
             $q['oid'] = $z;
-        }
+        }else $this->errorCode(700);
         $this->success($q);
     }
     function unorder($oid){
