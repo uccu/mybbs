@@ -16,7 +16,7 @@ class item extends base\basic{
         $where['del'] = 1;
         $where['aid'] = post('aid',$aid);
         $q['list'] = model('goods')->add_table(array(
-            'activity'=>array('aid','_on'=>'tid')
+            'activity_list'=>array('aid','_on'=>'tid')
         ))->where($where)->limit(999)->select();
         $this->success($q);
     }
