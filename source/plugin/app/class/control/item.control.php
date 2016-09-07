@@ -72,8 +72,8 @@ class item extends base\basic{
             if($t['limits']<=$has)$this->errorCode(420);
 
             //检查订单已购买数量是否超过阈值
-            echo $o = model('order')->field('SUM(`num`) as `s`')->sql()->where($where)->get_field('s');
-            $o = $o?$o:0;$has += $o;
+            echo $o = model('order')->field('SUM(`num`) as `s`')->where($where)->find();
+            $o = $o?$o['s']:0;$has += $o;
             if($t['limits']<=$has)$this->errorCode(420);
         }
 
