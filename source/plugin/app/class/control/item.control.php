@@ -117,7 +117,7 @@ class item extends base\basic{
         $q['list'] = model('cart')->add_table(
             array(
                 'goods'=>array(
-                    'name','thumb','bean','_on'=>'tid'
+                    'name','thumb','bean','price_act','price','_on'=>'tid'
                 )
             )
         )->where($data)->limit(999)->select();
@@ -151,7 +151,7 @@ class item extends base\basic{
         $data['aid'] = $this->aid;
         $data['uid'] = $this->uid;
         $q['list'] = model('order')->add_table(array('goods'=>array(
-            'name','thumb','bean','_on'=>'tid'
+            'name','thumb','bean','price_act','price','_on'=>'tid'
         )))->where($data)->limit(999)->select();
         $this->success($q);
     }
@@ -207,7 +207,7 @@ class item extends base\basic{
     }
     function alipay(){
         
-        $this->success();
+        $this->success($orderInfo);
     }
     function wxpay(){
 
