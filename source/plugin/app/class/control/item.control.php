@@ -117,7 +117,7 @@ class item extends base\basic{
         $q['list'] = model('cart')->add_table(
             array(
                 'collect'=>array(
-                    '_on'=>'uid,tid','id'=>'collected'
+                    '_on'=>'tuan_cart.uid=c.uid,tuan_cart.tid=c.tid','id'=>'collected','_mapping'=>'c'
                 ),
                 'goods'=>array(
                     'name','thumb','bean','price_act','price','_on'=>'tid'
