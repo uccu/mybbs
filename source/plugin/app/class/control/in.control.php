@@ -102,14 +102,14 @@ class in extends base\basic{
         $this->success();
     }
 
-    function register(){
-        $phone = post('phone','');
+    function register($phone,$password){
+        $phone = post('phone',$phone);
         $this->_check_phone($phone);
         if(model('user')->where(array('phone'=>$phone))->find()){
             $this->errorCode(405);
         }
         control('tool:captcha')->_check_captcha();
-        $password = post('password','');
+        $password = post('password',password);
         $this->_check_password($password);
         $password = md5(md5($password).$this->salt);
         if($referee = post('referee','0')){
