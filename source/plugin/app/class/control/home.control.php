@@ -25,7 +25,7 @@ class home extends base\basic{
         $q = array_merge($q,$this->banner());
         $q = array_merge($q,$this->nav());
         $q = array_merge($q,$this->activity());
-        $q = array_merge($q,$this->recommand());
+        $q = array_merge($q,$this->recommend());
         $this->success($q);
     }
     function activity(){
@@ -34,6 +34,7 @@ class home extends base\basic{
         $z = model('activity')->where($where)->find();
         $q['activityInfo'] = $z;
         if($z){
+            $q['activityInfo']['message'] = '总奖金100W';
             $where2['stime'] = array('logic',$z['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }else{
@@ -41,28 +42,29 @@ class home extends base\basic{
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }
         $q['nextActivityInfo'] = $z2;
-        // if($z2){
+         if($z2){
+             $q['nextActivityInfo']['message'] = '总关注100W';
         //     $where3['stime'] = array('logic',$z2['stime'],'>');
         //     $z3 = model('activity')->where($where3)->order(array('stime'))->limit(999)->select();
         // }else{
         //     $z3 = array();
-        // }
+        }
         // $q['previewActivityList'] = $z3;
         if($this->out)$this->success($q);
         return $q;
     }
-    function recommand(){
-        $where['recommand'] = 1;
+    function recommend(){
+        $where['recommend'] = 1;
         $z = model('activity')->where($where)->limit(4)->select();
-        $q['recommandList'] = array();
+        $q['recommendList'] = array();
         if($this->out)$this->success($q);
         return $q;
     }
-    function recommand_c(){
-        $where['recommand'] = 1;
+    function recommend_c(){
+        $where['recommend'] = 1;
         $page = post('page',2);
         $z = model('activity')->where($where)->page($page,4)->select();
-        $q['recommandList'] = array();
+        $q['recommendList'] = array();
         if($this->out)$this->success($q);
         return $q;
     }
