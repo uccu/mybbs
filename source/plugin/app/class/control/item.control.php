@@ -116,11 +116,15 @@ class item extends base\basic{
         $data['uid'] = $this->uid;
         $q['list'] = model('cart')->add_table(
             array(
+                'collect'=>array(
+                    '_on'=>'uid,tid','id'=>'collected'
+                ),
                 'goods'=>array(
                     'name','thumb','bean','price_act','price','_on'=>'tid'
-                )
+                ),
             )
         )->where($data)->limit(999)->select();
+        foreach($q['list'] as &$v)$v['collected']=$v['collected']?'1':'0';
         $this->success($q);
     }
 
@@ -177,9 +181,10 @@ class item extends base\basic{
             $data['bean'] = $data['num']*$t['bean'];
             $data['coin'] = $data['num']*$t['coin'];
             $data['ctime'] = TIME_NOW;
-            $z = model('order')->data($data)->add();
-            if(!$z)$this->errorCode(421);
-            $data['oid'] = $z;
+            $zz = model('order')->data($data)->add();
+            if(!$zz)$this->errorCode(421);
+            $data['oid'] = $zz;
+            $data['name'] = $z['name'];
             model('cart')->remove($cid);
         }else $this->errorCode(700);
 
