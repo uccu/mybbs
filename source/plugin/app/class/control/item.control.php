@@ -167,6 +167,64 @@ class item extends base\basic{
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
+    function torder($tid){
+        //验证登录
+        $this->_check_login();
+        $tid = post('tid',$tid);
+        $t = $this->_check_tid($tid,$this->aid);
+        //验证购物车
+        $has = 0;
+
+        $where['aid'] = $this->aid;
+        $where['tid'] = $tid;
+        $where['uid'] = $this->uid;
+
+        if($t['limits']){
+
+            //检查购物车已添加数量是否超过阈值
+            $cart = model('cart')->where($where)->find();
+            $c = $cart?$cart['num']:0;$has += $c;
+            if($t['limits']<=$has)$this->errorCode(420);
+
+            //检查订单已购买数量是否超过阈值
+            $o = model('order')->field('SUM(`num`) as `s`')->where($where)->find();
+            $o = $o?$o['s']:0;$has += $o;
+            if($t['limits']<=$has)$this->errorCode(420);
+        }
+
+        if(1){
+            
+            $data['aid'] = $this->aid;
+            $data['uid'] = $this->uid;
+            $data['tid'] = $tid;
+            $data['referee'] = post('referee',0);
+            $data['status'] = 1;
+            $data['num'] = 1;
+            $data['money'] = $data['num']*$t['price_act'];
+            $data['price_act'] = $t['price_act'];
+            $data['price'] = $t['price'];
+            $data['thumb'] = $t['thumb'];
+            $data['bean'] = $data['num']*$t['bean'];
+            $data['coin'] = $data['num']*$t['coin'];
+            $data['ctime'] = TIME_NOW;
+            $zz = model('order')->data($data)->add();
+            if(!$zz)$this->errorCode(421);
+            $data['oid'] = $zz;
+            $data['name'] = $t['name'];
+            model('cart')->remove($cid);
+            if($this->out){
+                $zz2 = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
+                $q['user']['name'] = $zz2['name']?$zz2['name']:'';
+                $q['user']['phone'] = $zz2['phone']?$zz2['phone']:'';
+                $q['user']['addr'] = $zz2['addr']?$zz2['addr']:'';
+            }
+        }
+
+        $q['list'] = array($data);
+        $q['money'] = $data['money'];
+        if($this->out)$this->success($q);
+        return $data;
+    }
     function order($cid){
         //验证登录
         $this->_check_login();
