@@ -227,9 +227,7 @@ class my extends base\basic{
         $this->success();
     }
 
-    function remind(){
-        $this->success();
-    }
+
 
 
     function exchange($tid){

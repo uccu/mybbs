@@ -229,7 +229,49 @@ class item extends base\basic{
         if($z['uid']==$this->uid)model('order')->remove($oid);
         $this->success();
     }
-    function _useCoin(){
+    function _pay(){
+        $this->_check_login();
+        if(!$oids = post('oids',''))$this->errorCode(425);
+        $oids = explode(',',$oids);
+        if(!$oids)$this->errorCode(425);
+        $where['oid'] = array('contain',$oids,'IN');
+        $where['status'] = 1;
+        $where['aid'] = $this->aid;
+        $o = model('order')->where($where)->limit(999)->select();
+        $money = 0;
+        if(!$o)$this->errorCode(425);
+        foreach($o as $v)$money += $v['money'];
+        $use_coin = post('use_coin',0);
+        $coin_k = $this->userInfo['coin'];
+        $coin = 0;
+        if($use_coin && $coin_k){
+            if($coin_k>=$money){
+                $money = 0;$coin = $money;
+            }else{
+                $money -= $coin_k;$coin = $coin_k;
+            }
+        }
+        $data['money'] = $money;
+        $data['coin'] = $coin;
+        $data['ctime'] = TIME_NOW;
+        $data['oids'] = array('logic',$oids,'%s');
+        $data['uid'] = $this->uid;
+        $string = '1234567890';
+        $data['pay_id']='98'.TIME_NOW;
+        for($i=0;$i<10;$i++)$data['pay_id'] .=$i;
+        model('pay_log')->data($data)->add();
+        return $data;
+    }
+    function pay_c($pay_id){
+        $pay_id = post('pay_id','');
+        $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
+        if(!$p)$this->errorCode(426);
+
+        if($p['coin'])model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
+        
+
+    }
+    function _useCoin($money,$coin){
 
     }
     function alipay(){
