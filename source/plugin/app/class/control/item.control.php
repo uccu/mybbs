@@ -187,6 +187,9 @@ class item extends base\basic{
             $data['status'] = 1;
             $data['num'] = $z['num'];
             $data['money'] = $data['num']*$t['price_act'];
+            $data['price_act'] = $t['price_act'];
+            $data['price'] = $t['price'];
+            $data['thumb'] = $t['thumb'];
             $data['bean'] = $data['num']*$t['bean'];
             $data['coin'] = $data['num']*$t['coin'];
             $data['ctime'] = TIME_NOW;
