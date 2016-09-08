@@ -217,6 +217,24 @@ class item extends base\basic{
                 $q['user']['name'] = $zz2['name']?$zz2['name']:'';
                 $q['user']['phone'] = $zz2['phone']?$zz2['phone']:'';
                 $q['user']['addr'] = $zz2['addr']?$zz2['addr']:'';
+                $l = model('location')->limit(9999)->select('id');
+                $v = &$zz2;
+                $v['area'] = $v['lid'];
+                $v['areaName'] = $l[$v['lid']]['title'];
+                if(!$v['area']){
+                    $v['area'] = 0;$v['areaName'] = '';
+                }
+                $v['city'] = $l[$v['lid']]['pid'];
+                $v['cityName'] = $l[$v['city']]['title'];
+                if(!$v['city']){
+                    $v['city'] = 0;$v['cityName'] = '';
+                }
+                $v['province'] = $l[$v['city']]['pid'];
+                $v['provinceName'] = $l[$v['province']]['title'];
+                if(!$v['province']){
+                    $v['province'] = 0;$v['provinceName'] = '';
+                }
+        
             }
         }
 
