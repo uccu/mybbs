@@ -63,6 +63,7 @@ class my extends base\basic{
     function address_list(){
         $where['uid'] = $this->uid;
         $z['list'] = model('user_address')->where($where)->order(array('type'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     
@@ -75,6 +76,7 @@ class my extends base\basic{
         $where['status'] = array('contain',array(2,3,4,5),'IN');
         $where2 = '(`balance` != 0 OR `coin` != 0)';
         $z['list'] = model('order')->where($where)->where($where2)->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
 
     }
@@ -88,11 +90,13 @@ class my extends base\basic{
     function my_cash(){
         $data['uid'] = $this->uid;
         $z['list'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);        
         $this->success($z);
     }
     function score_shop(){
         $where['score'] = array('logic',0,'!=');
         $z['list'] = model('goods')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function score_custom(){
@@ -100,11 +104,13 @@ class my extends base\basic{
         $z['list'] = model('order')->add_table(array(
             'goods'=>array('name','_on'=>'tid')
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function get_message(){
         $where['uid'] = $this->uid;
         $z['list'] =model('message')->where($where)->order(array('ctime'=>'DESC'))->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
 
     }
@@ -207,6 +213,7 @@ class my extends base\basic{
                 'username','avatar','bean','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
             )
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function set_pay_password(){

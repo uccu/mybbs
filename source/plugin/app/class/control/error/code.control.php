@@ -30,6 +30,8 @@ class code extends \control\ajax{
         425=>'订单号不正确',
         426=>'付款信息出错',
 
+        427=>'暂无数据',
+
         700=>'安全错误警告',
     );
     public function errorCode($z){

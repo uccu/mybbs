@@ -19,11 +19,13 @@ class item extends base\basic{
         $q['list'] = model('goods')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid')
         ))->where($where)->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
     function types(){
         $where['del'] = 1;
         $q['list'] = model('goods_list')->where($where)->order(array('orders'))->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
     function info($tid){
@@ -124,6 +126,7 @@ class item extends base\basic{
                 ),
             )
         )->where($data)->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
         foreach($q['list'] as &$v)$v['collected']=$v['collected']?'1':'0';
         $this->success($q);
     }
@@ -161,6 +164,7 @@ class item extends base\basic{
                 'name','thumb','bean','price_act','price','_on'=>'tid'
             )
         ))->where($data)->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
     function order($cid){
@@ -268,7 +272,7 @@ class item extends base\basic{
         if(!$p)$this->errorCode(426);
 
         if($p['coin'])model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
-        
+
 
     }
     function _useCoin($money,$coin){

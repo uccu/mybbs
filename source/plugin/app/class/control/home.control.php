@@ -9,12 +9,14 @@ class home extends base\basic{
     }
     function banner(){
         $z = model('banner')->limit(999)->select();
+        if(!$z)$this->errorCode(427);
         $q['bannerList'] = $z;
         if($this->out)$this->success($q);
         return $q;
     }
     function nav(){
         $z = model('nav')->limit(999)->select();
+        if(!$z)$this->errorCode(427);
         $q['navList'] = $z;
         if($this->out)$this->success($q);
         return $q;
@@ -52,6 +54,7 @@ class home extends base\basic{
         $where['recommend'] = 1;
         $where['del'] = 1;
         $q['recommendList'] = model('goods')->where($where)->limit(4)->select();
+        if(!$q['recommendList'])$this->errorCode(427);
         if($this->out)$this->success($q);
         return $q;
     }
@@ -60,6 +63,7 @@ class home extends base\basic{
         $where['del'] = 1;
         $page = post('page',2);
         $q['recommendList'] = model('goods')->where($where)->page($page,4)->select();
+        if(!$q['recommendList'])$this->errorCode(427);
         if($this->out)$this->success($q);
         return $q;
     }
