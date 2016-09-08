@@ -105,6 +105,7 @@ class my extends base\basic{
         $z['list'] = model('user_address')->where($where)->order(array('type'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
         $l = model('location')->limit(9999)->select('id');
         foreach($z['list'] as &$v){
+            $v['townName'] = $l[$v['lid']]['title'];
             $v['city'] = $l[$v['lid']]['pid'];
             $v['cityName'] = $l[$v['city']]['title'];
             if(!$v['city']){
