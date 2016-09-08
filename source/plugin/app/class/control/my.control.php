@@ -46,9 +46,48 @@ class my extends base\basic{
         $data['ctime'] = TIME_NOW;
         $data['uid'] = $this->uid;
         $data['addr'] = post('addr','');
-        if($data['addr'])$this->errorCode(414);
+        $data['name'] = post('name','');
+        $data['phone'] = post('phone','');
+        $data['type'] = post('type',0);
+        $data['lid'] = post('lid',0);
+        if(!$data['addr'])$this->errorCode(414);
+        if($data['type']){
+            $where['uid'] = $this->uid;
+            $data2['type'] = 0;
+            model('user_address')->where($where)->data($data2)->save();
+        }
         model('user_address')->data($data)->add();
         $this->success();
+    }
+    function change_address(){
+        $data['ctime'] = TIME_NOW;
+        $data['uid'] = $this->uid;
+        $data['addr'] = post('addr','');
+        $data['name'] = post('name','');
+        $data['phone'] = post('phone','');
+        $data['type'] = post('type',0);
+        $data['lid'] = post('lid',0);
+        $where['uid'] = $this->uid;
+        $where['id'] = post('id',0);
+        if(!$data['addr'])$this->errorCode(414);
+        if($data['type']){
+            $where2['uid'] = $this->uid;
+            $data2['type'] = 0;
+            model('user_address')->where($where2)->data($data2)->save();
+        }
+        model('user_address')->where($where)->data($data)->save();
+        $this->success();
+    }
+    function remove_address(){
+        $where['uid'] = $this->uid;
+        $where['id'] = post('id',0);
+        model('user_address')->where($where)->remove();
+        $this->success();
+    }
+    function location($pid=0){
+        $where['pid'] = post('pid',$pid);
+        $z['list'] = model('location')->where($where)->limit(999)->select();
+        $this->success($z);
     }
     function default_address($id){
         $id = post('id',$id);
