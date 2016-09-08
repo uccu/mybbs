@@ -28,6 +28,7 @@ class my extends base\basic{
             "score",
             //"pay_password",
             "push",
+            'birth'
         ))->find($this->uid);
         $this->success($q);
     }
