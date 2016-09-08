@@ -185,7 +185,7 @@ class item extends base\basic{
             $zz = model('order')->data($data)->add();
             if(!$zz)$this->errorCode(421);
             $data['oid'] = $zz;
-            $data['name'] = $z['name'];
+            $data['name'] = $t['name'];
             model('cart')->remove($cid);
         }else $this->errorCode(700);
 
