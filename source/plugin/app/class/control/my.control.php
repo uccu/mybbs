@@ -12,7 +12,23 @@ class my extends base\basic{
 
 
     function info(){
-        $q['myInfo'] = model('user')->find($this->uid);
+        $q['myInfo'] = model('user')->field(array(
+            "uid","username",
+            //"password",
+            "phone",
+            "ctime",
+            "qq",
+            "wb",
+            "wx",
+            "avatar",
+            "referee",
+            "type",
+            "coin",
+            "sex",
+            "score",
+            //"pay_password",
+            "push",
+        ))->find($this->uid);
         $this->success($q);
     }
     function has_message(){

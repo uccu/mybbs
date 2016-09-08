@@ -150,13 +150,17 @@ class item extends base\basic{
         }
         $this->success();
     }
-    function order_list(){
+    function order_list($status){
         $this->_check_login();
         $data['aid'] = $this->aid;
         $data['uid'] = $this->uid;
-        $q['list'] = model('order')->add_table(array('goods'=>array(
-            'name','thumb','bean','price_act','price','_on'=>'tid'
-        )))->where($data)->limit(999)->select();
+        $status = post('status',$status);
+        if($status)$data['status'] = $status;
+        $q['list'] = model('order')->add_table(array(
+            'goods'=>array(
+                'name','thumb','bean','price_act','price','_on'=>'tid'
+            )
+        ))->where($data)->limit(999)->select();
         $this->success($q);
     }
     function order($cid){
@@ -187,6 +191,10 @@ class item extends base\basic{
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
             model('cart')->remove($cid);
+            $zz2 = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
+            $data['uname'] = $zz2['name'];
+            $data['phone'] = $zz2['phone'];
+            $data['addr'] = $zz2['addr'];
         }else $this->errorCode(700);
 
         $q['list'] = array($data);
