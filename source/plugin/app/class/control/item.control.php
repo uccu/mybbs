@@ -264,16 +264,21 @@ class item extends base\basic{
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$i;
         model('pay_log')->data($data)->add();
+        _pay_c($data['pay_id']);
         return $data;
     }
-    function pay_c($pay_id){
+    function _pay_c($pay_id){
         $pay_id = post('pay_id','');
         $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
         if(!$p)$this->errorCode(426);
-
-        if($p['coin'])model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
-
-
+        if($p['coin']){
+            model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
+            model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
+        }
+        $oids = unserialize($p['oids']);
+        model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2))->save();
+        model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
+        
     }
     function _useCoin($money,$coin){
 
