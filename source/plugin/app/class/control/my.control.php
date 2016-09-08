@@ -103,6 +103,19 @@ class my extends base\basic{
     function address_list(){
         $where['uid'] = $this->uid;
         $z['list'] = model('user_address')->where($where)->order(array('type'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
+        $l = model('location')->limit(9999)->select('id');
+        foreach($z['list'] as &$v){
+            $v['city'] = $l[$v['lid']]['pid'];
+            $v['cityName'] = $l[$v['city']]['title'];
+            if(!$v['city']){
+                $v['city'] = 0;$v['cityName'] = '';
+            }
+            $v['province'] = $l[$v['city']]['pid'];
+            $v['provinceName'] = $l[$v['province']]['title'];
+            if(!$v['province']){
+                $v['province'] = 0;$v['provinceName'] = '';
+            }
+        }
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
