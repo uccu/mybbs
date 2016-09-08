@@ -194,10 +194,10 @@ class item extends base\basic{
         if($this->out)$this->success($q);
         return $data;
     }
-    function order_muti($cids){
+    function order_muti($cids=0){
         $this->out = false;
         $cids = post('cids',$cids);
-        $cid = implode(',',$cids);
+        $cid = explode(',',$cids);
         $money = 0;
         foreach($cid as &$v){
             $v = $this->order($v);
