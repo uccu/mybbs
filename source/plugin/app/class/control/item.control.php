@@ -200,8 +200,8 @@ class item extends base\basic{
         $cid = implode(',',$cids);
         $money = 0;
         foreach($cid as &$v){
-            if($v['money'])$money+=$v['money'];
             $v = $this->order($v);
+            if($v['money'])$money+=$v['money'];
         }
         $q['list'] = $cid;
         $q['money'] = $money;
