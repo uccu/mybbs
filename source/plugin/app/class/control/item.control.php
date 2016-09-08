@@ -193,9 +193,9 @@ class item extends base\basic{
             model('cart')->remove($cid);
             if($this->out){
                 $zz2 = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
-                $data['uname'] = $zz2['name']?$zz2['name']:'';
-                $data['phone'] = $zz2['phone']?$zz2['phone']:'';
-                $data['addr'] = $zz2['addr']?$zz2['addr']:'';
+                $q['user']['name'] = $zz2['name']?$zz2['name']:'';
+                $q['user']['phone'] = $zz2['phone']?$zz2['phone']:'';
+                $q['user']['addr'] = $zz2['addr']?$zz2['addr']:'';
             }
         }else $this->errorCode(700);
 
