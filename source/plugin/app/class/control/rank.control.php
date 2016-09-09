@@ -17,16 +17,17 @@ class rank extends base\basic{
     }
 
     function rank_gou($aid){
+        //获取AID
         $aid = post('aid',$aid,'%d');
         
-        $all = model('order')->field('SUM(`bean`) as `s`')->where(array(
-            'aid'=>$aid,
-            'status'=>array('contain',array(2,3,4),'IN'),
-        ))->find();
-        $all = $all['s'];
+        //获取活动所有乐豆
+        $allBean = $this->_allBean($aid);
 
+        //获取当前排行的奖金
         $gou = model('rule')->find(1);
-        $z['allMoney'] = 
+        $z['allMoney'] = $allBean*$gou['value']/100;
+
+        
         $where['aid'] = post('aid');
         $where['status'] = array('contain',array(2,3,4),'IN');
         $z['list'] = model('order')->field('distinct uid,ctime')->where($where)->order('ctime')->limit(10)->select();

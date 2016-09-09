@@ -152,6 +152,8 @@ class my extends base\basic{
         $z['coin'] = $this->userInfo['coin'];
         $where['uid'] = $this->uid;
         $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        $g = model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find();
+        $z['status'] = $g?1:0;
         $this->success($z);
     }
     function coin_custom(){//获取余额明细
