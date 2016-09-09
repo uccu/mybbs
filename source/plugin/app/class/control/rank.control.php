@@ -29,16 +29,20 @@ class rank extends base\basic{
 
         //获取排名
         $where['aid'] = $aid;
+        $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $z['list'] = model('order')->add_table(array(
+        $z['list'] = model('order')->table(array(
+            'order'=>array(
+                'oid','uid','aid','pay_time','_mapping'=>'o'
+            ),
             'user'=>array(
                 'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
             ),
             'rank_bean'=>array(
-                '_on'=>'tuan_order.uid=b.uid AND tuan_order.aid=b.aid','_mapping'=>'b','bean'=>'get','_join'=>'LEFT JOIN'
+                '_on'=>'o.uid=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->where($where)->order(array('ctime'))->page(1,10)->select();
+        ))->where($where)->order(array('pay_time'))->page(1,10)->select();
 
         $this->success($z);
     }
