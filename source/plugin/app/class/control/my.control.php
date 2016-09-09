@@ -50,7 +50,20 @@ class my extends base\basic{
         $this->success($q);
     }
 
+    function fans_order($uid){
+        $this->_check_login();
+        $data['aid'] = $this->aid;
+        $data['uid'] = post('uid',$uid,'%d');
 
+        if($status)$data['status'] = array('contain',array(2,3,4),'IN');
+        $q['list'] = model('order')->add_table(array(
+            'goods'=>array(
+                'name','thumb','brand','bean','price_act','price','_on'=>'tid'
+            )
+        ))->where($data)->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
+        $this->success($q);
+    }
     
     function add_address(){
         $data['ctime'] = TIME_NOW;
@@ -165,16 +178,21 @@ class my extends base\basic{
         $this->success($z);
     }
     function score_shop(){
+        $z['score'] = $this->userInfo['score'];
         $where['score'] = array('logic',0,'!=');
         $z['list'] = model('goods')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
+    function exchange_list(){
+        $where['uid'] = $this->uid;
+        $z['list'] = model('exchange')->where($where)->order(array('ctime'=>"DESC"))->select();
+        if(!$z['list'])$this->errorCode(427);
+        $this->success($z);
+    }
     function score_custom(){
-        $where['score'] = array('logic',0,'!=');
-        $z['list'] = model('order')->add_table(array(
-            'goods'=>array('name','_on'=>'tid')
-        ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        $where['uid'] = $this->uid;
+        $z['list'] = model('score_log')->where($where)->order(array('ctime'=>"DESC"))->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
@@ -281,11 +299,14 @@ class my extends base\basic{
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($z);
     }
-    function my_fans(){
+    function my_fans($aid){
+        $where['aid'] = post('aid',$aid);
         $where['uid'] = $this->uid;
+        $z['act'] = model('activity')->find($aid);
+        $z['count'] = model('activity')->find($aid);
         $z['list'] = model('fans')->add_table(array(
             'user'=>array(
-                'username','avatar','bean','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
+                'username','avatar','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
             )
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);

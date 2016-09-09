@@ -155,7 +155,6 @@ class item extends base\basic{
     }
     function order_list($status){
         $this->_check_login();
-        $data['aid'] = $this->aid;
         $data['uid'] = $this->uid;
         $status = post('status',$status);
         if($status)$data['status'] = $status;

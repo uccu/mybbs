@@ -8,9 +8,25 @@ class rank extends base\basic{
 
 
     }
+    function _allBean($aid){
+        $all = model('order')->field('SUM(`bean`) as `s`')->where(array(
+            'aid'=>$aid,
+            'status'=>array('contain',array(2,3,4),'IN'),
+        ))->find();
+        return $all['s'];
+    }
 
+    function rank_gou($aid){
+        $aid = post('aid',$aid,'%d');
+        
+        $all = model('order')->field('SUM(`bean`) as `s`')->where(array(
+            'aid'=>$aid,
+            'status'=>array('contain',array(2,3,4),'IN'),
+        ))->find();
+        $all = $all['s'];
 
-    function rank_gou(){
+        $gou = model('rule')->find(1);
+        $z['allMoney'] = 
         $where['aid'] = post('aid');
         $where['status'] = array('contain',array(2,3,4),'IN');
         $z['list'] = model('order')->field('distinct uid,ctime')->where($where)->order('ctime')->limit(10)->select();
