@@ -31,14 +31,14 @@ class rank extends base\basic{
         $where['aid'] = post('aid');
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        echo $z['list'] = model('order')->add_table(array(
+        $z['list'] = model('order')->add_table(array(
             'user'=>array(
                 'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
             ),
             'rank_bean'=>array(
                 '_on'=>'tuan_order.uid=b.uid AND tuan_order.aid=b.aid','_mapping'=>'b','bean'=>'get','_join'=>'LEFT JOIN'
             )
-        ))->where($where)->order(array('ctime'))->sql()->page(1,10)->select();
+        ))->where($where)->order(array('ctime'))->page(1,10)->select();
 
         $this->success($z);
     }
