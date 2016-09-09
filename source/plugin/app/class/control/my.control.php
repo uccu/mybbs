@@ -30,6 +30,16 @@ class my extends base\basic{
             "push",
             'birth'
         ))->find($this->uid);
+        $where['uid'] = $this->uid;
+        $where['aid'] = $this->aid;
+        $q['count']['pay_1'] = model('order')->where($where)->where(array('status'=>1))->get_field();
+        $q['count']['pay_2'] = model('order')->where($where)->where(array('status'=>2))->get_field();
+        $q['count']['pay_3'] = model('order')->where($where)->where(array('status'=>3))->get_field();
+        $q['count']['pay_4'] = model('order')->where($where)->where(array('status'=>4))->get_field();
+        $where2['uid'] = $this->uid;
+        $where2['read'] = 0;
+        $q['count']['message'] = model('message')->where($where)->get_field();
+        $q['count']['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $this->success($q);
     }
     function has_message(){
@@ -127,19 +137,22 @@ class my extends base\basic{
     
     function coin(){
         $z['coin'] = $this->userInfo['coin'];
+        $where['uid'] = $this->uid;
+        $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($z);
     }
     function coin_custom(){//获取余额明细
         $where['uid'] = $this->uid;
-        $where['status'] = array('contain',array(2,3,4,5),'IN');
-        $where2 = '(`balance` != 0 OR `coin` != 0)';
-        $z['list'] = model('order')->where($where)->where($where2)->limit(999)->select();
+        $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(5)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
 
     }
     function cash(){
         $_POST['uid'] = $this->uid;
+        if(model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find())$this->errorCode(428);
+        $_POST['money'] = post('money',0,'%d');
+        if($_POST['money']>$this->userInfo['coin'])$this->errorCode(429);
         unset($_POST['id']);
         $_POST['ctime'] = TIME_NOW;
         $z['id'] = model('cash_apply')->data($_POST)->add();
@@ -147,7 +160,7 @@ class my extends base\basic{
     }
     function my_cash(){
         $data['uid'] = $this->uid;
-        $z['list'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        $z['list'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->find();
         if(!$z['list'])$this->errorCode(427);        
         $this->success($z);
     }
