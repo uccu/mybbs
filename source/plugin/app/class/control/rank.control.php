@@ -170,7 +170,7 @@ class rank extends base\basic{
             $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['gou']['time'] = $me['pay_time'];
         }else{
-            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+            $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
         }
 
 
@@ -208,7 +208,7 @@ class rank extends base\basic{
             $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['bang']['time'] = $me['time'];
         }else{
-            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+            $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
         }
 
         $where = array();
@@ -223,9 +223,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
             $z['bean']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['bang']['time'] = 0;
+            $z['bean']['time'] = 0;
         }else{
-            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+            $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['time'] = 0;
         }
         $this->success($z);
 
