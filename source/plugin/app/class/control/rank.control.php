@@ -65,7 +65,7 @@ class rank extends base\basic{
         $where['referee'] = array('logic',0,'!=');
         $z['list'] = model('order')->table(array(
             'order'=>array(
-                'score','oid','uid','aid','referee','status','pay_time','first','_mapping'=>'o'
+                'score','oid','aid','referee'=>'uid','status','pay_time','first','_mapping'=>'o'
             ),
             'user'=>array(
                 'avatar','_on'=>'o.referee=u.uid','username','_join'=>'LEFT JOIN','_mapping'=>'u'
