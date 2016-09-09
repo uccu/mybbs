@@ -202,6 +202,7 @@ class my extends base\basic{
         $where['uid'] = $this->uid;
         $z['list'] =model('message')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
+        model('message')->where($where)->data(array('read'=>1))->save();
         $this->success($z);
 
     }
@@ -305,7 +306,11 @@ class my extends base\basic{
         $where['aid'] = post('aid',$aid);
         $where['uid'] = $this->uid;
         $z['act'] = model('activity')->find($aid);
-        $z['count'] = model('activity')->find($aid);
+
+        $where2['referer'] = $this->uid;
+        $where2['status'] = array('contain',array(2,3,4),'IN');
+        $where2['score'] = 0;
+        $z['count'] = model('order')->where($where2)->get_field();
         $z['list'] = model('fans')->add_table(array(
             'user'=>array(
                 'username','avatar','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
