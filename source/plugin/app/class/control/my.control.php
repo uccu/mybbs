@@ -261,9 +261,9 @@ class my extends base\basic{
     
     function my_collect(){
         $where['uid'] = $this->uid;
-        $z['list'] = model('collect')->add_table(array(
-            'goods'=>array(
-                'name','thumb','bean','_on'=>'tid'
+        $z['list'] = model('goods')->add_table(array(
+            'collect'=>array(
+                'uid','_on'=>'tid'
             )
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($z);
