@@ -168,8 +168,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
             $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['gou']['time'] = $me['pay_time'];
         }else{
-            $z['gou']['rank'] = $z['gou']['coin'] = 0;
+            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
 
 
@@ -188,8 +189,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['xiang']['time'] = $me['pay_time'];
         }else{
-            $z['xiang']['rank'] = $z['xiang']['coin'] = 0;
+            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
 
         $where = array();
@@ -204,8 +206,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
             $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['bang']['time'] = $me['time'];
         }else{
-            $z['bang']['rank'] = $z['bang']['coin'] = 0;
+            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
 
         $where = array();
@@ -220,8 +223,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
             $z['bean']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['bang']['time'] = 0;
         }else{
-            $z['bean']['rank'] = $z['bean']['coin'] = 0;
+            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
         $this->success($z);
 
