@@ -175,8 +175,8 @@ class my extends base\basic{
     }
     function my_cash(){
         $data['uid'] = $this->uid;
-        $z['list'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->find();
-        if(!$z['list'])$this->errorCode(427);        
+        $z['info'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->find();
+        if(!$z['info'])$this->errorCode(427);        
         $this->success($z);
     }
     function score_shop(){
@@ -188,19 +188,19 @@ class my extends base\basic{
     }
     function exchange_list(){
         $where['uid'] = $this->uid;
-        $z['list'] = model('exchange')->where($where)->order(array('ctime'=>"DESC"))->select();
+        $z['list'] = model('exchange')->where($where)->order(array('ctime'=>"DESC"))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function score_custom(){
         $where['uid'] = $this->uid;
-        $z['list'] = model('score_log')->where($where)->order(array('ctime'=>"DESC"))->select();
+        $z['list'] = model('score_log')->where($where)->order(array('ctime'=>"DESC"))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function get_message(){
         $where['uid'] = $this->uid;
-        $z['list'] =model('message')->where($where)->order(array('ctime'=>'DESC'))->select();
+        $z['list'] =model('message')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
 
