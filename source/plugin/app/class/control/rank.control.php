@@ -214,7 +214,7 @@ class rank extends base\basic{
         $me = model('rank_bean')->where($where)->find();
         if($me){
             unset($where['uid']);
-            $where['bean'] = array('logic',$me['bean'],'<');
+            $where['bean'] = array('logic',$me['bean'],'>');
             $z['bean']['rank'] = $rank = model('rank_bean')->where($where)->get_field()+1;
             $rule = model('rule')->find(4);
             $allCoin =  $allBean*$rule['value']/100;
