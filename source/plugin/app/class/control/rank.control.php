@@ -25,21 +25,21 @@ class rank extends base\basic{
 
         //获取当前排行的奖金
         $gou = model('rule')->find(1);
-        $z['allMoney'] = $allBean*$gou['value']/100;
+        $allCoin = $allBean*$gou['value']/100;
 
-        
+        //获取排名
         $where['aid'] = post('aid');
         $where['status'] = array('contain',array(2,3,4),'IN');
-        $z['list'] = model('order')->field('distinct uid,ctime')->where($where)->order('ctime')->limit(10)->select();
-        $where['uid'] = $this->uid;
-        $z2 = model('order')->where($where)->order('ctime')->find();
-        if(!$z2)$z['my'] = array('rank'=>'0');
-        else{
-            unset($where['uid']);
-            $where['ctime'] = array('logic',$z2['ctime'],'<');
-            $z3 = model('order')->field('count(distinct uid)+1 as c')->where($where)->get_filed('c');
-            $z['my'] = array('rank'=>$z3);
-        }
+        $where['score'] = array('logic',0,'!=');
+        $z['list'] = model('order')->add_table(array(
+            'user'=>array(
+                'avatar','_on'=>'uid','username'
+            ),
+            'rank_bean'=>array(
+                '_on'=>'tuan_order.uid=b.uid AND tuan_order.aid=b.aid','_mapping'=>'b','bean'=>'get'
+            )
+        ))->where($where)->order('ctime')->page(1,10)->select();
+
         $this->success($z);
     }
     function rank_xiang(){
