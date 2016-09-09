@@ -34,7 +34,7 @@ class rank extends base\basic{
         $where['score'] = 0;
         $z['list'] = model('order')->table(array(
             'order'=>array(
-                'oid','uid','aid','pay_time','_mapping'=>'o'
+                'score','oid','uid','aid','status','pay_time','first','_mapping'=>'o'
             ),
             'user'=>array(
                 'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
