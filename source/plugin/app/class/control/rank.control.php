@@ -45,7 +45,7 @@ class rank extends base\basic{
             $rank = ($page-1)*limit+$k+1;
             $v['rank'] = $rank;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
-            $v['coin'] = get_c($rank,$allCoin,$b);
+            $v['coin'] = $this->get_c($rank,$allCoin,$b);
         }
     }
 
