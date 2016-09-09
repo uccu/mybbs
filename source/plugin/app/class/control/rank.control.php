@@ -76,7 +76,7 @@ class rank extends base\basic{
                 '_on'=>'o.uid=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
         ))->where($where)->order(array('pay_time'))->page(1,10)->select();
-
+        $this->_addCoin($z['list'],$allCoin,$rule,);
         $this->success($z);
     }
     function rank_xiang($aid){
@@ -87,8 +87,8 @@ class rank extends base\basic{
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
-        $gou = model('rule')->find(2);
-        $z['allCoin'] = $allBean*$gou['value']/100;
+        $rule = model('rule')->find(2);
+        $z['allCoin'] = $allBean*$rule['value']/100;
 
         //获取排名
         $where['aid'] = $aid;
@@ -107,7 +107,7 @@ class rank extends base\basic{
                 '_on'=>'o.referee=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
         ))->where($where)->order(array('pay_time'))->page(1,10)->select();
-
+        $this->_addCoin($z['list'],$allCoin,$rule,);
         $this->success($z);
     }
     function rank_bang($aid){
@@ -118,10 +118,11 @@ class rank extends base\basic{
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
-        $gou = model('rule')->find(3);
-        $z['allCoin'] = $allBean*$gou['value']/100;
+        $rule = model('rule')->find(3);
+        $z['allCoin'] = $allBean*$rule['value']/100;
         $where['aid'] = post('aid',$aid);
         $z['list'] = model('rank_bang')->where($where)->order(array('time'))->page(1,10)->select();
+        $this->_addCoin($z['list'],$allCoin,$rule,);
         $this->success($z);
     }
 
@@ -133,10 +134,11 @@ class rank extends base\basic{
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
-        $gou = model('rule')->find(4);
-        $z['allCoin'] = $allBean*$gou['value']/100;
+        $rule = model('rule')->find(4);
+        $z['allCoin'] = $allBean*$rule['value']/100;
         $where['aid'] = post('aid',$aid);
         $z['list'] = model('rank_bean')->where($where)->order(array('bean'=>'DESC'))->page(1,10)->select();
+        $this->_addCoin($z['list'],$allCoin,$rule,);
         $this->success($z);
     }
     function my_rank_gou(){
