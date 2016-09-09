@@ -46,7 +46,7 @@ class rank extends base\basic{
 
         $this->success($z);
     }
-    function rank_xiang(){
+    function rank_xiang($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
         
