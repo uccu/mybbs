@@ -15,6 +15,39 @@ class rank extends base\basic{
         ))->find();
         return $all['s']?$all['s']:0;
     }
+    function get_c($rank,$c,$b){
+ 
+        $rank = floor($rank);
+        if($rank==1)return ($c*$b[0]);
+        $rankz = $rank;
+        for($i=0;$i<5;$i++){
+            $rankz -= pow(10,$i);
+            if($rankz>pow(10,$i+1))continue;
+            if($i==4){
+                return floor($c*$b[$i+1]/1000);
+            }
+            
+            if($rankz<=pow(10,$i+1)*0.1){
+                return floor($c*$b[$i+1]*0.2/(pow(10,$i+1)*0.1));
+            }elseif($rankz<=pow(10,$i+1)*0.3){
+                return floor($c*$b[$i+1]*0.3/(pow(10,$i+1)*0.2));
+            }elseif($rankz<=pow(10,$i+1)*0.6){
+                return floor($c*$b[$i+1]*0.3/(pow(10,$i+1)*0.3));
+            }else{
+                return floor($c*$b[$i+1]*0.2/(pow(10,$i+1)*0.4));
+            }
+        }
+        
+        return 0;
+    }
+    function _addCoin(&$list,$allCoin,$rule,$page=1,$limit=10){
+        foreach($list as $k=>&$v){
+            $rank = ($page-1)*limit+$k+1;
+            $v['rank'] = $rank;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $v['coin'] = get_c($rank,$allCoin,$b);
+        }
+    }
 
     function rank_gou($aid){
         //获取AID
@@ -24,8 +57,8 @@ class rank extends base\basic{
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
-        $gou = model('rule')->find(1);
-        $z['allCoin'] = $allBean*$gou['value']/100;
+        $rule = model('rule')->find(1);
+        $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
 
         //获取排名
         $where['aid'] = $aid;
@@ -54,7 +87,7 @@ class rank extends base\basic{
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
-        $gou = model('rule')->find(1);
+        $gou = model('rule')->find(2);
         $z['allCoin'] = $allBean*$gou['value']/100;
 
         //获取排名
@@ -77,23 +110,33 @@ class rank extends base\basic{
 
         $this->success($z);
     }
-    function rank_bang(){
-        $where['aid'] = post('aid');
-        $z['list'] = model('rank_bang')->where($where)->order(array('time'))->limit(10)->select();
+    function rank_bang($aid){
+        //获取AID
+        $aid = post('aid',$aid,'%d');
+        
+        //获取活动所有乐豆
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+
+        //获取当前排行的奖金
+        $gou = model('rule')->find(3);
+        $z['allCoin'] = $allBean*$gou['value']/100;
+        $where['aid'] = post('aid',$aid);
+        $z['list'] = model('rank_bang')->where($where)->order(array('time'))->page(1,10)->select();
         $this->success($z);
     }
 
-    function rank_dou(){
-        $where['aid'] = post('aid');
-        $z['list'] = model('rank_bang')->where($where)->order(array('bean'=>'DESC'))->limit(10)->select();
-        $where['uid'] = $this->uid;
-        $my = model('rank_bang')->where($where)->find();
-        if($my){
-            unset($where['uid']);
-            $where['bean'] = array('logic',$my['bean'],'>');
-            $rank = model('rank_bang')->where($where)->get_field()+1;
-            $z['my'] = array('rank'=>$rank);
-        }else $z['my'] = array('rank'=>'0');
+    function rank_dou($aid){
+        //获取AID
+        $aid = post('aid',$aid,'%d');
+        
+        //获取活动所有乐豆
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+
+        //获取当前排行的奖金
+        $gou = model('rule')->find(4);
+        $z['allCoin'] = $allBean*$gou['value']/100;
+        $where['aid'] = post('aid',$aid);
+        $z['list'] = model('rank_bean')->where($where)->order(array('bean'=>'DESC'))->page(1,10)->select();
         $this->success($z);
     }
     function my_rank_gou(){
@@ -112,6 +155,7 @@ class rank extends base\basic{
     function prize_list(){
         
     }
+    
 
 }
 ?>
