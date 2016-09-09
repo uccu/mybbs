@@ -30,7 +30,7 @@ class rank extends base\basic{
         //获取排名
         $where['aid'] = post('aid');
         $where['status'] = array('contain',array(2,3,4),'IN');
-        $where['score'] = array('logic',0,'!=');
+        $where['score'] = 0;
         echo $z['list'] = model('order')->add_table(array(
             'user'=>array(
                 'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
