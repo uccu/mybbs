@@ -21,11 +21,11 @@ class rank extends base\basic{
         $aid = post('aid',$aid,'%d');
         
         //获取活动所有乐豆
-        $allBean = $this->_allBean($aid);
+        $z['allBean'] = $this->_allBean($aid);
 
         //获取当前排行的奖金
         $gou = model('rule')->find(1);
-        $allCoin = $allBean*$gou['value']/100;
+        $z['allCoin'] = $allBean*$gou['value']/100;
 
         //获取排名
         $where['aid'] = post('aid');
