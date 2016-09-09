@@ -28,7 +28,7 @@ class rank extends base\basic{
         $z['allCoin'] = $allBean*$gou['value']/100;
 
         //获取排名
-        $where['aid'] = post('aid');
+        $where['aid'] = $aid;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $z['list'] = model('order')->add_table(array(
