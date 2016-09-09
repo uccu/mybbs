@@ -47,21 +47,34 @@ class rank extends base\basic{
         $this->success($z);
     }
     function rank_xiang(){
-        $where['aid'] = post('aid');
+        //获取AID
+        $aid = post('aid',$aid,'%d');
+        
+        //获取活动所有乐豆
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+
+        //获取当前排行的奖金
+        $gou = model('rule')->find(1);
+        $z['allCoin'] = $allBean*$gou['value']/100;
+
+        //获取排名
+        $where['aid'] = $aid;
+        $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
         $where['referee'] = array('logic',0,'!=');
-        $z['list'] = model('order')->field('distinct u.referee,tuan_order.ctime')->add_table(array(
-            'user'=>array('_on'=>'uid','referee','_mapping'=>'u')
-        ))->where($where)->order('ctime')->limit(10)->select();
-        // $where['uid'] = $this->uid;
-        // $z2 = model('order')->where($where)->order('ctime')->find();
-        // if($z2)$z['my'] = array('rank'=>'0');
-        // else{
-        //     unset($where['uid']);
-        //     $where['ctime'] = array('logic',$z2['ctime'],'<');
-        //     $z3 = model('order')->field('count(distinct uid)+1 as c')->where($where)->get_filed('c');
-        //     $z['my'] = array('rank'=>$z3);
-        // }
+        $z['list'] = model('order')->table(array(
+            'order'=>array(
+                'score','oid','uid','aid','referee','status','pay_time','first','_mapping'=>'o'
+            ),
+            'user'=>array(
+                'avatar','_on'=>'o.referee=u.uid','username','_join'=>'LEFT JOIN','_mapping'=>'u'
+            ),
+            'rank_bean'=>array(
+                '_on'=>'o.referee=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
+            )
+        ))->where($where)->order(array('pay_time'))->page(1,10)->select();
+
         $this->success($z);
     }
     function rank_bang(){
