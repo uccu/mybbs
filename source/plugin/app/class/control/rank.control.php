@@ -33,10 +33,10 @@ class rank extends base\basic{
         $where['score'] = array('logic',0,'!=');
         $z['list'] = model('order')->add_table(array(
             'user'=>array(
-                'avatar','_on'=>'uid','username'
+                'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
             ),
             'rank_bean'=>array(
-                '_on'=>'tuan_order.uid=b.uid AND tuan_order.aid=b.aid','_mapping'=>'b','bean'=>'get'
+                '_on'=>'tuan_order.uid=b.uid AND tuan_order.aid=b.aid','_mapping'=>'b','bean'=>'get','_join'=>'LEFT JOIN'
             )
         ))->where($where)->order('ctime')->page(1,10)->select();
 
