@@ -169,6 +169,8 @@ class my extends base\basic{
         if(model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find())$this->errorCode(428);
         $_POST['money'] = post('money',0,'%d');
         if($_POST['money']>$this->userInfo['coin'])$this->errorCode(429);
+        model('user')->data(array('coin'=>array('add',-1*$_POST['money'])))->save($this->uid);
+        model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$_POST['money'],'info'=>'申请提现','ctime'=>TIME_NOW))->add();
         unset($_POST['id']);
         $_POST['ctime'] = TIME_NOW;
         $z['id'] = model('cash_apply')->data($_POST)->add();
