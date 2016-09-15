@@ -29,7 +29,7 @@ class my extends base\basic{
             //"pay_password",
             "push",
             'birth',
-            'cion_all'
+            'coin_all'
         ))->find($this->uid);
         $where['uid'] = $this->uid;
         $where['aid'] = $this->aid;
