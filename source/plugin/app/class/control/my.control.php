@@ -266,7 +266,7 @@ class my extends base\basic{
             }
         }
         $f['info'] = $z;
-        $f['rule'] = model('sign_rule')->limit(999)->order(array('day'))->select('day');
+        $f['rule'] = model('sign_rule')->limit(999)->order(array('day'))->select();
         $this->success($f);
     }
 
