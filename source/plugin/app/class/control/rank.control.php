@@ -198,7 +198,6 @@ class rank extends base\basic{
             $me = model('order')->where($where)->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
                 $tr = $this->_xiang($aid,$v['referee']);
-                var_dump($tr);
                 $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
             }
             $z['xiang_x']['coin'] = floor($z['xiang_x']['coin']);
@@ -210,7 +209,7 @@ class rank extends base\basic{
         $where['aid'] = $aid;
         $where['uid'] = $this->uid;
         $me = model('rank_bang')->where($where)->find();
-        
+        $z['bang_x']['coin'] = 0;
         if($me){
             unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
