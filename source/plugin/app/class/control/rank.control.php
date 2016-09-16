@@ -182,6 +182,7 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $me = model('order')->where($where)->order(array('pay_time'))->find();
+        $z['xiang_x']['coin'] = 0;
         if($me){
             unset($where['referer']);
             $where['pay_time'] = array('logic',$me['pay_time'],'<');
@@ -191,6 +192,11 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['xiang']['time'] = $me['pay_time'];
+            foreach($me as $v)if($v['referee']){
+                $tr = $this->_xiang($aid,$v['referee']);
+                $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
+            }
+            $z['xiang_x']['coin'] = floor($z['xiang_x']['coin']);
         }else{
             $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
@@ -199,6 +205,7 @@ class rank extends base\basic{
         $where['aid'] = $aid;
         $where['uid'] = $this->uid;
         $me = model('rank_bang')->where($where)->find();
+        
         if($me){
             unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
@@ -211,6 +218,8 @@ class rank extends base\basic{
         }else{
             $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
         }
+        
+
 
         $where = array();
         $where['aid'] = $aid;
@@ -228,14 +237,39 @@ class rank extends base\basic{
         }else{
             $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['time'] = 0;
         }
+
+        
+
+
+
+
         $this->success($z);
 
     }
     function my_rank_gou(){
 
     }
-    function my_rank_xiang(){
-
+    function _xiang($aid,$uid){
+        $where = array();
+        $where['aid'] = $aid;
+        $where['referer'] = $uid;
+        $where['share_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $me = model('order')->where($where)->order(array('pay_time'))->find();
+        if($me){
+            unset($where['referer']);
+            $where['pay_time'] = array('logic',$me['pay_time'],'<');
+            $z['xiang']['rank'] = $rank = model('order')->where($where)->get_field()+1;
+            $rule = model('rule')->find(2);
+            $allCoin =  $allBean*$rule['value']/100;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['xiang']['time'] = $me['pay_time'];
+        }else{
+            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+        }
+        return $z;
     }
     function my_rank_bang(){
 
