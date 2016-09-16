@@ -288,10 +288,13 @@ class my extends base\basic{
         }
         $data['uid'] = $this->uid;
         $data['time'] = TIME_NOW;
-        $z = model('sign')->data($data)->add(true);
+        $z2 = model('sign')->data($data)->add(true);
         $rule = model('sign_rule')->limit(999)->order(array('day'))->select('day');
         $score = $rule[$z['times']]['score'];
-        if($score)model('user')->data(array('score'=>array('add',$score)))->save($this->uid);
+        if($score){
+            model('user')->data(array('score'=>array('add',$score)))->save($this->uid);
+            model('score_log')->data(array('score'=>$score,'uid'=>$this->uid,'info'=>'签到','ctime'=>TIME_NOW))->add();
+        }
         $this->success();
     }
 
