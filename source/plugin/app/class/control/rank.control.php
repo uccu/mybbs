@@ -255,7 +255,7 @@ class rank extends base\basic{
 
     }
     function _xiang($aid,$uid){
-        $where = array();
+        $allBean = $z['allBean'] = $this->_allBean($aid);
         $where['aid'] = $aid;
         $where['referer'] = $uid;
         $where['share_first'] = 1;
