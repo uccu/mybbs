@@ -37,7 +37,7 @@ class home extends base\basic{
         $q['activityInfo'] = $z;
 
         $where['zz'] = "etime<$now";
-        $z = model('activity')->where($where)->limit(999)->order(array('stime'=>'DESC'))->select();
+        echo $z = model('activity')->where($where)->limit(999)->sql()->order(array('stime'=>'DESC'))->select();
         $q['last'] = $z;
 
         $where['zz'] = "stime>$now";
