@@ -303,6 +303,7 @@ class my extends base\basic{
                 'uid','_on'=>'tid'
             )
         ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function my_fans($aid){

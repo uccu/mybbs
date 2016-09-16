@@ -14,29 +14,30 @@ class rank extends base\basic{
             'aid'=>$aid,
             'status'=>array('contain',array(2,3,4),'IN'),
         ))->find();
-        return $all['s']?$all['s']*0.5:0;
+        $pe = model('cache')->get('percent');
+        return $all['s']?$all['s']*$pe:0;
     }
     function get_c($rank,$c,$b){
  
         $rank = floor($rank);
         if($rank==1)return ($c*$b[0]);
         $rankz = $rank;
-        for($i=0;$i<5;$i++){
-            $rankz -= pow(10,$i);
-            if($rankz>pow(10,$i+1))continue;
-            if($i==4){
-                return floor($c*$b[$i+1]/1000);
-            }
-            
-            if($rankz<=pow(10,$i+1)*0.1){
-                return floor($c*$b[$i+1]*0.2/(pow(10,$i+1)*0.1));
-            }elseif($rankz<=pow(10,$i+1)*0.3){
-                return floor($c*$b[$i+1]*0.3/(pow(10,$i+1)*0.2));
-            }elseif($rankz<=pow(10,$i+1)*0.6){
-                return floor($c*$b[$i+1]*0.3/(pow(10,$i+1)*0.3));
+        for($i=0;$i<4;$i++){
+            $rankz -= $b[5]*pow(10,$i);
+            if($rankz>$b[5]*pow(10,$i+1))continue;
+            if($i==4)return floor($c*$b[$i+1]/1000);
+            if($rankz<=$b[5]*pow(10,$i+1)*0.1){
+                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*0.1));
+            }elseif($rankz<=$b[5]*pow(10,$i+1)*0.3){
+                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*0.2));
+            }elseif($rankz<=$b[5]*pow(10,$i+1)*0.6){
+                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*0.3));
             }else{
-                return floor($c*$b[$i+1]*0.2/(pow(10,$i+1)*0.4));
+                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*0.4));
             }
+        }
+        if($rankz<=$b[5]*1000 && $b[4]){
+            return floor($c*$b[4]/$b[5]*10000);
         }
         
         return 0;
@@ -45,7 +46,7 @@ class rank extends base\basic{
         foreach($list as $k=>&$v){
             $rank = ($page-1)*limit+$k+1;
             $v['rank'] = $rank;
-            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $v['coin'] = $this->get_c($rank,$allCoin,$b);
         }
     }
@@ -166,7 +167,7 @@ class rank extends base\basic{
             $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $rule = model('rule')->find(1);
             $allCoin =  $allBean*$rule['value']/100;
-            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['gou']['time'] = $me['pay_time'];
         }else{
@@ -187,7 +188,7 @@ class rank extends base\basic{
             $z['xiang']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $rule = model('rule')->find(2);
             $allCoin =  $allBean*$rule['value']/100;
-            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['xiang']['time'] = $me['pay_time'];
         }else{
@@ -204,7 +205,7 @@ class rank extends base\basic{
             $z['bang']['rank'] = $rank = model('rank_bang')->where($where)->get_field()+1;
             $rule = model('rule')->find(3);
             $allCoin =  $allBean*$rule['value']/100;
-            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['bang']['time'] = $me['time'];
         }else{
@@ -221,7 +222,7 @@ class rank extends base\basic{
             $z['bean']['rank'] = $rank = model('rank_bean')->where($where)->get_field()+1;
             $rule = model('rule')->find(4);
             $allCoin =  $allBean*$rule['value']/100;
-            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100);
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['bean']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['bean']['time'] = 0;
         }else{
