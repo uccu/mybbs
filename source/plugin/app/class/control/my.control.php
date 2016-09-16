@@ -336,13 +336,7 @@ class my extends base\basic{
         $this->success();
     }
 
-    function close_push(){
-        $this->success();
-    }
-    
-    function open_push(){
-        $this->success();
-    }
+
 
 
 
@@ -356,8 +350,9 @@ class my extends base\basic{
         $data['uid'] = $this->uid;
         $data['tid'] = $tid;
         $data['addr_id'] = $addr_id;
-        $data['status'] = 1;
+        $data['status'] = 2;
         $data['num'] = 1;
+        $data['ctime'] = TIME_NOW;
         $data['score'] = $t['score'];
         $z = model('order')->data($data)->add();
         if(!$z)$this->errorCode(421);

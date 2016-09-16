@@ -54,6 +54,7 @@ class rank extends base\basic{
     function rank_gou($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $page = post('page',1);
         //获取活动所有乐豆
         $allBean = $z['allBean'] = $this->_allBean($aid);
@@ -84,6 +85,7 @@ class rank extends base\basic{
     function rank_xiang($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $page = post('page',1);
         //获取活动所有乐豆
         $allBean = $z['allBean'] = $this->_allBean($aid);
@@ -115,6 +117,7 @@ class rank extends base\basic{
     function rank_bang($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $page = post('page',1);
         //获取活动所有乐豆
         $allBean = $z['allBean'] = $this->_allBean($aid);
@@ -132,6 +135,7 @@ class rank extends base\basic{
     function rank_dou($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $page = post('page',1);
         //获取活动所有乐豆
         $allBean = $z['allBean'] = $this->_allBean($aid);
@@ -151,6 +155,7 @@ class rank extends base\basic{
 
 
         $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
 
@@ -195,7 +200,7 @@ class rank extends base\basic{
             unset($where['pay_time']);
             $where['referer'] = array('logic','0','!=');
             $where['uid'] = $this->uid;
-            $me = model('order')->where($where)->limit(9999)->select();
+            $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
                 $tr = $this->_xiang($aid,$v['referee']);
                 $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
@@ -219,6 +224,20 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['bang']['time'] = $me['time'];
+            $where = array();
+
+            $where['aid'] = $aid;
+            $where['uid'] = $this->uid;
+            $where['status'] = array('contain',array(2,3,4),'IN');
+            $where['score'] = 0;
+            $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
+            foreach($me as $v)if($v['referee']){
+                $tr = $this->_bang($aid,$v['referee']);
+                $z['bang_x']['coin'] += $tr['bang']['coin']/2/$tr['bang']['num'];
+            }
+            $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
+
+
         }else{
             $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
         }
@@ -272,6 +291,26 @@ class rank extends base\basic{
             $z['xiang']['time'] = $me['pay_time'];
         }else{
             $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+        }
+        return $z;
+    }
+    function _bang($aid,$uid){
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $uid;
+        $me = model('rank_bang')->where($where)->find();
+        if($me){
+            unset($where['uid']);
+            $where['time'] = array('logic',$me['time'],'<');
+            $z['bang']['rank'] = $rank = model('rank_bang')->where($where)->get_field()+1;
+            $rule = model('rule')->find(3);
+            $allCoin =  $allBean*$rule['value']/100;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['bang']['time'] = $me['time'];
+            $z['bang']['num'] = $me['num'];
+        }else{
+            $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
         }
         return $z;
     }
