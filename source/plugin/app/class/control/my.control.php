@@ -252,13 +252,13 @@ class my extends base\basic{
         $z = model('sign')->where(array('uid'=>$this->uid))->find();
         if(!$z){
             $z['times'] = '0';
-            $z['signed'] = '1';
+            $z['signed'] = '0';
         }
         else{
             $la = strtotime(date('Y-m-d',$z['time']));
             if($la<$this->yesterday){
                 $z['times'] = '0';
-                $z['signed'] = '1';
+                $z['signed'] = '0';
             }elseif($la<$this->today){
                 $z['signed'] = '0';
             }else{
