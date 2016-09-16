@@ -34,6 +34,7 @@ class home extends base\basic{
         $now = TIME_NOW;
         $where = "stime<$now AND etime>$now";
         $z = model('activity')->where($where)->find();
+        $q['now'] = $now;
         $q['activityInfo'] = $z;
 
         $where = "etime<$now";
