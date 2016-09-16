@@ -30,6 +30,22 @@ class home extends base\basic{
         $q = array_merge($q,$this->recommend());
         $this->success($q);
     }
+    function forward(){
+        $now = TIME_NOW;
+        $where['zz'] = 'stime<$now AND etime>$now';
+        $z = model('activity')->where($where)->find();
+        $q['activityInfo'] = $z;
+
+        $where['zz'] = 'etime<$now';
+        $z = model('activity')->where($where)->limit(999)->order(array('stime'=>'DESC'))->select();
+        $q['last'] = $z;
+
+        $where['zz'] = 'stime>$now';
+        $z = model('activity')->where($where)->limit(999)->order(array('stime'))->select();
+        $q['next'] = $z;
+
+        $this->success($q);
+    }
     function activity(){
         $now = TIME_NOW;
         $where['zz'] = 'stime<$now AND etime>$now';
