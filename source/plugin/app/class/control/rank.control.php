@@ -197,18 +197,18 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['xiang']['time'] = $me['pay_time'];
-            unset($where['pay_time']);
-            $where['referee'] = array('logic','0','!=');
-            $where['uid'] = $this->uid;
-            $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
-            foreach($me as $v)if($v['referee']){
-                $tr = $this->_xiang($aid,$v['referee']);
-                $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
-            }
-            $z['xiang_x']['coin'] = floor($z['xiang_x']['coin']);
         }else{
             $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
         }
+        unset($where['pay_time']);
+        $where['referee'] = array('logic','0','!=');
+        $where['uid'] = $this->uid;
+        $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
+        foreach($me as $v)if($v['referee']){
+            $tr = $this->_xiang($aid,$v['referee']);
+            $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
+        }
+        $z['xiang_x']['coin'] = floor($z['xiang_x']['coin']);
 
         $where = array();
         $where['aid'] = $aid;
@@ -224,26 +224,22 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['bang']['time'] = $me['time'];
-            $where = array();
-
-            $where['aid'] = $aid;
-            $where['uid'] = $this->uid;
-            $where['status'] = array('contain',array(2,3,4),'IN');
-            $where['score'] = 0;
-            $where['referee'] = array('logic','0','!=');
-            echo $me = model('order')->sql()->field('distinct referee')->where($where)->limit(9999)->select();
-            foreach($me as $v)if($v['referee']){
-                $tr = $this->_bang($aid,$v['referee']);
-                var_dump($tr);
-                $z['bang_x']['coin'] += $tr['bang']['coin']/2/$tr['bang']['num'];
-            }
-            $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
-
-
         }else{
             $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
         }
-        
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $this->uid;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $where['referee'] = array('logic','0','!=');
+        $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
+        foreach($me as $v)if($v['referee']){
+            $tr = $this->_bang($aid,$v['referee']);
+            var_dump($tr);
+            $z['bang_x']['coin'] += $tr['bang']['coin']/2/$tr['bang']['num'];
+        }
+        $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
 
 
         $where = array();
