@@ -178,8 +178,8 @@ class my extends base\basic{
     }
     function my_cash(){
         $data['uid'] = $this->uid;
-        $z['list'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
-        if(!$z['list'])$this->errorCode(427);        
+        $z['info'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->find();
+        if(!$z['info'])$this->errorCode(427);        
         $this->success($z);
     }
     function last_cash(){
