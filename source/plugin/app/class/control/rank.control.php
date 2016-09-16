@@ -192,6 +192,7 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['xiang']['time'] = $me['pay_time'];
+            $me = model('order')->where($where)->where(array('uid'=>$this->uid,'referee'=>array('logic','0','!=')))->order(array('pay_time'))->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
                 $tr = $this->_xiang($aid,$v['referee']);
                 $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
