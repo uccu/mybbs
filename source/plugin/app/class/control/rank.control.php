@@ -231,7 +231,7 @@ class rank extends base\basic{
             $where['status'] = array('contain',array(2,3,4),'IN');
             $where['score'] = 0;
             $where['referee'] = array('logic','0','!=');
-            $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
+            echo $me = model('order')->sql()->field('distinct referee')->where($where)->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
                 $tr = $this->_bang($aid,$v['referee']);
                 var_dump($tr);
