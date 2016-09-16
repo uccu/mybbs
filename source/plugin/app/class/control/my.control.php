@@ -375,8 +375,9 @@ class my extends base\basic{
     }
     function my_fans_reward_detail(){
         $data['fans_num'] = model('fans')->where(array('uid'=>$this->uid,'buy'=>1))->get_field("count(distinct fans_id)");
-        $data['reward_gotton'] = model('fans_record')->where(array('uid'=>$this->uid))->select();
-        $this->success($q);
+        $data['reward_gotton'] = model('fans_record')->where(array('uid'=>$this->uid))->limit(999)->select();
+        $data['reward_rule'] = model('fans_rule')->limit(999)->select();
+        $this->success($data);
     }
 }
 ?>
