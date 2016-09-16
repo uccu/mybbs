@@ -359,5 +359,24 @@ class my extends base\basic{
         $q['oid'] = $z;
         $this->success($q);
     }
+
+
+
+
+    function get_my_fans_reward($num){
+        $num = post('num',$num,'%d');
+        $score = model('fans_rule')->where(array('num'=>$num))->get_filed('score');
+        if(!$score)$this->errorCode(430);
+        if(model('fans_record')->where(array('num'=>$num,'uid'=>$this->uid))->find())$this->errorCode(431);
+
+        $z = model('fans_record')->data(array('num'=>$num,'uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$score))->add();
+        if(!$z)$this->errorCode(432);
+        $this->success();
+    }
+    function my_fans_reward_detail(){
+        $data['fans_num'] = model('fans')->where(array('uid'=>$this->uid,'buy'=>1))->get_field("count(distinct fans_id)");
+        $data['reward_gotton'] = model('fans_record')->where(array('uid'=>$this->uid))->select();
+        $this->success($q);
+    }
 }
 ?>
