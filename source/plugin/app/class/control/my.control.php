@@ -344,13 +344,15 @@ class my extends base\basic{
 
 
 
-    function exchange($tid){
+    function exchange($tid,$addr_id){
         $tid = post('tid',$tid);
+        $addr_id = post('addr_id',$addr_id);
         $t = model('goods')->find($tid);
         if(!$t)$this->errorCode(411);
         if(!$t['score'])$this->errorCode(422);
         $data['uid'] = $this->uid;
-        $data['tid'] = $z['tid'];
+        $data['tid'] = $tid;
+        $data['addr_id'] = $addr_id;
         $data['status'] = 1;
         $data['num'] = 1;
         $data['score'] = $t['score'];
