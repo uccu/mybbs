@@ -182,14 +182,14 @@ class rank extends base\basic{
 
         $where = array();
         $where['aid'] = $aid;
-        $where['referer'] = $this->uid;
+        $where['referee'] = $this->uid;
         $where['share_first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $me = model('order')->where($where)->order(array('pay_time'))->find();
         $z['xiang_x']['coin'] = 0;
         if($me){
-            unset($where['referer']);
+            unset($where['referee']);
             $where['pay_time'] = array('logic',$me['pay_time'],'<');
             $z['xiang']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $rule = model('rule')->find(2);
@@ -198,7 +198,7 @@ class rank extends base\basic{
             $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['xiang']['time'] = $me['pay_time'];
             unset($where['pay_time']);
-            $where['referer'] = array('logic','0','!=');
+            $where['referee'] = array('logic','0','!=');
             $where['uid'] = $this->uid;
             $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
@@ -230,11 +230,11 @@ class rank extends base\basic{
             $where['uid'] = $this->uid;
             $where['status'] = array('contain',array(2,3,4),'IN');
             $where['score'] = 0;
-            $where['referer'] = array('logic','0','!=');
+            $where['referee'] = array('logic','0','!=');
             $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
             foreach($me as $v)if($v['referee']){
                 $tr = $this->_bang($aid,$v['referee']);
-                var_dump($tr);
+                //var_dump($tr);
                 $z['bang_x']['coin'] += $tr['bang']['coin']/2/$tr['bang']['num'];
             }
             $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
@@ -277,13 +277,13 @@ class rank extends base\basic{
     function _xiang($aid,$uid){
         $allBean = $z['allBean'] = $this->_allBean($aid);
         $where['aid'] = $aid;
-        $where['referer'] = $uid;
+        $where['referee'] = $uid;
         $where['share_first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $me = model('order')->where($where)->order(array('pay_time'))->find();
         if($me){
-            unset($where['referer']);
+            unset($where['referee']);
             $where['pay_time'] = array('logic',$me['pay_time'],'<');
             $z['xiang']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $rule = model('rule')->find(2);
