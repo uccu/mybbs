@@ -36,7 +36,7 @@ class item extends base\basic{
             'goods_attribute'=>array(
                 'attribute_name','_on'=>'sid'
             )
-        ))->where(array('tid'=>$tid))->select();
+        ))->where(array('tid'=>$tid))->limit(999)->select();
         $q['collected'] =0;
         if($this->uid && model('collect')->where(array('uid'=>$this->uid,'tid'=>$tid))->find())$q['collected'] =1;
         $this->success($q);
