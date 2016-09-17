@@ -166,11 +166,17 @@ class item extends base\basic{
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
+    function order_info($oid){
         $this->_check_login();
         $data['uid'] = $this->uid;
+        $oid = post('oid',$oid);
+        if(!$oid)$this->errorCode(425);
+        $q['info'] = model('order')->add_table(array(
             'goods'=>array(
                 'name','thumb','bean','price_act','price','_on'=>'tid'
             )
+        ))->where($data)->find($oid);
+        if(!$q['info'])$this->errorCode(427);
         $this->success($q);
     }
     function torder($tid){
