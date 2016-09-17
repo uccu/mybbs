@@ -166,6 +166,13 @@ class item extends base\basic{
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+            'goods'=>array(
+                'name','thumb','bean','price_act','price','_on'=>'tid'
+            )
+        $this->success($q);
+    }
     function torder($tid){
         //验证登录
         $this->_check_login();
