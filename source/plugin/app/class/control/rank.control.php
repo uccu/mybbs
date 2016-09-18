@@ -4,11 +4,8 @@ defined('IN_PLAY') || exit('Access Denied');
 class rank extends base\basic{
     private $out = true;
     function _beginning(){
-        
-
-
+       
     }
-
     function _allBean($aid){
         $all = model('order')->field('SUM(`bean`) as `s`')->where(array(
             'aid'=>$aid,
@@ -56,7 +53,6 @@ class rank extends base\basic{
             $v['time'] = !$time || $v['time'] - $time < 0 ? 0 : $v['time'] - $time;
         }
     }
-
     function rank_gou($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
@@ -221,7 +217,6 @@ class rank extends base\basic{
 
         $this->success($z);
     }
-
     function rank_dou($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
@@ -383,9 +378,6 @@ class rank extends base\basic{
         $this->success($z);
 
     }
-    function my_rank_gou(){
-
-    }
     function _xiang($aid,$uid){
         $allBean = $z['allBean'] = $this->_allBean($aid);
         $where['aid'] = $aid;
@@ -429,15 +421,15 @@ class rank extends base\basic{
         }
         return $z;
     }
-    function my_rank_bang(){
-
-    }
-
-    function my_rank_dou(){
-
-    }
-    function prize_list(){
-        
+    
+    function activity_list(){
+        $now = TIME_NOW;
+        $where = "etime<$now";
+        $z = model('activity')->where($where)->limit(999)->order(array('stime'=>'DESC'))->select();
+        foreach($z as &$v)$v['time'] = TIME_NOW;
+        $q['last'] = $z;
+        if(!$q['last'])$this->errorCode(427);
+        $this->success($q);
     }
     
 
