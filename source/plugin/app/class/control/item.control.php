@@ -167,7 +167,7 @@ class item extends base\basic{
         if($status)$data['status'] = $status;
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
             'goods_attribute'=>array(
                 'attribute_name','_on'=>'lid'
@@ -183,7 +183,7 @@ class item extends base\basic{
         if(!$oid)$this->errorCode(425);
         $q['info'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
             'goods_attribute'=>array(
                 'attribute_name','_on'=>'lid'
