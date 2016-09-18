@@ -8,7 +8,7 @@ class captcha extends \control\ajax{
     }
     function get_captcha($phone){
         $phone = post('phone',$phone);
-        if(!preg_match('#^1\d{10}$#',$hpone))$this->error(500,'手机格式错误');
+        if(!preg_match('#^1\d{10}$#',$phone))$this->error(500,'手机格式错误');
         $s = '';$a = '1234567890';
         for($i=0;$i<6;$i++){
             $s.=$a[rand(0,9)];
