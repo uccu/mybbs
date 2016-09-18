@@ -68,7 +68,7 @@ class rank extends base\basic{
         $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $z['list'] = model('order')->field(array('avatar','uid','time'))->table(array(
+        $z['list'] = model('order')->table(array(
             'order'=>array(
                 'score','oid','uid','aid','status','pay_time'=>'time','first','_mapping'=>'o'
             ),
@@ -78,7 +78,7 @@ class rank extends base\basic{
             'rank_bean'=>array(
                 '_on'=>'o.uid=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->success($z);
     }
@@ -100,7 +100,7 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $where['referee'] = array('logic',0,'!=');
-        $z['list'] = model('order')->field(array('avatar','uid','time'))->table(array(
+        $z['list'] = model('order')->table(array(
             'order'=>array(
                 'score','oid','aid','referee'=>'uid','status','pay_time'=>'time','first','_mapping'=>'o'
             ),
@@ -110,7 +110,7 @@ class rank extends base\basic{
             'rank_bean'=>array(
                 '_on'=>'o.referee=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->success($z);
     }
@@ -127,11 +127,11 @@ class rank extends base\basic{
         $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
 
         $where['aid'] = post('aid',$aid);
-        $z['list'] = model('rank_bang')->field(array('avatar','uid','time'))->add_table(array(
+        $z['list'] = model('rank_bang')->add_table(array(
             'user'=>array(
                 'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
             ),
-        ))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->success($z);
     }
