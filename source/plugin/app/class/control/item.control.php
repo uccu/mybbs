@@ -192,6 +192,26 @@ class item extends base\basic{
         if(!$q['info'])$this->errorCode(427);
         if(!$q['info']['addr_id'])$q['info']['addr_id'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->get_field('id');
         $q['addr'] = model('user_address')->find($q['info']['addr_id']);
+        $l = model('location')->limit(9999)->select('id');
+            $v = &$q['addr'];
+            $v['area'] = $v['lid'];
+            $v['areaName'] = $l[$v['lid']]['title'];
+            if(!$v['area']){
+                $v['area'] = 0;$v['areaName'] = '';
+            }
+            $v['city'] = $l[$v['lid']]['pid'];
+            $v['cityName'] = $l[$v['city']]['title'];
+            if(!$v['city']){
+                $v['city'] = 0;$v['cityName'] = '';
+            }
+            $v['province'] = $l[$v['city']]['pid'];
+            $v['provinceName'] = $l[$v['province']]['title'];
+            if(!$v['province']){
+                $v['province'] = 0;$v['provinceName'] = '';
+            }
+        
+
+        
         $this->success($q);
     }
     function torder($tid){
