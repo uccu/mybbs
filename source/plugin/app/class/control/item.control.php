@@ -190,6 +190,7 @@ class item extends base\basic{
             )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
+        if(!$q['info']['addr_id'])$q['info']['addr_id'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->get_field('id');
         $q['addr'] = model('user_address')->find($q['info']['addr_id']);
         $this->success($q);
     }
