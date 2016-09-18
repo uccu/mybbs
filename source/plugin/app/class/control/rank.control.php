@@ -50,6 +50,10 @@ class rank extends base\basic{
             $v['coin'] = $this->get_c($rank,$allCoin,$b);
         }
     }
+    function _addtime(&$list,$aid){
+        $time = model('activity')->where(array('aid'=>$aid))->get_filed('stime');
+        $list['time'] = !$time || $list['time'] - $time < 0 ? '0' : $list['time'] - $time;
+    }
 
     function rank_gou($aid){
         //获取AID
@@ -80,6 +84,7 @@ class rank extends base\basic{
             )
         ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
+        $this->_addtime($z['list'],$aid);
         $this->success($z);
     }
     function rank_xiang($aid){
@@ -112,6 +117,7 @@ class rank extends base\basic{
             )
         ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
+        $this->_addtime($z['list'],$aid);
         $this->success($z);
     }
     function rank_bang($aid){
@@ -133,6 +139,7 @@ class rank extends base\basic{
             ),
         ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
+        $this->_addtime($z['list'],$aid);
         $this->success($z);
     }
 
