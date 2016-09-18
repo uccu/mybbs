@@ -84,7 +84,7 @@ class rank extends base\basic{
             'rank_bean'=>array(
                 '_on'=>'o.uid=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
 
@@ -99,11 +99,11 @@ class rank extends base\basic{
         $where['score'] = 0;
         $me = model('order')->table_first()->where($where)->order(array('pay_time'))->find();
         if($me){
+            var_dump($me);
             unset($where['uid']);
             $where['pay_time'] = array('logic',$me['pay_time'],'<');
             $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
-            $rule = model('rule')->find(1);
-            $allCoin =  $allBean*$rule['value']/100;
+
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['gou']['time'] = $me['pay_time'];
@@ -142,9 +142,11 @@ class rank extends base\basic{
             'rank_bean'=>array(
                 '_on'=>'o.referee=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
+        $k = model('activity')->find($aid);
+        $z['title'] = $k['title'];
         $this->success($z);
     }
     function rank_bang($aid){
@@ -164,9 +166,11 @@ class rank extends base\basic{
             'user'=>array(
                 'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
             ),
-        ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
+        ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
+        $k = model('activity')->find($aid);
+        $z['title'] = $k['title'];
         $this->success($z);
     }
 
@@ -187,8 +191,10 @@ class rank extends base\basic{
             'user'=>array(
                 'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
             ),
-        ))->field(array('avatar','uid','bean'))->where($where)->order(array('bean'=>'DESC'))->page($page,10)->select();
+        ))->field(array('avatar','uid','bean','aid'))->where($where)->order(array('bean'=>'DESC'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
+        $k = model('activity')->find($aid);
+        $z['title'] = $k['title'];
         $this->success($z);
     }
     function my_rank($aid){
