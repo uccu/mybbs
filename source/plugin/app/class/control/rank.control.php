@@ -53,7 +53,7 @@ class rank extends base\basic{
     function _addtime(&$list,$aid){
         $time = model('activity')->where(array('aid'=>$aid))->get_field('stime');
         foreach($list as $k=>&$v){
-            $v['time'] = !$time || $v['time'] - $time < 0 ? '0' : $v['time'] - $time;
+            $v['time'] = !$time || $v['time'] - $time < 0 ? 0 : $v['time'] - $time;
         }
     }
 
@@ -87,6 +87,29 @@ class rank extends base\basic{
         ))->field(array('avatar','uid','time'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
+
+
+
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $this->uid;
+        $where['first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $me = model('order')->where($where)->order(array('pay_time'))->find();
+        if($me){
+            unset($where['uid']);
+            $where['pay_time'] = array('logic',$me['pay_time'],'<');
+            $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
+            $rule = model('rule')->find(1);
+            $allCoin =  $allBean*$rule['value']/100;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['gou']['time'] = $me['pay_time'];
+        }else{
+            $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
+        }
+        
         $this->success($z);
     }
     function rank_xiang($aid){
