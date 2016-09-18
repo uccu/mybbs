@@ -424,8 +424,8 @@ class item extends base\basic{
 
     }
     function alipay(){
-        
-        $this->success($orderInfo);
+        $data = control('tool:pay')->_alipay();
+        $this->success($data);
     }
     function wxpay(){
 
