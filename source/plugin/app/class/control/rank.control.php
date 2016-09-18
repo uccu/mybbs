@@ -89,7 +89,8 @@ class rank extends base\basic{
         $this->_addtime($z['list'],$aid);
 
 
-
+        $ke = model('activity')->find($aid);
+        $z['title'] = $ke['title'];
 
         $where = array();
         $where['aid'] = $aid;
@@ -97,21 +98,20 @@ class rank extends base\basic{
         $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $me = model('order')->table_first()->where($where)->order(array('pay_time'))->find();
+        $me = model('order')->table_first()->where($where)->order(array('time'))->find();
         if($me){
             var_dump($me);
             unset($where['uid']);
-            $where['pay_time'] = array('logic',$me['pay_time'],'<');
+            $where['time'] = array('logic',$me['time'],'<');
             $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
 
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['gou']['time'] = $me['pay_time'];
+            $z['gou']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
         }else{
             $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
         }
-        $k = model('activity')->find($aid);
-        $z['title'] = $k['title'];
+        
         $this->success($z);
     }
     function rank_xiang($aid){
