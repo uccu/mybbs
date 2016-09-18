@@ -30,13 +30,12 @@ class item extends base\basic{
     }
     function info($tid){
         $tid = post('tid',$tid);
-        $q['info'] = model('goods')->where($where)->find($tid);
-        if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
-        $q['info']['other'] = model('goods_attr')->add_table(array(
+        $q['info'] = model('goods')->add_table(array(
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'sid'
+                'attribute_name','_on'=>'lid'
             )
-        ))->where(array('tid'=>$tid))->limit(999)->select();
+        ))->where($where)->find($tid);
+        if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
         $q['collected'] =0;
         if($this->uid && model('collect')->where(array('uid'=>$this->uid,'tid'=>$tid))->find())$q['collected'] =1;
         $this->success($q);
