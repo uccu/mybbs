@@ -53,6 +53,7 @@ class home extends base\basic{
         $z = model('activity')->where($where)->find();
         $q['activityInfo'] = $z;
         if($z){
+            $q['activityInfo']['time'] = TIME_NOW;
             $q['activityInfo']['message'] = '总奖金100W';
             $where2['stime'] = array('logic',$z['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
@@ -62,7 +63,8 @@ class home extends base\basic{
         }
         $q['nextActivityInfo'] = $z2;
         if($z2){
-             $q['nextActivityInfo']['message'] = '总关注100W';
+            $q['nextActivityInfo']['time'] = TIME_NOW;
+            $q['nextActivityInfo']['message'] = '总关注100W';
         }
         if($this->out)$this->success($q);
         return $q;
