@@ -110,7 +110,8 @@ class rank extends base\basic{
         }else{
             $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
         }
-
+        $k = model('activity')->find($aid);
+        $z['title'] = $k['title'];
         $this->success($z);
     }
     function rank_xiang($aid){
