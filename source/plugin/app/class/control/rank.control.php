@@ -100,7 +100,7 @@ class rank extends base\basic{
         $where['score'] = 0;
         $me = model('order')->table_first()->where($where)->order(array('time'))->find();
         if($me){
-            var_dump($me);
+            //var_dump($me);
             unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
             $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
