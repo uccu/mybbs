@@ -137,7 +137,7 @@ class item extends base\basic{
         foreach($q['list'] as &$v)$v['collected']=$v['collected']?'1':'0';
         $this->success($q);
     }
-
+    
     function change_cart($cid,$num=1){
         $this->_check_login();
         $cid = post('cid',$cid);
@@ -365,6 +365,14 @@ class item extends base\basic{
         $q['money'] = $money;
         $this->success($q);
 
+    }
+    function order_change($addr_id,$oid){
+        $addr_id = post('addr_id',$addr_id,'%d');
+        $oid = post('oid',$oid,'%d');
+        if(!$o = model('order')->find($oid))$this->errorCode(425);
+        if(!$o = model('user_address')->find($addr_id))$this->errorCode(433);
+        model('order')->data(array('addr_id'=>$addr_id))->save($oid);
+        $this->success();
     }
     function unorder($oid){
         $this->_check_login();

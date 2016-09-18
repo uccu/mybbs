@@ -41,14 +41,14 @@ class pay extends \control\ajax{
     }  
     function _wcpay(){
         $array = array (
-            'appid'             => '',
-            'body'              => '',
+            'appid'             => 'wx6257377cf020d6e7',
+            'body'              => '乐商部落商品',
             'mch_id'            => '1344011101',
             'nonce_str'         => md5 ( rand ( 1000000, 9999999 ) ),
-            'notify_url'        => '',
-            'out_trade_no'      => '',
+            'notify_url'        => 'http://121.199.8.244:2000/app/item/wxpay_c',
+            'out_trade_no'      => '1234567890123',
             'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
-            'total_fee'         => $_REQUEST ['money'] * 100,
+            'total_fee'         => 1,//单位为分
             'trade_type'        => 'APP' 
         );
         $xml = '<xml>';
@@ -57,7 +57,7 @@ class pay extends \control\ajax{
             $sign .= trim ( $key ) . "=" . trim ( $val ) . "&";
             $xml .= "<" . trim ( $key ) . ">" . trim ( $val ) . "</" . trim ( $key ) . ">";
         }
-        $sign .= 'key=' . 'AIWORKERAIWORKERAIWORKERAIWORKER';
+        $sign .= 'key=' . $array['out_trade_no'];
         // echo $sign;
         $sign = strtoupper ( md5 ( $sign ) );
         $xml .= "<sign>$sign</sign>";
