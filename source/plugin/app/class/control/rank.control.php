@@ -196,8 +196,30 @@ class rank extends base\basic{
         ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
-        $k = model('activity')->find($aid);
-        $z['title'] = $k['title'];
+        $ke = model('activity')->find($aid);
+        $z['title'] = $ke['title'];
+
+
+
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $this->uid;
+        $me = model('rank_bang')->where($where)->find();
+        $z['bang_x']['coin'] = 0;
+        if($me){
+            unset($where['uid']);
+            $where['time'] = array('logic',$me['time'],'<');
+            $z['me']['rank'] = $rank = model('rank_bang')->where($where)->get_field()+1;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+        }else{
+            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+        }
+        $z['me']['uid'] = $this->userInfo['uid'];
+        $z['me']['avatar'] = $this->userInfo['avatar'];
+        $z['me']['aid'] = $aid;
+
         $this->success($z);
     }
 
@@ -220,8 +242,28 @@ class rank extends base\basic{
             ),
         ))->field(array('avatar','uid','bean','aid'))->where($where)->order(array('bean'=>'DESC'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
-        $k = model('activity')->find($aid);
-        $z['title'] = $k['title'];
+        $ke = model('activity')->find($aid);
+        $z['title'] = $ke['title'];
+
+
+
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $this->uid;
+        $me = model('rank_bean')->where($where)->find();
+        if($me){
+            unset($where['uid']);
+            $where['bean'] = array('logic',$me['bean'],'>');
+            $z['me']['rank'] = $rank = model('rank_bean')->where($where)->get_field()+1;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['time'] = 0;
+        }else{
+            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+        }
+        $z['me']['uid'] = $this->userInfo['uid'];
+        $z['me']['avatar'] = $this->userInfo['avatar'];
+        $z['me']['aid'] = $aid;
         $this->success($z);
     }
     function my_rank($aid){
