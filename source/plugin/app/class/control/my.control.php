@@ -319,10 +319,13 @@ class my extends base\basic{
         $where2['score'] = 0;
         $z['count'] = model('order')->where($where2)->get_field();
         $z['list'] = model('fans')->add_table(array(
+            'activity'=>array(
+                '_on'=>'aid','title','stime'
+            ),
             'user'=>array(
                 'username','avatar','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
             )
-        ))->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+        ))->where($where)->order(array('stime'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
