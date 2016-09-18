@@ -205,7 +205,6 @@ class rank extends base\basic{
         $where['aid'] = $aid;
         $where['uid'] = $this->uid;
         $me = model('rank_bang')->where($where)->find();
-        $z['bang_x']['coin'] = 0;
         if($me){
             unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
@@ -258,8 +257,9 @@ class rank extends base\basic{
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
             $z['me']['time'] = 0;
+            $z['me']['bean'] = $me['bean'];
         }else{
-            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = $z['me']['bean'] = 0;
         }
         $z['me']['uid'] = $this->userInfo['uid'];
         $z['me']['avatar'] = $this->userInfo['avatar'];
