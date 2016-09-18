@@ -373,7 +373,7 @@ class item extends base\basic{
         $money = 0;
         if(!$o)$this->errorCode(425);
         foreach($o as $v)$money += $v['money'];
-        $use_coin = post('use_coin',0);
+        $use_coin = post('use_coin',0,'%d');
         $coin_k = $this->userInfo['coin'];
         $coin = 0;
         if($use_coin && $coin_k){
@@ -392,7 +392,7 @@ class item extends base\basic{
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$i;
         model('pay_log')->data($data)->add();
-        _pay_c($data['pay_id']);
+        //_pay_c($data['pay_id']);
         return $data;
     }
     function _pay_c($pay_id){
@@ -404,7 +404,7 @@ class item extends base\basic{
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
         }
         $oids = unserialize($p['oids']);
-        model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2))->save();
+        model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2,'pay_time'=>$this->microtime))->save();
         model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
         
     }
