@@ -281,7 +281,8 @@ class rank extends base\basic{
 
 
 
-
+        $z['avatar'] = $this->userInfo['avatar'];
+        $z['uid'] = $this->uid;
         $this->success($z);
 
     }
