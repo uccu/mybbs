@@ -68,7 +68,11 @@ class basic extends \control\ajax{
     function _check_tid($tid,$aid=false){
         $where['tid'] = $tid;
         $where['del'] = 1;
-        if(!$z = model('goods')->where($where)->find())$this->errorCode(411);
+        if(!$z = model('goods')->add_table(array(
+            'goods_attribute'=>array(
+                'attribute_name','_on'=>'lid'
+            )
+        ))->where($where)->find())$this->errorCode(411);
         if($aid){
             $w['aid'] = $aid;
             $w['tid'] = $tid;
