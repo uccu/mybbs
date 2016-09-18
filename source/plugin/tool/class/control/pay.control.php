@@ -23,7 +23,7 @@ class pay extends \control\ajax{
         foreach($p as $k=>$v)$info[] = $k.'="'.$v.'"';
         $info = implode('&',$info);
         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
-        $res = openssl_pkey_get_private ( $priKey );
+        $res = openssl_get_privatekey ( $priKey );
         openssl_sign ( $info, $sign, $res );
         openssl_free_key ( $res );
         // base64编码
