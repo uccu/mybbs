@@ -255,7 +255,7 @@ class rank extends base\basic{
         $me = model('order')->field('distinct referee')->where($where)->limit(9999)->select();
         foreach($me as $v)if($v['referee']){
             $tr = $this->_bang($aid,$v['referee']);
-            $z['bang_x']['coin'] += $tr['bang']['coin']/2/$tr['bang']['num'];
+            $z['bang_x']['coin'] += $tr['bang']['num']?$tr['bang']['coin']/2/$tr['bang']['num']:0;
         }
         $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
 
