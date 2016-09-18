@@ -190,6 +190,7 @@ class item extends base\basic{
             )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
+        $q['addr'] = model('user_address')->find($q['info']['addr_id']);
         $this->success($q);
     }
     function torder($tid){
