@@ -23,12 +23,6 @@ class pay extends \control\ajax{
         foreach($p as $k=>$v)$info[] = $k.'="'.$v.'"';
         $info = implode('&',$info);
         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
-        if(function_exists('openssl_get_privatekey'))echo '1';
-        if(function_exists('openssl_sign'))echo '2';
-        if(function_exists('openssl_free_key'))echo '3';
-        if(function_exists('openssl_pkey_get_private'))echo '4';
-
-
         $res = openssl_get_privatekey ( $priKey );
         openssl_sign ( $info, $sign, $res );
         openssl_free_key ( $res );
