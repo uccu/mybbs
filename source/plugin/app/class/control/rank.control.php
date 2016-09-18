@@ -136,7 +136,7 @@ class rank extends base\basic{
         $where['referee'] = array('logic',0,'!=');
         $z['list'] = model('order')->table(array(
             'order'=>array(
-                'score','oid','aid','referee'=>'uid','status','pay_time'=>'time','first','_mapping'=>'o'
+                'score','oid','aid','referee'=>'uid','status','pay_time'=>'time','show_first','_mapping'=>'o'
             ),
             'user'=>array(
                 'avatar','_on'=>'o.referee=u.uid','username','_join'=>'LEFT JOIN','_mapping'=>'u'
@@ -154,7 +154,7 @@ class rank extends base\basic{
 
         $where = array();
         $where['aid'] = $aid;
-        $where['referee'] = $this->uid;
+        $where['uid'] = $this->uid;
         $where['share_first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
