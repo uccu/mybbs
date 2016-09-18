@@ -128,6 +128,9 @@ class item extends base\basic{
                 'goods'=>array(
                     'name','thumb','bean','price_act','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
                 ),
+                'goods_attribute'=>array(
+                    'attribute_name','_on'=>'lid'
+                )
             )
         )->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
@@ -165,6 +168,9 @@ class item extends base\basic{
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
                 'name','thumb','bean','price_act','price','_on'=>'tid'
+            ),
+            'goods_attribute'=>array(
+                'attribute_name','_on'=>'lid'
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
@@ -178,6 +184,9 @@ class item extends base\basic{
         $q['info'] = model('order')->add_table(array(
             'goods'=>array(
                 'name','thumb','bean','price_act','price','_on'=>'tid'
+            ),
+            'goods_attribute'=>array(
+                'attribute_name','_on'=>'lid'
             )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
