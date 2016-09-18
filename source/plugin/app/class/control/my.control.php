@@ -310,7 +310,7 @@ class my extends base\basic{
         $this->success($z);
     }
     function my_fans($aid){
-        $where['aid'] = post('aid',$aid);
+        //$where['aid'] = post('aid',$aid);
         $where['uid'] = $this->uid;
         $z['act'] = model('activity')->find($aid);
 
@@ -327,6 +327,8 @@ class my extends base\basic{
             )
         ))->where($where)->order(array('stime'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
+        foreach($z['list'] as $v)$z['alist'][$v['aid']][] = $v;
+        $z['alist'] = array_values($z['alist']);
         $this->success($z);
     }
     function set_pay_password(){
