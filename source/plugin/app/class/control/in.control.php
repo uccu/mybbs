@@ -133,7 +133,8 @@ class in extends base\basic{
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
         if($cookie)cookie('user_token',$user_token,0);
         $out = array(
-            'user_token'=>$user_token
+            'user_token'=>$user_token,
+            'uid'=>$info['uid']
         );
         $this->success($out);
 

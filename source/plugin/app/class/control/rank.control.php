@@ -68,9 +68,9 @@ class rank extends base\basic{
         $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $z['list'] = model('order')->table(array(
+        $z['list'] = model('order')->field(array('avatar','rank','coin','uid','time'))->table(array(
             'order'=>array(
-                'score','oid','uid','aid','status','pay_time','first','_mapping'=>'o'
+                'score','oid','uid','aid','status','pay_time'=>'time','first','_mapping'=>'o'
             ),
             'user'=>array(
                 'avatar','_on'=>'uid','username','_join'=>'LEFT JOIN'
@@ -78,7 +78,7 @@ class rank extends base\basic{
             'rank_bean'=>array(
                 '_on'=>'o.uid=b.uid AND o.aid=b.aid','_mapping'=>'b','bean','_join'=>'LEFT JOIN'
             )
-        ))->where($where)->order(array('pay_time'))->page($page,10)->select();
+        ))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->success($z);
     }
