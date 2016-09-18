@@ -333,6 +333,7 @@ class item extends base\basic{
         return $data;
     }
     function order_muti($cids=0){
+        $this->_check_login();
         $this->out = false;
         $cids = post('cids',$cids);
         $cid = explode(',',$cids);
@@ -367,11 +368,14 @@ class item extends base\basic{
 
     }
     function order_change($addr_id,$oid){
+        $this->_check_login();
         $addr_id = post('addr_id',$addr_id,'%d');
-        $oid = post('oid',$oid,'%d');
-        if(!$o = model('order')->find($oid))$this->errorCode(425);
+        $oid = post('oid',$oid);
+        $oid = explode(',',$oid);
         if(!$o = model('user_address')->find($addr_id))$this->errorCode(433);
-        model('order')->data(array('addr_id'=>$addr_id))->save($oid);
+        foreach($oid as $v){
+            model('order')->where(array('oid'=>$v,'uid'=>$this->uid))->data(array('addr_id'=>$addr_id))->save();
+        }
         $this->success();
     }
     function unorder($oid){
