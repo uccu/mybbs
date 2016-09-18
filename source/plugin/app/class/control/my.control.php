@@ -58,7 +58,7 @@ class my extends base\basic{
         if($status)$data['status'] = array('contain',array(2,3,4),'IN');
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','brand','bean','price_act','var','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
             'goods_attribute'=>array(
                 'attribute_name','_on'=>'lid'
