@@ -134,7 +134,7 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $where['referee'] = array('logic',0,'!=');
-        $z['list'] = model('order')->table(array(
+        $z['list'] = model('order')->table_first()->table(array(
             'order'=>array(
                 'score','oid','aid','referee'=>'uid','status','pay_time'=>'time','first','_mapping'=>'o'
             ),
