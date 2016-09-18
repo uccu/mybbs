@@ -51,7 +51,7 @@ class rank extends base\basic{
         }
     }
     function _addtime(&$list,$aid){
-        $time = model('activity')->where(array('aid'=>$aid))->get_filed('stime');
+        $time = model('activity')->where(array('aid'=>$aid))->get_field('stime');
         $list['time'] = !$time || $list['time'] - $time < 0 ? '0' : $list['time'] - $time;
     }
 
