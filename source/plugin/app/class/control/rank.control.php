@@ -149,7 +149,11 @@ class rank extends base\basic{
         $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
 
         $where['aid'] = post('aid',$aid);
-        $z['list'] = model('rank_bean')->where($where)->order(array('bean'=>'DESC'))->page($page,10)->select();
+        $z['list'] = model('rank_bean')->add_table(array(
+            'user'=>array(
+                'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
+            ),
+        ))->field(array('avatar','uid','bean'))->where($where)->order(array('bean'=>'DESC'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->success($z);
     }
