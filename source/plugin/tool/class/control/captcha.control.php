@@ -21,7 +21,7 @@ class captcha extends \control\ajax{
     function _check_captcha(){
         session_start();
         if($_SESSION['captcha'] != post('captcha')){
-            return false;
+            $this->error(501,'验证码错误');
         }
 
         return true;
