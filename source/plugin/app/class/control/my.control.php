@@ -295,7 +295,7 @@ class my extends base\basic{
         $score = $rule[$data['times']]['score'];
         if($score){
             model('user')->data(array('score'=>array('add',$score)))->save($this->uid);
-            model('score_log')->data(array('score'=>$score,'uid'=>$this->uid,'info'=>'签到','ctime'=>TIME_NOW))->add();
+            model('score_log')->data(array('score'=>'+'.$score,'uid'=>$this->uid,'info'=>'签到','ctime'=>TIME_NOW))->add();
         }
         $this->success();
     }
