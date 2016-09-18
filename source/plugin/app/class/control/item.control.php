@@ -298,7 +298,7 @@ class item extends base\basic{
             $data['ctime'] = TIME_NOW;
             $zz = model('order')->data($data)->add();
             if(!$zz)$this->errorCode(421);
-            $data['oid'] = $zz;
+            $data['oid'] = (string)$zz;
             $data['name'] = $t['name'];
             $data['attribute_name'] = $t['attribute_name'];
             $data['var'] = $t['var'];
