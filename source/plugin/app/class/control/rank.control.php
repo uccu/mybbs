@@ -103,15 +103,17 @@ class rank extends base\basic{
             //var_dump($me);
             unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
-            $z['gou']['rank'] = $rank = model('order')->where($where)->get_field()+1;
+            $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
 
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['gou']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
         }else{
-            $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
+            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
         }
-        
+        $z['me']['uid'] = $this->userInfo['uid'];
+        $z['me']['avatar'] = $this->userInfo['avatar'];
+        $z['me']['aid'] = $aid;
         $this->success($z);
     }
     function rank_xiang($aid){
@@ -145,8 +147,33 @@ class rank extends base\basic{
         ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
         $this->_addtime($z['list'],$aid);
-        $k = model('activity')->find($aid);
-        $z['title'] = $k['title'];
+        $ke = model('activity')->find($aid);
+        $z['title'] = $ke['title'];
+
+
+
+        $where = array();
+        $where['aid'] = $aid;
+        $where['referee'] = $this->uid;
+        $where['share_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $me = model('order')->where($where)->order(array('time'))->find();
+        if($me){
+            unset($where['referee']);
+            $where['time'] = array('logic',$me['time'],'<');
+            $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
+            $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
+            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+        }else{
+            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+        }
+        $z['me']['uid'] = $this->userInfo['uid'];
+        $z['me']['avatar'] = $this->userInfo['avatar'];
+        $z['me']['aid'] = $aid;
+
+
         $this->success($z);
     }
     function rank_bang($aid){
