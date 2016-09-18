@@ -195,6 +195,17 @@ class item extends base\basic{
         $l = model('location')->limit(9999)->select('id');
             $v = &$q['addr'];
             $v['area'] = $v['lid'];
+            if(!$v){
+                $v['id'] = '';
+                $v['uid'] = '';
+                $v['addr'] = '';
+                $v['type'] = '';
+                $v['ctime'] = '';
+                $v['name'] = '';
+                $v['phone'] = '';
+                $v['lid'] = '';
+                $v['area'] = '';
+            }
             $v['areaName'] = $l[$v['lid']]['title'];
             if(!$v['area']){
                 $v['area'] = 0;$v['areaName'] = '';
