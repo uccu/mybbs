@@ -53,7 +53,6 @@ class my extends base\basic{
 
     function fans_order($uid){
         $this->_check_login();
-        $data['aid'] = $this->aid;
         $data['uid'] = post('uid',$uid,'%d');
 
         if($status)$data['status'] = array('contain',array(2,3,4),'IN');
