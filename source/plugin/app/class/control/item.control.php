@@ -236,6 +236,8 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
+            $data['attribute_name'] = $t['attribute_name'];
+            $data['var'] = $t['var'];
             model('cart')->remove($cid);
             if($this->out){
                 $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
@@ -298,6 +300,8 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
+            $data['attribute_name'] = $t['attribute_name'];
+            $data['var'] = $t['var'];
             model('cart')->remove($cid);
             if($this->out){
                 $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();

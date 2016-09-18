@@ -34,15 +34,18 @@ class home extends base\basic{
         $now = TIME_NOW;
         $where = "stime<$now AND etime>$now";
         $z = model('activity')->where($where)->find();
+        $z['time'] = TIME_NOW;
         $q['now'] = $now;
         $q['activityInfo'] = $z;
 
         $where = "etime<$now";
         $z = model('activity')->where($where)->limit(999)->order(array('stime'=>'DESC'))->select();
+        foreach($z as &$v)$v['time'] = TIME_NOW;
         $q['last'] = $z;
 
         $where = "stime>$now";
         $z = model('activity')->where($where)->limit(999)->order(array('stime'))->select();
+        foreach($z as &$v)$v['time'] = TIME_NOW;
         $q['next'] = $z;
 
         $this->success($q);
