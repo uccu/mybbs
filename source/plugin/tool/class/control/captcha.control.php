@@ -14,10 +14,15 @@ class captcha extends \control\ajax{
             $s.=$a[rand(0,9)];
         }
         $z = file_get_contents ("https://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg=您好，您的验证码是：{$s}");
-        $this->success();
+        session_start();
+        $_SESSION['captcha'] = $s;
+        $this->success($z);
     }
     function _check_captcha(){
-
+        session_start();
+        if($_SESSION['captcha'] != post('captcha')){
+            return false;
+        }
 
         return true;
     }
