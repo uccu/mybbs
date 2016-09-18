@@ -97,7 +97,7 @@ class rank extends base\basic{
         $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $me = model('order')->where($where)->order(array('pay_time'))->find();
+        $me = model('order')->where($where)->table_first()->order(array('pay_time'))->find();
         if($me){
             unset($where['uid']);
             $where['pay_time'] = array('logic',$me['pay_time'],'<');
@@ -110,7 +110,7 @@ class rank extends base\basic{
         }else{
             $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
         }
-        
+
         $this->success($z);
     }
     function rank_xiang($aid){
