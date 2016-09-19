@@ -364,9 +364,9 @@ class rank extends base\basic{
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['bean']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['bean']['time'] = 0;
+            $z['bean']['bean'] = $me['bean'];
         }else{
-            $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['time'] = 0;
+            $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['bean'] = 0;
         }
 
         
