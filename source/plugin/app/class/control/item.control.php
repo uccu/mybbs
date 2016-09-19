@@ -453,15 +453,46 @@ class item extends base\basic{
         return $data;
     }
     function _pay_c($pay_id){
+
+        //获取支付单详情
         $pay_id = post('pay_id','');
         $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
         if(!$p)$this->errorCode(426);
+        
+        //余额抵扣
         if($p['coin']){
             model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
         }
         $oids = unserialize($p['oids']);
+
+        
+        //调整商品的数量
+        
+        //是否为自己的第一张订单
+
+        //粉丝调整
+
+        //是否为好友的下线的第一张订单,是否为好友的第一张订单  
+
+        //调整乐帮排名
+
+
+        //查询好友是否9人付款了
+
+
+        //调整乐购排名
+
+        //订单设置为状态2
         model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2,'pay_time'=>$this->microtime))->save();
+        
+        
+
+        //余额明细调整
+
+        //
+
+        //删除支付单
         model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
         
     }
