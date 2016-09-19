@@ -469,12 +469,14 @@ class item extends base\basic{
 
     }
     function alipay(){
-        $data = control('tool:pay')->_alipay();
+        $data['c'] = $this->_pay();
+        $data['p'] = control('tool:pay')->_alipay();
         $this->success($data);
     }
     function wxpay(){
-
-        $this->success();
+        $data['c'] = $this->_pay();
+        $data['p'] = control('tool:pay')->_wcpay();
+        $this->success($data);
     }
 
     function alipay_c(){
