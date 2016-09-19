@@ -5,13 +5,13 @@ class pay extends \control\ajax{
 
 
 
-    function _alipay(){
+    function _alipay($d){
         $p['partner']           = '2088421747319415';       // 签约的支付宝账号对应的支付宝唯一用户号
         $p['seller_id']         = 'leshangbuluo@sina.com';  // 签约卖家支付宝账号
-        $p['out_trade_no']      = '1234567890123';          // 商户网站唯一订单号
+        $p['out_trade_no']      = $d['pay_id'];          // 商户网站唯一订单号
         $p['subject']           = '购买乐商部落商品';          // 商品名称
         $p['body']              = '乐商部落商品';             // 商品详情
-        $p['total_fee']         = '0.01';                   // 商品金额
+        $p['total_fee']         = '0.01';  //  $d['money']               // 商品金额
         $p['notify_url']        = 'http://121.199.8.244:2000/app/item/alipay_c';// 服务器异步通知页面路径
         $p['service']           = 'mobile.securitypay.pay'; // 服务接口名称， 固定值
         $p['payment_type']      = '1';                      // 支付类型， 固定值

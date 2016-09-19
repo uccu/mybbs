@@ -469,13 +469,13 @@ class item extends base\basic{
 
     }
     function alipay($oids,$use_coin){
-        $data['c'] = $this->_pay($oids,$use_coin);
-        $data['p'] = control('tool:pay')->_alipay();
+        $data['c'] = $dat = $this->_pay($oids,$use_coin);
+        $data['p'] = control('tool:pay')->_alipay($dat);
         $this->success($data);
     }
     function wxpay($oids,$use_coin){
-        $data['c'] = $this->_pay($oids,$use_coin);
-        $data['p'] = control('tool:pay')->_wcpay();
+        $data['c'] = $dat = $this->_pay($oids,$use_coin);
+        $data['p'] = control('tool:pay')->_wcpay($dat);
         $this->success($data);
     }
 
