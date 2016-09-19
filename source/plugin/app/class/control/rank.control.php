@@ -378,6 +378,42 @@ class rank extends base\basic{
         $this->success($z);
 
     }
+
+    function my_xiang_list($aid){
+        $this->_check_login();
+        $aid = post('aid');
+        $where['aid'] = $aid;
+        $where['share_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $where['referee'] = $this->uid;
+        $q['last'] = model('order')->add_table(array(
+            'user'=>array(
+                '_on'=>'uid','avatar','username'
+            )
+        ))->where($where)->limit(999)->select();
+        if(!$q['last'])$this->errorCode(427);
+        $this->success($z);
+    }
+    function my_bang_list($aid){
+        $this->_check_login();
+        $aid = post('aid');
+        $where['aid'] = $aid;
+        $where['referee_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $where['referee'] = $this->uid;
+        $q['last'] = model('order')->add_table(array(
+            'user'=>array(
+                '_on'=>'uid','avatar','username'
+            )
+        ))->where($where)->order(array('pay_time'))->limit(999)->select();
+        if(!$q['last'])$this->errorCode(427);
+        $this->success($z);
+    }
+    function my_dou_list($aid){
+        
+    }
     function _xiang($aid,$uid){
         $allBean = $z['allBean'] = $this->_allBean($aid);
         $where['aid'] = $aid;
