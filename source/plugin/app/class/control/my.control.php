@@ -331,6 +331,13 @@ class my extends base\basic{
         if(!$z['list'])$this->errorCode(427);
         foreach($z['list'] as $v)$z['alist'][$v['aid']][] = $v;
         $z['alist'] = array_values($z['alist']);
+        $zf = model('order')
+        ->add_table(array(
+            'user'=>array('_on'=>'tuan_order.referee=tuan_user.uid','username')
+        ))
+        ->where(array('uid'=>$this->uid,'aid'=>$this->aid,'referee'=>array('logic',0,'!=')))
+        ->order(array('ctime'=>'DESC'))->find();
+        $z['referee'] = $zf?$zf['username']:'';
         $this->success($z);
     }
     function set_pay_password(){
