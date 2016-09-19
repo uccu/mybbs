@@ -387,13 +387,13 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $where['referee'] = $this->uid;
-        $q['last'] = model('order')->add_table(array(
+        $q['list'] = model('order')->add_table(array(
             'user'=>array(
                 '_on'=>'uid','avatar','username'
             )
         ))->where($where)->limit(999)->select();
-        if(!$q['last'])$this->errorCode(427);
-        $this->success($z);
+        if(!$q['list'])$this->errorCode(427);
+        $this->success($q);
     }
     function my_bang_list($aid){
         $this->_check_login();
@@ -403,13 +403,13 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $where['referee'] = $this->uid;
-        $q['last'] = model('order')->add_table(array(
+        $q['list'] = model('order')->add_table(array(
             'user'=>array(
                 '_on'=>'uid','avatar','username'
             )
         ))->where($where)->order(array('pay_time'))->limit(999)->select();
-        if(!$q['last'])$this->errorCode(427);
-        $this->success($z);
+        if(!$q['list'])$this->errorCode(427);
+        $this->success($q);
     }
     function my_dou_list($aid){
         
