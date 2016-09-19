@@ -379,12 +379,15 @@ class my extends base\basic{
 
     function get_my_fans_reward($num){
         $num = post('num',$num,'%d');
+        $data['fans_num'] = model('fans')->where(array('uid'=>$this->uid,'buy'=>1))->get_field("count(distinct fans_id)");
+        if($data['fans_num']>$num)$this->errorCode(434);
         $score = model('fans_rule')->where(array('num'=>$num))->get_field('score');
         if(!$score)$this->errorCode(430);
         if(model('fans_record')->where(array('num'=>$num,'uid'=>$this->uid))->find())$this->errorCode(431);
-
+        
         $z = model('fans_record')->data(array('num'=>$num,'uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$score))->add();
         if(!$z)$this->errorCode(432);
+        model('user')->data(array('score'=>array('add',$score)))->save($this->uid);
         $this->success();
     }
     function my_fans_reward_detail(){
