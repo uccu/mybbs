@@ -379,7 +379,7 @@ class my extends base\basic{
 
     function get_my_fans_reward($num){
         $num = post('num',$num,'%d');
-        $score = model('fans_rule')->where(array('num'=>$num))->get_filed('score');
+        $score = model('fans_rule')->where(array('num'=>$num))->get_field('score');
         if(!$score)$this->errorCode(430);
         if(model('fans_record')->where(array('num'=>$num,'uid'=>$this->uid))->find())$this->errorCode(431);
 
