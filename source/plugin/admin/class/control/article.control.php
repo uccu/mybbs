@@ -138,6 +138,7 @@ class article extends \control\ajax{
     }
     function change_article(){
         $_POST['amedia'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['amedia']);
+        $_POST['adescription'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['adescription']);
         $d = $this->article->data($_POST)->save(post('aid'));
         $this->success($d);
     }

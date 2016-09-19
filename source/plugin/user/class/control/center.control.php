@@ -310,7 +310,7 @@ class center extends \control\ajax{
         $gift = $this->gift->find($gid);
         if(!$gift)$this->error(420,'没有找到礼品');
         control('user:score','api')->_add_score_detail('兑换'.$gift['gname'],$gift['gscore'],'out');
-        $array['message'] = '兑换成功，请到我这里来领取~';
+        $array['message'] = '请到成都市天府大道南段2039号领取~';
         $this->success($array['message']);
     }
         function get_friends($uid = 0){

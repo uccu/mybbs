@@ -4,14 +4,16 @@ j(function(){
   j('[name=invate]').val(folder[3]);
   j('.register').click(function(){
     if(j('[name=phone]').val().length!=11){j('.help-block').html('手机号错误');return}
+    if(!j('[name=phone]').val().match(/1\d{10}/)){j('.help-block').html('手机号不规范~');return}
     if(j('[name=pwd]').val().length<6){j('.help-block').html('密码需要至少6位字符');return}
-    if(j('[name=pwd]').val()!=j('[name=pwd2]').val()){j('.help-block').html('密码不一致');return}
     var f=j('form').serializeArray();
     j.post('user/in/create',f,function(d){
       if(d.code!=200){j('.help-block').html(d.desc);return}location='tool/downloadapp'
     },'json')
   });
   var g = function(){
+      var z = j('[name=phone]').val();
+      if(!z.match(/1\d{10}/)){j('.help-block').html('手机号不规范~');return}
       var f=j('form').serializeArray();
       j.post('tool/captcha/get_captcha',f,function(d){if(d.code!=200){j('.help-block').html(d.desc);return}j('.help-block').html('已发送验证码');t(60),'json'})
   },t=function(r){

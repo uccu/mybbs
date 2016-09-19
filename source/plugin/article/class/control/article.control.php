@@ -33,7 +33,7 @@ class article extends \control\ajax{
         $this->g->title = $m['atitle'];
         if($m['atype']==0) $this->g->media = $m['amedia'];
         else $this->g->pic = $m['amedia'];
-        if($m['adescription'])$this->g->template['description'] = preg_replace(array('/\n/','/ /'),array('<br>','&nbsp;'),$m['adescription']);
+        if($m['adescription'])$this->g->template['adescription'] = $m['adescription'];
         $out['url'] = 'http://120.26.230.136:6087/article/article/article/'.$aid;
         $where['uid'] = $this->user->uid;
         $where['aid'] = $aid;

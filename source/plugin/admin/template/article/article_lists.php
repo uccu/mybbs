@@ -1,4 +1,10 @@
 <!--{subtemplate header}-->
+<script type="text/javascript">
+		window.UEDITOR_CONFIG = 'http://120.26.230.136:6087/source/plugin/admin/js/';
+		
+	</script>
+	<!--{eval addjs('ueditor.config')}-->
+    <!--{eval addjs('ueditor.all.min')}-->
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="index">Home</a></li>
@@ -103,7 +109,7 @@
                     </div>
                     <div class="form-group">
                         <label>缩略图</label>
-                        <input type="file" id="athumb" data-circle="1" />
+                        <input type="file" id="athumb"  />
                         <p class="help-block help-block1"></p>
                         <img id="pic_athumb" class='img-responsive' style="width:100px"  />
                     </div>
@@ -127,7 +133,7 @@
                     </div>
                     <div class="form-group">
                         <label for="value">内容</label>
-                        <textarea class="form-control" name="adescription" rows="10" placeholder='内容'></textarea>
+                        <textarea  name="adescription" id="introduction" rows="10" placeholder='内容'></textarea>
                     </div>
                 </form>
             </div>
@@ -146,6 +152,7 @@
         location = control+'/article_lists/1/'+a1+'/'+a2
     });
    getPageSet({currentPage},{maxPage},'href','article/article_lists/',(folder[5]?'/'+folder[5]:'')+(folder[6]?'/'+folder[6]:''));
+   j('#myModal').on('hide.bs.modal',()=>location.reload(true));
    j('#myModal').on('show.bs.modal',function(e){
         var b=j(e.relatedTarget),t=b.parent().parent(),id=t.find('td:eq(0)').text(),m=j(this);
         j.post(control+'/get_'+goods+'_detail/'+id,(d)=>{
@@ -154,6 +161,8 @@
                 m.find('[name='+k+'2]').val(d.data[k]);
                 m.find('#pic_'+k).attr('src',location.origin+'/pic/'+d.data[k]);
             }
+			window.UEDITOR_CONFIG.initialFrameHeight=500;
+			UE.getEditor('introduction');
             
         },'json');
         m.find('.help-block').html('');

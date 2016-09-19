@@ -189,9 +189,9 @@ class in extends \control\ajax{
             if($user2 = $this->model->find($invate)){
                 $this->model->data(array('invate_num'=>array('add',1)))->save($user2['uid']);
                 control('user:score','api')->_add_score_detail('好友注册','register_friend','in',$user2['uid']);
-                if($user2['invate']){
-                    control('user:score','api')->_add_score_detail('好友注册','register_friend','in',$user2['invate']);
-                }
+                // if($user2['invate']){
+                //     control('user:score','api')->_add_score_detail('好友注册','register_friend','in',$user2['invate']);
+                // }
             }
         }
         
