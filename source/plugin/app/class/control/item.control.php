@@ -420,7 +420,7 @@ class item extends base\basic{
     }
     function _pay($oids,$use_coin){
         $this->_check_login();
-        if(!$oids = post('oids',''))$this->errorCode(425);
+        if(!$oids = post('oids',0,$oids))$this->errorCode(425);
         $oids = explode(',',$oids);
         if(!$oids)$this->errorCode(425);
         $where['oid'] = array('contain',$oids,'IN');
