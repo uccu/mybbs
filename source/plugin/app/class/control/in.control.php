@@ -75,6 +75,7 @@ class in extends base\basic{
             $password = md5(md5($password).$this->salt);
             $data['password'] = $password;
             $data['phone'] = $phone;
+            control('tool:captcha')->_check_captcha();
         }else{
             $this->errorCode(403);
         }
