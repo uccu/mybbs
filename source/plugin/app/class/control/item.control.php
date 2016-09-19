@@ -418,7 +418,7 @@ class item extends base\basic{
         if($z['uid']==$this->uid)model('order')->remove($oid);
         $this->success();
     }
-    function _pay(){
+    function _pay($oids,$use_coin){
         $this->_check_login();
         if(!$oids = post('oids',''))$this->errorCode(425);
         $oids = explode(',',$oids);
@@ -430,7 +430,7 @@ class item extends base\basic{
         $money = 0;
         if(!$o)$this->errorCode(425);
         foreach($o as $v)$money += $v['money'];
-        $use_coin = post('use_coin',0,'%d');
+        $use_coin = post('use_coin',$use_coin,'%d');
         $coin_k = $this->userInfo['coin'];
         $coin = 0;
         if($use_coin && $coin_k){
@@ -468,13 +468,13 @@ class item extends base\basic{
     function _useCoin($money,$coin){
 
     }
-    function alipay(){
-        $data['c'] = $this->_pay();
+    function alipay($oids,$use_coin){
+        $data['c'] = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_alipay();
         $this->success($data);
     }
-    function wxpay(){
-        $data['c'] = $this->_pay();
+    function wxpay($oids,$use_coin){
+        $data['c'] = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_wcpay();
         $this->success($data);
     }
