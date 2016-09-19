@@ -381,7 +381,8 @@ class rank extends base\basic{
 
     function my_xiang_list($aid){
         $this->_check_login();
-        $aid = post('aid',$aid);
+        $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $where['aid'] = $aid;
         $where['share_first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
@@ -397,7 +398,8 @@ class rank extends base\basic{
     }
     function my_bang_list($aid){
         $this->_check_login();
-        $aid = post('aid',$aid);
+        $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
         $where['aid'] = $aid;
         $where['referee_first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
