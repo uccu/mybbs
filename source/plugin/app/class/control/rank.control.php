@@ -428,7 +428,7 @@ class rank extends base\basic{
             WHERE ( o1.referee = $uid OR o2.referee = $uid ) AND o1.aid = $aid AND o1.status IN (2,3,4) AND o1.score = 0 ORDER BY o1.pay_time");
         if(!$q['list'])$this->errorCode(427);
         foreach($q['list'] as &$v){
-            if($v['re2'])$v['bean'] /=2;
+            if($v['re2']==$uid)$v['bean'] /=2;
         }
         $this->success($q);
     }
