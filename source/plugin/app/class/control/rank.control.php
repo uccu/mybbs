@@ -414,7 +414,23 @@ class rank extends base\basic{
         $this->success($q);
     }
     function my_dou_list($aid){
-        
+        $this->_check_login();
+        $aid = post('aid',$aid,'%d');
+        if(!$aid)$aid = $this->lastAid;
+        $where['referee_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $uid = $this->uid;
+        $q['list'] = model('logic')->fetch_all(
+            "SELECT o1.*,u.username,u.avatar,o2.referee as re2 FROM order o1 
+            left join order o2 on o1.referee = o2.uid 
+            inner join user u on o1.uid = u.uid 
+            WHERE ( o1.referee = $uid OR o2.referee = $uid ) AND o1.aid = $aid AND o1.status IN (2,3,4) AND o1.score = 0 ORDER BY o1.pay_time");
+        if(!$q['list'])$this->errorCode(427);
+        foreach($q['list'] as &$v){
+            if($v['re2'])$v['bean'] /=2;
+        }
+        $this->success($q);
     }
     function _xiang($aid,$uid){
         $allBean = $z['allBean'] = $this->_allBean($aid);
