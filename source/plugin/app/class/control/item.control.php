@@ -447,7 +447,7 @@ class item extends base\basic{
         $data['uid'] = $this->uid;
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
-        for($i=0;$i<10;$i++)$data['pay_id'] .=$i;
+        for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
         model('pay_log')->data($data)->add();
         //_pay_c($data['pay_id']);
         return $data;
