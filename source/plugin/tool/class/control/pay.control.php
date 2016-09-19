@@ -39,16 +39,16 @@ class pay extends \control\ajax{
         $data['array'] = $p;
         return $data;
     }  
-    function _wcpay(){
+    function _wcpay($d){
         $array = array (
             'appid'             => 'wx6257377cf020d6e7',
             'body'              => '乐商部落商品',
-            'mch_id'            => '1344011101',
+            'mch_id'            => '',
             'nonce_str'         => md5 ( rand ( 1000000, 9999999 ) ),
             'notify_url'        => 'http://121.199.8.244:2000/app/item/wxpay_c',
-            'out_trade_no'      => '1234567890123',
+            'out_trade_no'      => $d['pay_id'],
             'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
-            'total_fee'         => 1,//单位为分
+            'total_fee'         => 1,//  $d['money']*100               //单位分
             'trade_type'        => 'APP' 
         );
         $xml = '<xml>';
