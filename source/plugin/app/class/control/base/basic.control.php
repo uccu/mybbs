@@ -57,7 +57,7 @@ class basic extends \control\ajax{
     }
     function _get_microtime(){
         list($usec, $sec) = explode(" ", microtime());
-        return floor($usec*1000)/1000 + $sec;
+        return $usec + $sec;
     }
     function _get_today(){
         return strtotime(date('Y-m-d',TIME_NOW));
