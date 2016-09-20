@@ -82,7 +82,7 @@ class rank extends base\basic{
             )
         ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
-        $this->_addtime($z['list'],$aid);
+        //$this->_addtime($z['list'],$aid);
 
 
         $ke = model('activity')->find($aid);
@@ -142,7 +142,7 @@ class rank extends base\basic{
             )
         ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
-        $this->_addtime($z['list'],$aid);
+        //$this->_addtime($z['list'],$aid);
         $ke = model('activity')->find($aid);
         $z['title'] = $ke['title'];
 
@@ -191,7 +191,7 @@ class rank extends base\basic{
             ),
         ))->field(array('avatar','uid','time','aid'))->where($where)->order(array('time'))->page($page,10)->select();
         $this->_addCoin($z['list'],$allCoin,$rule,$page);
-        $this->_addtime($z['list'],$aid);
+        //$this->_addtime($z['list'],$aid);
         $ke = model('activity')->find($aid);
         $z['title'] = $ke['title'];
 
