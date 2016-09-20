@@ -448,7 +448,8 @@ class item extends base\basic{
         $coin = 0;
         if($use_coin && $coin_k){
             if($coin_k>=$money){
-                $money = 0;$coin = $money;
+                $coin = $money;
+                $money = 0;
             }else{
                 $money -= $coin_k;$coin = $coin_k;
             }
