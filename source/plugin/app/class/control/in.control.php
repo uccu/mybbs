@@ -127,6 +127,7 @@ class in extends base\basic{
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
         $info['uid'] = $z;
+        $info['new'] = 1;
         $this->_out_info($info,$this->cookie);
 
     }
@@ -135,7 +136,8 @@ class in extends base\basic{
         if($cookie)cookie('user_token',$user_token,0);
         $out = array(
             'user_token'=>$user_token,
-            'uid'=>$info['uid']
+            'uid'=>$info['uid'],
+            'new'=>0
         );
         $this->success($out);
 
