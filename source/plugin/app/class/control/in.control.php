@@ -137,7 +137,7 @@ class in extends base\basic{
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
-            'new'=>0
+            'new'=>$info['new']?1:0
         );
         $this->success($out);
 

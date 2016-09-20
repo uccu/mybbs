@@ -472,9 +472,10 @@ class item extends base\basic{
         $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
         if(!$p)$this->errorCode(426);
 
-        //获取最近的一期活动ID
+        //获取最近的一期活动ID与操作用户
         $aid = $this->lastAid;
-        
+        $uid = $p['uid'];
+
         //余额抵扣
         if($p['coin']){
             model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
@@ -482,28 +483,71 @@ class item extends base\basic{
         }
         $oids = unserialize($p['oids']);
         $where['oid'] = array('contain',$oids,'IN');
-        $goods = model('goods')->where($where)->limit(999)->select();
-
-        
-        //是否为自己的第一张订单
-        
-
+        $orders = model('order')->where($where)->limit(999)->select();
 
 
         //粉丝调整
+        $data = array();
+        $data['fans_id'] = $uid;
+        $data['ctime'] = TIME_NOW;
+        $data['aid'] = $aid;
+        $data['buy'] = 1; 
+        foreach($orders as $o)if($o['referee']){
+            $data['uid'] = $o['referee'];
+            model('fans')->data($data)->add(true);
+        }
+
+
+        
+        //是否为自己的第一张订单
+        $where = array();
+        $where['aid'] = $aid;
+        $where['uid'] = $uid;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        if(!model('order')->where($where)->find()){
+            $CONFIG_FIRST = 1;
+        }
 
         //是否为好友的下线的第一张订单,是否为好友的第一张订单  
 
-        //调整乐帮排名
+        foreach($orders as $o)if($o['referee']){
+            $data = array();
+            $where = array();
+            $where['aid'] = $aid;
+            $where['referee'] = $o['referee'];
+            $hwere['share_first'] = 1;
+            $where['status'] = array('contain',array(2,3,4),'IN');
+            if(!model('order')->where($where)->find()){
+                $data['share_first'] = 1;
+            }
+            $where = array();
+            $where['aid'] = $aid;
+            $where['referee'] = $o['referee'];
+            $hwere['referee_first'] = 1;
+            $where['status'] = array('contain',array(2,3,4),'IN');
+            if(!model('order')->where($where)->find()){
+                $data['referee_first'] = 1;
+            }else{
+                //调整乐帮排名
+                $count = model('order')->where($where)->get_field();
+                
+            }
+
+        }
+
+        
+        
+
+        
 
 
         //查询好友是否4人付款了
 
 
-        //调整乐购排名
+        //调整乐豆排名
 
         //订单设置为状态2
-        model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2,'pay_time'=>$this->microtime))->save();
+        //model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2,'pay_time'=>$this->microtime))->save();
         
         
 
