@@ -230,6 +230,9 @@ class item extends base\basic{
         $this->_check_login();
         $tid = post('tid',$tid);
         $t = $this->_check_tid($tid,$this->aid);
+        //验证库存
+        if(!$t['stock'])$this->errorCode(535);
+
         //验证购物车
         $has = 0;
 
@@ -315,7 +318,12 @@ class item extends base\basic{
 
         if($z['uid']==$this->uid){
             $t = $this->_check_tid($tid,$this->aid);
-            if(!$t)$this->errorCode(411);
+            //验证库存
+            if($t['stock']<$z['num'])$this->errorCode(535);
+            model('goods')->data(array(
+                'stock'=>array('add',-1*$z['num']),
+                'sale'=>array('add',$z['num'])
+            ))->save($tid);
             $data['aid'] = $this->aid;
             $data['uid'] = $this->uid;
             $data['tid'] = $z['tid'];
@@ -415,6 +423,11 @@ class item extends base\basic{
         $this->_check_login();
         $oid = post('oid',$oid);
         $z = model('order')->find($oid);
+        if(!$z)$this->errorCode(425);
+        model('goods')->data(array(
+            'stock'=>array('add',$z['num']),
+            'sale'=>array('add',-1*$z['num'])
+        ))->save($oid);
         if($z['uid']==$this->uid)model('order')->remove($oid);
         $this->success();
     }
@@ -453,11 +466,14 @@ class item extends base\basic{
         return $data;
     }
     function _pay_c($pay_id){
-
+        
         //获取支付单详情
         $pay_id = post('pay_id','');
         $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
         if(!$p)$this->errorCode(426);
+
+        //获取最近的一期活动ID
+        $aid = $this->lastAid;
         
         //余额抵扣
         if($p['coin']){
@@ -465,11 +481,14 @@ class item extends base\basic{
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
         }
         $oids = unserialize($p['oids']);
+        $where['oid'] = array('contain',$oids,'IN');
+        $goods = model('goods')->where($where)->limit(999)->select();
 
         
-        //调整商品的数量
-        
         //是否为自己的第一张订单
+        
+
+
 
         //粉丝调整
 
@@ -478,7 +497,7 @@ class item extends base\basic{
         //调整乐帮排名
 
 
-        //查询好友是否9人付款了
+        //查询好友是否4人付款了
 
 
         //调整乐购排名
