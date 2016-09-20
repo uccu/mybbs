@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-themes-web-app-capable" content="yes">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+    <div class="head-left"></div>
+    <div class="head-center">乐商部落</div>
+    <div class="head-right"></div>
+</header>
+<div class="head"></div>
+<div class="login-body">
+    <input type="number" maxlength="11" id="reg_mobile" placeholder="输入手机号码"/>
+    <span class="btn get-mobile-code-btn" onclick="getVerify(this);">发送验证</span>
+    <input type="number" id="reg_verify" placeholder="输入验证码">
+    <span class="btn reg-next-btn" onclick="regNext();">下 一 步</span>
+</div>
+<script type="text/javascript">
+    var total_height = document.documentElement.clientHeight;
+    console.log(total_height);
+    var html_size = $("html").css("font-size");
+    html_size = html_size.replace("px", "");
+    $(".login-body").css("height", total_height - (html_size * 0.79) + "px");
+
+    /**
+     * 下一步
+     */
+    function regNext() {
+        var mobile = tirm($("#reg_mobile").val());
+        if(mobile.length != 11){
+            show_alert("请输入正确的手机号");
+            return false;
+        }
+        var verify = tirm($("#reg_verify").val());
+        if(verify == ""){
+            show_alert("请输入验证码");
+            return false;
+        }
+        redirect("register_next.html?mobile=" + mobile);
+    }
+
+    /**
+     * 获取验证码
+     */
+    function getVerify(obj) {
+        var object = $(obj);
+        if(object.hasClass("no-click")){
+            return false;
+        }
+        var mobile = tirm($("#reg_mobile").val());
+        if(mobile.length != 11){
+            show_alert("请输入正确的手机号");
+            return false;
+        }
+        show_alert("发送成功");
+        var i = 6;
+        $(".get-mobile-code-btn").html(i+" s");
+        object.addClass("no-click");
+        var x = setInterval(function () {
+            i--;
+            if(i < 0){
+                clearInterval(x);
+                $(".get-mobile-code-btn").html("发送验证");
+                object.removeClass("no-click");
+                return false;
+            }
+            $(".get-mobile-code-btn").html(i+" s");
+        }, 1000);
+    }
+</script>
+</body>
+</html>

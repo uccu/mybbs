@@ -462,7 +462,7 @@ class item extends base\basic{
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
         model('pay_log')->data($data)->add();
-        //_pay_c($data['pay_id']);
+        if(!$data['money'])$this->_pay_c($data['pay_id']);
         return $data;
     }
     function _pay_c($pay_id){
@@ -472,18 +472,33 @@ class item extends base\basic{
         $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
         if(!$p)$this->errorCode(426);
 
+        //删除其他支付单
+        $where = array();
+        $where['uid'] = $p['uid'];
+        $where['pay_id'] = array('logic',$pay_id,'!=');
+        model('pay_log')->where($where)->remove();
+
         //获取最近的一期活动ID与操作用户
         $aid = $this->lastAid;
         $uid = $p['uid'];
 
         //余额抵扣
         if($p['coin']){
+            $userInfo = model('user')->find($uid);
+            if($userInfo['coin']<$p['coin'])$this->errorCode(429);
             model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
+            //余额明细调整
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
         }
+
+        //操作订单列表
         $oids = unserialize($p['oids']);
+        $where = array();
         $where['oid'] = array('contain',$oids,'IN');
         $orders = model('order')->where($where)->limit(999)->select();
+        
+        
+
 
 
         //粉丝调整
@@ -508,52 +523,74 @@ class item extends base\basic{
             $CONFIG_FIRST = 1;
         }
 
-        //是否为好友的下线的第一张订单,是否为好友的第一张订单  
+        
 
-        foreach($orders as $o)if($o['referee']){
-            $data = array();
-            $where = array();
-            $where['aid'] = $aid;
-            $where['referee'] = $o['referee'];
-            $hwere['share_first'] = 1;
-            $where['status'] = array('contain',array(2,3,4),'IN');
-            if(!model('order')->where($where)->find()){
-                $data['share_first'] = 1;
-            }
-            $where = array();
-            $where['aid'] = $aid;
-            $where['referee'] = $o['referee'];
-            $hwere['referee_first'] = 1;
-            $where['status'] = array('contain',array(2,3,4),'IN');
-            if(!model('order')->where($where)->find()){
-                $data['referee_first'] = 1;
-            }else{
-                //调整乐帮排名
-                $count = model('order')->where($where)->get_field();
-                
+        foreach($orders as $o){
+            if($o['referee']){
+                //是否为好友的下线的第一张订单
+                $data = array();
+                $where = array();
+                $where['aid'] = $aid;
+                $where['referee'] = $o['referee'];
+                $hwere['share_first'] = 1;
+                $where['status'] = array('contain',array(2,3,4),'IN');
+                if(!model('order')->where($where)->find()){
+                    $data['share_first'] = 1;
+                }
+
+                //是否为好友的第一张订单
+                $where = array();
+                $where['aid'] = $aid;
+                $where['referee'] = $o['referee'];
+                $hwere['referee_first'] = 1;
+                $where['status'] = array('contain',array(2,3,4),'IN');
+                if(!model('order')->where($where)->find()){
+                    $data['referee_first'] = 1;
+                }else{
+                    //调整乐帮排名
+                    $data2['num'] = model('order')->where($where)->get_field();
+                    if($data2['num']==5){
+                        $data2['aid'] = $aid;
+                        $data2['uid'] = $o['referee'];
+                        $data2['time'] = $this->microtime;
+                        model('rank_bang')->data($data2)->add();
+                    }elseif($data2['num']>5){
+                        model('rank_bang')->where(array('uid'=>$o['referee'],'aid'=>$aid))->data($data2)->save();
+                    }
+                }
             }
 
+            //调整我的乐豆排名
+            $where = array();
+            $where['uid'] = $uid;
+            $where['aid'] = $aid;
+            if(model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
+                $where['bean'] = $o['bean'];
+                model('rank_bean')->data($where)->add();
+            }
+            if($o['referee']){
+                //调整上一级乐豆排名
+                $where = array();
+                $where['uid'] = $o['referee'];
+                $where['aid'] = $aid;
+                if(model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
+                    $where['bean'] = $o['bean'];
+                    model('rank_bean')->data($where)->add();
+                }
+
+
+                //调整上上一级乐豆排名
+
+
+            }
+            //订单设置为状态2
+            if($CONFIG_FIRST)$data['first'] = 1;
+            $data['status'] = 2;
+            $data['pay_time'] = $this->microtime;
+            model('order')->data($data)->save($o['oid']);
+            $CONFIG_FIRST = 0;
         }
 
-        
-        
-
-        
-
-
-        //查询好友是否4人付款了
-
-
-        //调整乐豆排名
-
-        //订单设置为状态2
-        //model('order')->where(array('oid'=>array('contain',$oids,'IN')))->data(array('status'=>2,'pay_time'=>$this->microtime))->save();
-        
-        
-
-        //余额明细调整
-
-        //
 
         //删除支付单
         model('pay_log')->where(array('pay_id'=>$pay_id))->remove();

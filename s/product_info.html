@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-themes-web-app-capable" content="yes">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/yxMobileSlider.js"></script>
+</head>
+<body>
+<header>
+    <div class="head-left"><i class="icon-head-back" onclick="history.back();"></i></div>
+    <div class="head-center">商品详情</div>
+    <div class="head-right"></div>
+</header>
+<div class="head"></div>
+<div class="slider">
+    <ul>
+        <li><img src="images/product.png" alt=""/></li>
+        <li><img src="images/product.png" alt=""/></li>
+        <li><img src="images/product.png" alt=""/></li>
+        <li><img src="images/product.png" alt=""/></li>
+    </ul>
+</div>
+<div class="product-information">
+    <div class="information_left">
+        <h1>可莱丝水润保湿面膜10片水库针剂</h1>
+        <h2>内含贝壳提亮液，调节肌肤气色</h2>
+        <h3>团购价：￥ 175.00 <em>5乐豆</em></h3>
+        <h4><em>原价：￥ 299.00</em>规格：8g</h4>
+    </div>
+    <b>分享赚钱</b>
+    <div class="clear"></div>
+</div>
+<div class="product-sale-info">
+    <div class="total"><div class="sale" style="width: 80%;"></div></div>
+    <h1>已售1236件<em>剩余764件</em></h1>
+</div>
+<div class="product-assess">
+    农心秀美薯片含有丰富的维生素B1、B2、B6、和泛酸等B族维生素及大量的优质纤维束，还有微量元素、氨基酸、蛋白质、脂肪和优质淀粉等营养元素。细细评味其中的味道，会让你有一种幸福的感觉，反正不会胖！啦啦啦！香气从你打开袋子的一瞬间就涌入你的鼻腔~赶快来感受下吧！！
+</div>
+<div class="footer-click" onclick="showImageText();">点击查看图文详情</div>
+<div style="width: 100%; height: 1rem;"></div>
+<footer>
+    <span class="btn collect" onclick="collection(this);"><i></i><em>关注</em></span>
+    <span class="btn add-cart" onclick="download();">加入购物车</span>
+    <span class="btn buy-now" onclick="download();">立即购买</span>
+</footer>
+
+<div class="product-image-text">
+    <div class="list-top" style="position: relative; left: -0.2rem; top:0;">
+        <span class="btn checked" style="width: 50%;" enctype="images">图文详情<i></i><b style="left: 1rem;"></b></span>
+        <span class="btn" style="width:50%;" enctype="service-assess">服务说明<b style="left: 1rem;"></b></span>
+    </div>
+    <div class="images">
+        <img src="images/product_img1.png">
+        <img src="images/product_img2.png">
+        <img src="images/product_img3.png">
+        <img src="images/product_img2.png">
+        <img src="images/product_img3.png">
+    </div>
+    <div class="service-assess">
+        <p>农心秀美薯片含有丰富的维生素B1、B2、B6、和泛酸等B族维生素及大量的优质纤维束，还有微量元素、氨基酸、蛋白质、脂肪和优质淀粉等营养元素。细细评味其中的味道，会让你有一种幸福的感觉，反正不会胖！啦啦啦！香气从你打开袋子的一瞬间就涌入你的鼻腔~赶快来感受下吧！！</p>
+        <p>农心秀美薯片含有丰富的维生素B1、B2、B6、和泛酸等B族维生素及大量的优质纤维束，还有微量元素、氨基酸、蛋白质、脂肪和优质淀粉等营养元素。细细评味其中的味道，会让你有一种幸福的感觉，反正不会胖！啦啦啦！香气从你打开袋子的一瞬间就涌入你的鼻腔~赶快来感受下吧！！</p>
+        <p>农心秀美薯片含有丰富的维生素B1、B2、B6、和泛酸等B族维生素及大量的优质纤维束，还有微量元素、氨基酸、蛋白质、脂肪和优质淀粉等营养元素。细细评味其中的味道，会让你有一种幸福的感觉，反正不会胖！啦啦啦！香气从你打开袋子的一瞬间就涌入你的鼻腔~赶快来感受下吧！！</p>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+    var total_height = document.documentElement.clientHeight;
+    console.log(total_height);
+    var html_size = $("html").css("font-size");
+    html_size = html_size.replace("px", "");
+    var mainWidth = html_size * 6.4;
+    $(".slider").yxMobileSlider({width:mainWidth,height:mainWidth,during:6000});
+
+    $(document).ready(function () {
+        $(".list-top span").click(function(){
+            if($(this).hasClass("checked")){
+                return false;
+            }
+            var _class = $(this).attr("enctype");
+            $(this).addClass("checked").siblings("span").removeClass("checked");
+            if(_class == "images"){
+                $(".images").show(200);
+                $(".service-assess").hide(200);
+            } else {
+                $(".images").hide(200);
+                $(".service-assess").show(200);
+            }
+        });
+    });
+
+    /**
+     * 显示图文详情
+     */
+    function showImageText() {
+        $(".product-image-text").css("height", total_height - (1.6 * html_size) + "px");
+        $(".icon-head-back").attr("onclick", "hideImageText();");
+    }
+
+    /**
+     * 影藏图文详情
+     */
+    function hideImageText() {
+        $(".product-image-text").css("height", "0");
+        $(".icon-head-back").attr("onclick", "history.back();");
+    }
+
+    /**
+     * 关注、取消关注
+     * @param object
+     */
+    function collection(object) {
+        var obj = $(object).children("i");
+        if(obj.hasClass("collected")){
+            obj.removeClass("collected").siblings("em").html("关注");
+        } else {
+            obj.addClass("collected").siblings("em").html("已关注");
+        }
+    }
+
+    /**
+     * 加入购物车并进入下载页
+     */
+    function download() {
+        redirect("download.html");
+    }
+</script>
+</body>
+</html>
