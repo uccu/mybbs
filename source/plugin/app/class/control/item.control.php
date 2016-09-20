@@ -562,28 +562,30 @@ class item extends base\basic{
                 }
             }
 
-            //调整我的乐豆排名
-            $where = array();
-            $where['uid'] = $uid;
-            $where['aid'] = $aid;
-            if(model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
-                $where['bean'] = $o['bean'];
-                model('rank_bean')->data($where)->add();
-            }
-            if($o['referee']){
-                //调整上一级乐豆排名
+            if($o['bean']){
+                //调整我的乐豆排名
                 $where = array();
-                $where['uid'] = $o['referee'];
+                $where['uid'] = $uid;
                 $where['aid'] = $aid;
-                if(model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
+                if(!model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
                     $where['bean'] = $o['bean'];
                     model('rank_bean')->data($where)->add();
                 }
+                if($o['referee']){
+                    //调整上一级乐豆排名
+                    $where = array();
+                    $where['uid'] = $o['referee'];
+                    $where['aid'] = $aid;
+                    if(!model('rank_bean')->where($where)->data(array('bean'=>array('add',$o['bean'])))->save()){
+                        $where['bean'] = $o['bean'];
+                        model('rank_bean')->data($where)->add();
+                    }
 
 
-                //调整上上一级乐豆排名
+                    //调整上上一级乐豆排名
 
 
+                }
             }
             //订单设置为状态2
             if($CONFIG_FIRST)$data['first'] = 1;
