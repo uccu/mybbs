@@ -431,6 +431,16 @@ class item extends base\basic{
         if($z['uid']==$this->uid)model('order')->remove($oid);
         $this->success();
     }
+    function get_item($oid){
+        $this->_check_login();
+        $oid = post('oid',$oid);
+        $z = model('order')->find($oid);
+        if(!$z)$this->errorCode(425);
+        if($z['status']!=3)$this->errorCode(439);
+        $z = model('order')->data(array('status'=>4))->save($oid);
+        if(!$z)$this->errorCode(439);
+        $this->success();
+    }
     function _pay($oids,$use_coin){
         $this->_check_login();
         if(!$oids = post('oids',$oids))$this->errorCode(425);

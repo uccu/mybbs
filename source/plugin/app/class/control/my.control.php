@@ -342,8 +342,17 @@ class my extends base\basic{
     }
     function set_pay_password(){
         $p = post('pay_password','');
+        if($this->userInfo['pay_password'])$this->errorCode(436);
+        if(!$p)$this->errorCode(438);
+        $data['pay_password'] = $p?md5($p):'';
+        model('user')->data($data)->save($this->uid);
+        $this->success();
+    }
+    function change_pay_password(){
+        $p = post('pay_password','');
         $_POST['phone'] = $this->userInfo['phone'];
         if(!$_POST['phone'])$this->errorCode(418);
+        if(!$this->userInfo['pay_password'])$this->errorCode(437);
         control('tool:captcha')->_check_captcha();
         $data['pay_password'] = $p?md5($p):'';
         model('user')->data($data)->save($this->uid);
