@@ -461,15 +461,17 @@ class item extends base\basic{
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
-        model('pay_log')->data($data)->add();
-        if(!$data['money'])$this->_pay_c($data['pay_id']);
+        $id = model('pay_log')->data($data)->add();
+        if(!$data['money'])$this->_pay_c($data['pay_id'],$id);
         return $data;
     }
-    function _pay_c($pay_id){
+    function _pay_c($pay_id,$id){
         
         //获取支付单详情
         $pay_id = post('pay_id','');
-        $p = model('pay_log')->where(array('pay_id'=>$pay_id))->find();
+        if($id)$where['id'] = $id;
+        else $where['pay_id'] = $pay_id;
+        $p = model('pay_log')->where($where)->find();
         if(!$p)$this->errorCode(426);
 
         //删除其他支付单
@@ -599,12 +601,12 @@ class item extends base\basic{
     function _useCoin($money,$coin){
 
     }
-    function alipay($oids,$use_coin){
+    function alipay($oids,$use_coin=1){
         $data['c'] = $dat = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_alipay($dat);
         $this->success($data);
     }
-    function wxpay($oids,$use_coin){
+    function wxpay($oids,$use_coin=1){
         $data['c'] = $dat = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_wcpay($dat);
         $this->success($data);
