@@ -80,6 +80,11 @@ class basic extends \control\ajax{
         }
         return $z;
     }
+    function _get_lastf(){
+        $zf = model('fans')->where(array('aid'=>$this->lastAid,'fans_id'=>$this->uid))
+        ->order(array('ctime'=>'DESC'))->find();
+        return $zf?$zf['uid']:'0';
+    }
     function _pusher($content='测试~',$uid=0){
         if(!$uid){
             $uid = $this->uid;
