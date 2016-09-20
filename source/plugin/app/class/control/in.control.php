@@ -123,6 +123,7 @@ class in extends base\basic{
     }
     function _add_user($info){
         $info['ctime'] = time();
+        $info['coin'] = 10000;
         $info['username'] = '用户_'.$info['ctime'];
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
