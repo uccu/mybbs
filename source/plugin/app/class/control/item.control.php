@@ -612,6 +612,7 @@ class item extends base\basic{
     function wxpay($oids,$use_coin=1){
         $data['c'] = $dat = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_wcpay($dat);
+        $data['t'] = $this->microtime;
         $this->success($data);
     }
 
