@@ -403,6 +403,7 @@ class my extends base\basic{
 
     function add_fans($uid){
         $uid = post('uid',$uid,'%d');
+        if($uid==$this->uid)$this->errorCode(441);
         $data['fans_id'] = $this->uid;
         if(!model('user')->find($uid))$this->errorCode(440);
         $data['uid'] = $uid;
