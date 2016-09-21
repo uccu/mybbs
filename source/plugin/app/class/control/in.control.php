@@ -127,6 +127,16 @@ class in extends base\basic{
         $info['username'] = '用户_'.$info['ctime'];
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
+        if($info['referee']){
+            $data['fans_id'] = $z;
+            $data['uid'] = $info['referee'];
+            $data['aid'] = $this->aid;
+            if(!model('fans')->where($data)->find()){
+                $data['ctime'] = TIME_NOW;
+                $data['buy'] = 0; 
+                model('fans')->data($data)->add();
+            }
+        }
         $info['uid'] = $z;
         $info['new'] = 1;
         $this->_out_info($info,$this->cookie);

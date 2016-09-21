@@ -311,35 +311,7 @@ class my extends base\basic{
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
-    function my_fans($aid){
-        //$where['aid'] = post('aid',$aid);
-        $where['uid'] = $this->uid;
-        $z['act'] = model('activity')->find($aid);
-
-        $where2['referer'] = $this->uid;
-        $where2['status'] = array('contain',array(2,3,4),'IN');
-        $where2['score'] = 0;
-        $z['count'] = model('order')->where($where2)->get_field();
-        $z['list'] = model('fans')->add_table(array(
-            'activity'=>array(
-                '_on'=>'aid','title','stime'
-            ),
-            'user'=>array(
-                'username','avatar','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
-            )
-        ))->where($where)->order(array('stime'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
-        if(!$z['list'])$this->errorCode(427);
-        foreach($z['list'] as $v)$z['alist'][$v['aid']][] = $v;
-        $z['alist'] = array_values($z['alist']);
-        $zf = model('order')
-        ->add_table(array(
-            'user'=>array('_on'=>'tuan_order.referee=tuan_user.uid','username')
-        ))
-        ->where(array('uid'=>$this->uid,'aid'=>$this->aid,'referee'=>array('logic',0,'!=')))
-        ->order(array('ctime'=>'DESC'))->find();
-        $z['referee'] = $zf?$zf['username']:'';
-        $this->success($z);
-    }
+    
     function set_pay_password(){
         $p = post('pay_password','');
         if($this->userInfo['pay_password'])$this->errorCode(436);
@@ -385,7 +357,30 @@ class my extends base\basic{
 
 
 
+    function my_fans($aid){
+        //$where['aid'] = post('aid',$aid);
+        $where['uid'] = $this->uid;
+        $z['act'] = model('activity')->find($aid);
 
+        $where2['referer'] = $this->uid;
+        $where2['status'] = array('contain',array(2,3,4),'IN');
+        $where2['score'] = 0;
+        $z['count'] = model('order')->where($where2)->get_field();
+        $z['list'] = model('fans')->add_table(array(
+            'activity'=>array(
+                '_on'=>'aid','title','stime'
+            ),
+            'user'=>array(
+                'username','avatar','_mapping'=>'u','_on'=>'tuan_fans.fans_id=u.uid'
+            )
+        ))->where($where)->order(array('stime'=>'DESC','ctime'=>'DESC'))->limit(999)->select();
+        if(!$z['list'])$this->errorCode(427);
+        foreach($z['list'] as $v)$z['alist'][$v['aid']][] = $v;
+        $z['alist'] = array_values($z['alist']);
+        $zf = model('user')->find($this->userInfo['referee']);
+        $z['referee'] = $zf?$zf['username']:'';
+        $this->success($z);
+    }
     function get_my_fans_reward($num){
         $num = post('num',$num,'%d');
         $data['fans_num'] = model('fans')->where(array('uid'=>$this->uid,'buy'=>1))->get_field("count(distinct fans_id)");
