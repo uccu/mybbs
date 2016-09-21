@@ -539,10 +539,10 @@ class item extends base\basic{
         
 
         foreach($orders as $o){
+            $data = array();
+            $where = array();
             if($o['referee']){
                 //是否为好友的下线的第一张订单
-                $data = array();
-                $where = array();
                 $where['aid'] = $aid;
                 $where['referee'] = $o['referee'];
                 $hwere['share_first'] = 1;
