@@ -405,5 +405,19 @@ class my extends base\basic{
         $data['reward_rule'] = model('fans_rule')->limit(999)->select();
         $this->success($data);
     }
+
+    function add_fans($uid){
+        $uid = post('uid',$uid,'%d');
+        $data['fans_id'] = $this->uid;
+        if(model('user')->find($uid))$this->errorCode(440);
+        $data['uid'] = $uid;
+        $data['aid'] = $this->aid;
+        if(!model('fans')->where($data)->find()){
+            $data['ctime'] = TIME_NOW;
+            $data['buy'] = 0; 
+            model('fans')->data($data)->add();
+        }
+        $this->success();
+    }
 }
 ?>
