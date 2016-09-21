@@ -68,7 +68,7 @@ class item extends base\basic{
         //商品存在判断+商品是否当前活动判断
         $tid = post('tid',$tid);
         $t = $this->_check_tid($tid,$this->aid);
-
+        if(!$t['stock'])$this->errorCode(435);
         //定义已经购买的数量
         $has = 0;
 
@@ -231,7 +231,7 @@ class item extends base\basic{
         $tid = post('tid',$tid);
         $t = $this->_check_tid($tid,$this->aid);
         //验证库存
-        if(!$t['stock'])$this->errorCode(535);
+        if(!$t['stock'])$this->errorCode(435);
 
         //验证购物车
         $has = 0;
@@ -319,7 +319,7 @@ class item extends base\basic{
         if($z['uid']==$this->uid){
             $t = $this->_check_tid($tid,$this->aid);
             //验证库存
-            if($t['stock']<$z['num'])$this->errorCode(535);
+            if($t['stock']<$z['num'])$this->errorCode(435);
             model('goods')->data(array(
                 'stock'=>array('add',-1*$z['num']),
                 'sale'=>array('add',$z['num'])
