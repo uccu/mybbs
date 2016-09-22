@@ -73,6 +73,7 @@ class pay extends \control\ajax{
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
         // grab URL, and print
         $data = curl_exec ( $ch );
+        var_dump($data);
         $result = simplexml_load_string ( $data );
         $json ['result'] = $result->err_code . '';
         $json ['prepayid'] = $result->prepay_id . '';
