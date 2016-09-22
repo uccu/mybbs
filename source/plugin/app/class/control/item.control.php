@@ -634,7 +634,7 @@ class item extends base\basic{
     }
 
     function pay_c($out_trade_no){
-        $pay_id = post('out_trade_no');
+        $pay_id = post('out_trade_no',$out_trade_no);
         $this->_pay_c($pay_id);
         $this->success();
     }
