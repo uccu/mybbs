@@ -1,10 +1,8 @@
 <?php
 $postStr = file_get_contents ( 'php://input' );
-file_put_contents ( 't.txt', $postStr  );
-
-$result = simplexml_load_string ( $postStr );
-file_put_contents ( 't2.txt', serialize($result) );
-header('Location:/app/item/pay_c/'.$result->out_trade_no);
+preg_match('#(98\d{20})#',$postStr,$zk);
+file_put_contents ( 't2.txt', serialize($zk) );
+header('Location:/app/item/pay_c/'.$zk[1]);
 
 
 ?>
