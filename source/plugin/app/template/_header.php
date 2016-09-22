@@ -27,20 +27,20 @@
     <!--  设置1200px  -->
 	<div class="container mediaz">
         <!--  logo  -->
-		<div class="logo fl"><a href="http://www.hanyu365.com.cn:8080/Hanyu/index.do"><img src="pic/logo.png" width="144" height="58" alt="logo"></a></div>
+		<div class="logo fl"><a href="/"><img src="pic/logo.png" width="144" height="58" alt="logo"></a></div>
 		<!--  导航项目  -->
 		<ul class="list-inline nav_menu fr t">
-			<li><a href="http://www.hanyu365.com.cn:8080/Hanyu/view.do">涵予观点</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/develop.do">网站开发</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/app.do">APP开发</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/AR.jsp">AR/VR开发</a></li>
-            <li><a class="active">案例展示</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/safeguard.jsp">app/网站维护</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/optimization.jsp">合作流程</a></li>
-            <li><a href="http://www.hanyu365.com.cn:8080/Hanyu/contact.jsp">联系我们</a></li>
+			<li><a href="view.php">涵予观点</a></li>
+            <li><a href="app/web">网站开发</a></li>
+            <li><a href="app/app">APP开发</a></li>
+            <li><a href="AR.php">AR/VR开发</a></li>
+            <li><a class="app/cases">案例展示</a></li>
+            <li><a href="safeguard.php">app/网站维护</a></li>
+            <li><a href="optimization.php">合作流程</a></li>
+            <li><a href="contact.php">联系我们</a></li>
         </ul>
         <!--  主页  -->
-        <div class="nav_home fr t-3"><a href="http://www.hanyu365.com.cn:8080/Hanyu/index.do"><span class="dib"></span></a></div>
+        <div class="nav_home fr t-3"><a href="/"><span class="dib"></span></a></div>
         
 	</div>
 </div>
