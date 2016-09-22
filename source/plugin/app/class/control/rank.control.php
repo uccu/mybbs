@@ -53,11 +53,13 @@ class rank extends base\basic{
             $v['time'] = !$time || $v['time'] - $time < 0 ? 0 : $v['time'] - $time;
         }
     }
-    function rank_gou($aid){
+    function rank_gou($aid,$page=1){
         //获取AID
         $aid = post('aid',$aid,'%d');
         if(!$aid)$aid = $this->lastAid;
-        $page = post('page',1);
+        $page = post('page',$page,'%d');
+        $page = floor($page);
+        if($page<1)$page = 1;
         //获取活动所有乐豆
         $allBean = $z['allBean'] = $this->_allBean($aid);
 
