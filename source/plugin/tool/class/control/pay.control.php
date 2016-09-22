@@ -12,7 +12,7 @@ class pay extends \control\ajax{
         $p['subject']           = '购买乐商部落商品';          // 商品名称
         $p['body']              = '乐商部落商品';             // 商品详情
         $p['total_fee']         = '0.01';  //  $d['money']               // 商品金额
-        $p['notify_url']        = 'http://121.199.8.244:2000/app/item/wcpay_c';// 服务器异步通知页面路径
+        $p['notify_url']        = 'http://121.199.8.244:2000/app/item/alipay_c';// 服务器异步通知页面路径
         $p['service']           = 'mobile.securitypay.pay'; // 服务接口名称， 固定值
         $p['payment_type']      = '1';                      // 支付类型， 固定值
         $p['_input_charset']    = 'utf-8';                  // 参数编码， 固定值
@@ -45,7 +45,7 @@ class pay extends \control\ajax{
             'body'              => '乐商部落商品',
             'mch_id'            => '1392240002',
             'nonce_str'         => md5 ( rand ( 1000000, 9999999 ) ),
-            'notify_url'        => 'http://121.199.8.244:2000/pay_c/wcpay.php',
+            'notify_url'        => 'http://121.199.8.244:2000/app/item/wcpay_c',
             'out_trade_no'      => $d['pay_id'],
             'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
             'total_fee'         => 1,//  $d['money']*100               //单位分
