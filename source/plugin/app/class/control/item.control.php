@@ -639,6 +639,12 @@ class item extends base\basic{
         $this->_pay_c($pay_id);
         $this->success();
     }
+    function wcpay_c(){
+        $postStr = file_get_contents ( 'php://input' );
+        preg_match('#(98\d{20})#',$postStr,$zk);
+        $this->_pay_c($zk[1]);
+        $this->success();
+    }
 
 
 }
