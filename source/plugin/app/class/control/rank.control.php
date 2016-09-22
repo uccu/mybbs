@@ -41,7 +41,7 @@ class rank extends base\basic{
     }
     function _addCoin(&$list,$allCoin,$rule,$page=1,$limit=10){
         foreach($list as $k=>&$v){
-            $rank = ($page-1)*limit+$k+1;
+            $rank = ($page-1)*$limit+$k+1;
             $v['rank'] = $rank;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $v['coin'] = $this->get_c($rank,$allCoin,$b);
