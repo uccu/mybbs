@@ -635,6 +635,7 @@ class item extends base\basic{
 
     function pay_c($out_trade_no){
         $pay_id = post('out_trade_no',$out_trade_no);
+        model('cache')->replace('pay_id_00001',$pay_id);
         $this->_pay_c($pay_id);
         $this->success();
     }
