@@ -34,7 +34,7 @@
             <li><a href="app/web">网站开发</a></li>
             <li><a href="app/app">APP开发</a></li>
             <li><a href="AR.php">AR/VR开发</a></li>
-            <li><a class="app/cases">案例展示</a></li>
+            <li><a href="app/cases" class="active">案例展示</a></li>
             <li><a href="safeguard.php">app/网站维护</a></li>
             <li><a href="optimization.php">合作流程</a></li>
             <li><a href="contact.php">联系我们</a></li>
