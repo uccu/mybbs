@@ -43,7 +43,7 @@ class pay extends \control\ajax{
         $array = array (
             'appid'             => 'wx6257377cf020d6e7',
             'body'              => '乐商部落商品',
-            'mch_id'            => '',
+            'mch_id'            => '1392240002',
             'nonce_str'         => md5 ( rand ( 1000000, 9999999 ) ),
             'notify_url'        => 'http://121.199.8.244:2000/app/item/wxpay_c',
             'out_trade_no'      => $d['pay_id'],
