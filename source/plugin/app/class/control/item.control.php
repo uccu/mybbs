@@ -541,8 +541,8 @@ class item extends base\basic{
             $CONFIG_FIRST = 1;
         }
 
-        
-
+        $CONFIG_SHARE_FIRST = array();
+        $CONFIG_REFEREE_FIRST = array();
         foreach($orders as $o){
             $data = array();
             $where = array();
@@ -552,8 +552,8 @@ class item extends base\basic{
                 $where['referee'] = $o['referee'];
                 $hwere['share_first'] = 1;
                 $where['status'] = array('contain',array(2,3,4),'IN');
-                if(!model('order')->where($where)->find()){
-                    $data['share_first'] = 1;
+                if(!$CONFIG_SHARE_FIRST[$o['referee']] && !model('order')->where($where)->find()){
+                    $data['share_first'] = 1;$CONFIG_SHARE_FIRST[$o['referee']] = 1;
                 }
 
                 //是否为好友的第一张订单
@@ -562,8 +562,8 @@ class item extends base\basic{
                 $where['referee'] = $o['referee'];
                 $hwere['referee_first'] = 1;
                 $where['status'] = array('contain',array(2,3,4),'IN');
-                if(!model('order')->where($where)->find()){
-                    $data['referee_first'] = 1;
+                if(!$CONFIG_REFEREE_FIRST[$o['referee']] && !model('order')->where($where)->find()){
+                    $data['referee_first'] = 1;$CONFIG_REFEREE_FIRST[$o['referee']]=1;
                 }else{
                     //调整乐帮排名
                     $data2['num'] = model('order')->where($where)->get_field();
