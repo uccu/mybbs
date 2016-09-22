@@ -633,11 +633,13 @@ class item extends base\basic{
         $this->success($this->microtime);
     }
     function alipay_c(){
-        
+        $pay_id = post('out_trade_no');
+        $this->_pay_c($pay_id);
         $this->success();
     }
     function wxpay_c(){
-        
+        $pay_id = post('out_trade_no');
+        $this->_pay_c($pay_id);
         $this->success();
     }
 
