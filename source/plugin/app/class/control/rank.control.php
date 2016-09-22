@@ -156,7 +156,7 @@ class rank extends base\basic{
         $where['score'] = 0;
         $me = model('order')->table_first()->where($where)->order(array('time'))->find();
         if($me){
-            unset($where['referee']);
+            unset($where['uid']);
             $where['time'] = array('logic',$me['time'],'<');
             $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
