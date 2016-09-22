@@ -57,7 +57,7 @@ class pay extends \control\ajax{
             $sign .= trim ( $key ) . "=" . trim ( $val ) . "&";
             $xml .= "<" . trim ( $key ) . ">" . trim ( $val ) . "</" . trim ( $key ) . ">";
         }
-        $sign .= 'key=' . $array['out_trade_no'];
+        $sign .= 'key=7EA97FA5C1534CD91FE666690A60E927';
         // echo $sign;
         $sign = strtoupper ( md5 ( $sign ) );
         $xml .= "<sign>$sign</sign>";
