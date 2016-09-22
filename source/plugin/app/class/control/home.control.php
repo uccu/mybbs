@@ -32,7 +32,7 @@ class home extends base\basic{
     }
     function forward(){
         $now = TIME_NOW;
-        $where = "stime<$now AND etime>$now";
+        $where = "stime<$now AND stime+ktime*3600>$now";
         $z = model('activity')->where($where)->find();
         $z['time'] = TIME_NOW;
         $q['now'] = $now;
@@ -52,7 +52,7 @@ class home extends base\basic{
     }
     function activity(){
         $now = TIME_NOW;
-        $where = "stime<$now AND etime>$now";
+        $where = "stime<$now AND stime+ktime*3600>$now";
         $z = model('activity')->where($where)->find();
         $q['activityInfo'] = $z;
         if($z){
