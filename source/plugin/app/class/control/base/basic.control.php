@@ -49,6 +49,7 @@ class basic extends \control\ajax{
         $where = "stime<$now AND etime>$now";
         $z = model('activity')->where($where)->find();
         if($z)return $z['aid'];
+        $where = array();
         $where['etime'] = array('logic',$now,'<');
         $z = model('activity')->where($where)->find();
         if(!$z)$this->errorCode(419);
