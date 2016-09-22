@@ -118,7 +118,6 @@ class item extends base\basic{
 
     function cart(){
         $this->_check_login();
-        $data['aid'] = $this->aid;
         $data['uid'] = $this->uid;
         $q['list'] = model('cart')->add_table(
             array(

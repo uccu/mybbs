@@ -32,7 +32,6 @@ class my extends base\basic{
             'coin_all'
         ))->find($this->uid);
         $where['uid'] = $this->uid;
-        $where['aid'] = $this->aid;
         $q['count']['pay_1'] = model('order')->where($where)->where(array('status'=>1))->get_field();
         $q['count']['pay_2'] = model('order')->where($where)->where(array('status'=>2))->get_field();
         $q['count']['pay_3'] = model('order')->where($where)->where(array('status'=>3))->get_field();
