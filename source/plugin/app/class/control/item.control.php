@@ -666,6 +666,7 @@ class item extends base\basic{
 <transaction_id><![CDATA[4004552001201609224638440667]]></transaction_id>
 </xml>';
     $a =  simplexml_load_string ( $z );
+    foreach($a as &$v)$v = (string)$v;
     var_dump($a);
 
     }
