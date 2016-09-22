@@ -647,7 +647,28 @@ class item extends base\basic{
         $this->_pay_c($zk[1]);
         $this->success();
     }
+    function test(){
+        $z = '<xml><appid><![CDATA[wx6257377cf020d6e7]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[N]]></is_subscribe>
+<mch_id><![CDATA[1392240002]]></mch_id>
+<nonce_str><![CDATA[93b793a8b2fe3b6b98b9e567fff97ef3]]></nonce_str>
+<openid><![CDATA[o_8NWwi5NJiKaYqAtIjqTg8V0D1U]]></openid>
+<out_trade_no><![CDATA[9814745391722102072082]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[01C9FAE619E53496F74B0E5D854EA1A8]]></sign>
+<time_end><![CDATA[20160922181258]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[APP]]></trade_type>
+<transaction_id><![CDATA[4004552001201609224638440667]]></transaction_id>
+</xml>';
+    $a =  simplexml_load_string ( $z );
+    var_dump($a);
 
+    }
 
 }
 ?>
