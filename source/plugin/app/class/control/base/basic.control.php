@@ -39,14 +39,14 @@ class basic extends \control\ajax{
     
     function _get_aid(){
         $now = TIME_NOW;
-        $where['zz'] = "stime<$now AND etime>$now";
+        $where = "stime<$now AND etime>$now";
         $z = model('activity')->where($where)->find();
         if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
     function _get_lastAid(){
         $now = TIME_NOW;
-        $where['zz'] = "stime<$now AND etime>$now";
+        $where = "stime<$now AND etime>$now";
         $z = model('activity')->where($where)->find();
         if($z)return $z['aid'];
         $where['etime'] = array('logic',$now,'<');
