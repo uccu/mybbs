@@ -142,7 +142,7 @@ class item extends base\basic{
         $cid = post('cid',$cid);
         $z = model('cart')->find($cid);
         if(!$z)$this->errorCode(424);
-        
+        $this->aid;
         if($z['uid']==$this->uid){
             $num = post('num',$num,'%d');
             if($num>0){
