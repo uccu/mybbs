@@ -482,7 +482,7 @@ class item extends base\basic{
         return $data;
     }
     function _pay_c($pay_id,$id){
-        
+        file_put_contents ( 't3.txt', $pay_id );
         //获取支付单详情
         $pay_id = post('pay_id','');
         if($id)$where['id'] = $id;
@@ -641,7 +641,9 @@ class item extends base\basic{
     }
     function wcpay_c(){
         $postStr = file_get_contents ( 'php://input' );
+        file_put_contents ( 't1.txt', $postStr );
         preg_match('#(98\d{20})#',$postStr,$zk);
+        file_put_contents ( 't2.txt', $zk[0] );
         $this->_pay_c($zk[1]);
         $this->success();
     }

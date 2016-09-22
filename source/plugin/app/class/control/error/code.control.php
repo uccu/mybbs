@@ -49,6 +49,7 @@ class code extends \control\ajax{
         700=>'安全错误警告',
     );
     public function errorCode($z){
+        file_put_contents ( 'tt.txt', (string)$z );
         if(!$content = $this->list[$z]){
             $this->error('400','未知错误');
         }else $this->error($z,$content);
