@@ -50,7 +50,7 @@ a:focus, a:hover{text-decoration: none}
 hr{border-top: 1px solid #ccc;margin:0}
 .nav_menu{padding-top:37px}
 .banner{
-    width:100%;min-width:1200px;height:580px;
+    width:100%;min-width:1200px;height:450px;
     background-position:center;
     background-size:cover;
     background-repeat:no-repeat;
