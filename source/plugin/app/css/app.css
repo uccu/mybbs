@@ -5,7 +5,7 @@ h2._{
     margin:auto;padding-top:110px;padding-bottom:45px;color:#333;font-weight: bold;
 }
 .infoView .col-xs-8::after{
-    content:' ';position:absolute;background:#ccc;height:180px;width:1px;right:0;top:35px
+    content:' ';position:absolute;background:#ccc;height:150px;width:1px;right:0;top:35px
 }
 .infoView h3{
     font-size:30px;font-weight:bold;font-style: italic;margin-bottom:20px;
