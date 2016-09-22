@@ -136,6 +136,12 @@ class item extends base\basic{
         foreach($q['list'] as &$v)$v['collected']=$v['collected']?'1':'0';
         $this->success($q);
     }
+    function cart_count(){
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+        $q['count'] = model('cart')->where($data)->get_filed();
+        $this->success($q);
+    }
     
     function change_cart($cid,$num=1){
         $this->_check_login();
