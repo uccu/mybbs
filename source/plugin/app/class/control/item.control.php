@@ -484,7 +484,7 @@ class item extends base\basic{
     function _pay_c($pay_id,$id){
         file_put_contents ( 't3.txt', $pay_id );
         //获取支付单详情
-        $pay_id = post('pay_id','');
+        $pay_id = post('pay_id',$pay_id);
         if($id)$where['id'] = $id;
         else $where['pay_id'] = $pay_id;
         $p = model('pay_log')->where($where)->find();
