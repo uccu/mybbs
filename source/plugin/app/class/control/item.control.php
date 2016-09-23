@@ -757,7 +757,7 @@ class item extends base\basic{
         require "/alipay/lib/alipay_notify.class.php";
 
         $_POST = $_GET = $dataj;
-        $alipayNotify = new AlipayNotify ( $alipay_config );
+        $alipayNotify = new \AlipayNotify ( $alipay_config );
         $verify_result = $alipayNotify->verifyNotify ();
         var_dump($verify_result);
     }
