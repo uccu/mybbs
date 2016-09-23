@@ -640,6 +640,8 @@ class item extends base\basic{
         $this->success();
     }
     function alipay_c(){
+
+        file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_SERVER) );
         echo "SUCCESS";die();
     }
     function wcpay_c(){
