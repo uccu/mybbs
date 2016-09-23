@@ -444,7 +444,7 @@ class item extends base\basic{
         if(!$z)$this->errorCode(425);
         if($z['status']!=3)$this->errorCode(439);
         model('user')->data(array('score'=>array('add',100)))->save($z['uid']);
-        model('score')->data(array(
+        model('score_log')->data(array(
             'uid'=>$z['uid'],
             'score'=>100,
             'info'=>'确认订单',
