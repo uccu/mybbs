@@ -20,18 +20,18 @@ class basic extends \control\ajax{
     }
     function _get_uid(){
         $user_token = cookie('user_token',post('user_token'));
-        if(!is_string($user_token) || !$user_token)return '0';
+        if(!is_string($user_token) || !$user_token)return '-1';
         $e = base64_decode($user_token);
-        if(!$e)return '0';
+        if(!$e)return '-2';
         list($md5,$uid) = explode('|',$e);
-        if(!$uid || !$md5)return '0';
+        if(!$uid || !$md5)return '-3';
         $info = model('user')->find($uid);
         $this->userInfo = $info;
-        if(!$info)return '0';
+        if(!$info)return '-4';
         $this->userInfo = $info;
         $referee = post('referee',0);
         if($referee && $referee==$uid)$this->errorCode(441);
-        return $md5 == md5($info['password'].$this->salt2) ? $uid : '0';
+        return $md5 == md5($info['password'].$this->salt2) ? $uid : '-5';
     }
     function _get_userInfo(){
         return array();
@@ -56,7 +56,7 @@ class basic extends \control\ajax{
         return $z ? $z['aid'] : 0;
     }
     function _check_login(){
-        if(!$this->uid)$this->errorCode(410);
+        if(!$this->uid || $this->uid<0)$this->errorCode(410);
     }
     function _get_microtime(){
         list($usec, $sec) = explode(" ", microtime());
