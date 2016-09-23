@@ -753,21 +753,19 @@ class item extends base\basic{
             "sign": "fnSyNU55oIZIQ34A7MublIMwNrBR4XcuvMZMLTNvJq+yYcDcLB9/KW8n0ZIQTS53lYLWq+MoODVqYD0tSxGPWf37+wv/zdNCbQTFmvgaLVEo7shldugYQK3uV2N4BTO48Q3OACyuclXQScrALTJSohSaao4BJtcFt4cUqKpUj7k="
         }';
         $dataj = $data = json_decode($data,true);
-        // unset($dataj['sign_type']);
-        // unset($dataj['sign']);
-        // ksort($dataj);
-        // $datag = array();
-        // foreach($dataj as $k=>$v)$datag[] = $k.'='.$v;
-        // $datag = implode('&',$datag);
-         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
-         $res = openssl_get_privatekey ( $priKey );
-        // openssl_sign ( $datag, $sign, $res );
-        // openssl_free_key ( $res );
-        // $sign = base64_encode ( $sign );
-        // $sign = urlencode ( $sign );
-        // echo $sign;
-        openssl_private_decrypt(base64_decode(urldecode($dataj['sign'])),$decrypted,$res);
-        echo $decrypted;
+        unset($dataj['sign_type']);
+        unset($dataj['sign']);
+        ksort($dataj);
+        $datag = array();
+        foreach($dataj as $k=>$v)$datag[] = $k.'='.$v;
+        $datag = implode('&',$datag);
+        $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
+        $res = openssl_get_publickey ( $priKey );
+        openssl_sign ( $datag, $sign, $res );
+        openssl_free_key ( $res );
+        $sign = base64_encode ( $sign );
+        $sign = urlencode ( $sign );
+        echo $sign;
     }
 
 }
