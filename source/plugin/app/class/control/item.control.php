@@ -655,7 +655,7 @@ class item extends base\basic{
         require "/alipay/lib/alipay_notify.class.php";
         $alipayNotify = new \AlipayNotify ( $alipay_config );
         $verify_result = $alipayNotify->verifyNotify ();
-        file_put_contents ('ALIPAY_SERVER.txt' ,$verify_result );
+        file_put_contents ('ALIPAY_SERVER2.txt' ,json_encode($verify_result) );
         echo "SUCCESS";die();
     }
     function wcpay_c(){
