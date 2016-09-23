@@ -432,7 +432,7 @@ class my extends base\basic{
         $draw_round_id = model('cache')->get('draw_round_id');
 
         //获取当期轮回已经参与人数
-        $count = model('draw_log')->where(array('draw_round_id'=>$draw_round_id))->get_filed();
+        $count = model('draw_log')->where(array('draw_round_id'=>$draw_round_id))->get_field();
 
         //如果超过1000人，轮回次数+1
         if($count>=1000){
@@ -458,7 +458,7 @@ class my extends base\basic{
         model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>100,'info'=>'兑换抽奖'))->add();
         //开始抽奖
         foreach($list as $k=>$v){
-            $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_filed();
+            $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_field();
             if($countz>=$v['num'])continue;
             $rand = rand(1,$count);
             if($rand>$countz)continue;
