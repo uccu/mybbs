@@ -351,6 +351,7 @@ class my extends base\basic{
         $z = model('order')->data($data)->add();
         if(!$z)$this->errorCode(421);
         $q['oid'] = $z;
+        model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$t['score'],'info'=>'兑换商品'))->add();
         $this->success($q);
     }
 
@@ -422,36 +423,75 @@ class my extends base\basic{
         $this->success($data);
     }
     function draw(){
+        //查询余额是否充足
         if($this->userInfo['score']<100)$this->errorCode(442);
+        //扣除余额
+        model('user')->data(array('score'=>array('add',-100)))->save($this->uid);
+
+        //获取奖励轮回次数
         $draw_round_id = model('cache')->get('draw_round_id');
 
+        //获取当期轮回已经参与人数
         $count = model('draw_log')->where(array('draw_round_id'=>$draw_round_id))->get_filed();
+
+        //如果超过1000人，轮回次数+1
         if($count>=1000){
             $draw_round_id++;
             model('cache')->plus('draw_round_id');
         }
 
-
+        //设定公共的参数
         $data['uid'] = $this->uid;
         $data['draw_round_id'] = $draw_round_id;
+        $data['ctime'] = TIME_NOW;
 
-
-
+        //获取奖励内容与规则
         $rawList = $list = model('draw_score')->limit(8)->select();
-        foreach($list as $k=>&$v){
+
+        //去除num为0或-1的商品
+        $ec = array();
+        foreach($list as $k=>$v){
+            if($v['num']==-1)$ec = $v;
             if($v['num']<1)unset($list[$k]);
         }
-
-
-        foreach($list as $k=>&$v){
+        //抽奖兑换
+        model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>100,'info'=>'兑换抽奖'))->add();
+        //开始抽奖
+        foreach($list as $k=>$v){
             $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_filed();
             if($countz>=$v['num'])continue;
             $rand = rand(1,$count);
             if($rand>$countz)continue;
-
-
-            
+            $data['did'] = $v['did'];
+            $data['name'] = $v['name'];
+            model('draw_log')->data($data)->add();
+            model('user')->data(array('score'=>array('add',$v['score'])))->save($this->uid);
+            model('score_log')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$v['score'],'info'=>'抽奖奖励'))->add();
+            $this->success(array('info'=>$v));
         }
+        //都没有抽中时候抽取num为-1的商品
+        if($ec){
+            $data['did'] = $ec['did'];
+            $data['name'] = $ec['name'];
+            model('draw_log')->data($data)->add();
+            model('user')->data(array('score'=>array('add',$ec['score'])))->save($this->uid);
+            model('score_log')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$ec['score'],'info'=>'抽奖奖励'))->add();
+            $this->success(array('info'=>$ec));
+        }
+        //没有设置num为-1的商品时候
+
+        $this->success(array('info'=>array(
+            'did'=>'0',
+            'name'=>'',
+            'score'=>'0',
+            'thumb'=>'',
+            'num'=>'0'
+        )));
+    }
+
+    function draw_log(){
+        $data['list'] = model('draw_log')->where(array('uid'=>$this->uid))->limit(999)->select();
+        $this->success($data);
     }
 }
 ?>
