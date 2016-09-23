@@ -762,7 +762,6 @@ class item extends base\basic{
         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_public_key.pem' );
         $res = openssl_get_publickey ( $priKey );
         openssl_public_encrypt ( $datag, $sign, $res );
-        openssl_free_key ( $res );
         $sign = base64_encode ( $sign );
         $sign = urlencode ( $sign );
         echo $sign;
