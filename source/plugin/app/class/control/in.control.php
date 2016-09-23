@@ -106,6 +106,9 @@ class in extends base\basic{
     function register($phone,$password){
         $phone = post('phone',$phone);
         $this->_check_phone($phone);
+        if($cookie = post('cookie',$cookie)){
+            $this->cookie = true;
+        }
         if(model('user')->where(array('phone'=>$phone))->find()){
             $this->errorCode(405);
         }
