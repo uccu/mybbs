@@ -686,7 +686,7 @@ class item extends base\basic{
     $h .= '&trade_type='.$a->trade_type;
     $h .= '&transaction_id='.$a->transaction_id;
     $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
-    if($a->sign.'' === strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
+    if($a->sign.'' == strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
     else echo 'FAIL';
 
     }
