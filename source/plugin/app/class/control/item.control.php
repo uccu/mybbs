@@ -726,6 +726,45 @@ class item extends base\basic{
         else echo 'FAIL';
 
     }
+    function test2(){
+        $data = '{
+            "discount": "0.00",
+            "payment_type": "1",
+            "subject": "购买乐商部落商品",
+            "trade_no": "2016092321001004350290564849",
+            "buyer_email": "627024472@qq.com",
+            "gmt_create": "2016-09-23 13:35:28",
+            "notify_type": "trade_status_sync",
+            "quantity": "1",
+            "out_trade_no": "9814746089245152175040",
+            "seller_id": "2088421747319415",
+            "notify_time": "2016-09-23 15:00:20",
+            "body": "乐商部落商品",
+            "trade_status": "TRADE_SUCCESS",
+            "is_total_fee_adjust": "N",
+            "total_fee": "0.01",
+            "gmt_payment": "2016-09-23 13:35:29",
+            "seller_email": "leshangbuluo@sina.com",
+            "price": "0.01",
+            "buyer_id": "2088502824880353",
+            "notify_id": "a1924b1809dbff8ab70fd5f73414803ipa",
+            "use_coupon": "N",
+            "sign_type": "RSA",
+            "sign": "fnSyNU55oIZIQ34A7MublIMwNrBR4XcuvMZMLTNvJq+yYcDcLB9/KW8n0ZIQTS53lYLWq+MoODVqYD0tSxGPWf37+wv/zdNCbQTFmvgaLVEo7shldugYQK3uV2N4BTO48Q3OACyuclXQScrALTJSohSaao4BJtcFt4cUqKpUj7k="
+        }';
+        $dataj = $data = json_decode($data);
+        unset($dataj['sign_type']);
+        unset($dataj['sign']);
+        ksort($dataj);
+        $datag = array();
+        foreach($dataj as $k=>$v)$datag[] = $k.'='.$v;
+        $datag = implode('&',$datag);
+        $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
+        $res = openssl_get_privatekey ( $priKey );
+        openssl_sign ( $datag, $sign, $res );
+        openssl_free_key ( $res );
+        echo $sign;
+    }
 
 }
 ?>
