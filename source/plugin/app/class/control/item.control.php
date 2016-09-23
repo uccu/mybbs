@@ -443,6 +443,13 @@ class item extends base\basic{
         $z = model('order')->find($oid);
         if(!$z)$this->errorCode(425);
         if($z['status']!=3)$this->errorCode(439);
+        model('user')->data(array('score'=>array('add',100)))->save($z['uid']);
+        model('score')->data(array(
+            'uid'=>$z['uid'],
+            'score'=>100,
+            'info'=>'确认订单',
+            'ctime'=>TIME_NOW
+        ))->add();
         $z = model('order')->data(array('status'=>4))->save($oid);
         if(!$z)$this->errorCode(439);
         $this->success();
