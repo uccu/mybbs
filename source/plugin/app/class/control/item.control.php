@@ -759,15 +759,15 @@ class item extends base\basic{
         $datag = array();
         foreach($dataj as $k=>$v)$datag[] = $k.'='.$v;
         $datag = implode('&',$datag);
-        // $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_private_key.pem' );
-        // $res = openssl_get_publickey ( $priKey );
+         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/alipay_private_key.pem' );
+         $res = openssl_get_publickey ( $priKey );
         // openssl_sign ( $datag, $sign, $res );
         // openssl_free_key ( $res );
         // $sign = base64_encode ( $sign );
         // $sign = urlencode ( $sign );
         // echo $sign;
 
-        $r = openssl_verify($datag, $dataj['sign'], $public_key_pem, "sha256WithRSAEncryption");
+        $r = openssl_verify($datag, $dataj['sign'], $res, "sha256WithRSAEncryption");
         var_dump($r);
     }
 
