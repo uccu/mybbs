@@ -463,7 +463,7 @@ class my extends base\basic{
             $rand = rand(1,1000-$count);
             if($rand>$v['num']-$countz)continue;
             $data['did'] = $v['did'];
-            $data['name'] = $v['name'];
+            $data['score'] = $v['score'];
             model('draw_log')->data($data)->add();
             model('user')->data(array('score'=>array('add',$v['score'])))->save($this->uid);
             model('score_log')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$v['score'],'info'=>'抽奖奖励'))->add();
@@ -472,7 +472,7 @@ class my extends base\basic{
         //都没有抽中时候抽取num为-1的商品
         if($ec){
             $data['did'] = $ec['did'];
-            $data['name'] = $ec['name'];
+            $data['score'] = $ec['score'];
             model('draw_log')->data($data)->add();
             model('user')->data(array('score'=>array('add',$ec['score'])))->save($this->uid);
             model('score_log')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$ec['score'],'info'=>'抽奖奖励'))->add();
