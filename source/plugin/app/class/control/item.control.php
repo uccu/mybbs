@@ -641,8 +641,9 @@ class item extends base\basic{
         $this->success();
     }
     function alipay_c(){
-
-        file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_SERVER) );
+        file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
+        $out_trade_no = $_POST ['out_trade_no'];
+        $this->_pay_c($out_trade_no.'');
         echo "SUCCESS";die();
     }
     function wcpay_c(){
