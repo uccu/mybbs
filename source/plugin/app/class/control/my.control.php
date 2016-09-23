@@ -461,7 +461,7 @@ class my extends base\basic{
             $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_field();
             if($countz>=$v['num'])continue;
             $rand = rand(1,$count);
-            if($rand>$countz)continue;
+            if($rand>$v['num']-$countz)continue;
             $data['did'] = $v['did'];
             $data['name'] = $v['name'];
             model('draw_log')->data($data)->add();
