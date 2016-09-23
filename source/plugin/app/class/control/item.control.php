@@ -639,6 +639,9 @@ class item extends base\basic{
         $this->_pay_c($pay_id);
         $this->success();
     }
+    function alipay_c(){
+        echo "SUCCESS";die();
+    }
     function wcpay_c(){
         $postStr = file_get_contents ( 'php://input' );
         // file_put_contents ( 't1.txt', $postStr );
@@ -665,10 +668,10 @@ class item extends base\basic{
             $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
             if($a->sign.'' === strtoupper ( md5 ( $h ) )){
                 $this->_pay_c($a->out_trade_no.'');
-                $this->success();
+                echo "SUCCESS";die();
             }
         }
-        $this->errorCode(400);
+        echo "FAIL";
     }
     function test(){
         $z = '<xml><appid><![CDATA[wx6257377cf020d6e7]]></appid>
