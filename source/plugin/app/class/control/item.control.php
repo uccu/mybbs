@@ -15,6 +15,7 @@ class item extends base\basic{
         if($lid)$where['lid'] = $lid;
         $where['del'] = 1;
         $aid = post('aid',$aid);
+        if(!$aid)$aid = $this->lastAid();
         $where['aid'] = $aid;
         $q['list'] = model('goods')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid')
@@ -677,44 +678,44 @@ class item extends base\basic{
     }
     function test(){
         $z = '<xml><appid><![CDATA[wx6257377cf020d6e7]]></appid>
-<bank_type><![CDATA[CFT]]></bank_type>
-<cash_fee><![CDATA[1]]></cash_fee>
-<fee_type><![CDATA[CNY]]></fee_type>
-<is_subscribe><![CDATA[N]]></is_subscribe>
-<mch_id><![CDATA[1392240002]]></mch_id>
-<nonce_str><![CDATA[93b793a8b2fe3b6b98b9e567fff97ef3]]></nonce_str>
-<openid><![CDATA[o_8NWwi5NJiKaYqAtIjqTg8V0D1U]]></openid>
-<out_trade_no><![CDATA[9814745391722102072082]]></out_trade_no>
-<result_code><![CDATA[SUCCESS]]></result_code>
-<return_code><![CDATA[SUCCESS]]></return_code>
-<sign><![CDATA[01C9FAE619E53496F74B0E5D854EA1A8]]></sign>
-<time_end><![CDATA[20160922181258]]></time_end>
-<total_fee>1</total_fee>
-<trade_type><![CDATA[APP]]></trade_type>
-<transaction_id><![CDATA[4004552001201609224638440667]]></transaction_id>
-</xml>';
-    $a =  simplexml_load_string ( $z );
-    $h = 'appid='.$a->appid;
-    $h .= '&bank_type='.$a->bank_type;
-    $h .= '&cash_fee='.$a->cash_fee;
-    $h .= '&fee_type='.$a->fee_type;
-    $h .= '&is_subscribe='.$a->is_subscribe;
-    $h .= '&mch_id='.$a->mch_id;
-    $h .= '&nonce_str='.$a->nonce_str;
-    $h .= '&openid='.$a->openid;
-    $h .= '&out_trade_no='.$a->out_trade_no;
-    $h .= '&result_code='.$a->result_code;
-    $h .= '&return_code='.$a->return_code;
-    $h .= '&time_end='.$a->time_end;
-    $h .= '&total_fee='.$a->total_fee;
-    $h .= '&trade_type='.$a->trade_type;
-    $h .= '&transaction_id='.$a->transaction_id;
-    $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
-    // echo $h.'<br>';
-    // echo $a->sign.'<br>';
-    // echo strtoupper ( md5 ( $h ) ).'<br>';
-    if($a->sign.'' === strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
-    else echo 'FAIL';
+        <bank_type><![CDATA[CFT]]></bank_type>
+        <cash_fee><![CDATA[1]]></cash_fee>
+        <fee_type><![CDATA[CNY]]></fee_type>
+        <is_subscribe><![CDATA[N]]></is_subscribe>
+        <mch_id><![CDATA[1392240002]]></mch_id>
+        <nonce_str><![CDATA[93b793a8b2fe3b6b98b9e567fff97ef3]]></nonce_str>
+        <openid><![CDATA[o_8NWwi5NJiKaYqAtIjqTg8V0D1U]]></openid>
+        <out_trade_no><![CDATA[9814745391722102072082]]></out_trade_no>
+        <result_code><![CDATA[SUCCESS]]></result_code>
+        <return_code><![CDATA[SUCCESS]]></return_code>
+        <sign><![CDATA[01C9FAE619E53496F74B0E5D854EA1A8]]></sign>
+        <time_end><![CDATA[20160922181258]]></time_end>
+        <total_fee>1</total_fee>
+        <trade_type><![CDATA[APP]]></trade_type>
+        <transaction_id><![CDATA[4004552001201609224638440667]]></transaction_id>
+        </xml>';
+        $a =  simplexml_load_string ( $z );
+        $h = 'appid='.$a->appid;
+        $h .= '&bank_type='.$a->bank_type;
+        $h .= '&cash_fee='.$a->cash_fee;
+        $h .= '&fee_type='.$a->fee_type;
+        $h .= '&is_subscribe='.$a->is_subscribe;
+        $h .= '&mch_id='.$a->mch_id;
+        $h .= '&nonce_str='.$a->nonce_str;
+        $h .= '&openid='.$a->openid;
+        $h .= '&out_trade_no='.$a->out_trade_no;
+        $h .= '&result_code='.$a->result_code;
+        $h .= '&return_code='.$a->return_code;
+        $h .= '&time_end='.$a->time_end;
+        $h .= '&total_fee='.$a->total_fee;
+        $h .= '&trade_type='.$a->trade_type;
+        $h .= '&transaction_id='.$a->transaction_id;
+        $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
+        // echo $h.'<br>';
+        // echo $a->sign.'<br>';
+        // echo strtoupper ( md5 ( $h ) ).'<br>';
+        if($a->sign.'' === strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
+        else echo 'FAIL';
 
     }
 
