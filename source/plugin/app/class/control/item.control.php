@@ -647,8 +647,26 @@ class item extends base\basic{
         // 
         $a =  simplexml_load_string ( $postStr );
         if($a->result_code.'' == 'SUCCESS'){
-            $this->_pay_c($a->out_trade_no.'');
-            $this->success();
+            $h = 'appid='.$a->appid;
+            $h .= '&bank_type='.$a->bank_type;
+            $h .= '&cash_fee='.$a->cash_fee;
+            $h .= '&fee_type='.$a->fee_type;
+            $h .= '&is_subscribe='.$a->is_subscribe;
+            $h .= '&mch_id='.$a->mch_id;
+            $h .= '&nonce_str='.$a->nonce_str;
+            $h .= '&openid='.$a->openid;
+            $h .= '&out_trade_no='.$a->out_trade_no;
+            $h .= '&result_code='.$a->result_code;
+            $h .= '&return_code='.$a->return_code;
+            $h .= '&time_end='.$a->time_end;
+            $h .= '&total_fee='.$a->total_fee;
+            $h .= '&trade_type='.$a->trade_type;
+            $h .= '&transaction_id='.$a->transaction_id;
+            $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
+            if($a->sign.'' === strtoupper ( md5 ( $h ) )){
+                $this->_pay_c($a->out_trade_no.'');
+                $this->success();
+            }
         }
         $this->errorCode(400);
     }
@@ -687,9 +705,9 @@ class item extends base\basic{
     $h .= '&trade_type='.$a->trade_type;
     $h .= '&transaction_id='.$a->transaction_id;
     $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
-    echo $h.'<br>';
-    echo $a->sign.'<br>';
-    echo strtoupper ( md5 ( $h ) ).'<br>';
+    // echo $h.'<br>';
+    // echo $a->sign.'<br>';
+    // echo strtoupper ( md5 ( $h ) ).'<br>';
     if($a->sign.'' === strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
     else echo 'FAIL';
 
