@@ -17,7 +17,7 @@ class pay extends \control\ajax{
         $p['payment_type']      = '1';                      // 支付类型， 固定值
         $p['_input_charset']    = 'utf-8';                  // 参数编码， 固定值
         $p['it_b_pay']          = '30m';                    // 设置未付款交易的超时时间
-        $p['return_url']        = 'baka';                   // 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
+        //$p['return_url']        = 'baka';                   // 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
 
         $info = array();
         foreach($p as $k=>$v)$info[] = $k.'="'.$v.'"';
