@@ -460,7 +460,7 @@ class my extends base\basic{
         foreach($list as $k=>$v){
             $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_field();
             if($countz>=$v['num'])continue;
-            $rand = rand(1,$count);
+            $rand = rand(1,1000-$count);
             if($rand>$v['num']-$countz)continue;
             $data['did'] = $v['did'];
             $data['name'] = $v['name'];
