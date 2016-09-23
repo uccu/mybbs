@@ -766,7 +766,7 @@ class item extends base\basic{
         // $sign = base64_encode ( $sign );
         // $sign = urlencode ( $sign );
         // echo $sign;
-
+        echo $datag.'<br>';
         $r = openssl_verify($datag, $dataj['sign'], $res);
         var_dump($r);
     }
