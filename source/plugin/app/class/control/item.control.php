@@ -753,8 +753,8 @@ class item extends base\basic{
             "sign": "fnSyNU55oIZIQ34A7MublIMwNrBR4XcuvMZMLTNvJq+yYcDcLB9/KW8n0ZIQTS53lYLWq+MoODVqYD0tSxGPWf37+wv/zdNCbQTFmvgaLVEo7shldugYQK3uV2N4BTO48Q3OACyuclXQScrALTJSohSaao4BJtcFt4cUqKpUj7k="
         }';
         $dataj = $data = json_decode($data,true);
-        require "alipay/alipay.config.php";
-        require "alipay/lib/alipay_notify.class.php";
+        require "/alipay/alipay.config.php";
+        require "/alipay/lib/alipay_notify.class.php";
 
         $_POST = $_GET = $dataj;
         $alipayNotify = new AlipayNotify ( $alipay_config );
