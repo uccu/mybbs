@@ -89,6 +89,10 @@ class home extends base\basic{
         if($this->out)$this->success($q);
         return $q;
     }
+    function profession(){
+        $z['list'] = model('profession')->limit(999)->select();
+        $this->success($z);
+    }
 
 }
 ?>

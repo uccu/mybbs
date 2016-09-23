@@ -499,5 +499,46 @@ class my extends base\basic{
         if(!$data['list'])$this->errorCode(427);
         $this->success($data);
     }
+
+    function colonel(){
+        $t = model('colonel')->where(array('uid'=>$this->uid))->find();
+        if(!$t){
+            $t['name'] = '';
+            $t['sex'] = '';
+            $t['birth'] = '';
+            $t['phone'] = '';
+            $t['location'] = '';
+            $t['profession'] = '';
+        }
+        if(!$_POST){
+            $data['info'] = $t;
+            $this->success($data);
+        }else{
+            unset($_POST['uid']);
+            $_POST['type'] = 0;
+            $z = model('colonel')->data($_POST)->add(true);
+            $this->success($z);
+        }
+    }
+    function stationmaster(){
+        $t = model('stationmaster')->where(array('uid'=>$this->uid))->find();
+        if(!$t){
+            $t['name'] = '';
+            $t['sex'] = '';
+            $t['birth'] = '';
+            $t['phone'] = '';
+            $t['location'] = '';
+            $t['profession'] = '';
+        }
+        if(!$_POST){
+            $data['info'] = $t;
+            $this->success($data);
+        }else{
+            unset($_POST['uid']);
+            $_POST['type'] = 0;
+            $z = model('stationmaster')->data($_POST)->add(true);
+            $this->success($z);
+        }
+    }
 }
 ?>
