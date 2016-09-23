@@ -761,7 +761,7 @@ class item extends base\basic{
         $datag = implode('&',$datag);
         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/rsa_public_key.pem' );
         $res = openssl_get_publickey ( $priKey );
-        openssl_sign ( $datag, $sign, $res );
+        openssl_public_encrypt ( $datag, $sign, $res );
         openssl_free_key ( $res );
         $sign = base64_encode ( $sign );
         $sign = urlencode ( $sign );
