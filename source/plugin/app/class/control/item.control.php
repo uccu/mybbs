@@ -16,7 +16,7 @@ class item extends base\basic{
         $where['del'] = 1;
         $aid = post('aid',$aid);
         if(!$aid)$aid = $this->lastAid();
-        var_dump($aid);
+        var_dump($aid,$this->lastAid());
         $where['aid'] = $aid;
         $q['list'] = model('goods')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid')
