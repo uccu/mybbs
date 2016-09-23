@@ -16,7 +16,7 @@ class captcha extends \control\ajax{
         $z['o'] = file_get_contents ("https://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg=您好，您的验证码是：{$s}");
         session_start();
         $_SESSION['captcha'] = $s;
-        $z['i'] = model('user')->where(array('phone'=>$phone))->find() ? 1 : 0;
+        $z['new'] = model('user')->where(array('phone'=>$phone))->find() ? 0 : 1;
         $this->success($z);
     }
     function _check_captcha(){
