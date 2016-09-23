@@ -759,7 +759,7 @@ class item extends base\basic{
         $datag = array();
         foreach($dataj as $k=>$v)$datag[] = $k.'='.$v;
         $datag = implode('&',$datag);
-         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/alipay_private_key.pem' );
+         $priKey = file_get_contents ( PLAY_ROOT . '.ssh/alipay_public_key.pem' );
          $res = openssl_get_publickey ( $priKey );
         // openssl_sign ( $datag, $sign, $res );
         // openssl_free_key ( $res );
