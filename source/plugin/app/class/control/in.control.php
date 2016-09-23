@@ -130,7 +130,7 @@ class in extends base\basic{
         if($info['referee']){
             $data['fans_id'] = $z;
             $data['uid'] = $info['referee'];
-            $data['aid'] = $this->aid;
+            $data['aid'] = $this->lastAid;
             if(!model('fans')->where($data)->find()){
                 $data['ctime'] = TIME_NOW;
                 $data['buy'] = 0; 
