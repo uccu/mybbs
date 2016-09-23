@@ -491,6 +491,7 @@ class my extends base\basic{
 
     function draw_log(){
         $data['list'] = model('draw_log')->where(array('uid'=>$this->uid))->limit(999)->select();
+        if(!$data['list'])$this->errorCode(427);
         $this->success($data);
     }
 }
