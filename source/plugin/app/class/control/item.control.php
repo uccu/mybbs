@@ -678,7 +678,7 @@ class item extends base\basic{
     $h .= '&is_subscribe='.$a->is_subscribe;
     $h .= '&mch_id='.$a->mch_id;
     $h .= '&nonce_str='.$a->nonce_str;
-    $h .= '&openide='.$a->openid;
+    $h .= '&openid='.$a->openid;
     $h .= '&out_trade_no='.$a->out_trade_no;
     $h .= '&result_code='.$a->result_code;
     $h .= '&return_code='.$a->return_code;
@@ -687,6 +687,9 @@ class item extends base\basic{
     $h .= '&trade_type='.$a->trade_type;
     $h .= '&transaction_id='.$a->transaction_id;
     $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
+    echo $h.'<br>';
+    echo $a->sign.'<br>';
+    echo strtoupper ( md5 ( $h ) ).'<br>';
     if($a->sign.'' === strtoupper ( md5 ( $h ) ))echo 'SUCCESS';
     else echo 'FAIL';
 
