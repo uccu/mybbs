@@ -763,6 +763,8 @@ class item extends base\basic{
         $res = openssl_get_privatekey ( $priKey );
         openssl_sign ( $datag, $sign, $res );
         openssl_free_key ( $res );
+        $sign = base64_encode ( $sign );
+        $sign = urlencode ( $sign );
         echo $sign;
     }
 
