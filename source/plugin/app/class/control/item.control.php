@@ -666,9 +666,9 @@ class item extends base\basic{
 <transaction_id><![CDATA[4004552001201609224638440667]]></transaction_id>
 </xml>';
     $a =  simplexml_load_string ( $z );
-    $a->openid;
-    $a->mch_id;
-    $a->device_info;
+    echo $a->openid.'<br>';
+    echo $a->mch_id.'<br>';
+    echo $a->result_code.'<br>';
 
     var_dump($a);
 
