@@ -752,7 +752,7 @@ class item extends base\basic{
             "sign_type": "RSA",
             "sign": "fnSyNU55oIZIQ34A7MublIMwNrBR4XcuvMZMLTNvJq+yYcDcLB9/KW8n0ZIQTS53lYLWq+MoODVqYD0tSxGPWf37+wv/zdNCbQTFmvgaLVEo7shldugYQK3uV2N4BTO48Q3OACyuclXQScrALTJSohSaao4BJtcFt4cUqKpUj7k="
         }';
-        $dataj = $data = json_decode($data);
+        $dataj = $data = json_decode($data,true);
         unset($dataj['sign_type']);
         unset($dataj['sign']);
         ksort($dataj);
