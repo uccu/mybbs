@@ -21,6 +21,7 @@ class item extends base\basic{
             'activity_list'=>array('aid','_on'=>'tid')
         ))->where($where)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
+        $q['aid'] = $aid;
         $this->success($q);
     }
     function types(){
