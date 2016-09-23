@@ -414,5 +414,44 @@ class my extends base\basic{
         }
         $this->success();
     }
+
+
+
+    function draw_list(){
+        $data['list'] = model('draw_score')->limit(8)->select();
+        $this->success($data);
+    }
+    function draw(){
+        if($this->userInfo['score']<100)$this->errorCode(442);
+        $draw_round_id = model('cache')->get('draw_round_id');
+
+        $count = model('draw_log')->where(array('draw_round_id'=>$draw_round_id))->get_filed();
+        if($count>=1000){
+            $draw_round_id++;
+            model('cache')->plus('draw_round_id');
+        }
+
+
+        $data['uid'] = $this->uid;
+        $data['draw_round_id'] = $draw_round_id;
+
+
+
+        $rawList = $list = model('draw_score')->limit(8)->select();
+        foreach($list as $k=>&$v){
+            if($v['num']<1)unset($list[$k]);
+        }
+
+
+        foreach($list as $k=>&$v){
+            $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_filed();
+            if($countz>=$v['num'])continue;
+            $rand = rand(1,$count);
+            if($rand>$countz)continue;
+
+
+            
+        }
+    }
 }
 ?>
