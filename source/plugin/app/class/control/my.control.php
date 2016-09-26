@@ -509,9 +509,11 @@ class my extends base\basic{
             $t['phone'] = '';
             $t['location'] = '';
             $t['profession'] = '';
+            
         }
         unset($_POST['user_token']);
         if(!$_POST){
+            $t['type'] = '-1';
             $data['info'] = $t;
             $this->success($data);
         }else{
@@ -531,9 +533,11 @@ class my extends base\basic{
             $t['phone'] = '';
             $t['location'] = '';
             $t['profession'] = '';
+            
         }
         unset($_POST['user_token']);
         if(!$_POST){
+            $t['type'] = '-1';
             $data['info'] = $t;
             $this->success($data);
         }else{
