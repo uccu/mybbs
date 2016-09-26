@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-    <div class="head-left"></div>
+    <div class="head-left"><i class="icon-head-back" onclick="history.back();"></i></div>
     <div class="head-center">乐商部落</div>
     <div class="head-right"></div>
 </header>
@@ -31,25 +31,6 @@
 </div>
 <div class="prompt-register">密码为6-25位字符</div>
 <span class="btn reg-next-btn" onclick="regNext();">下 一 步</span>
-<script type="text/javascript">
-    var param = get_param();
-    $("input[type='number']").val(param.mobile);
-    /**
-     * 下一步
-     */
-    function regNext() {
-        var mobile = tirm($("#login_mobile").val());
-        if(mobile.length != 11){
-            show_alert("请输入正确的手机号");
-            return false;
-        }
-        var pwd = $("#login_pwd").val();
-        if(pwd.length < 6 || pwd.length > 25){
-            show_alert("密码为6-25位字符");
-            return false;
-        }
-        redirect("product_list.html", true);
-    }
-</script>
+<script type="text/javascript" src="js/devJs/register_next.1.0.js"></script>
 </body>
 </html>

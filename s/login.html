@@ -13,21 +13,23 @@
     <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/user.js"></script>
 </head>
 <body>
 <header>
     <div class="head-left"></div>
-    <div class="head-center">帮帮购</div>
+    <div class="head-center">登 录</div>
     <div class="head-right"></div>
 </header>
-<div class="head" style="height: 1.5rem;"></div>
-<div class="list-top">
+<div class="head"></div>
+<div class="common-input">
+    <div class="common-input-name">手机号：</div>
+    <input type="number" class="common-input-text" readonly="readonly" id="login_mobile" placeholder="请输入手机号"/>
 </div>
-<div style="width: 100%; height: 0.1rem; background: #F4F4F4; position: fixed; top:1.5rem; z-index: 9;"></div>
-<div class="product-list">
+<div class="common-input">
+    <div class="common-input-name">密码：</div>
+    <input type="password" class="common-input-text" id="login_pwd"  minlength="6" maxlength="25" placeholder="请输入登录密码"/>
 </div>
-<div id="index_cart_btn" onclick="redirect('cart.html');"><h1>0</h1></div>
-<script type="text/javascript" src="js/devJs/product_list.1.0.js"></script>
+<span class="btn reg-next-btn" onclick="regNext();">下 一 步</span>
+<script type="text/javascript" src="js/devJs/login.1.0.js"></script>
 </body>
 </html>

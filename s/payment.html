@@ -13,21 +13,29 @@
     <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/yxMobileSlider.js"></script>
     <script type="text/javascript" src="js/user.js"></script>
 </head>
 <body>
+<!-- 确认订单开始 -->
 <header>
-    <div class="head-left"></div>
-    <div class="head-center">帮帮购</div>
+    <div class="head-left"><i class="icon-head-back" onclick="if(confirm('您的订单还未支付\n确定离开此页？')){redirect('product_list.html', true);}"></i></div>
+    <div class="head-center">选择支付方式</div>
     <div class="head-right"></div>
 </header>
-<div class="head" style="height: 1.5rem;"></div>
-<div class="list-top">
+<div class="head"></div>
+<div class="payment-common-list">
+    <span class="payment-aliPay"></span>支付宝支付
+    <i class="checkBox" cntype="aliPay"></i>
 </div>
-<div style="width: 100%; height: 0.1rem; background: #F4F4F4; position: fixed; top:1.5rem; z-index: 9;"></div>
-<div class="product-list">
+<div class="payment-common-list">
+    <span class="payment-weiPay"></span>微信支付
+    <i class="checkBox" nctype="weiXin"></i>
 </div>
-<div id="index_cart_btn" onclick="redirect('cart.html');"><h1>0</h1></div>
-<script type="text/javascript" src="js/devJs/product_list.1.0.js"></script>
+<div style="height: 1.5rem;"></div>
+<div class="address-btn-box">
+    <span class="address-btn btn" onclick="payNow();">确 定</span>
+</div>
+<script type="text/javascript" src="js/devJs/payment.1.0.js"></script>
 </body>
 </html>

@@ -9,9 +9,11 @@ new function (){
    _self.changePage();
    window.addEventListener('resize',function(){_self.changePage();},false);
 };
-
+$.ajaxSettings.xhrFields={withCredentials: true};
 var config = new Array();
 config['timeOut'] = 1500;
+config['host'] = "http://121.199.8.244:2000/";
+config['imageUrl'] = "http://121.199.8.244:8509/lgsc/upload_all/head/news_img/";
 
 /**
  * 获取url参数
@@ -35,31 +37,57 @@ function get_param(url){
 	}
 	return get_data;
 }
+
+var user_info = sessionStorage.getItem("LG_User");
+var user_id = null;
+var user_token = null;
+if(user_info != "" && user_info != null && user_info != undefined){
+	user_info = JSON.parse(user_info);
+	user_id = user_info.uid;
+	user_token = user_info.user_token;
+}
+
 /**
- * 没啥用
- * @returns {number}
+ * ajax请求数据
+ * @param url
+ * @param data
+ * @param calBackFunction
  */
-function getScrollTop()
-{
-    var scrollTop=0;
-    if(document.documentElement&&document.documentElement.scrollTop)
-    {
-        scrollTop=document.documentElement.scrollTop;
-    }
-    else if(document.body)
-    {
-        scrollTop=document.body.scrollTop;
-    }
-    return scrollTop;
+function requestData(url, data, calBackFunction, async) {
+	var loading_html = '<div class="alert_dialog loading_dialog" style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:999; background:rgba(0,0,0,0.3);"><div class="show_alert" style="background:transparent; padding: 0; border-radius: 0.1rem; overflow: hidden; box-shadow: none;"><img src="images/loading.gif" style="height:0.8rem; width:0.8rem; display:block; margin:0 auto;"/></div></div>';
+	url = config.host+url;
+	if(async == null || async == undefined){
+		async = true;
+	}
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: data,
+		dataType: "JSON",
+		async: async,
+		beforeSend : function(){
+			$("body").append(loading_html);
+		},
+		success : function(json){
+			calBackFunction(json);
+			$(".loading_dialog").remove();
+		},
+		error : function(XMLHttpRequest){
+			$(".loading_dialog").remove();
+			console.log(XMLHttpRequest);
+			show_alert('请检查网络');
+		}
+	});
 }
 
 /**
  *
  * @param msg 提示信息
  * @param qnmlgb 是否刷新
- * @param loca_url 跳转地址
+ * @param local_url 跳转地址
+ * @param rep
  */
-function show_alert(msg, qnmlgb, loca_url){
+function show_alert(msg, qnmlgb, local_url, rep){
 	var html = '<div class="alert_dialog"><div class="show_alert">'+msg+'</div></div>';
 	$("body").append(html);
 	var i = 0;
@@ -68,8 +96,8 @@ function show_alert(msg, qnmlgb, loca_url){
 		if(qnmlgb == true){
 			history.go(0);
 		}
-		if(loca_url != "" && loca_url != undefined){
-			redirect(loca_url);
+		if(local_url != "" && local_url != undefined){
+			redirect(local_url, rep);
 		}
 		if(i >= 1){
 			clearTimeout(setI);
@@ -154,7 +182,43 @@ function getBackShuaXin(){
 	history.back();
 }
 
+/**
+ * 拼接图片地址
+ * @param string
+ * @returns {object}
+ */
+function getImagesList(string) {
+	var arr = string.split(";");
+	$.each(arr, function(i, v){
+		arr[i] = config.imageUrl + v;
+	});
+	return arr;
+}
 
-
+/**
+ * 时间戳转换
+ * @param time
+ * @param his
+ * @returns {string}
+ */
+function get_date(time, his){
+	time = new Date(time * 1000);
+	var year = time.getFullYear();
+	var month = parseInt(time.getMonth()) + 1;
+	var day = time.getDate();
+	month = (month>=10)?month:"0"+month;
+	day = (day>=10)?day:"0"+day;
+	if(his == true){
+		var hours = time.getHours();
+		hours = (hours>=10)?hours:"0"+hours;
+		var min = time.getMinutes();
+		min = (min>=10)?min:"0"+min;
+		var sen = time.getSeconds();
+		sen = (sen>=10)?sen:"0"+sen;
+		return year+'-'+month+'-'+day+' '+hours+':'+min+':'+sen;
+	}else{
+		return year+'-'+month+'-'+day;
+	}
+}
 
 
