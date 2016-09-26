@@ -654,6 +654,7 @@ class item extends base\basic{
         $this->success($data);
     }
     function alipayx($money){
+        $this->_check_login();
         $money = post('money',$money,'%d'); 
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
@@ -667,6 +668,7 @@ class item extends base\basic{
         $this->success($dat);
     }
     function wxpayx($money){
+        $this->_check_login();
         $money = post('money',$money,'%d'); 
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
@@ -680,6 +682,7 @@ class item extends base\basic{
         $this->success($dat);
     }
     function coinx($money){
+        $this->_check_login();
         $money = post('money',$money,'%d'); 
         if($this->userInfo['coin']<$money)$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($p['uid']);
