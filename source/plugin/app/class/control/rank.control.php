@@ -377,6 +377,10 @@ class rank extends base\basic{
 
         $z['avatar'] = $this->userInfo['avatar'];
         $z['uid'] = $this->uid;
+        $z['allCoin'] = $z['gou']['coin']+
+        $z['xiang']['coin']+$z['bang']['coin']+
+        $z['xiang_x']['coin']+$z['bang_x']['coin']+
+        $z['bean']['coin'];
         $this->success($z);
 
     }
