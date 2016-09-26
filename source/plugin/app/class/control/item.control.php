@@ -681,7 +681,7 @@ class item extends base\basic{
     }
     function coinx($money){
         $money = post('money',$money,'%d'); 
-        if($userInfo['coin']<$money)$this->errorCode(429);
+        if($this->userInfo['coin']<$money)$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($p['uid']);
         $this->success();
     }
