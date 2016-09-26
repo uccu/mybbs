@@ -232,6 +232,13 @@ class item extends base\basic{
         
         $this->success($q);
     }
+    function money($oids){
+        $oids = explode(',',$oids);
+        $c = model('orders')->where(array('oid'=>array('contain',$oids,'IN')))->get_field('SUM(`price`)');
+        if(!$c)$c = 0;
+        $data['count'] = $c; 
+        $this->success($data);
+    }
     function torder($tid){
         //验证登录
         $this->_check_login();
