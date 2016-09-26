@@ -537,7 +537,7 @@ class my extends base\basic{
             $data['info'] = $t;
             $this->success($data);
         }else{
-            unset($_POST['uid']);
+            $_POST['uid']=$this->uid;
             $_POST['type'] = 0;
             
             $z = model('colonel')->data($_POST)->add(true);
@@ -580,7 +580,7 @@ class my extends base\basic{
             $data['info'] = $t;
             $this->success($data);
         }else{
-            unset($_POST['uid']);
+            $_POST['uid']=$this->uid;
             $_POST['type'] = 0;
             
             $z = model('stationmaster')->data($_POST)->add(true);
