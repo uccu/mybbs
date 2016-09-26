@@ -233,6 +233,7 @@ class item extends base\basic{
         $this->success($q);
     }
     function money($oids){
+        $oids = post('oids',$oids);
         $oids = explode(',',$oids);
         $c = model('order')->where(array('oid'=>array('contain',$oids,'IN')))->get_field('SUM(`money`)');
         if(!$c)$c = "0";
