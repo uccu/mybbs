@@ -638,6 +638,12 @@ class item extends base\basic{
     }
     function _pay_score_c($p){
         model('user')->data(array('score'=>array('add',$p['score'])))->save($p['uid']);
+        model('score_log')->data(array(
+            'uid'=>$p['uid'],
+            'score'=>$p['score'],
+            'info'=>'充值积分',
+            'ctime'=>TIME_NOW
+        ))->add();
         $this->success();
     }
     function _useCoin($money,$coin){
@@ -685,7 +691,14 @@ class item extends base\basic{
         $this->_check_login();
         $money = post('money',$money,'%d'); 
         if($this->userInfo['coin']<$money)$this->errorCode(429);
-        model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($p['uid']);
+        model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($this->uid);
+        model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$money,'info'=>'充值积分','ctime'=>TIME_NOW))->add();
+        model('score_log')->data(array(
+            'uid'=>$this->uid,
+            'score'=>$money*100,
+            'info'=>'充值积分',
+            'ctime'=>TIME_NOW
+        ))->add();
         $this->success();
     }
     function stime(){
