@@ -510,13 +510,14 @@ class my extends base\basic{
             $t['location'] = '';
             $t['profession'] = '';
         }
+        unset($_POST['user_token']);
         if(!$_POST){
             $data['info'] = $t;
             $this->success($data);
         }else{
             unset($_POST['uid']);
             $_POST['type'] = 0;
-            unset($_POST['user_token']);
+            
             $z = model('colonel')->data($_POST)->add(true);
             $this->success($z);
         }
@@ -531,13 +532,14 @@ class my extends base\basic{
             $t['location'] = '';
             $t['profession'] = '';
         }
+        unset($_POST['user_token']);
         if(!$_POST){
             $data['info'] = $t;
             $this->success($data);
         }else{
             unset($_POST['uid']);
             $_POST['type'] = 0;
-            unset($_POST['user_token']);
+            
             $z = model('stationmaster')->data($_POST)->add(true);
             $this->success($z);
         }
