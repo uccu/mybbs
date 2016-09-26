@@ -128,7 +128,7 @@ class in extends base\basic{
         $info['ctime'] = time();
         $info['coin'] = 10000;
         $info['username'] = '用户_'.$info['ctime'];
-        $info['platform'] = post('platform','');
+        $info['terminal'] = post('terminal','');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
         if($info['referee']){
