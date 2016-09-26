@@ -234,7 +234,7 @@ class item extends base\basic{
     }
     function money($oids){
         $oids = explode(',',$oids);
-        $c = model('order')->where(array('oid'=>array('contain',$oids,'IN')))->get_field('SUM(`price`)');
+        $c = model('order')->where(array('oid'=>array('contain',$oids,'IN')))->get_field('SUM(`money`)');
         if(!$c)$c = 0;
         $data['count'] = $c; 
         $this->success($data);
