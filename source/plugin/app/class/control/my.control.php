@@ -509,11 +509,31 @@ class my extends base\basic{
             $t['phone'] = '';
             $t['location'] = '';
             $t['profession'] = '';
+            $t['type'] = '-1';
             
         }
         unset($_POST['user_token']);
         if(!$_POST){
-            $t['type'] = '-1';
+            
+            $l = model('location')->limit(9999)->select('id');
+            $v = &$t;
+            $v['area'] = $v['location'];
+            $v['areaName'] = $l[$v['location']]['title'];
+            if(!$v['area']){
+                $v['area'] = 0;$v['areaName'] = '';
+            }
+            $v['city'] = $l[$v['location']]['pid'];
+            $v['cityName'] = $l[$v['city']]['title'];
+            if(!$v['city']){
+                $v['city'] = 0;$v['cityName'] = '';
+            }
+            $v['province'] = $l[$v['city']]['pid'];
+            $v['provinceName'] = $l[$v['province']]['title'];
+            if(!$v['province']){
+                $v['province'] = 0;$v['provinceName'] = '';
+            }
+            $l = model('profession')->find($t['profession']);
+            $v['work'] = $l?$l['name']:'';
             $data['info'] = $t;
             $this->success($data);
         }else{
@@ -525,7 +545,7 @@ class my extends base\basic{
         }
     }
     function stationmaster(){
-        $t = model('stationmaster')->where(array('uid'=>$this->uid))->find();
+        $t2 = $t = model('stationmaster')->where(array('uid'=>$this->uid))->find();
         if(!$t){
             $t['name'] = '';
             $t['sex'] = '';
@@ -533,11 +553,30 @@ class my extends base\basic{
             $t['phone'] = '';
             $t['location'] = '';
             $t['profession'] = '';
-            
+            $t['type'] = '-1';
         }
         unset($_POST['user_token']);
         if(!$_POST){
-            $t['type'] = '-1';
+            $l = model('location')->limit(9999)->select('id');
+            $v = &$t;
+            $v['area'] = $v['location'];
+            $v['areaName'] = $l[$v['location']]['title'];
+            if(!$v['area']){
+                $v['area'] = 0;$v['areaName'] = '';
+            }
+            $v['city'] = $l[$v['location']]['pid'];
+            $v['cityName'] = $l[$v['city']]['title'];
+            if(!$v['city']){
+                $v['city'] = 0;$v['cityName'] = '';
+            }
+            $v['province'] = $l[$v['city']]['pid'];
+            $v['provinceName'] = $l[$v['province']]['title'];
+            if(!$v['province']){
+                $v['province'] = 0;$v['provinceName'] = '';
+            }
+            $l = model('profession')->find($t['profession']);
+            $v['work'] = $l?$l['name']:'';
+                
             $data['info'] = $t;
             $this->success($data);
         }else{
