@@ -151,7 +151,8 @@ class in extends base\basic{
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
-            'new'=>$info['new']?1:0
+            'new'=>$info['new']?1:0,
+            'pay_password'=>$info['pay_password']?$info['pay_password']:''
         );
         $this->success($out);
 
