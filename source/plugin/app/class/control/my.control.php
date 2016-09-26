@@ -516,6 +516,7 @@ class my extends base\basic{
         }else{
             unset($_POST['uid']);
             $_POST['type'] = 0;
+            unset($_POST['user_token']);
             $z = model('colonel')->data($_POST)->add(true);
             $this->success($z);
         }
@@ -536,6 +537,7 @@ class my extends base\basic{
         }else{
             unset($_POST['uid']);
             $_POST['type'] = 0;
+            unset($_POST['user_token']);
             $z = model('stationmaster')->data($_POST)->add(true);
             $this->success($z);
         }
