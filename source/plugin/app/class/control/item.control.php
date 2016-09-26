@@ -513,6 +513,9 @@ class item extends base\basic{
         $where['pay_id'] = array('logic',$pay_id,'!=');
         model('pay_log')->where($where)->remove();
 
+        if($p['score'])$this->_pay_score_c($p);
+
+
         //获取最近的一期活动ID与操作用户
         $aid = $this->lastAid;
         $uid = $p['uid'];
@@ -633,6 +636,10 @@ class item extends base\basic{
         model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
         
     }
+    function _pay_score_c($p){
+        model('user')->data(array('score'=>array('add',$p['score'])))->save($p['uid']);
+        $this->success();
+    }
     function _useCoin($money,$coin){
 
     }
@@ -645,6 +652,38 @@ class item extends base\basic{
         $data['c'] = $dat = $this->_pay($oids,$use_coin);
         $data['p'] = control('tool:pay')->_wcpay($dat);
         $this->success($data);
+    }
+    function alipayx($money){
+        $money = post('money',$money,'%d'); 
+        $string = '1234567890';
+        $data['pay_id']='98'.TIME_NOW;
+        for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
+        $data['uid'] = $this->uid;
+        $data['money'] = $money;
+        $data['score'] = $money*100;
+        $data['ctime'] = TIME_NOW;
+        model('pay_log')->data($data)->add();
+        $dat['p'] = control('tool:pay')->_alipay($data);
+        $this->success($dat);
+    }
+    function wxpayx($money){
+        $money = post('money',$money,'%d'); 
+        $string = '1234567890';
+        $data['pay_id']='98'.TIME_NOW;
+        for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
+        $data['uid'] = $this->uid;
+        $data['money'] = $money;
+        $data['score'] = $money*100;
+        $data['ctime'] = TIME_NOW;
+        model('pay_log')->data($data)->add();
+        $dat['p'] = control('tool:pay')->_wcpay($data);
+        $this->success($dat);
+    }
+    function coinx($money){
+        $money = post('money',$money,'%d'); 
+        if($userInfo['coin']<$money)$this->errorCode(429);
+        model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($p['uid']);
+        $this->success();
     }
     function stime(){
         $this->success($this->microtime);
