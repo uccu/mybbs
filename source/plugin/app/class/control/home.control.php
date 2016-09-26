@@ -7,6 +7,26 @@ class home extends base\basic{
         
 
     }
+    function _allBean($aid){
+        $all = model('order')->field('SUM(`bean`) as `s`')->where(array(
+            'aid'=>$aid,
+            'status'=>array('contain',array(2,3,4),'IN'),
+        ))->find();
+        $pe = model('cache')->get('percent');
+        return $all['s']?$all['s']*$pe:0;
+    }
+    function _allMoney($aid){
+        $all = model('order')->field('SUM(`money`) as `s`')->where(array(
+            'aid'=>$aid,
+            'status'=>array('contain',array(2,3,4),'IN'),
+        ))->find();
+        return $all['s']?$all['s']:0;
+    }
+    function _allFans($aid){
+        $all = model('fans')->where(array(
+            'aid'=>$aid))->get_field();
+        return $all;
+    }
     function banner(){
         $z = model('banner')->limit(999)->select();
         if(!$z)$this->errorCode(427);
@@ -57,7 +77,7 @@ class home extends base\basic{
         $q['activityInfo'] = $z;
         if($z){
             $q['activityInfo']['time'] = TIME_NOW;
-            $q['activityInfo']['message'] = '总奖金100W';
+            $q['activityInfo']['message'] = '总销售'.$this->_allMoney($z['aid']).'元，参团'.$this->_fans($z['aid']).'人，奖金'.$this->_allBean($z['aid']).'元';
             $where2['stime'] = array('logic',$z['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }else{
