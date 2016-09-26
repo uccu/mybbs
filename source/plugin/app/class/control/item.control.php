@@ -138,8 +138,9 @@ class item extends base\basic{
         $this->success($q);
     }
     function cart_count(){
-        $this->_check_login();
         $data['uid'] = $this->uid;
+        $this->_check_login();
+        
         $q['count'] = model('cart')->where($data)->get_field();
         $this->success($q);
     }

@@ -56,7 +56,7 @@ class basic extends \control\ajax{
         return $z ? $z['aid'] : 0;
     }
     function _check_login(){
-        if(!$this->uid || $this->uid<0)$this->errorCode(410);
+        if(!$this->uid || $this->uid<0)$this->errorCode(410,$this->uid);
     }
     function _get_microtime(){
         list($usec, $sec) = explode(" ", microtime());
