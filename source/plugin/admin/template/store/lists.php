@@ -51,7 +51,7 @@
                         <tr>
                             <td>{p.sid}</td>
                             <td>{p.sname}</td>
-                            <td><img class='img-responsive center-block' style="width:80px" src="http://120.26.230.136:6087/pic/{p.sthumb}" /></td>
+                            <td><img class='img-responsive center-block' style="width:80px" src="http://www.scthalia.com:6087/pic/{p.sthumb}" /></td>
                             <td>{p.area}</td>
                             <td>{p.phone}</td>
                             <td><a href="expert/lists/1/{p.sid}" type="button" class="btn btn-warning">查看</a></td>

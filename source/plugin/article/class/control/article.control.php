@@ -34,7 +34,7 @@ class article extends \control\ajax{
         if($m['atype']==0) $this->g->media = $m['amedia'];
         else $this->g->pic = $m['amedia'];
         if($m['adescription'])$this->g->template['adescription'] = $m['adescription'];
-        $out['url'] = 'http://120.26.230.136:6087/article/article/article/'.$aid;
+        $out['url'] = 'http://www.scthalia.com:6087/article/article/article/'.$aid;
         $where['uid'] = $this->user->uid;
         $where['aid'] = $aid;
         $out['atype'] = $m['atype'];

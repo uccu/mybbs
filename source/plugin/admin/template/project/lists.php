@@ -43,7 +43,7 @@
                         <!--{loop $list $p}-->
                         <tr>
                             <td>{p.jid}</td>
-                            <td><img class='img-responsive img-circle center-block' style="width:40px" src="http://120.26.230.136:6087/pic/{p.jthumb}" /></td>
+                            <td><img class='img-responsive img-circle center-block' style="width:40px" src="http://www.scthalia.com:6087/pic/{p.jthumb}" /></td>
                             <td>{p.jname}</td>
                             <td>{p.cdate}</td>
                             <td>

@@ -45,7 +45,7 @@
                         <tr>
                             <td>{p.eid}</td>
                             <td>{p.ename}</td>
-                            <td><img class='img-responsive center-block img-circle' style="width:40px" src="http://120.26.230.136:6087/pic/{p.ethumb}" /></td>
+                            <td><img class='img-responsive center-block img-circle' style="width:40px" src="http://www.scthalia.com:6087/pic/{p.ethumb}" /></td>
                             <td><a href="store/lists/1/0/{p.sid}" type="button" class="btn btn-warning">查看</a></td>
                             <td><a href="reservation/lists/1/{p.eid}" type="button" class="btn btn-warning">查看</a></td>
                             

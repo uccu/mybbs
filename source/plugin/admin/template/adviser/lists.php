@@ -124,7 +124,7 @@
         j.post('user/get_user_detail/'+id,(d)=>{
             m.find('[name=uid]').val(d.data.uid);
             m.find('[name=uid2]').val(d.data.uid);
-            m.find('img').attr('src','http://120.26.230.136:6087/pic/'+d.data.avatar);
+            m.find('img').attr('src','http://www.scthalia.com:6087/pic/'+d.data.avatar);
             m.find('[name=avatar]').val(d.data.avatar);
             m.find('[name=avatar2]').val(d.data.avatar);
             m.find('[name=phone]').val(d.data.phone);

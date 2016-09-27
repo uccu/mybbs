@@ -42,7 +42,7 @@
                             <td class="text-center">{n}</td>
                             <td><a class="text_img cp" data-trigger="hover" 
                             title="图片" data-html="true" 
-                            data-content="<img class='img-responsive' src='http://120.26.230.136:6087/pic/{v.pic}' />">{v.pic}</a></td>
+                            data-content="<img class='img-responsive' src='http://www.scthalia.com:6087/pic/{v.pic}' />">{v.pic}</a></td>
                            
                             <td><a data-type="{v.type}">
                                 {if $v['type']=='none'}

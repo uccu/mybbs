@@ -38,10 +38,10 @@ class product extends \control\ajax{
         $where['uid'] = $this->user->uid;
         $where['did'] = $did;
         $d['favo'] = $this->favourite->where($where)->find() ? 1 : 0;
-        $d['introduction'] = 'http://120.26.230.136:6087/project/product/product_info/introduction/'.$did;
-        $d['fealture'] = 'http://120.26.230.136:6087/project/product/product_info/fealture/'.$did;
-        $d['effect'] = 'http://120.26.230.136:6087/project/product/product_info/effect/'.$did;
-        $d['purchase'] = 'http://120.26.230.136:6087/project/product/product_info/purchase/'.$did;
+        $d['introduction'] = 'http://www.scthalia.com:6087/project/product/product_info/introduction/'.$did;
+        $d['fealture'] = 'http://www.scthalia.com:6087/project/product/product_info/fealture/'.$did;
+        $d['effect'] = 'http://www.scthalia.com:6087/project/product/product_info/effect/'.$did;
+        $d['purchase'] = 'http://www.scthalia.com:6087/project/product/product_info/purchase/'.$did;
         $this->success($d);
     }
     

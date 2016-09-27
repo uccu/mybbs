@@ -24,7 +24,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <form>
-                    <img src="http://120.26.230.136:6087/pic/{ad.pic}" class="img-responsive" />
+                    <img src="http://www.scthalia.com:6087/pic/{ad.pic}" class="img-responsive" />
                     <div class="form-group">
                         <label>上传图片</label>
                         <input type="file" />
@@ -67,7 +67,7 @@
                 if(d.code!==200){
                     j('.help-block').html('upload failed');return
                 }
-                j('form img').attr('src','http://120.26.230.136:6087/pic/'+d.data[0]);
+                j('form img').attr('src','http://www.scthalia.com:6087/pic/'+d.data[0]);
                 j('.help-block').html('upload successed');
                 j('[name=pic]').val(d.data[0]);
                 j('[name=pic2]').val(d.data[0]);

@@ -42,7 +42,7 @@
                         <tr>
                             <td>{p.gid}</td>
                             <td>{p.gname}</td>
-                            <td><img class='img-responsive center-block' style="width:80px" src="http://120.26.230.136:6087/pic/{p.gthumb}" /></td>
+                            <td><img class='img-responsive center-block' style="width:80px" src="http://www.scthalia.com:6087/pic/{p.gthumb}" /></td>
                             <td>{p.cdate}</td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">查看详情</button>
