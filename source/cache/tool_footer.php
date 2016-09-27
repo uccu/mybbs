@@ -1,1 +1,0 @@
-<?php defined('IN_PLAY') || exit('Access Denied');?></body></html>

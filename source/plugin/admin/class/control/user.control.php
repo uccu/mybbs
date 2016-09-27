@@ -96,6 +96,7 @@ class user extends \control\ajax{
         $data['plastic'] = post('plastic')?1:0;
         $data['child'] = post('child')?1:0;
         $shop = post('shop',0,'%d');
+        if($shop<0)$this->error(400,'消费不允许为负数');
         $data['interest'] = array('logic',post('interest',array()),'%s');
         if($pwd = post('pwd'))$data['password'] = md5(md5($pwd).$user['salt']);
         $m = $this->userModel->data($data)->save($uid);
