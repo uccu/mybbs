@@ -19,7 +19,7 @@ class item extends base\basic{
         $where['aid'] = $aid;
         $q['list'] = model('goods')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid')
-        ))->where($where)->limit(999)->select();
+        ))->where($where)->order(array('id'=>'DESC'))->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
