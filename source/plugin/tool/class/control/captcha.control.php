@@ -22,7 +22,7 @@ class captcha extends \plugin\app\control\base\basic{
     }
     function _check_captcha(){
         session_start();
-        if($this->uid<1){
+        if($this->uid>0){
             if($this->userInfo['phone']!=$_SESSION['phone'])$this->error(501,'手机号与预留的手机号不同');
         }else{
             if($_POST['phone']!=$_SESSION['phone'])$this->error(502,'发送验证码手机号与注册手机号不同:');
