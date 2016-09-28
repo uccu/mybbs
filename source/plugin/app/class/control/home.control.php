@@ -77,8 +77,8 @@ class home extends base\basic{
         $q['activityInfo'] = $z;
         if($z){
             $q['activityInfo'][0]['time'] = TIME_NOW;
-            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney($z['aid']).'元，参团'.$this->_allFans($z['aid']).'人，奖金'.$this->_allBean($z['aid']).'元';
-            $where2['stime'] = array('logic',$z['stime'],'>');
+            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney($z[0]['aid']).'元，参团'.$this->_allFans($z[0]['aid']).'人，奖金'.$this->_allBean($z[0]['aid']).'元';
+            $where2['stime'] = array('logic',$z[0]['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->limit(1)->select();
         }else{
             $where2['stime'] = array('logic',$now,'>');
