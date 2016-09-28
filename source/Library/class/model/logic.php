@@ -168,6 +168,7 @@ class logic{
 						$kfield[$k] = $value;return $kfield;
 			}else{
 				foreach($tablemap as $k =>$v){
+					$k = preg_replace('#@.*$#','',$k);
 					$mapping = $v['_mapping'];
 					unset($v['_mapping']);
 					unset($v['_on']);
@@ -187,6 +188,7 @@ class logic{
 		if(!$tablemap || !is_array($tablemap))return false;
 		$content = $ons = array();$str = '';$ki = 0;
 		foreach($tablemap as $k => $v){
+			$k = preg_replace('#@.*$#','',$k);
 			$table = $this->quote_field($this->prefix.$k);
 			if(count($tablemap)>1){
 				$keys = array_keys($tablemap);
