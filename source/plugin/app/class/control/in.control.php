@@ -131,9 +131,16 @@ class in extends base\basic{
         $info['terminal'] = post('terminal','');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
-        if($info['referee']){
-            $data['fans_id'] = $z;
-            $data['uid'] = $info['referee'];
+        
+        $info['uid'] = $z;
+        $info['new'] = 1;
+        $this->_out_info($info,$this->cookie);
+
+    }
+    function _out_info($info,$cookie = false){
+        if($referee = post('referee')){
+            $data['fans_id'] = $info['uid'];
+            $data['uid'] = $referee;
             $data['aid'] = $this->lastAid;
             if(!model('fans')->where($data)->find()){
                 $data['ctime'] = TIME_NOW;
@@ -141,12 +148,6 @@ class in extends base\basic{
                 model('fans')->data($data)->add();
             }
         }
-        $info['uid'] = $z;
-        $info['new'] = 1;
-        $this->_out_info($info,$this->cookie);
-
-    }
-    function _out_info($info,$cookie = false){
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
         if($cookie)cookie('user_token',$user_token,0);
         $out = array(
