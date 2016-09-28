@@ -74,7 +74,7 @@ class home extends base\basic{
         $now = TIME_NOW;
         $where = "stime<$now AND stime+ktime*3600>$now";
         $z = model('activity')->where($where)->find();
-        $q['activityInfo'] = $z;
+        $q['activityInfo'][] = $z;
         if($z){
             $q['activityInfo']['time'] = TIME_NOW;
             $q['activityInfo']['message'] = '总销售'.$this->_allMoney($z['aid']).'元，参团'.$this->_allFans($z['aid']).'人，奖金'.$this->_allBean($z['aid']).'元';
@@ -84,7 +84,7 @@ class home extends base\basic{
             $where2['stime'] = array('logic',$now,'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->find();
         }
-        $q['nextActivityInfo'] = $z2;
+        $q['nextActivityInfo'][] = $z2;
         if($z2){
             $q['nextActivityInfo']['time'] = TIME_NOW;
             $q['nextActivityInfo']['message'] = '总关注100W';
