@@ -5,10 +5,10 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'localhost',
-	 'user'=>'root',
-	 'password'=>'123',
-	 'db'=>'sources',
+	 'host'=>'121.199.8.244',
+	 'user'=>'sbgl',
+	 'password'=>'123456',
+	 'db'=>'sbgl',
 	 'prefix'=>'',
 	 'charset'=>'utf8'
  );
