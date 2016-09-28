@@ -162,14 +162,14 @@ class in extends base\basic{
         cookie('user_token',$user_token,-1);
         $this->success();
     }
-    function forget(){
-        $phone = post('phone','');
+    function forget($phone,$password){
+        $phone = post('phone',$phone);
         $this->_check_phone($phone);
         if(!$info = model('user')->where(array('phone'=>$phone))->find()){
             $this->errorCode(401);
         }
         control('tool:captcha')->_check_captcha();
-        $password = post('password','');
+        $password = post('password',$password);
         $this->_check_password($password);
         $password = md5(md5($password).$this->salt);
         $save = model('user')->data(array('password'=>$password))->save($info['uid']);

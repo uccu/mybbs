@@ -25,7 +25,7 @@ class captcha extends \plugin\app\control\base\basic{
         if($this->uid){
             if($this->userInfo['phone']!=$_SESSION['phone'])$this->error(501,'手机号与预留的手机号不同');
         }else{
-            if($_POST['phone']!=$_SESSION['phone'])$this->error(501,'手机号与预留的手机号不同');
+            if($_POST['phone']!=$_SESSION['phone'])$this->error(502,'手机号与预留的手机号不同');
         }
         if($_SESSION['captcha'] !== post('captcha',-1)){
             $this->error(501,'验证码错误');
