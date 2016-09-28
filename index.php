@@ -3,10 +3,10 @@
 <head>
 
 </head>
-<body>
+<body style="text-align:center">
 
 <div style="padding-top:200px">
-<h1>开发中</h1>
+<h1>开发中。。。</h1>
 </div>
 
 <div style="padding-top:200px">
