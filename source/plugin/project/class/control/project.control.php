@@ -28,10 +28,10 @@ class project extends \control\ajax{
         $where['uid'] = $this->user->uid;
         $where['jid'] = $jid;
         $d['favo'] = $this->favourite->where($where)->find() ? 1 : 0;
-        $d['introduction'] = 'http://:6087/project/project/project_info/introduction/'.$jid;
-        $d['fealture'] = 'http://:6087/project/project/project_info/fealture/'.$jid;
-        $d['expert'] = 'http://:6087/project/project/project_info/expert/'.$jid;
-        $d['attention'] = 'http://:6087/project/project/project_info/attention/'.$jid;
+        $d['introduction'] = 'http://www.scthalia.com:6087/project/project/project_info/introduction/'.$jid;
+        $d['fealture'] = 'http://www.scthalia.com:6087/project/project/project_info/fealture/'.$jid;
+        $d['expert'] = 'http://www.scthalia.com:6087/project/project/project_info/expert/'.$jid;
+        $d['attention'] = 'http://www.scthalia.com:6087/project/project/project_info/attention/'.$jid;
         $this->success($d);
     }
     

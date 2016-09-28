@@ -41,11 +41,11 @@ class other extends \control\ajax{
     function get_adviser(){
         //require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
         //$p = new \ServerAPI('c9kqb3rdklawj','f1sgYa3kFvaP0');
-        //$r = $p->getToken('7','testUser','http://:6087/pic/iavatar/0/0/7.png');
+        //$r = $p->getToken('7','testUser','http://www.scthalia.com:6087/pic/iavatar/0/0/7.png');
         $this->user->_safe_login();
         //$this->user->uid = 13;
         $user = $this->userModel->find($this->user->uid);
-        //$r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://:6087/pic/'.$user['avatar']);
+        //$r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://www.scthalia.com:6087/pic/'.$user['avatar']);
         //var_dump($r);
         //$o = json_decode($r,true);
         //if($o){

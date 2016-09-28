@@ -72,7 +72,7 @@ class in extends \control\ajax{
         //}
         require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
         $p = new \ServerAPI('6tnym1brneq77','Akbbhh8WjZKjW0');
-        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://:6087/pic/'.$user['avatar']);
+        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://www.scthalia.com:6087/pic/'.$user['avatar']);
         $o = json_decode($r,true);
         $out['token'] = $o['token'];
             if(!$user['adviser']){
@@ -140,7 +140,7 @@ class in extends \control\ajax{
         
         require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
         $p = new \ServerAPI('6tnym1brneq77','Akbbhh8WjZKjW0');
-        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://:6087/pic/'.$user['avatar']);
+        $r = $p->getToken($user['uid'],$user['nickname']?$user['nickname']:' ','http://www.scthalia.com:6087/pic/'.$user['avatar']);
         $o = json_decode($r,true);
         $out['token'] = $o['token'];
         return $this->success($out);
