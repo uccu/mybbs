@@ -291,10 +291,10 @@ class item extends base\basic{
             $data['var'] = $t['var'];
             model('cart')->remove($cid);
             if($this->out){
-                $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
-                if($q['user']){
+                $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->limit(1)->select();
+                if($q['user'][0]){
                     $l = model('location')->limit(9999)->select('id');
-                    $v = &$q['user'];
+                    $v = &$q['user'][0];
                     $v['area'] = $v['lid'];
                     $v['areaName'] = $l[$v['lid']]['title'];
                     if(!$v['area']){
@@ -360,10 +360,10 @@ class item extends base\basic{
             $data['var'] = $t['var'];
             model('cart')->remove($cid);
             if($this->out){
-                $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
+                $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->limit(1)->select();
                 if($q['user']){
                     $l = model('location')->limit(9999)->select('id');
-                    $v = &$q['user'];
+                    $v = &$q['user'][0];
                     $v['area'] = $v['lid'];
                     $v['areaName'] = $l[$v['lid']]['title'];
                     if(!$v['area']){
@@ -398,10 +398,10 @@ class item extends base\basic{
             $v = $this->order($v);
             if($v['money'])$money+=$v['money'];
         }
-        $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->find();
+        $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->limit(1)->select();
         if($q['user']){
             $l = model('location')->limit(9999)->select('id');
-            $v = &$q['user'];
+            $v = &$q['user'][0];
             $v['area'] = $v['lid'];
             $v['areaName'] = $l[$v['lid']]['title'];
             if(!$v['area']){
