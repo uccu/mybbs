@@ -9,7 +9,7 @@ if(!defined('IN_PLAY')) {
 	 'user'=>'sbgl',
 	 'password'=>'123456',
 	 'db'=>'sbgl',
-	 'prefix'=>'',
+	 'prefix'=>'t_',
 	 'charset'=>'utf8'
  );
 ?>
