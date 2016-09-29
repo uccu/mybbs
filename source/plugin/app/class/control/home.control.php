@@ -48,7 +48,7 @@ class home extends base\basic{
         $q = array_merge($q,$this->nav());
         $q = array_merge($q,$this->activity());
         $q = array_merge($q,$this->recommend());
-        $q['message'] = control('my')->_has_message();
+        $q['message'] = $this->uid<1?0:control('my')->_has_message();
         $this->success($q);
     }
     function forward(){
