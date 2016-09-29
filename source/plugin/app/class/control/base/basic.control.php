@@ -92,11 +92,11 @@ class basic extends \control\ajax{
         if(!$uid){
             $uid = $this->uid;
             if(!$uid)return false;
-            if(!$this->userInfo['push'])return false;
+            //if(!$this->userInfo['push'])return false;
         }else{
             $userInfo = model('user')->find($uid);
             if(!$userInfo)return false;
-            if(!$userInfo['push'])return false;
+            //if(!$userInfo['push'])return false;
         }
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('6505eff9f988de697771e58b', '29a604d9acbeba974b11d3c6');
