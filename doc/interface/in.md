@@ -152,7 +152,17 @@
 
 **uid**         `用户UID`
 
-**new**         `是否为用户`
+**new**         `是否为新增加用户`
+
+```
+    {
+        "user_token": "XXXXXXXXXXXXXXXXXXXXXXX",
+        "uid": 2,
+        "new": 1
+    }
+
+```
+
 
 
 
