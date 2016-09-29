@@ -29,12 +29,16 @@ class e extends \control\ajax{
         $this->userInfo = $info;
         if(!$info)return '-4';
         $this->userInfo = $info;
-        $referee = post('referee',0);
-        if($referee && $referee==$uid)$this->errorCode(441);
+
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '-5';
     }
     function _get_userInfo(){
         return array();
+    }
+    function _check_type($type){
+        if($this->uid<1)$this->errorCode(411);
+        if($this->userInfo['type']!=$type)$this->errorCode(411);
+        return true;
     }
     
     
