@@ -38,7 +38,7 @@ class my extends base\basic{
         $q['count']['pay_4'] = model('order')->where($where)->where(array('status'=>4))->get_field();
         $where2['uid'] = $this->uid;
         $where2['read'] = 0;
-        $q['count']['message'] = model('message')->where($where)->get_field();
+        $q['count']['message'] = model('message')->where($where2)->get_field();
         $q['count']['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $this->success($q);
     }
@@ -177,6 +177,7 @@ class my extends base\basic{
         $_POST['money'] = post('money',0,'%d');
         if($_POST['money']>$this->userInfo['coin'])$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$_POST['money'])))->save($this->uid);
+        $this->_pusher('余额发生变动：申请提现',$this->uid);
         model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$_POST['money'],'info'=>'申请提现','ctime'=>TIME_NOW))->add();
         unset($_POST['id']);
         $_POST['ctime'] = TIME_NOW;

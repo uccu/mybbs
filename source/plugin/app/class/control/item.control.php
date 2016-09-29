@@ -525,6 +525,8 @@ class item extends base\basic{
             $userInfo = model('user')->find($uid);
             if($userInfo['coin']<$p['coin'])$this->errorCode(429);
             model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
+
+            $this->_pusher('余额发生变动：购买抵扣',$uid);
             //余额明细调整
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
         }
@@ -692,6 +694,7 @@ class item extends base\basic{
         $money = post('money',$money,'%d'); 
         if($this->userInfo['coin']<$money)$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($this->uid);
+        $this->_pusher('余额发生变动：充值积分',$this->uid);
         model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$money,'info'=>'充值积分','ctime'=>TIME_NOW))->add();
         model('score_log')->data(array(
             'uid'=>$this->uid,
