@@ -28,6 +28,7 @@ class PushPayload {
      */
     function __construct($client) {
         $this->client = $client;
+        $options['apns_production'] = true;
     }
 
     public function setPlatform($platform) {
