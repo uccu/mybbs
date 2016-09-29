@@ -545,6 +545,7 @@ class item extends base\basic{
             $this->_pusher('余额发生变动：购买抵扣',$uid);
             //余额明细调整
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
+            model('message')->data(array('uid'=>$p['uid'],'content'=>'购买抵扣扣除'.$p['coin'].'余额','ctime'=>TIME_NOW))->add();
         }
 
         //操作订单列表
@@ -712,6 +713,7 @@ class item extends base\basic{
         model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($this->uid);
         $this->_pusher('余额发生变动：充值积分',$this->uid);
         model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$money,'info'=>'充值积分','ctime'=>TIME_NOW))->add();
+        model('message')->data(array('uid'=>$this->uid,'content'=>'充值积分扣除'.$money.'余额','ctime'=>TIME_NOW))->add();
         model('score_log')->data(array(
             'uid'=>$this->uid,
             'score'=>$money*100,
