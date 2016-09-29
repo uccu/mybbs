@@ -48,9 +48,8 @@ class in extends base\basic{
         if(!$value)$this->errorCode(403);
         $info = model('user')->where($where)->find();
         if(!$info){
-            $info = $where;
-            $info['password'] = md5(time());
-            $this->_add_user($info);
+            $info['uid'] = 0;
+            $info['new'] = 1;
         }
         $this->_out_info($info,$this->cookie);
     }
@@ -151,7 +150,7 @@ class in extends base\basic{
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
         if($cookie)cookie('user_token',$user_token,0);
         $out = array(
-            'user_token'=>$user_token,
+            'user_token'=>$info['uid']?$user_token:'',
             'uid'=>$info['uid'],
             'new'=>$info['new']?1:0,
             'pay_password'=>$info['pay_password']?$info['pay_password']:''
