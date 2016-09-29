@@ -1,7 +1,7 @@
 <?php
 namespace plugin\tool\control;
 defined('IN_PLAY') || exit('Access Denied');
-class captcha extends \plugin\app\control\base\basic{
+class captcha extends \plugin\app\control\base\e{
     function _beginning(){
         $this->checkAJAX = 0;
         //var_dump($this->uid);die();
