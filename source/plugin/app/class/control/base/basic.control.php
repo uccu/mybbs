@@ -105,13 +105,12 @@ class basic extends \control\ajax{
             ->setPlatform('all')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
-            ->iosNotification('hello', [
+            ->iosNotification('hello', array(
                 'sound' => 'sound',
                 'badge' => '+1',
-                'extras' => [
-                    'key' => 'value'
-                ]
-            ])
+                'extras' => array('key' => 'value')
+                    
+            ))
             ->send();
     }
 }
