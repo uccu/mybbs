@@ -42,6 +42,12 @@ class my extends base\basic{
         $q['count']['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $this->success($q);
     }
+    function _has_message(){
+        $where['uid'] = $this->uid;
+        $where['read'] = 0;
+        $z = model('message')->where($where)->find();
+        return $z?1:0;
+    }
     function has_message(){
         $where['uid'] = $this->uid;
         $where['read'] = 0;
