@@ -20,7 +20,7 @@ class ajax extends \control{
 			$data['desc'] = '';
 		}else{
 			$data['data'] = (object)array();
-			$data['desc'] = $object;
+			$data['desc'] = $object?$object:'';
 		}
 		$data['url'] = $url;
 		$data['code'] = $code;
