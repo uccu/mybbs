@@ -100,7 +100,7 @@ class basic extends \control\ajax{
         }
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('6505eff9f988de697771e58b', '29a604d9acbeba974b11d3c6');
-        $result = $client->push()
+        return $result = $client->push()
             ->setPlatform('all')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
