@@ -105,7 +105,7 @@ class rank extends base\basic{
 
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+            $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
         }
@@ -163,7 +163,7 @@ class rank extends base\basic{
             $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+            $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
         }
@@ -209,7 +209,7 @@ class rank extends base\basic{
             $z['me']['rank'] = $rank = model('rank_bang')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
             $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
-            $z['me']['time'] = !$ke['stime'] || $me['time'] - $ke['stime'] < 0 ? 0 : $me['time'] - $ke['stime'];
+            $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
         }
