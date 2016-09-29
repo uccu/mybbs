@@ -123,6 +123,41 @@ class in extends base\basic{
         $info['password'] = $password;
         $this->_add_user($info);
     }
+
+
+    function add_account(){
+        $phone = post('phone');
+        $password = post('password');
+        $type = post('platform','');
+        $key = post('key','');
+        control('tool:captcha')->_check_captcha();
+
+        $this->_check_phone($phone);
+        
+        if($info = model('user')->where(array('phone'=>$phone))->find()){
+            if($info[$type])$this->errorCode(443);
+            if(md5(md5($password).$this->salt)!=$info['password'])$this->errorCode(402);
+            model('user')->data(array('type'=>$key))->save($info['uid']);
+            $this->_out_info($info);
+        }else{
+            $this->_check_password($password);
+            $password = md5(md5($password).$this->salt);
+            if($type=='qq'){
+                $info['qq'] = '';
+            }elseif($type=='wb'){
+                $info['wb'] = '';
+            }elseif($type=='wx'){
+                $info['wx'] = '';
+            }else{
+                $this->errorCode(403);
+            }
+            $info['phone'] = $phone;
+            $info['password'] = $password;
+            $this->_add_user($info);
+        }
+
+
+    }
     function _add_user($info){
         $info['ctime'] = time();
         $info['coin'] = 10000;
