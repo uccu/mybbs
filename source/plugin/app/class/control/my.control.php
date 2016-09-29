@@ -39,7 +39,7 @@ class my extends base\basic{
         $where2['uid'] = $this->uid;
         $where2['read'] = 0;
         $q['count']['message'] = model('message')->where($where2)->get_field();
-        $q['count']['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
+        $q['count']['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field("count(distinct fans_id)");
         $this->success($q);
     }
     function _has_message(){
