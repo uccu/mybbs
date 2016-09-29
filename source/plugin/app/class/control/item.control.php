@@ -183,6 +183,22 @@ class item extends base\basic{
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
+    function order_list_c($status){
+
+        $status = post('status',$status);
+        if($status<5)$this->errorCode(427);
+        if($status)$data['status'] = $status;
+        $q['list'] = model('order')->add_table(array(
+            'goods'=>array(
+                'name','thumb','bean','price_act','var','price','_on'=>'tid'
+            ),
+            'goods_attribute'=>array(
+                'attribute_name','_on'=>'lid'
+            )
+        ))->where($data)->limit(999)->select();
+        if(!$q['list'])$this->errorCode(427);
+        $this->success($q);
+    }
     function order_info($oid){
         $this->_check_login();
         $data['uid'] = $this->uid;
