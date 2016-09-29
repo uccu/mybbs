@@ -833,6 +833,10 @@ class item extends base\basic{
         $verify_result = $alipayNotify->verifyNotify ();
         var_dump($verify_result);
     }
+    function test3(){
+        $z = $this->_pusher('测试',1);
+        var_dump($z);
+    }
 
 }
 ?>
