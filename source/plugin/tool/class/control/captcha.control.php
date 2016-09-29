@@ -21,12 +21,12 @@ class captcha extends \plugin\app\control\base\e{
         $this->success($z);
     }
     function _check_captcha(){
-        session_start();
-        if($this->uid>0){
-            if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
-        }else{
-            if($_POST['usercode']!=$_SESSION['usercode'])$this->error(502,'发送验证码手机号与注册手机号不同:');
-        }
+        // session_start();
+        // if($this->uid>0){
+        //     if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
+        // }else{
+        //     if($_POST['usercode']!=$_SESSION['usercode'])$this->error(502,'发送验证码手机号与注册手机号不同:');
+        // }
         // if($_SESSION['captcha'] !== post('captcha',-1)){
         //     $this->error(501,'验证码错误');
         // }
