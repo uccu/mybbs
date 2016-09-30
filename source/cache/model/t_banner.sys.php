@@ -1,0 +1,1 @@
+<?php $tableMap=array("banner"=>array("bid","banner_img","url","ctime")) ?>

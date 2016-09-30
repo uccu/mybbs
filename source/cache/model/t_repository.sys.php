@@ -1,0 +1,1 @@
+<?php $tableMap=array("repository"=>array("rid","mid","bid","title","content","collection","reading","ctime","thumb")) ?>

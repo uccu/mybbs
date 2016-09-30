@@ -25,12 +25,13 @@ class home extends base\e{
     function expert(){
         $where['type'] = 2;
         $where['recommend'] = 1;
-        $z = model('user')->where($where)->order(array('top'=>'DESC','uid'))->limit(999)->select();
+        $z = model('user')->field(array('uid','nickname','thumb','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(999)->select();
         if($this->outter)$this->success($z);
         return $z;
     }
 
     function repository(){
+        $this->uid;
         $z = model('repository')->mapping('r')->add_table(array(
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
@@ -44,6 +45,16 @@ class home extends base\e{
         }
         if($this->outter)$this->success($z);
         return $z;
+    }
+
+    function all(){
+        $this->outter = false;
+        $data['banner'] = $this->banner();
+        $data['top_line'] = $this->top_line();
+        $data['expert'] = $this->expert();
+        $data['repository'] = $this->repository();
+        $data['message'] = 0;
+        $this->success($data);
     }
 
     

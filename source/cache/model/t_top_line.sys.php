@@ -1,0 +1,1 @@
+<?php $tableMap=array("top_line"=>array("tid","title","content","ctime")) ?>

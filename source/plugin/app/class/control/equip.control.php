@@ -9,7 +9,7 @@ class equip extends base\e{
     function types($bid = 0){
         $where['bid'] = post('bid',$bid,'%d');
         $where['del'] = 1;
-        $f = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
+        $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
         if(!$f)$this->errorCode(427);
         $this->success($f);
     }
