@@ -120,7 +120,13 @@ class coherent{
 		}
 		return $this;
 	}
-	
+	public function mapping($x){
+		if(!$this->tableMap)return $this;
+		foreach($this->tableMap as $k =>&$v){
+			$v['_mapping'] = $x;break;
+		}
+		return $this;
+	}
 	public function sql($sql=true){
 		$this->output = $sql?'sql':'';
 		return $this;
