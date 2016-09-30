@@ -197,6 +197,7 @@ class in extends base\basic{
             'user_token'=>$info['uid']?$user_token:'',
             'uid'=>$info['uid'],
             'new'=>$info['new']?1:0,
+            'push'=>$info['push']?1:0,
             'pay_password'=>$info['pay_password']?$info['pay_password']:''
         );
         $this->success($out);
