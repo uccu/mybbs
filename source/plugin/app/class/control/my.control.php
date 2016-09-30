@@ -595,5 +595,11 @@ class my extends base\basic{
             $this->success($z);
         }
     }
+
+    function change_push($push){
+        $push = post('push',$push,'%d');
+        model('user')->data(array('push'=>$push))->save($this->uid);
+        $this->success();
+    }
 }
 ?>
