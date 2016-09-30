@@ -31,6 +31,11 @@ class home extends base\e{
     }
 
     function repository(){
+        $z = model('repository')->mapping('r')->add_table(array(
+            'repository_list'=>array(
+                'name','del','on'=>'r.bid=i.rid','_mapping'=>'i'
+            )
+        ));
         if($bid = $this->userInfo['plant']){
             $where['bid'] = $bid;
             $z = model('repository')->where($where)->limit(15)->order('rand()')->select();
