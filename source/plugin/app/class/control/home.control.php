@@ -16,11 +16,12 @@ class home extends base\e{
         if($this->outter)$this->success($z);
         return $z;
     }
-    // function inquiry_list(){
-    //     $z = model('inquiry')->limit(4)->order(array('ctime'=>'DESC'))->select();
-    //     if($this->outter)$this->success($z);
-    //     return $z;
-    // }
+    function inquiry(){
+        $z['unfinish'] = model('inquiry')->where(array('finish'=>0))->get_field();
+        $z['finish'] = model('inquiry')->where(array('finish'=>1))->get_field();
+        if($this->outter)$this->success($z);
+        return $z;
+    }
     
     function expert(){
         $where['type'] = 2;
@@ -47,12 +48,48 @@ class home extends base\e{
         return $z;
     }
 
+    function repository_list($bid){
+        $where['bid'] = post('bid',$bid,'%d');
+        if(!$where['bid'])$where['bid'] = model('repository')->where(array('del'=>1))->order(array('rid'))->get_field('rid');
+        $limit = post('limit',20,'%d');
+        $page = post('page',1,'%d');
+        $z['count'] = model('repository')->where($where)->get_field();
+        $z['list'] = model('repository')->mapping('r')->add_table(array(
+            'repository_list'=>array(
+                'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
+            )
+        ))->where($where)->page($page,$limit)->select();
+        //if(!$z['list'])$this->errorCode(427);
+        $this->success($z);
+    }
+    function repository_search($search){
+        $search = post('bid',$search,'%d');
+        if($search)$where['title'] = array('contain','%'.$search.'%','LIKE');
+        else $where = '1=2';
+        $limit = post('limit',20,'%d');
+        $page = post('page',1,'%d');
+        $z['count'] = model('repository')->where($where)->get_field();
+        $z['list'] = model('repository')->mapping('r')->add_table(array(
+            'repository_list'=>array(
+                'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
+            )
+        ))->where($where)->page($page,$limit)->select();
+        //if(!$z['list'])$this->errorCode(427);
+        $this->success($z);
+    }
+    function repository_type(){
+         $z['list'] = model('repository_list')->where(array('del'=>1))->limit(99)->order(array('rid'))->select();
+         $this->success($z);
+    }
+    
+
     function all(){
         $this->outter = false;
         $data['banner'] = $this->banner();
         $data['top_line'] = $this->top_line();
         $data['expert'] = $this->expert();
         $data['repository'] = $this->repository();
+        $data['inquiry'] = $this->inquiry();
         $data['message'] = 0;
         $this->success($data);
     }

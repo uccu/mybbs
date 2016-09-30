@@ -10,7 +10,7 @@ class equip extends base\e{
         $where['bid'] = post('bid',$bid,'%d');
         $where['del'] = 1;
         $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
-        if(!$f)$this->errorCode(427);
+        if(!$f['list'])$this->errorCode(427);
         $this->success($f);
     }
 
