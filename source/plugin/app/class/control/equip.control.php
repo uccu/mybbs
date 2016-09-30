@@ -3,7 +3,7 @@ namespace plugin\app\control;
 defined('IN_PLAY') || exit('Access Denied');
 class equip extends base\e{
     function _beginning(){
-        $this->_check_login();
+        //$this->_check_login();
     }
 
     function types($bid = 0){
