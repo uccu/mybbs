@@ -152,13 +152,22 @@
 
 **uid**         `用户UID`
 
-**new**         `是否为新增加用户`
+**news**        `是否为新增加用户`
+
+**type**        `用户的类型，-1为选择，0用户，1运维，2专家`
+
+**apply**         `是否有提交审核中的角色，1为运维，2为专家，0为没有`
+
+**complete**    `是否完善资料`
 
 ```
     {
         "user_token": "XXXXXXXXXXXXXXXXXXXXXXX",
-        "uid": 2,
-        "new": 1
+        "uid": "2",
+        "news": "1",
+        "type": "0",
+        "apply": "1"
+        "complete":"0"
     }
 
 ```

@@ -128,8 +128,9 @@ class in extends base\e{
         $info['terminal'] = post('terminal','');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
-        $info['uid'] = $z;
-        $info['new'] = 1;
+        $info['uid'] = (string)$z;
+        $info['news'] = "1";
+        $info['type'] = "-1";
         $this->_out_info($info,$this->cookie);
 
     }
@@ -139,7 +140,10 @@ class in extends base\e{
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
-            'new'=>$info['new']?1:0,
+            'news'=>$info['news']?"1":"0",
+            'type'=>$info['type'],
+            'apply'=>$info['apply']?$info['apply']:"0",
+            'complete'=>$info['complete']?"1":"0",
         );
         $this->success($out);
 

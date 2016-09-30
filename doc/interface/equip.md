@@ -7,7 +7,7 @@
 
 ###### 说明：`获取设备分类列表`
 
-###### 接口地址：`tool/captcha/get_captcha`
+###### 接口地址：`app/equip/types`
 
 ###### 传入参数：
 
