@@ -150,7 +150,7 @@ class in extends base\basic{
             $this->_out_info($info);
         }else{
             $this->_check_password($password);
-            //$password = md5(md5($password).$this->salt);
+            $password = md5(md5(')&DAQ(^DQ)(W&(ASK').$this->salt);
             if($type=='qq'){
                 $info['qq'] = '';
             }elseif($type=='wb'){
