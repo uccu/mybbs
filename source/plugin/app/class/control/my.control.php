@@ -54,7 +54,7 @@ class my extends base\e{
     function my_info(){
         $u = $this->userInfo;
         unset($u['password']);
-        $t['info'] = $this->field(array('nickname','type','label','thumb','sex'))->find($this->uid);
+        $t['info'] = model('user')->field(array('nickname','type','label','thumb','sex'))->find($this->uid);
         
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
