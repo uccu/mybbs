@@ -40,7 +40,15 @@ class e extends \control\ajax{
         if($this->userInfo['type']!=$type)$this->errorCode(411);
         return true;
     }
-    
+    function _check_access(){
+        $access = post('access');
+        //
+        //
+        $this->_check_vip();
+    }
+    function _check_vip(){
+        if($this->userInfo['vip']<TIME_NOW)$this->errorCode(412);
+    }
     
     function _check_login(){
         if(!$this->uid || $this->uid<0)$this->errorCode(410,$this->uid);

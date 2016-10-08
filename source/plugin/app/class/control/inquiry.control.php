@@ -9,7 +9,8 @@ class inquiry extends base\e{
 
     function info($id){
         $id = post('id',$id,'%d');
-
+        
+        $this->_check_access();
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
         $t['info'] = model('inquiry')->add_table(array(
@@ -41,7 +42,7 @@ class inquiry extends base\e{
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'inquiry_zan'=>array('join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
-        ))->where(array('bid'=>$id,'adopt'=>0))->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        ))->where(array('bid'=>$id))->page($page,$limit)->order(array('adopt'=>'DESC','ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v)$v['zan'] = $v['zan']?'1':'0';
 
         $this->success($t);
