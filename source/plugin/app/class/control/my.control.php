@@ -64,7 +64,7 @@ class my extends base\e{
 
     function my_fans(){
         model('fans')->mapping('f');
-        $t['fans'] = model('fans')->add(array(
+        $t['fans'] = model('fans')->add_table(array(
             'user'=>array('_on'=>'f.fans_id=u.uid','_mapping'=>'u','nickname','tag','avatar'),
             '_table'=>array('_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('uid'=>$this->uid))->select();
