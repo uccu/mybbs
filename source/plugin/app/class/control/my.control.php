@@ -71,6 +71,14 @@ class my extends base\e{
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
     }
+    function my_follow(){
+        model('fans')->mapping('f');
+        $t['fans'] = model('fans')->add_table(array(
+            'user'=>array('_on'=>'uid','_mapping'=>'u','nickname','label','thumb'),
+        ))->where(array('fans_id'=>$this->uid))->limit(999)->select();
+        foreach($t['fans'] as &$v)$v['follow'] = '1';
+        $this->success($t);
+    }
 
 
 }
