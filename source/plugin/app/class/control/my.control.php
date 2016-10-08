@@ -59,6 +59,7 @@ class my extends base\e{
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
         $t['collect'] = 0;
+        $this->success($t);
     }
 
     function my_fans(){
@@ -67,7 +68,8 @@ class my extends base\e{
             'user'=>array('_on'=>'f.fans_id=u.uid','_mapping'=>'u','nickname','tag','avatar'),
             '_table'=>array('_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('uid'=>$this->uid))->select();
-
+        foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
+        $this->success($t);
     }
 
 
