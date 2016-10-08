@@ -80,6 +80,24 @@ class my extends base\e{
         foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
     }
+    function my_inquiry(){
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('inquiry')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname')
+        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit($page,$limit)->select();
+        $this->success($t);
+    }
+
+    function del_inquiry($id){
+        $id = post('id',$id,'$d');
+        $i= model('inquiry')->find($id);
+        if(!$i)$this->errorCode(439);
+        if($i['user']!==$this->uid)$this->errorCode(411);
+        model('inquiry')->remove($id);
+        model('inquiry_list')->where(array('bid'=>$id))->remove();
+        $this->success();
+    }
 
 
 }

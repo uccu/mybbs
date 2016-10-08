@@ -16,5 +16,6 @@ class equip extends base\e{
 
 
 
+
 }
 ?>
