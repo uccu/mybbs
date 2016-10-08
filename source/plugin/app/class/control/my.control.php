@@ -66,7 +66,7 @@ class my extends base\e{
         model('fans')->mapping('f');
         $t['fans'] = model('fans')->add_table(array(
             'user'=>array('_on'=>'f.fans_id=u.uid','_mapping'=>'u','nickname','label','thumb'),
-            '_table'=>array('_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
+            '_table'=>array('_join'=>'LEFT JOIN','_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('uid'=>$this->uid))->limit(999)->select();
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
