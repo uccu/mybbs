@@ -40,12 +40,25 @@ class e extends \control\ajax{
         if($this->userInfo['type']!=$type)$this->errorCode(411);
         return true;
     }
+    function _check_uid($uid){
+        $z = model('user')->find($uid);
+        if(!$z)$this->errorCode(414);
+        return $z;
+    }
     function _check_access(){
         $access = post('access');
         //
         //
         $this->_check_vip();
     }
+    function _check_follow($uid){
+        return model('fans')->where(array('uid'=>$uid,'fans_id'=>$this->uid))->find() ? 1 : 0;
+    }
+
+    function _check_fans($uid){
+        return model('fans')->where(array('fans_id'=>$uid,'uid'=>$this->uid))->find() ? 1 : 0;
+    }
+    
     function _check_vip(){
         if($this->userInfo['vip']<TIME_NOW)$this->errorCode(412);
     }
