@@ -436,7 +436,7 @@ class rank extends base\basic{
         $myd = model('rank_bean')->where(array('uid'=>$this->uid,'aid'=>$aid))->find();
         if(!$myd)$myd = array('bean'=>0);
         $myd['avatar'] = $this->userInfo['avatar'];
-        $myd['nickname'] = $this->userInfo['nickname'];
+        $myd['username'] = $this->userInfo['username'];
         $bean = 0;
         foreach($q['list'] as $v)$bean +=$v['bean'];
         $myd['bean'] -= $bean;
