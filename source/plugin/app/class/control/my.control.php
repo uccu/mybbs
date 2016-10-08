@@ -51,6 +51,25 @@ class my extends base\e{
         $this->success();
     }
 
+    function my_info(){
+        $u = $this->userInfo;
+        unset($u['password']);
+        $t['info'] = $u;
+        
+        $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
+        $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
+        $t['collect'] = 0;
+    }
+
+    function my_fans(){
+        model('fans')->mapping('f');
+        $t['fans'] = model('fans')->add(array(
+            'user'=>array('_on'=>'f.fans_id=u.uid','_mapping'=>'u','nickname','tag','avatar'),
+            '_table'=>array('_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
+        ))->where(array('uid'=>$this->uid))->select();
+
+    }
+
 
 }
 ?>
