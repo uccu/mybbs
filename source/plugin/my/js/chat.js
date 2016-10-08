@@ -1,5 +1,5 @@
 !(function(){
-    var ws,folder = location.pathname.split('/'),
+    var ws=null,folder = location.pathname.split('/'),
     mesCore = {
         message:function(v){
                 if(!v.nickname || !v.md5 || !v.content)return;
@@ -14,7 +14,7 @@
                 j('.chat-container').stop(1).animate({scrollTop:j('.chat-container').children().height()-400});
         },log:function(v){if(v.user)j('h4').html('total: '+v.user.length)}
     };
-    
+
     j('a.picup').click(function(){j(this).parent().find('input').click()});
     j('input.picupi').change(function(){
         var file = this.files[0];
@@ -92,9 +92,11 @@
     });
     (function(){
         var args = arguments;
-        ws = new WebSocket('ws:107.150.59.18:8080/'+(folder[3]=='room' && folder[4] ? 'room/'+folder[4]:''));
+        ws = new WebSocket('ws:127.0.0.1:8080/'+(folder[3]=='room' && folder[4] ? 'room/'+folder[4]:''));
+        window.ws = ws;
         ws.onopen = d=>{j('.chat-container').children().append('<div class="chat-body">link succeed</div>')};
         ws.onmessage = d=>{
+            console.log(d);
             try{
                 var v = eval('('+d.data+')');
                 if(typeof v !=='object')return;
