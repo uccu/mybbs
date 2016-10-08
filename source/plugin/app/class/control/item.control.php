@@ -168,7 +168,7 @@ class item extends base\basic{
         $this->success();
     }
     function _parse_order(&$list){
-        if($list['oid'])$listt[] = &$listt;
+        if($list['oid'])$listt[] = &$list;
         else $listt = &$list;
         foreach($listt as &$v){
             $num = strlen((string)$v['oid']);
