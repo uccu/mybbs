@@ -167,6 +167,20 @@ class item extends base\basic{
         }
         $this->success();
     }
+    function _parse_order(&$list){
+        if($list['oid'])$listt[] = &$listt;
+        else $listt = &$list;
+        foreach($listt as &$v){
+            $num = count($v['oid']);
+            $v['oid_name'] ='';
+            for($i=0;$i<8-$num;$i++)$v['oid_name'].='0';
+            $v['oid_name'] .= $v['oid']; 
+            if($v['score']){
+                $v['oid_name'] = 'D-'.$v['oid_name'];
+            }else $v['oid_name'] = 'Q'.$v['aid'].'-'.$v['oid_name'];
+        }
+
+    }
     function order_list($status){
         $this->_check_login();
         $data['uid'] = $this->uid;
@@ -181,6 +195,7 @@ class item extends base\basic{
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
+        $this->_parse_order($q['list']);
         $this->success($q);
     }
     function order_list_c($status){
@@ -197,6 +212,7 @@ class item extends base\basic{
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
+        $this->_parse_order($q['list']);
         $this->success($q);
     }
     function order_info($oid){
@@ -213,6 +229,7 @@ class item extends base\basic{
             )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
+        $this->_parse_order($q['info']);
         if(!$q['info']['addr_id'])$q['info']['addr_id'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->get_field('id');
         $q['addr'] = model('user_address')->find($q['info']['addr_id']);
         $l = model('location')->limit(9999)->select('id');
@@ -305,6 +322,7 @@ class item extends base\basic{
             $data['name'] = $t['name'];
             $data['attribute_name'] = $t['attribute_name'];
             $data['var'] = $t['var'];
+            $this->_parse_order($data);
             model('cart')->remove($cid);
             if($this->out){
                 $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->limit(1)->select();
@@ -374,6 +392,7 @@ class item extends base\basic{
             $data['name'] = $t['name'];
             $data['attribute_name'] = $t['attribute_name'];
             $data['var'] = $t['var'];
+            $this->_parse_order($data);
             model('cart')->remove($cid);
             if($this->out){
                 $q['user'] = model('user_address')->where(array('uid'=>$this->uid,'type'=>1))->limit(1)->select();
@@ -435,6 +454,7 @@ class item extends base\basic{
             }
         }
         $q['list'] = $cid;
+        
         $q['money'] = $money;
         $this->success($q);
 
