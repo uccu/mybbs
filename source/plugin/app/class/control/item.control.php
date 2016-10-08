@@ -171,7 +171,7 @@ class item extends base\basic{
         if($list['oid'])$listt[] = &$listt;
         else $listt = &$list;
         foreach($listt as &$v){
-            $num = str_len((string)$v['oid']);
+            $num = strlen((string)$v['oid']);
             $v['oid_name'] ='';
             for($i=0;$i<8-$num;$i++)$v['oid_name'].='0';
             $v['oid_name'] .= $v['oid']; 
