@@ -136,7 +136,7 @@ class in extends base\basic{
         
         if($info = model('user')->where(array('phone'=>$phone))->find()){
             if($info[$type])$this->errorCode(443);
-            if(md5(md5($password).$this->salt)!=$info['password'])$this->errorCode(402);
+            //if(md5(md5($password).$this->salt)!=$info['password'])$this->errorCode(402);
             if($type=='qq'){
                 $data['qq'] = $key;
             }elseif($type=='wb'){
@@ -150,7 +150,7 @@ class in extends base\basic{
             $this->_out_info($info);
         }else{
             $this->_check_password($password);
-            $password = md5(md5($password).$this->salt);
+            //$password = md5(md5($password).$this->salt);
             if($type=='qq'){
                 $info['qq'] = '';
             }elseif($type=='wb'){
