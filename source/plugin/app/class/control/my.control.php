@@ -54,7 +54,7 @@ class my extends base\e{
     function my_info(){
         $u = $this->userInfo;
         unset($u['password']);
-        $t['info'] = model('user')->field(array('nickname','type','label','thumb','sex'))->find($this->uid);
+        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex'))->find($this->uid);
         
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
@@ -66,7 +66,7 @@ class my extends base\e{
     function my_fans(){
         model('fans')->mapping('f');
         $t['fans'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'f.fans_id=u.uid','_mapping'=>'u','type','nickname','label','thumb'),
+            'user'=>array('_on'=>'f.fans_id=u.uid','uid'=>'fuid','_mapping'=>'u','type','nickname','label','thumb'),
             '_table'=>array('_join'=>'LEFT JOIN','_on'=>'f.fans_id=f2.uid','_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('uid'=>$this->uid))->limit(999)->select();
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
@@ -74,10 +74,10 @@ class my extends base\e{
     }
     function my_follow(){
         model('fans')->mapping('f');
-        $t['fans'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'uid','_mapping'=>'u','nickname','type','label','thumb'),
+        $t['follow'] = model('fans')->add_table(array(
+            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','type','label','thumb'),
         ))->where(array('fans_id'=>$this->uid))->limit(999)->select();
-        foreach($t['fans'] as &$v)$v['follow'] = '1';
+        foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
     }
 
