@@ -194,6 +194,7 @@ class my extends base\basic{
     function score_shop(){
         $z['score'] = $this->userInfo['score'];
         $where['score'] = array('logic',0,'!=');
+        $where['del'] = 1;
         $z['list'] = model('goods')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
