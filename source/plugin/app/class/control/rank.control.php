@@ -433,7 +433,7 @@ class rank extends base\basic{
             WHERE ( o1.referee = $uid ) AND o1.aid = $aid AND o1.status IN (2,3,4) AND o1.score = 0 ORDER BY o1.pay_time");
 
 
-        $myd = model('rank_dou')->where(array('uid'=>$this->uid,'aid'=>$aid))->find();
+        $myd = model('rank_bean')->where(array('uid'=>$this->uid,'aid'=>$aid))->find();
         if(!$myd)$myd = array('bean'=>0);
         $myd['avatar'] = $this->userInfo['avatar'];
         $myd['nickname'] = $this->userInfo['nickname'];
