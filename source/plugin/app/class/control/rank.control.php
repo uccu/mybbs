@@ -431,7 +431,6 @@ class rank extends base\basic{
             "SELECT o1.*,u.username,u.avatar FROM `tuan_order` o1 
             inner join tuan_user u on o1.uid = u.uid 
             WHERE ( o1.referee = $uid ) AND o1.aid = $aid AND o1.status IN (2,3,4) AND o1.score = 0 ORDER BY o1.pay_time");
-        if(!$q['list'])$this->errorCode(427);
 
 
         $myd = model('rank_dou')->where(array('uid'=>$this->uid,'aid'=>$aid))->find();
