@@ -16,6 +16,7 @@ class coherent{
 	protected $output;
 	protected $result = array();
 	protected $auto;
+	protected $distinct;
 	protected $data = array();
     protected $_gsave;
 	function _get_g(){
@@ -106,6 +107,7 @@ class coherent{
 		$this->where = array();
 		$this->offset = 0;
 		$this->limit = 0;
+		$this->distinct = false;
 		//$this->output = false;
 		return $this;
 	}
@@ -126,6 +128,9 @@ class coherent{
 			$v['_mapping'] = $x;break;
 		}
 		return $this;
+	}
+	public function distinct($e = true){
+		$this->distinct = $e;
 	}
 	public function sql($sql=true){
 		$this->output = $sql?'sql':'';
@@ -190,6 +195,7 @@ class coherent{
 	public function select($keyfield = ''){
 		
 		$sql .= 'SELECT ';
+		if($this->distinct)$sql .= 'DISTINCT ';
 		if($this->field)$sql .= $this->field;
 		elseif($this->tableMap){
 			$ENABLE_TABLE = count($this->tableMap)>1?1:0;
