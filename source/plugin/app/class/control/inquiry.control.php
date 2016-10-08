@@ -9,6 +9,9 @@ class inquiry extends base\e{
 
     function info($id){
         $id = post('id',$id,'%d');
+
+        model('inquiry')->data(array('read'=>array('add',1)))->save($id);
+
         $t['info'] = model('inquiry')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname')
         ))->find($id);
@@ -16,6 +19,7 @@ class inquiry extends base\e{
 
         $t['follow'] = model('fans')->where(array('uid'=>$t['info']['uid'],'fans_id'=>$this->uid))->get_field();
         $t['collect'] = model('collect')->where(array('type'=>'w','uid'=>$this->uid,'id'=>$t['info']['id']))->get_field();
+
 
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
@@ -56,7 +60,21 @@ class inquiry extends base\e{
 
     }
     
-
+    function answer(){
+        $this->_check_login();
+        $ty = $this->userInfo['type'];
+        if($ty<1)$this->errorCode(411);
+        $data['uid'] = $this->uid;
+        $data['bid'] = post('bid',0);
+        if(!$i = model('inquiry')->find($data['bid']))$this->errorCode(413);
+        $data['content'] = post('content','');
+        $data['img'] = post('img','');
+        $data['ctime'] = TIME_NOW;
+        $r = model('inquiry_list')->data($data)->add();
+        if(!$r)$this->errorCode(413);
+        model('inquiry')->data(array('answer'=>array('add',1)))->save($data['bid']);
+        $this->success();
+    }
 
 
 }
