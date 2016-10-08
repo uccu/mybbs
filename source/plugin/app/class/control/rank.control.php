@@ -428,7 +428,7 @@ class rank extends base\basic{
         $where['score'] = 0;
         $uid = $this->uid;
         $q['list'] = model('logic')->fetch_all(
-            "SELECT o1.*,u.username,u.avatar,b.bean FROM `tuan_order` o1 
+            "SELECT o1.*,u.username,u.avatar,b.bean as my_bean FROM `tuan_order` o1 
             inner join tuan_user u on o1.uid = u.uid 
             left join tuan_rank_bean b on b.uid = o1.uid and o1.aid = b.aid
             WHERE ( o1.referee = $uid ) AND o1.aid = $aid AND o1.status IN (2,3,4) AND o1.score = 0 ORDER BY o1.pay_time");
