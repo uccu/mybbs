@@ -16,10 +16,10 @@ class home extends base\basic{
         return $all['s']?$all['s']*$pe:0;
     }
     function _allMoney($aid){
-        echo $all = model('order')->field('SUM(`money`) as `s`')->where(array(
+        $all = model('order')->field('SUM(`money`) as `s`')->where(array(
             'aid'=>$aid,
             'status'=>array('contain',array(2,3,4),'IN'),
-        ))->sql()->find();die();
+        ))->find();
         return $all['s']?floor($all['s']):0;
     }
     function _allFans($aid){
