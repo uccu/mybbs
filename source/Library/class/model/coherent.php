@@ -130,7 +130,7 @@ class coherent{
 		return $this;
 	}
 	public function distinct($e = true){
-		$this->distinct = $e;
+		$this->distinct = $e;return $this;
 	}
 	public function sql($sql=true){
 		$this->output = $sql?'sql':'';
