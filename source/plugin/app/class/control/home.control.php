@@ -20,7 +20,7 @@ class home extends base\basic{
             'aid'=>$aid,
             'status'=>array('contain',array(2,3,4),'IN'),
         ))->find();
-        return $all['s']?$all['s']:0;
+        return $all['s']?floor($all['s']):0;
     }
     function _allFans($aid){
         $all = model('fans')->where(array(
