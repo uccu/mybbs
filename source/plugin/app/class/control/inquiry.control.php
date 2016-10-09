@@ -49,13 +49,15 @@ class inquiry extends base\e{
     }
 
 
-    function lists(){
+    function lists($bid){
+        $bid = post('bid',$bid,'%d');
+        if($bid)$where['bid'] = $bid;
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
-        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($t);
 
@@ -74,7 +76,27 @@ class inquiry extends base\e{
         $r = model('inquiry_list')->data($data)->add();
         if(!$r)$this->errorCode(413);
         model('inquiry')->data(array('answer'=>array('add',1)))->save($data['bid']);
+        model('user')->data(array('answer'=>array('add',1)))->save($this->uid);
         $this->success();
+    }
+
+    function publish(){
+        $this->_check_login();
+        $z = model('inquiry')->data($_POST)->add();
+        if(!$z)$this->errorCode(415);
+        $e2 = model('equipment_list')->find($_POST['bid']);
+        $e1 = model('equipment_list')->find($e2['bid']);
+        if(!$e1)$this->errorCode(415);
+        $data['count'] = array('add',1);
+        $data['utime'] = TIME_NOW;
+        if($e2['utime']<$this->today)$data['today_count'] = 1;
+        else $data['today_count'] = array('add',1);
+        model('equipment_list')->data($data)->save($e2['id']);
+        if($e1['utime']<$this->today)$data['today_count'] = 1;
+        else $data['today_count'] = array('add',1);
+        model('equipment_list')->data($data)->save($e1['id']);
+        $this->success();
+
     }
 
 

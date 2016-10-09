@@ -16,7 +16,7 @@ class user extends base\e{
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
     }
-    function my_follow($uid){
+    function follow($uid){
         $uid = post('uid',$uid,'%d');
         $user = $this->_check_uid($uid);
         model('fans')->mapping('f');
@@ -28,7 +28,28 @@ class user extends base\e{
         $this->success($t);
     }
 
-    function info($uid){
+    function info_1($uid){
+        $uid = post('uid',$uid,'%d');
+        $u = $this->_check_uid($uid);
+        unset($u['password']);
+        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex'))->find($uid);
+        $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
+        $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
+        $t['followed'] = $this->_check_follow($uid);
+        $t['inquiry'] = model('inquiry')->where(array('uid'=>$uid))->get_field();
+        $t['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
+
+        $t['list'] = model('inquiry')->distinct()->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'inquiry_list'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r'),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='."'{$this->uid}'",'uid'=>'collected')
+        ))->where(array('ruid'=>$uid))->order(array('ctime'=>'DESC'))->limit(10)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+
+        
+        $this->success($t);
+    }
+    function info_0($uid){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
         unset($u['password']);
@@ -42,13 +63,41 @@ class user extends base\e{
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
-        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit(10)->select();
+        ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->limit(10)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
 
         
         $this->success($t);
     }
+    function answer($uid){
+        $uid = post('uid',$uid,'%d');
+        $u = $this->_check_uid($uid);
+        $page = post('page',1);
+        $limit = post('limit',10);
 
+        $t['list'] = model('inquiry')->distinct()->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'inquiry_list'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r'),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='."'{$this->uid}'",'uid'=>'collected')
+        ))->where(array('ruid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+
+        $this->success($t);
+    }
+
+    function publish(){
+        $uid = post('uid',$uid,'%d');
+        $u = $this->_check_uid($uid);
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
+        ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $this->success($t);
+
+    }
 
 
 }
