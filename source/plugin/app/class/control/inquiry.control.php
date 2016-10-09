@@ -99,6 +99,20 @@ class inquiry extends base\e{
 
     }
 
+    function search(){
+        $search = post('search',$bid,'%d');
+        if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
+        else $where = '1=2';
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
+        ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $this->success($t);
+    }
+
 
 }
 ?>
