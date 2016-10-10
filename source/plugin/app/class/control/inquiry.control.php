@@ -119,6 +119,7 @@ class inquiry extends base\e{
 
     function expert_search($search){
         $search = post('search',$search,'%d');
+        $where['type'] = 2;
         if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
         else $where = '1=2';
         $page = post('page',1);
