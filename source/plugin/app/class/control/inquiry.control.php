@@ -13,7 +13,7 @@ class inquiry extends base\e{
         
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
-        $t['info'] = model('inquiry')->add_table(array(
+        $t['info'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->find($id);
