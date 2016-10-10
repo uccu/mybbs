@@ -126,6 +126,8 @@ class inquiry extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('user')->sql()->mapping('u')->add_table(array(
              'fans'=>array('_join'=>'LEFT JOIN','_on'=>'u.uid=f.uid AND f.fans_id='."'{$this->uid}'",'_mapping'=>'f','fans_id'=>'followed')
+        ))->field(array(
+            "uid","thumb","nickname","experience","label","type","is_login","answer","fans","follow","followed"
         ))->where($where)->page($page,$limit)->select();
         foreach($t['list'] as &$v){
             $v['followed'] = $v['followed']?'1':'0';
