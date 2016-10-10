@@ -33,6 +33,7 @@ class e extends \control\ajax{
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '-5';
     }
     function _get_userInfo(){
+        $this->uid;
         return array();
     }
     function _check_type($type){
