@@ -8,7 +8,7 @@ class other extends base\e{
 
     function organ($bid=0){
         $where['bid'] = post('bid',$bid,'%d');
-        $z['list'] = model('manager_organ')->where($where)->select();
+        $z['list'] = model('manager_organ')->where($where)->limit(999)->select();
         $this->success($z);
     }
     
