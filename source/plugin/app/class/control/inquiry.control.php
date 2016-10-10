@@ -14,9 +14,12 @@ class inquiry extends base\e{
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
         $t['info'] = model('inquiry')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname')
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->find($id);
         if(!$t['info'])$this->errorCode(439);
+        $t['info']['collected'] = $t['info']['collected']?'1':'0';
+
 
         $t['follow'] = model('fans')->where(array('uid'=>$t['info']['uid'],'fans_id'=>$this->uid))->get_field();
         $t['collect'] = model('collect')->where(array('type'=>'w','uid'=>$this->uid,'id'=>$t['info']['id']))->get_field();
