@@ -10,7 +10,7 @@ class inquiry extends base\e{
     function info($id){
         $id = post('id',$id,'%d');
         
-        $this->_check_access();
+        
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
         $t['info'] = model('inquiry')->add_table(array(
@@ -36,6 +36,7 @@ class inquiry extends base\e{
     }
 
     function reply($id){
+        $this->_check_access();
         $id = post('id',$id,'%d');
         $page = post('page',1);
         $limit = post('limit',10);
