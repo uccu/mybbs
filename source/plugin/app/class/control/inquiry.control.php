@@ -124,6 +124,7 @@ class inquiry extends base\e{
         else $where = '1=2';
         $page = post('page',1);
         $limit = post('limit',10);
+        $t['uid'] = $this->uid;
         $t['list'] = model('user')->sql()->field(array(
             "uid","thumb","nickname","experience","label","type","is_login","answer","fans","follow","followed"
         ))->mapping('u')->add_table(array(
