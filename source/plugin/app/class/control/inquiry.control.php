@@ -105,7 +105,7 @@ class inquiry extends base\e{
 
     function search(){
         $search = post('search',$bid,'%d');
-        if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
+        if($search)$where['title'] = array('contain','%'.$search.'%','LIKE');
         else $where = '1=2';
         $page = post('page',1);
         $limit = post('limit',10);
@@ -114,6 +114,19 @@ class inquiry extends base\e{
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $this->success($t);
+    }
+
+    function expert_search(){
+        $search = post('search',$bid,'%d');
+        if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
+        else $where = '1=2';
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('user')->mapping('u')->add_table(array(
+             'fans'=>array('_join'=>'LEFT JOIN','_on'=>'u.uid=f.uid AND f.fans_id='."'{$this->uid}'",'_mapping'=>'f','fans_id'=>'follow')
+        ))->where($where)->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
     }
 
