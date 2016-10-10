@@ -6,7 +6,7 @@ class other extends base\e{
         //$this->_check_login();
     }
 
-    function organ($bid){
+    function organ($bid=0){
         $where['bid'] = post('bid',$bid,'%d');
         $z['list'] = model('manager_organ')->where($where)->select();
         $this->success($z);
