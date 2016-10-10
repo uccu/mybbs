@@ -94,7 +94,18 @@ class home extends base\e{
         $this->success($data);
     }
 
-    
+    function fast(){
+        $this->_check_login();
+        $_POST['uid'] = $this->uid;
+        $z = model('fast_call')->data($_POST)->add();
+        if(!$z)$this->errorCode(415);
+        $this->success();
+    }
+
+    function repository_collect(){//收藏资料库
+
+preg_match('#\d{10}\.(jpg|jpeg|gif|png|bmp)$#')
+    }
 
 
 
