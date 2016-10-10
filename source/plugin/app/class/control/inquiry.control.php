@@ -126,7 +126,10 @@ class inquiry extends base\e{
         $t['list'] = model('user')->mapping('u')->add_table(array(
              'fans'=>array('_join'=>'LEFT JOIN','_on'=>'u.uid=f.uid AND f.fans_id='."'{$this->uid}'",'_mapping'=>'f','fans_id'=>'follow')
         ))->where($where)->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['follow'] = $v['follow']?'1':'0';
+        foreach($t['list'] as &$v){
+            unset($v['password']);
+            $v['follow'] = $v['follow']?'1':'0';
+        }
         $this->success($t);
     }
 
