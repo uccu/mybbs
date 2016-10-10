@@ -34,7 +34,7 @@ class e extends \control\ajax{
     }
     function _get_userInfo(){
         $this->uid;
-        return array();
+        return $this->userInfo;
     }
     function _check_type($type){
         if($this->uid<1)$this->errorCode(411);
