@@ -104,7 +104,7 @@ class home extends base\e{
 
     function repository_collect(){//收藏资料库
 
-preg_match('#\d{10}\.(jpg|jpeg|gif|png|bmp)$#')
+
     }
 
 
