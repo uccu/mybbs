@@ -8,10 +8,9 @@ class e extends \control\ajax{
     function errorCode($z){
         return control('code','error')->errorCode($z);
     }
-    function __construct(){
-        $this->uid;
-        call_user_func_array(array(parent,'__construct'),func_get_args());
-    }
+    // function __construct(){
+    //     call_user_func_array(array(parent,'__construct'),func_get_args());
+    // }
     function session_start(){
         if(!$this->g->session){
             $this->g->session = 1;
