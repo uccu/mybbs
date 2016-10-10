@@ -40,15 +40,20 @@
 
 **img**         `缩略图`
 
+**count**       `总数`
+
+**today_count** `今日更新数`
+
 ```
-        {
-            "id": "10",
-            "bid": "0",
-            "name": "电气设备及系统",
-            "ctime": "0",
-            "orders": "10",
-            "del": "1",
-            "img": "xxx.jpg"
-        },    
+{
+    "id": "1",
+    "bid": "0",
+    "name": "汽轮机",
+    "ctime": "0",
+    "img": "",
+    "count": "0",
+    "today_count": "0",
+    "utime": "0"
+}
 
 ```
