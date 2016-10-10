@@ -44,7 +44,7 @@ code为200为正常输出，结果在data内，其他为错误，错误信息在
 
 [运维相关接口](maintenance.md)
 
-[问诊相关接口](inpuiry.md)
+[问诊相关接口](inquiry.md)
 
 [课程相关接口](lession.md)
 
