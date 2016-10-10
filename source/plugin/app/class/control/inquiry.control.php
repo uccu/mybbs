@@ -25,7 +25,7 @@ class inquiry extends base\e{
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
-            'inquiry_zan'=>array('join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
+            'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
         foreach($t['adopt'] as &$v)$v['zan'] = $v['zan']?'1':'0';
 
@@ -42,7 +42,7 @@ class inquiry extends base\e{
         $limit = post('limit',10);
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname'),
-            'inquiry_zan'=>array('join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
+            'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
         ))->where(array('bid'=>$id))->page($page,$limit)->order(array('adopt'=>'DESC','ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v)$v['zan'] = $v['zan']?'1':'0';
 
