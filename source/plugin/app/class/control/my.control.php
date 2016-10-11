@@ -615,7 +615,7 @@ class my extends base\basic{
             $t['suport'] = '';
             $t['addr'] = '';
             $t['phone'] = '';
-            $t['eamail'] = '';
+            $t['email'] = '';
             $t['type'] = '0';
             $t['cert'] = '';
         }
@@ -644,7 +644,7 @@ class my extends base\basic{
             $t['suport'] = '';
             $t['addr'] = '';
             $t['phone'] = '';
-            $t['eamail'] = '';
+            $t['email'] = '';
             $t['type'] = '0';
             $t['site'] = '';
             $t['content'] = '';
