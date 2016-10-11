@@ -114,6 +114,11 @@ class home extends base\basic{
         $z['list'] = model('profession')->limit(999)->select();
         $this->success($z);
     }
+    function share(){
+        $z['share_title'] = model('cache')->get('share_title');
+        $z['share_content'] = model('cache')->get('share_content');
+        $this->success($z);
+    }
 
 }
 ?>
