@@ -140,6 +140,7 @@ class inquiry extends base\e{
 
     function collect($id){
         $this->_check_login();
+        $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
         $data['type'] = 'w';
 
@@ -156,7 +157,7 @@ class inquiry extends base\e{
             model('collect')->data($data)->add();
             $z['collected'] = '1';
         }
-        $this->success();
+        $this->success($z);
     }
 
 

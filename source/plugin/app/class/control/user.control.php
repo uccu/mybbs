@@ -27,7 +27,6 @@ class user extends base\e{
         foreach($t['follow'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
     }
-
     function info_1($uid){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
@@ -84,7 +83,6 @@ class user extends base\e{
 
         $this->success($t);
     }
-
     function publish(){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
@@ -99,6 +97,24 @@ class user extends base\e{
 
     }
 
+    function collect($uid){
+        $this->_check_login();
+        $uid = post('uid',$uid,'%d');
+        $data['fans_id'] = $this->uid;
+        $user = model('user')->find($uid);
+        if(!$user)$this->errorCode(414);
+        $data['uid'] = $id;
+
+        $f = model('fans')->where($data)->find();
+        if($f){
+            model('fans')->where($data)->remove();
+            $z['followed'] = '0';
+        }else{
+            model('fans')->data($data)->add();
+            $z['followed'] = '1';
+        }
+        $this->success($z);
+    }
 
 }
 ?>
