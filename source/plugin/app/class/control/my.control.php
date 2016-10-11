@@ -417,7 +417,7 @@ class my extends base\basic{
         if(!model('user')->find($uid))$this->errorCode(440);
         $data['uid'] = $uid;
         $data['aid'] = $this->aid;
-        if(!model('fans')->where($data)->find()){
+        if(!model('fans')->where($data)->find() && $data['uid']!=$data['fans_id']){
             $data['ctime'] = TIME_NOW;
             $data['buy'] = 0; 
             model('fans')->data($data)->add();

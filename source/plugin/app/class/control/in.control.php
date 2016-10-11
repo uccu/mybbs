@@ -185,7 +185,7 @@ class in extends base\basic{
             $data['fans_id'] = $info['uid'];
             $data['uid'] = $referee;
             $data['aid'] = $this->lastAid;
-            if(!model('fans')->where($data)->find()){
+            if(!model('fans')->where($data)->find() && $data['uid']!=$data['fans_id']){
                 $data['ctime'] = TIME_NOW;
                 $data['buy'] = 0; 
                 model('fans')->data($data)->add();

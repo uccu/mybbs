@@ -584,7 +584,7 @@ class item extends base\basic{
         $data['ctime'] = TIME_NOW;
         $data['aid'] = $aid;
         $data['buy'] = 1; 
-        foreach($orders as $o)if($o['referee']){
+        foreach($orders as $o)if($o['referee'] && $o['referee']!=$data['fans_id']){
             $data['uid'] = $o['referee'];
             model('fans')->data($data)->add(true);
         }

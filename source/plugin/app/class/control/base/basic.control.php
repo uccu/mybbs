@@ -29,8 +29,8 @@ class basic extends \control\ajax{
         $this->userInfo = $info;
         if(!$info)return '-4';
         $this->userInfo = $info;
-        $referee = post('referee',0);
-        if($referee && $referee==$uid)$this->errorCode(441);
+        // $referee = post('referee',0);
+        // if($referee && $referee==$uid)$this->errorCode(441);
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '-5';
     }
     function _get_userInfo(){
