@@ -136,5 +136,29 @@ class inquiry extends base\e{
     }
 
 
+
+
+    function collect($id){
+        $this->_check_login();
+        $data['uid'] = $this->uid;
+        $data['type'] = 'w';
+
+
+        $i = model('inquiry')->find($id);
+        if(!$i)$this->errorCode(439);
+
+        $data['id'] = $id;
+        $f = model('collect')->where($data)->find();
+        if($f){
+            model('collect')->where($data)->remove();
+            $z['collected'] = '0';
+        }else{
+            model('collect')->data($data)->add();
+            $z['collected'] = '1';
+        }
+        $this->success();
+    }
+
+
 }
 ?>
