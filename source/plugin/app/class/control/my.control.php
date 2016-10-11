@@ -604,7 +604,7 @@ class my extends base\basic{
     }
 
 
-    function bp(){
+    function bussiness_p(){
         
         $t = model('bussiness_person')->find($this->uid);
         if(!$t){
@@ -632,7 +632,7 @@ class my extends base\basic{
         }
     }
 
-    function bc(){
+    function bussiness_c(){
         
         $t = model('bussiness_company')->find($this->uid);
         if(!$t){
