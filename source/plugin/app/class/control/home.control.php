@@ -83,7 +83,7 @@ class home extends base\basic{
             $z2 = model('activity')->where($where2)->order(array('stime'))->limit(1)->select();
         }else{
             $where2['stime'] = array('logic',$now,'>');
-            $z2 = model('activity')->where($where2)->order(array('stime'))->limit(1)->select();
+            $z2 = model('activity')->where($where2)->order(array('stime'))->limit(9999)->select();
         }
         $q['nextActivityInfo'] = $z2;
         if($z2){
