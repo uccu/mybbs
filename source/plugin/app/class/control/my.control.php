@@ -602,5 +602,65 @@ class my extends base\basic{
         model('user')->data(array('push'=>$push))->save($this->uid);
         $this->success();
     }
+
+
+    function bp(){
+        
+        $t = model('bussiness_person')->find($this->uid);
+        if(!$t){
+            $t = array();
+            $t['uid'] = '0';
+            $t['name'] = '';
+            $t['ctime'] = '0';
+            $t['suport'] = '';
+            $t['addr'] = '';
+            $t['phone'] = '';
+            $t['eamail'] = '';
+            $t['type'] = '0';
+            $t['cert'] = '';
+        }
+        if(!$_POST){
+            $data['info'] = $t;
+            $this->success($data);
+        }else{
+
+            $_POST['ctime'] = TIME_NOW;
+            $_POST['uid'] = $this->uid;
+            $_POST['type'] = 0;
+            model('bussiness_person')->data($_POST)->add(true);
+            $this->success();
+        }
+    }
+
+    function bc(){
+        
+        $t = model('bussiness_company')->find($this->uid);
+        if(!$t){
+            $t = array();
+            $t['uid'] = '0';
+            $t['name'] = '';
+            $t['ctime'] = '0';
+            $t['suport'] = '';
+            $t['addr'] = '';
+            $t['phone'] = '';
+            $t['eamail'] = '';
+            $t['type'] = '0';
+            $t['site'] = '';
+            $t['content'] = '';
+            $t['company'] = '';
+
+        }
+        if(!$_POST){
+            $data['info'] = $t;
+            $this->success($data);
+        }else{
+
+            $_POST['ctime'] = TIME_NOW;
+            $_POST['uid'] = $this->uid;
+            $_POST['type'] = 0;
+            model('bussiness_company')->data($_POST)->add(true);
+            $this->success();
+        }
+    }
 }
 ?>
