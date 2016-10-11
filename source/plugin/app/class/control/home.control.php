@@ -87,8 +87,11 @@ class home extends base\basic{
         }
         $q['nextActivityInfo'] = $z2;
         if($z2){
-            $q['nextActivityInfo'][0]['time'] = TIME_NOW;
-            $q['nextActivityInfo'][0]['message'] = '总关注100W';
+            foreach($q['nextActivityInfo'] as &$v){
+                $v['time'] = TIME_NOW;
+                $v['message'] = '';
+            }
+            
         }
         if($this->out)$this->success($q);
         return $q;
