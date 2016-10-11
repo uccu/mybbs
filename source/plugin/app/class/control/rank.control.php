@@ -12,7 +12,7 @@ class rank extends base\basic{
             'status'=>array('contain',array(2,3,4),'IN'),
         ))->find();
         $pe = model('cache')->get('percent');
-        return $all['s']?$all['s']*$pe:0;
+        return $all['s']?$all['s']*$pe/100:0;
     }
     function get_c($rank,$c,$b){
  

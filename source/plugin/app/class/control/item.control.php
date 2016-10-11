@@ -488,10 +488,11 @@ class item extends base\basic{
         $z = model('order')->find($oid);
         if(!$z)$this->errorCode(425);
         if($z['status']!=3)$this->errorCode(439);
-        model('user')->data(array('score'=>array('add',100)))->save($z['uid']);
+        $score = model('cache')->get('get_item');
+        model('user')->data(array('score'=>array('add',$score)))->save($z['uid']);
         model('score_log')->data(array(
             'uid'=>$z['uid'],
-            'score'=>100,
+            'score'=>$score,
             'info'=>'确认订单',
             'ctime'=>TIME_NOW
         ))->add();
