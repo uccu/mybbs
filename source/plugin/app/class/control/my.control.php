@@ -619,6 +619,7 @@ class my extends base\basic{
             $t['type'] = '0';
             $t['cert'] = '';
         }
+        unset($_POST['user_token']);
         if(!$_POST){
             $data['info'] = $t;
             $this->success($data);
@@ -650,6 +651,7 @@ class my extends base\basic{
             $t['company'] = '';
 
         }
+        unset($_POST['user_token']);
         if(!$_POST){
             $data['info'] = $t;
             $this->success($data);
