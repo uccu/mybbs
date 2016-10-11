@@ -172,6 +172,7 @@ class in extends base\basic{
         $info['coin'] = 10000;
         $info['username'] = '用户_'.$info['ctime'];
         $info['terminal'] = post('terminal','');
+        $info['score'] = model('cache')->get('register');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
         
