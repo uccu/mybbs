@@ -65,7 +65,7 @@ class rank extends base\basic{
 
         //获取当前排行的奖金
         $rule = model('rule')->find(1);
-        $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         //获取排名
         $where['aid'] = $aid;
@@ -124,7 +124,7 @@ class rank extends base\basic{
 
         //获取当前排行的奖金
         $rule = model('rule')->find(2);
-        $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         //获取排名
         $where['aid'] = $aid;
@@ -184,7 +184,7 @@ class rank extends base\basic{
 
         //获取当前排行的奖金
         $rule = model('rule')->find(3);
-        $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         $where['aid'] = post('aid',$aid);
         $z['list'] = model('rank_bang')->add_table(array(
@@ -229,7 +229,7 @@ class rank extends base\basic{
 
         //获取当前排行的奖金
         $rule = model('rule')->find(4);
-        $allCoin = $z['allCoin'] = $allBean*$rule['value']/100;
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         $where['aid'] = post('aid',$aid);
         $z['list'] = model('rank_bean')->add_table(array(
