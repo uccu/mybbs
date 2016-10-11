@@ -13,7 +13,7 @@ class home extends base\basic{
             'status'=>array('contain',array(2,3,4),'IN'),
         ))->find();
         $pe = model('cache')->get('percent');
-        return $all['s']?$all['s']*$pe:0;
+        return $all['s']?$all['s']*$pe/100:0;
     }
     function _allMoney($aid){
         $all = model('order')->field('SUM(`money`) as `s`')->where(array(
