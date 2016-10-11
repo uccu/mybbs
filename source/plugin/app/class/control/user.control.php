@@ -32,7 +32,7 @@ class user extends base\e{
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
         unset($u['password']);
-        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex'))->find($uid);
+        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
         $t['followed'] = $this->_check_follow($uid);
@@ -53,7 +53,7 @@ class user extends base\e{
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
         unset($u['password']);
-        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex'))->find($uid);
+        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
         $t['followed'] = $this->_check_follow($uid);
