@@ -11,7 +11,6 @@ class maintenance extends base\e{//运维
         $limit = post('limit',10);
         $z['list'] = model('install')->page($page,$limit)->order(array('id'=>'DESC'))->select();
         $this->success($z);
-
     }
     
 
