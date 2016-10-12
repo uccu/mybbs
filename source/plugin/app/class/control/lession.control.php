@@ -5,7 +5,6 @@ class lession extends base\e{//运维
     function _beginning(){
         //$this->_check_login();
     }
-
     function lists($type=0){
         $type = post('type',$type,'%d');
         if($type==1)
@@ -19,7 +18,6 @@ class lession extends base\e{//运维
         $data['list'] = $t;
         $this->success($data);
     }
-
     function info($id){
         $id = post('id',$id,'%d');
         $t = model('course')->find($id);
@@ -43,7 +41,6 @@ class lession extends base\e{//运维
             model('course')->data(array('nums'=>array('add',-1)))->save($id);
         $this->success();
     }
-    
     function collect($id){
         $this->_check_login();
         $id = post('id',$id,'%d');
@@ -65,17 +62,37 @@ class lession extends base\e{//运维
         }
         $this->success($z);
     }
-
     function test(){
-        $z['list_p'] = model('paper')->where(array('charge'=>1))->limit(1)->select();
-        $z['list_y'] = model('paper')->where(array('charge'=>2))->limit(2)->select();
-        $z['list_m'] = model('paper')->where(array('charge'=>3))->limit(2)->select();
+        $z['list_p'] = model('paper')->where(array('states'=>1))->limit(1)->select();
+        $z['list_y'] = model('paper')->where(array('states'=>2))->limit(2)->select();
+        $z['list_m'] = model('paper')->where(array('states'=>3))->limit(2)->select();
         $this->success($z);
     }
-    function test_list($charge){
-        $charge = post('charge',charge,'%d');
-        $z['list'] = model('paper')->where(array('charge'=>$charge))->limit(9999)->select();
+    function test_list($states){
+        $states = post('states',$states,'%d');
+        $z['list'] = model('paper')->where(array('states'=>$states))->limit(9999)->select();
         $this->success($z);
+    }
+    function paper($id){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $paper = model('paper')->find($id);
+        if($paper['states']==3){
+            $this->_check_access();
+        }
+        $t['list'] = model('question')->where(array('states'=>$paper['states']))->order('rand()')->limit(20)->select();
+        $this->success($t['list']);
+
+    }
+    function submit($pid,$result){
+        $this->_check_login();
+        $result = post('result',$result,'%d');
+        $pid = post('pid',$pid,'%d');
+        $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
+        $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
+        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100).'%';
+        model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW))->add();
+        $this->success($data);
     }
 
 }
