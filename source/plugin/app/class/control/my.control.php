@@ -79,7 +79,8 @@ class my extends base\basic{
         $data['addr'] = post('addr','');
         $data['name'] = post('name','');
         $data['phone'] = post('phone','');
-        $data['type'] = post('type',0);
+        //$data['type'] = post('type',0);
+        $data['type'] = 1;
         $data['lid'] = post('lid',0);
         if(!$data['addr'])$this->errorCode(414);
         if($data['type']){
