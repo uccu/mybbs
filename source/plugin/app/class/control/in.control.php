@@ -127,7 +127,7 @@ class in extends base\basic{
 
     function add_account(){
         $phone = post('phone');
-        $password = post('password');
+        $password = post('password','');
         $type = post('platform','');
         $key = post('key','');
         control('tool:captcha')->_check_captcha();
@@ -149,7 +149,7 @@ class in extends base\basic{
             model('user')->data($data)->save($info['uid']);
             $this->_out_info($info);
         }else{
-            $this->_check_password($password);
+            //$this->_check_password($password);
             $password = md5(md5(')&DAQ(^DQ)(W&(ASK').$this->salt);
             if($type=='qq'){
                 $info['qq'] = '';
