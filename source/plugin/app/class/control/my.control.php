@@ -89,14 +89,120 @@ class my extends base\e{
         $this->success($t);
     }
 
+    function take_reply($id,$thank){
+        $id = post('id',$id,'%d');
+        $r= model('inquiry_list')->find($id);
+        if(!$r)$this->errorCode(439);
+        $i= model('inquiry_list')->find($r['bid']);
+        if(!$i)$this->errorCode(439);
+        if(!$i['uid']!=$this->uid)$this->erorCode(411);
+        $thank = post('thank',$thank);
+        model('inquiry_list')->where(array('adopt'=>1,'thank'=>$thank))->save($id);
+        $this->success();
+    }
+
     function del_inquiry($id){
-        $id = post('id',$id,'$d');
+        $id = post('id',$id,'%d');
         $i= model('inquiry')->find($id);
         if(!$i)$this->errorCode(439);
         if($i['user']!==$this->uid)$this->errorCode(411);
         model('inquiry')->remove($id);
         model('inquiry_list')->where(array('bid'=>$id))->remove();
         $this->success();
+    }
+
+
+    function my_reply(){
+
+
+
+    }
+
+    function my_reply_info(){
+
+
+        
+    }
+
+    function my_equip(){
+
+
+
+    }
+    function score(){
+
+
+
+    }
+
+    function score_log(){
+
+
+    }
+
+    function bind_cash(){
+
+
+    }
+
+    function cash(){
+
+
+
+    }
+
+    function cash_log(){
+
+
+
+    }
+
+
+    function my_paper(){
+
+
+
+
+    }
+    function my_paper_info(){
+
+
+
+
+    }
+
+    function message(){
+
+
+
+
+    }
+
+
+    function collect_inquiry(){
+
+
+
+
+    }
+
+    function collect_lession(){
+
+
+
+
+    }
+
+    function collect_repository(){
+
+
+
+    }
+
+    function feedback(){
+
+
+        
     }
 
 
