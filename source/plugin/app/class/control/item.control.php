@@ -502,7 +502,7 @@ class item extends base\basic{
             'info'=>'确认订单',
             'ctime'=>TIME_NOW
         ))->add();
-        $z = model('order')->data(array('status'=>4))->save($oid);
+        $z = model('order')->data(array('status'=>4,'get_time'=>TIME_NOW))->save($oid);
         if(!$z)$this->errorCode(439);
         $this->success();
     }
