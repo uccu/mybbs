@@ -74,6 +74,9 @@ class item extends base\basic{
         $has = 0;
 
         $where['aid'] = $this->aid;
+        if($aid_p = post('aid')){
+            if($aid_p!==$this->aid)$this->errorCode(419);
+        }
         $where['tid'] = $tid;
         $where['uid'] = $this->uid;
 
@@ -285,6 +288,9 @@ class item extends base\basic{
         $has = 0;
 
         $where['aid'] = $this->aid;
+        if($aid_p = post('aid')){
+            if($aid_p!==$this->aid)$this->errorCode(419);
+        }
         $where['tid'] = $tid;
         $where['uid'] = $this->uid;
 
