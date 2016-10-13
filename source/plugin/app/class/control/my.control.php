@@ -131,6 +131,11 @@ class my extends base\e{
 
 
     }
+    function my_equip_info(){
+
+
+
+    }
     function score(){
         $z['score'] = $this->userInfo['score'];
         $this->success($z);
@@ -214,6 +219,11 @@ class my extends base\e{
     }
 
     function feedback(){
+
+
+        
+    }
+    function sign(){
 
 
         

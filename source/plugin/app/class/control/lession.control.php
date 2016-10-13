@@ -15,6 +15,7 @@ class lession extends base\e{//运维
             $t = model('course')->where(array('etime'=>array('logic',TIME_NOW,'<')))->limit(999)->order(array('open_time'=>'DESC'))->select();
         else $t = model('course')->limit(999)->select();
 
+        foreach($t as &$v)$v['now'] = TIME_NOW;
         $data['list'] = $t;
         $this->success($data);
     }
@@ -29,7 +30,7 @@ class lession extends base\e{//运维
         }elseif($t['etime']<TIME_NOW){
             $this->_check_vip();
         }
-
+        $t['now'] = TIME_NOW;
         $data['info'] = $t;
         $this->success($data);
     }
@@ -63,9 +64,9 @@ class lession extends base\e{//运维
         $this->success($z);
     }
     function test(){
-        $z['list_p'] = model('paper')->where(array('states'=>1))->limit(1)->select();
+        $z['list_r'] = model('paper')->where(array('states'=>1))->limit(1)->select();
         $z['list_y'] = model('paper')->where(array('states'=>2))->limit(2)->select();
-        $z['list_m'] = model('paper')->where(array('states'=>3))->limit(2)->select();
+        $z['list_p'] = model('paper')->where(array('states'=>3))->limit(2)->select();
         $this->success($z);
     }
     function test_list($states){
@@ -90,7 +91,7 @@ class lession extends base\e{//运维
         $pid = post('pid',$pid,'%d');
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
-        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100).'%';
+        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
         model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW))->add();
         $this->success($data);
     }
