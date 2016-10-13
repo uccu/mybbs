@@ -30,7 +30,6 @@ class user extends base\e{
     function info_1($uid){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
-        unset($u['password']);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
@@ -51,7 +50,6 @@ class user extends base\e{
     function info_0($uid){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
-        unset($u['password']);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();

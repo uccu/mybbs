@@ -24,6 +24,7 @@ class my extends base\e{
         $data['nickname'] = post('nickname',$nickname);
         $data['sex'] = post('sex',$sex);
         $data['city'] = post('city',$city);
+        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
         $data['plant'] = post('plant',$plant);
         $data['thumb'] = post('thumb');
         if(!$data['thumb'])unset($data['thumb']);
@@ -34,7 +35,8 @@ class my extends base\e{
         $this->_check_type(-1);
         $data['nickname'] = post('nickname','');
         $data['sex'] = post('sex',0,'%d');
-        $data['city'] = post('city',0,'%d');
+        $data['city'] = post('city',$city);
+        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
         $data['plant'] = post('plant','');
         $data['company'] = post('company','');
         $data['at_start'] = post('at_start',0,'%d');
@@ -130,41 +132,53 @@ class my extends base\e{
 
     }
     function score(){
-
-
+        $z['score'] = $this->userInfo['score'];
+        $this->success($z);
 
     }
 
     function score_log(){
-
-
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $where['uid'] = $this->uid;
+        $list = model('score_log')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        $this->success($list);
     }
 
-    function bind_cash(){
-
-
+    function cash_bind(){
+        $wx_pay = post('wx_pay','');
+        model('user')->data(array('wx_pay'=>$wx_pay))->save($this->uid);
+        $this->success();
     }
 
-    function cash(){
-
-
-
+    function cash_apply($money=0){
+        if(!$this->userInfo['wx_pay'])$this->errorCode(417);
+        $data['money'] = post('money',$money,'%d');
+        if(!$data['money'])$this->errorCode(416);
+        if($this->userInfo['score']<$data['money']*100)$this->errorCode(442);
+        $data['uid'] = $this->uid;
+        $data['ctime'] = TIME_NOW;
+        model('cash_apply')->data($data)->add();
+        model('user')->data(array('score'=>array('add',-1*$data['money']*100)))->save($this->uid);
+        $this->success();
     }
 
     function cash_log(){
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $where['uid'] = $this->uid;
+        $list = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        $this->success($list);
+    }
+
+
+    function paper_list(){
+
 
 
 
     }
-
-
-    function my_paper(){
-
-
-
-
-    }
-    function my_paper_info(){
+    function paper_info(){
 
 
 
