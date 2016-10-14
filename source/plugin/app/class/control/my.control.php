@@ -122,9 +122,9 @@ class my extends base\e{
         $limit = post('limit',10);
 
         $t['list'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'i','title','content'=>'rcontent','img'=>'rimg'),
+            'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'i','title','content'=>'icontent','img'=>'iimg'),
             'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','_mapping'=>'u'),
-            'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'thumb2','nickname'=>'nickname2','_mapping'=>'u2'),
+            'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','_mapping'=>'u2'),
             
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
 
