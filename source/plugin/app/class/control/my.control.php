@@ -133,7 +133,28 @@ class my extends base\e{
 
     }
 
-    
+    function feedback($content=''){
+        $content = post('content',$content);
+        if(!$content)$this->errorCode(416);
+        $data['uid'] = $this->uid;
+        $data['content'] = $content;
+        model('feedback')->data($data)->add();
+        $this->success();
+    }
+    function sign(){
+        
+        $u = model('sign')->find($this->uid);
+        if(!$u)model('sign')->data(array('uid'=>$this->uid,'sign_time'=>TIME_NOW,'times'=>1))->add();
+        else{
+            if($u['sign_time']>$this->today())$this->errorCode(423);
+            model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
+        }
+        $this->success();
+    }
+
+
+
+    //————————
 
     function my_equip(){
         $t['list'] = model('user_equip')->mapping('u')->add_table(array(
@@ -142,7 +163,7 @@ class my extends base\e{
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->select();
         $this->success($t);
     }
-    function my_equip_info($id){
+    function my_equip_info($id=0){
         $id = post('id',$id,'%d');
         $t['info'] = model('user_equip')->mapping('u')->add_table(array(
             'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
@@ -195,9 +216,11 @@ class my extends base\e{
 
 
     function paper_list(){
+        $page = post('page',1);
+        $limit = post('limit',10);
         $t['list'] = model('paper_result')->add_table(array(
             'paper'=>array('_on'=>'pid','name','img')
-        ))->order(array('citme'))->select();
+        ))->order(array('citme'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
     function paper_info(){
@@ -262,25 +285,7 @@ class my extends base\e{
 
     }
 
-    function feedback($content=''){
-        $content = post('content',$content);
-        if(!$content)$this->errorCode(416);
-        $data['uid'] = $this->uid;
-        $data['content'] = $content;
-        model('feedback')->data($data)->add();
-        $this->success();
-    }
-    function sign(){
-        
-        $u = model('sign')->find($this->uid);
-        if(!$u)model('sign')->data(array('uid'=>$this->uid,'sign_time'=>TIME_NOW,'times'=>1))->add();
-        else{
-            if($u['sign_time']>$this->today())$this->errorCode(423);
-            model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
-        }
-        $this->success();
-    }
-
+    
 
 }
 ?>

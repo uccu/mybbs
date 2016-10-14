@@ -13,7 +13,9 @@ class other extends base\e{
     }
     function city($bid=0){
         $where['bid'] = array('logic',0,'!=');
-        $z['list'] = model('manager_organ')->where($where)->order(array('orders'))->limit(999)->select();
+        $z['list'] = model('manager_organ')->add_table(array(
+            
+        ))->where($where)->order(array('orders'))->limit(999)->select();
         $this->success($z);
     }
 
