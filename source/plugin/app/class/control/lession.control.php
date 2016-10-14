@@ -19,7 +19,7 @@ class lession extends base\e{//运维
         $data['list'] = $t;
         $this->success($data);
     }
-    function info($id){
+    function info($id=0){
         $id = post('id',$id,'%d');
         $t = model('course')->find($id);
         if(!$t)$this->errorCode(418);
@@ -34,7 +34,7 @@ class lession extends base\e{//运维
         $data['info'] = $t;
         $this->success($data);
     }
-    function leave($id){
+    function leave($id=0){
         $id = post('id',$id,'%d');
         $t = model('course')->find($id);
         if(!$t)$this->errorCode(418);
@@ -42,7 +42,7 @@ class lession extends base\e{//运维
             model('course')->data(array('nums'=>array('add',-1)))->save($id);
         $this->success();
     }
-    function collect($id){
+    function collect($id=0){
         $this->_check_login();
         $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
@@ -69,12 +69,12 @@ class lession extends base\e{//运维
         $z['list_p'] = model('paper')->where(array('states'=>3))->limit(2)->select();
         $this->success($z);
     }
-    function test_list($states){
+    function test_list($states=0){
         $states = post('states',$states,'%d');
         $z['list'] = model('paper')->where(array('states'=>$states))->limit(9999)->select();
         $this->success($z);
     }
-    function paper($id){
+    function paper($id=0){
         $this->_check_login();
         $id = post('id',$id,'%d');
         $paper = model('paper')->find($id);
