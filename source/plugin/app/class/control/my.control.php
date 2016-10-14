@@ -351,6 +351,7 @@ class my extends base\basic{
         $t = model('goods')->find($tid);
         if(!$t)$this->errorCode(411);
         if(!$t['score'])$this->errorCode(422);
+        if($t['score']>$this->userInfo['score'])$this->error(442);
         $data['uid'] = $this->uid;
         $data['tid'] = $tid;
         $data['addr_id'] = $addr_id;
@@ -361,6 +362,7 @@ class my extends base\basic{
         $z = model('order')->data($data)->add();
         if(!$z)$this->errorCode(421);
         $q['oid'] = $z;
+        model('user')->data(array('score'=>array('add',-1*$t['score'])))->save($this->uid);
         model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>$t['score'],'info'=>'兑换商品'))->add();
         $this->success($q);
     }
