@@ -27,11 +27,13 @@ class lession extends base\e{//运维
             if($t['look_nums']==$t['nums'])$this->errorCode(419);
             model('course')->data(array('nums'=>array('add',1)))->save($id);
             $t['nums']++;
-        }elseif($t['etime']<TIME_NOW){
-            $this->_check_vip();
         }
+        // elseif($t['etime']<TIME_NOW){
+        //     $this->_check_vip();
+        // }
         $t['now'] = TIME_NOW;
         $data['info'] = $t;
+        $data['collect'] = model('collect')->where(array('type'=>'k','uid'=>$this->uid,'id'=>$t['cid']))->find() ? '1' :'0';
         $this->success($data);
     }
     function leave($id=0){
@@ -87,7 +89,7 @@ class lession extends base\e{//运维
     }
     function submit($pid,$result=0){
         $this->_check_login();
-        $result = post('result',$result);
+        $result = post('result',$result,'%d');
         $pid = post('pid',$pid,'%d');
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;

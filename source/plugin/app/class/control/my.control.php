@@ -214,24 +214,34 @@ class my extends base\e{
     }
 
     function message(){
-        
-
-
-
+        $page = post('page',1);
+        $limit = post('limit',10);
+        model('message')->where(array('uid'=>$this->uid))->data(array('read'=>1))->save();
+        $t['list'] = model('message')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->select();
+        $this->success($data);
     }
 
 
     function collect_inquiry(){
-
-
-
-
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'collect'=>array('_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
+        ))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $this->success($t);
     }
 
     function collect_lession(){
-
-
-
+        $page = post('page',1);
+        $limit = post('limit',10);
+        $t['list'] = model('course')->mapping('i')->add_table(array(
+            'collect'=>array('_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'k\' AND c.uid='.$this->uid,'uid'=>'collected')
+        ))->order(array('open_time'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $this->success($t);
+        
 
     }
 
@@ -241,15 +251,23 @@ class my extends base\e{
 
     }
 
-    function feedback(){
-
-
-        
+    function feedback($content=''){
+        $content = post('content',$content);
+        if(!$content)$this->errorCode(416);
+        $data['uid'] = $this->uid;
+        $data['content'] = $content;
+        model('feedback')->data($data)->add();
+        $this->success();
     }
     function sign(){
-
-
         
+        $u = model('sign')->find($this->uid);
+        if(!$u)model('sign')->data(array('uid'=>$this->uid,'sign_time'=>TIME_NOW,'times'=>1))->add();
+        else{
+            if($u['sign_time']>$this->today())$this->errorCode(423);
+            model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
+        }
+        $this->success();
     }
 
 
