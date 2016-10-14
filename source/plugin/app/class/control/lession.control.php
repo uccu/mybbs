@@ -87,7 +87,7 @@ class lession extends base\e{//运维
     }
     function submit($pid,$result=0){
         $this->_check_login();
-        $result = post('result',$result,'%d');
+        $result = post('result',$result);
         $pid = post('pid',$pid,'%d');
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
