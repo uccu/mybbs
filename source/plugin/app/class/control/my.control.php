@@ -136,12 +136,20 @@ class my extends base\e{
     
 
     function my_equip(){
-
-
-
+        $t['list'] = model('user_equip')->mapping('u')->add_table(array(
+            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
+            'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
+        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->select();
+        $this->success($t);
     }
-    function my_equip_info(){
-
+    function my_equip_info($id){
+        $id = post('id',$id,'%d');
+        $t['info'] = model('user_equip')->mapping('u')->add_table(array(
+            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
+            'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
+        ))->order(array('ctime'=>'DESC'))->find($id);
+        if(!$t['info'])$this->error(421);
+        $this->success($t);
 
 
     }
@@ -155,8 +163,8 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $where['uid'] = $this->uid;
-        $list = model('score_log')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
-        $this->success($list);
+        $t['list'] = model('score_log')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        $this->success($t);
     }
 
     function cash_bind(){
@@ -181,26 +189,32 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $where['uid'] = $this->uid;
-        $list = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
-        $this->success($list);
+        $t['list'] = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        $this->success($t);
     }
 
 
     function paper_list(){
-
-
-
-
+        $t['list'] = model('paper_result')->add_table(array(
+            'paper'=>array('_on'=>'pid','name','img')
+        ))->order(array('citme'))->select();
+        $this->success($t);
     }
     function paper_info(){
+        $id = post('id',$id,'%d');
+        $r = model('paper_result')->find($id);
+        if(!$r)$this->errorCode(422);
+        $result = $r['result'];
+        $pid = $r['pid'];
 
-
-
-
+        $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
+        $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
+        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
+        $this->success($data);
     }
 
     function message(){
-
+        
 
 
 
