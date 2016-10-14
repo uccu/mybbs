@@ -46,7 +46,7 @@ class my extends base\e{
         $data['label'] = post('label','');
         $data['field'] = post('field',0,'%d');
         $data['thumb'] = post('thumb','');
-        $data['type'] = 0;
+        if($this->userInfo['type']<0)$data['type'] = 0;
         $data['apply'] = 1;
         if(!$data['thumb'])unset($data['thumb']);
         $this->_change_info($data);
@@ -121,7 +121,7 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
 
-        $t['list'] = model('inquiry_lsit')->mapping('i')->add_table(array(
+        $t['list'] = model('inquiry_list')->mapping('i')->add_table(array(
             'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r','title','content'=>'rcontent','img'=>'rimg'),
             'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','_mapping'=>'u'),
             'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'thumb2','nickname'=>'nickname2','_mapping'=>'u2'),
