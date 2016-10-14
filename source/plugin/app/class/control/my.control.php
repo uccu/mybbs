@@ -55,7 +55,20 @@ class my extends base\basic{
         $q['read'] = $z?'1':'0';
         $this->success($q);
     }
+    function _parse_order(&$list){
+        if($list['oid'])$listt[] = &$list;
+        else $listt = &$list;
+        foreach($listt as &$v){
+            $num = strlen((string)$v['oid']);
+            $v['oid_name'] ='';
+            for($i=0;$i<8-$num;$i++)$v['oid_name'].='0';
+            $v['oid_name'] .= $v['oid']; 
+            if($v['score']){
+                $v['oid_name'] = 'D-'.$v['oid_name'];
+            }else $v['oid_name'] = 'Q'.$v['aid'].'-'.$v['oid_name'];
+        }
 
+    }
     function fans_order($uid){
         $this->_check_login();
         $data['uid'] = post('uid',$uid,'%d');
@@ -70,6 +83,7 @@ class my extends base\basic{
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
+        $this->_parse_order($q['list']);
         $this->success($q);
     }
     
