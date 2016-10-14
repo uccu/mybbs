@@ -85,7 +85,7 @@ class lession extends base\e{//运维
         $this->success($t['list']);
 
     }
-    function submit($pid,$result){
+    function submit($pid,$result=0){
         $this->_check_login();
         $result = post('result',$result,'%d');
         $pid = post('pid',$pid,'%d');
