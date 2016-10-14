@@ -115,16 +115,25 @@ class my extends base\e{
 
 
     function my_reply(){
+        if($this->userInfo['type']<1)$this->errorCode(420);
+
+        $uid = $this->uid;
+        $page = post('page',1);
+        $limit = post('limit',10);
+
+        $t['list'] = model('inquiry_lsit')->mapping('i')->add_table(array(
+            'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r','title','content'=>'rcontent','img'=>'rimg'),
+            'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','_mapping'=>'u'),
+            'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'thumb2','nickname'=>'nickname2','_mapping'=>'u2'),
+            
+        ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
 
 
+        $this->success($t);
 
     }
 
-    function my_reply_info(){
-
-
-        
-    }
+    
 
     function my_equip(){
 
