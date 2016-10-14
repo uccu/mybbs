@@ -87,7 +87,7 @@ class my extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname')
-        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit($page,$limit)->select();
+        ))->where(array('uid'=>$this->uid))->sql()->order(array('ctime'=>'DESC'))->limit($page,$limit)->select();
         $this->success($t);
     }
 
