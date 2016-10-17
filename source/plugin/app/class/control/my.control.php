@@ -57,7 +57,7 @@ class my extends base\e{
         $u = $this->userInfo;
         unset($u['password']);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','score','vip'))->find($this->uid);
-        
+        $t['info']['isvip'] = $t['info']['vip']>TIME_NOW ?'1':'0';
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
         $t['collect'] = 0;
