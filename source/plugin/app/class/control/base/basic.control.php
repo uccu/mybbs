@@ -6,7 +6,7 @@ class basic extends \control\ajax{
     protected $salt2 = 'zetga3457';
 
     function errorCode($z){
-        return control('code','error')->errorCode($z);
+        return control('app:code','error')->errorCode($z);
     }
     // function __construct(){
     //     call_user_func_array(array(parent,'__construct'),func_get_args());
