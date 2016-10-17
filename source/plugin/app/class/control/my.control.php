@@ -240,7 +240,7 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         model('message')->where(array('uid'=>$this->uid))->data(array('read'=>1))->save();
-        $t['list'] = model('message')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->select();
+        $t['list'] = model('message')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($data);
     }
 
