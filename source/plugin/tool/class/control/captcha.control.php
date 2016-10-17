@@ -13,6 +13,24 @@ class captcha extends \plugin\app\control\base\basic{
         for($i=0;$i<6;$i++){
             $s.=$a[rand(0,9)];
         }
+        if(model('captcha_black')->where(array('ip'=>$this->g->ip))->find()){
+            $this->errorCode(701);
+        }
+        $count = model('captcha')->where(array('ip'=>$this->g->ip,'ctime'=>array('logic',TIME_NOW-600,'>')))->get_field();
+        model('capecha_log')->data(array(
+            'phone'=>$phone,
+            'captcha'=>$s,
+            'ctime'=>TIME_NOW,
+            'ip'=>$this->g->ip,
+        ))->add();
+        if($count>10){
+            model('captcha_black')->data(array('ip'=>$this->g->ip))->add(true);
+            $this->errorCode(701);
+        }
+        if($count>5){
+            $this->errorCode(701);
+        }
+        
         $z['o'] = file_get_contents ("https://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg=您好，您的验证码是：{$s}");
         session_start();
         $_SESSION['captcha'] = $s;

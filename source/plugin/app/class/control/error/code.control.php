@@ -49,6 +49,7 @@ class code extends \control\ajax{
         443=>'已经绑定第三方登录',
 
         700=>'安全错误警告',
+        701=>'黑名单',
     );
     public function errorCode($z,$e){
         file_put_contents ( 'tt.txt', (string)$z.($e?':'.$e:'') );
