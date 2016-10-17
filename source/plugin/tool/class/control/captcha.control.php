@@ -17,7 +17,7 @@ class captcha extends \plugin\app\control\base\basic{
             $this->errorCode(701);
         }
         $count = model('captcha_log')->where(array('ip'=>$this->g->ip,'ctime'=>array('logic',TIME_NOW-600,'>')))->get_field();
-        model('capecha_log')->data(array(
+        model('captcha_log')->data(array(
             'phone'=>$phone,
             'captcha'=>$s,
             'ctime'=>TIME_NOW,
