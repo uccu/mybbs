@@ -144,6 +144,8 @@ class in extends base\e{
             'type'=>$info['type'],
             'apply'=>$info['apply']?$info['apply']:"0",
             'complete'=>$info['complete']?"1":"0",
+            'vip'=>$info['vip']?$info['vip']:"0",
+            'isvip'=>$info['vip']>TIME_NOW?'1':"0",
         );
         $this->success($out);
 
