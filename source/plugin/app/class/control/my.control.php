@@ -277,7 +277,7 @@ class my extends base\e{
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
             ),
-            'collect'=>array('_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
+            'collect'=>array('_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($z);
