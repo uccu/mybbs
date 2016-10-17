@@ -16,7 +16,7 @@ class captcha extends \plugin\app\control\base\basic{
         if(model('captcha_black')->where(array('ip'=>$this->g->ip))->find()){
             $this->errorCode(701);
         }
-        $count = model('captcha')->where(array('ip'=>$this->g->ip,'ctime'=>array('logic',TIME_NOW-600,'>')))->get_field();
+        $count = model('captcha_log')->where(array('ip'=>$this->g->ip,'ctime'=>array('logic',TIME_NOW-600,'>')))->get_field();
         model('capecha_log')->data(array(
             'phone'=>$phone,
             'captcha'=>$s,
