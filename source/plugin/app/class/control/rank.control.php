@@ -17,7 +17,7 @@ class rank extends base\basic{
     function get_c($rank,$c,$b){
  
         $rank = floor($rank);
-        if($rank==1)return floor($c*$b[0]);
+        if($rank==1)return floor($c*$b[0]*10)/10;
         $rankz = $rank;
         for($i=0;$i<4;$i++){
             $rankz -= $b[5]*pow(10,$i);
