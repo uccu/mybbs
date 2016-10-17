@@ -17,24 +17,24 @@ class rank extends base\basic{
     function get_c($rank,$c,$b){
  
         $rank = floor($rank);
-        if($rank==1)return floor($c*$b[0]*10)/10;
+        if($rank==1)return number_format($c*$b[0]);
         $rankz = $rank;
         for($i=0;$i<4;$i++){
             $rankz -= $b[5]*pow(10,$i);
             if($rankz>$b[5]*pow(10,$i+1))continue;
-            if($i==4)return floor($c*$b[$i+1]/1000);
+            if($i==4)return number_format($c*$b[$i+1]/1000,1);
             if($rankz<=$b[5]*pow(10,$i+1)*0.1){
-                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.01))/10;
+                return number_format($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.1),1);
             }elseif($rankz<=$b[5]*pow(10,$i+1)*0.3){
-                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.02))/10;
+                return number_format($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.2),1);
             }elseif($rankz<=$b[5]*pow(10,$i+1)*0.6){
-                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.03))/10;
+                return number_format($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.3),1);
             }else{
-                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.04))/10;
+                return number_format($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.4),1);
             }
         }
         if($rankz<=$b[5]*1000 && $b[4]){
-            return floor($c*$b[4]/$b[5]*100000)/10;
+            return number_format($c*$b[4]/$b[5]*10000,1);
         }
         
         return 0;
