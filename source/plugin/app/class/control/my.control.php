@@ -62,6 +62,7 @@ class my extends base\e{
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
         $t['collect'] = 0;
         $t['message'] = 0;
+        $t['sign'] = model('sign')->where(array('uid'=>$this->uid,'ctime'=>array('logic',$this->today,'>')))->find() ? 1 : 0 ;
         $this->success($t);
     }
 
