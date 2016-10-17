@@ -84,7 +84,7 @@ class lession extends base\e{//运维
             $this->_check_access();
         }
         $t['list'] = model('question')->where(array('states'=>$paper['states']))->order('rand()')->limit(20)->select();
-        $this->success($t['list']);
+        $this->success($t);
 
     }
     function submit($pid,$result=0){
