@@ -24,13 +24,13 @@ class rank extends base\basic{
             if($rankz>$b[5]*pow(10,$i+1))continue;
             if($i==4)return floor($c*$b[$i+1]/1000);
             if($rankz<=$b[5]*pow(10,$i+1)*0.1){
-                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*1))/10;
+                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.01))/10;
             }elseif($rankz<=$b[5]*pow(10,$i+1)*0.3){
-                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*2))/10;
+                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.02))/10;
             }elseif($rankz<=$b[5]*pow(10,$i+1)*0.6){
-                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*3))/10;
+                return floor($c*$b[$i+1]*0.3/($b[5]*pow(10,$i+1)*.03))/10;
             }else{
-                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*4))/10;
+                return floor($c*$b[$i+1]*0.2/($b[5]*pow(10,$i+1)*.04))/10;
             }
         }
         if($rankz<=$b[5]*1000 && $b[4]){
