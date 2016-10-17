@@ -481,7 +481,7 @@ class my extends base\basic{
             if($v['num']<1)unset($list[$k]);
         }
         //抽奖兑换
-        model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>100,'info'=>'兑换抽奖'))->add();
+        model('exchange')->data(array('uid'=>$this->uid,'ctime'=>TIME_NOW,'score'=>100,'info'=>'抽奖'))->add();
         //开始抽奖
         foreach($list as $k=>$v){
             $countz = model('draw_log')->where(array('draw_round_id'=>$draw_round_id,'did'=>$v['did']))->get_field();
