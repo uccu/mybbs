@@ -63,6 +63,7 @@ class inquiry extends base\e{
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        $t['uid'] = $this->uid;
         $this->success($t);
 
     }
