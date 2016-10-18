@@ -242,7 +242,7 @@ class my extends base\e{
         $limit = post('limit',10);
         model('message')->where(array('uid'=>$this->uid))->data(array('read'=>1))->save();
         $t['list'] = model('message')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-        $this->success($data);
+        $this->success($t);
     }
 
 
@@ -281,7 +281,7 @@ class my extends base\e{
             'collect'=>array('_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
-        $this->success($z);
+        $this->success($t);
 
 
     }
