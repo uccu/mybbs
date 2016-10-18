@@ -219,6 +219,7 @@ class my extends base\e{
         $t['list'] = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
         foreach($t['list'] as &$v){
             $v['num'] = -1*$v['money'];
+            $v['content'] = '积分提现';
         }
         $this->success($t);
     }
