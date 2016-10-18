@@ -92,7 +92,7 @@ class my extends base\e{
         $this->success($t);
     }
 
-    function take_reply($id,$thank){
+    function take_reply($id=0,$thank=''){
         $id = post('id',$id,'%d');
         $r= model('inquiry_list')->find($id);
         if(!$r)$this->errorCode(439);
@@ -224,7 +224,7 @@ class my extends base\e{
         ))->order(array('citme'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
-    function paper_info(){
+    function paper_info($id=0){
         $id = post('id',$id,'%d');
         $r = model('paper_result')->find($id);
         if(!$r)$this->errorCode(422);
