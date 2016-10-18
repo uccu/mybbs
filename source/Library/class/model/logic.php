@@ -14,6 +14,15 @@ class logic{
 	function multi($s=1){
 		$this->multi = $s;
 	}
+	function autocommit($bool = true){
+		return $this->mb->autocommit($bool);
+	}
+	function commit(){
+		return $this->mb->commit();
+	}
+	function rollback(){
+		return $this->mb->rollback();
+	}
 	function fetch_all($sql, $keyfield = '') {
 		$data = array();
 		$this->query($sql);

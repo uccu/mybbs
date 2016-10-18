@@ -36,6 +36,15 @@ class base
 		$this->prefix = $config['prefix']?$config['prefix']:'';
 		$this->config = $config;
 	}
+	function autocommit($bool = true){
+		return $this->mysqli->autocommit($bool);
+	}
+	function commit(){
+		return $this->mysqli->commit();
+	}
+	function rollback(){
+		return $this->mysqli->rollback();
+	}
 	function select_db ($db){
 		$this->database = $db;
 		return $this->mysqli->select_db ($db);
