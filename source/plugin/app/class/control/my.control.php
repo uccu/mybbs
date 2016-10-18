@@ -178,7 +178,7 @@ class my extends base\e{
     }
     function score(){
         $z['score'] = $this->userInfo['score'];
-        $t['wx'] = $this->userInfo['wx_pay']?1:0;
+        $z['wx'] = $this->userInfo['wx_pay']?1:0;
         $this->success($z);
 
     }
