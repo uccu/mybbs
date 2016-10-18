@@ -60,8 +60,9 @@ class my extends base\e{
         $t['info']['isvip'] = $t['info']['vip']>TIME_NOW ?'1':'0';
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
-        $t['collect'] = 0;
-        $t['message'] = 0;
+        $t['collect'] = model('collect')->where(array('uid'=>$this->uid))->get_field();
+        $t['message'] = model('message')->where(array('uid'=>$this->uid,'read'=>0))->get_field();
+        $t['wx'] = $this->userInfo['wx_pay']?1:0;
         $t['sign'] = model('sign')->where(array('uid'=>$this->uid,'sign_time'=>array('logic',$this->today,'>')))->find() ? 1 : 0 ;
         $this->success($t);
     }
@@ -177,6 +178,7 @@ class my extends base\e{
     }
     function score(){
         $z['score'] = $this->userInfo['score'];
+        $t['wx'] = $this->userInfo['wx_pay']?1:0;
         $this->success($z);
 
     }
