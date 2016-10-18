@@ -147,7 +147,7 @@ class my extends base\e{
         $u = model('sign')->find($this->uid);
         if(!$u)model('sign')->data(array('uid'=>$this->uid,'sign_time'=>TIME_NOW,'times'=>1))->add();
         else{
-            if($u['sign_time']>$this->today())$this->errorCode(423);
+            if($u['sign_time']>$this->today)$this->errorCode(423);
             model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
         }
         $this->success();
@@ -161,7 +161,7 @@ class my extends base\e{
         $t['list'] = model('user_equip')->mapping('u')->add_table(array(
             'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
             'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
-        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->select();
+        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($t);
     }
     function my_equip_info($id=0){
