@@ -627,7 +627,7 @@ class item extends base\basic{
                 $where = array();
                 $where['aid'] = $aid;
                 $where['referee'] = $o['referee'];
-                $hwere['referee_first'] = 1;
+                $where['referee_first'] = 1;
                 $where['status'] = array('contain',array(2,3,4),'IN');
                 if(!$CONFIG_REFEREE_FIRST[$o['referee']] && !model('order')->where($where)->find()){
                     $data['referee_first'] = 1;$CONFIG_REFEREE_FIRST[$o['referee']]=1;
