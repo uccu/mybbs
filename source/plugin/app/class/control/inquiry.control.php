@@ -105,7 +105,7 @@ class inquiry extends base\e{
     }
 
     function search($search){
-        $search = post('search',$search,'%d');
+        $search = post('search',$search);
         if($search)$where['title'] = array('contain','%'.$search.'%','LIKE');
         else $where = '1=2';
         $page = post('page',1);
@@ -119,7 +119,7 @@ class inquiry extends base\e{
     }
 
     function expert_search($search){
-        $search = post('search',$search,'%d');
+        $search = post('search',$search);
         $where['type'] = 2;
         if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
         else $where = '1=2';
