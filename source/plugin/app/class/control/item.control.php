@@ -633,9 +633,9 @@ class item extends base\basic{
                     $data['referee_first'] = 1;$CONFIG_REFEREE_FIRST[$o['referee']]=1;
                 }else{
                     //调整乐帮排名
-                    $sql = model('order')->where($where)->sql()->get_field();model('order')->sql(false);
-                    model('cache')->replace('test',$sql);
-                    $data2['num'] = model('order')->where($where)->get_field();
+                    // $sql = model('order')->where($where)->sql()->get_field();model('order')->sql(false);
+                    // model('cache')->replace('test',$sql);
+                    $data2['num'] = model('order')->where($where)->get_field()+1;
                     if($data2['num']==5){
                         $data2['aid'] = $aid;
                         $data2['uid'] = $o['referee'];
