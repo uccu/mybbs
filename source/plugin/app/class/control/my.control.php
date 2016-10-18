@@ -188,6 +188,9 @@ class my extends base\e{
         $limit = post('limit',10);
         $where['uid'] = $this->uid;
         $t['list'] = model('score_log')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        foreach($t['list'] as &$v){
+            $v['num'] = $v['score'];
+        }
         $this->success($t);
     }
 
@@ -214,6 +217,9 @@ class my extends base\e{
         $limit = post('limit',10);
         $where['uid'] = $this->uid;
         $t['list'] = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
+        foreach($t['list'] as &$v){
+            $v['num'] = -1*$v['money'];
+        }
         $this->success($t);
     }
 
