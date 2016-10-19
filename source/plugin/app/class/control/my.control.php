@@ -272,7 +272,10 @@ class my extends base\e{
         $t['list'] = model('course')->mapping('i')->add_table(array(
             'collect'=>array('_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'k\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->order(array('open_time'))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['now'] = TIME_NOW;
+        }
         $this->success($t);
         
 
