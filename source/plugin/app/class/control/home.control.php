@@ -102,9 +102,26 @@ class home extends base\e{
         $this->success();
     }
 
-    function repository_collect(){//收藏资料库
+    function collect($id=0){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $data['uid'] = $this->uid;
+        $data['type'] = 'z';
 
 
+        $i = model('repository')->find($id);
+        if(!$i)$this->errorCode(424);
+
+        $data['id'] = $id;
+        $f = model('collect')->where($data)->find();
+        if($f){
+            model('collect')->where($data)->remove();
+            $z['collected'] = '0';
+        }else{
+            model('collect')->data($data)->add();
+            $z['collected'] = '1';
+        }
+        $this->success($z);
     }
 
 
