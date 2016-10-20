@@ -35,7 +35,7 @@ class item extends base\basic{
         $q['info'] = model('goods')->add_table(array(
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'g.lid=a,lid','_mapping'=>'a'
+                'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a'
             )
         ))->where($where)->find($tid);
         if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
