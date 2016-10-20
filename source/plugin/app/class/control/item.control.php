@@ -486,7 +486,7 @@ class item extends base\basic{
             'stock'=>array('add',$z['num']),
             'sale'=>array('add',-1*$z['num'])
         ))->save($oid);
-        if($z['uid']==$this->uid)model('order')->remove($oid);
+        if($z['uid']==$this->uid)model('order')->data(array('status'=>-1))->save($oid);
         $this->success();
     }
     function get_item($oid){
