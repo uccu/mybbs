@@ -14,7 +14,7 @@ class inquiry extends base\e{
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
         $t['info'] = model('inquiry')->mapping('i')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->find($id);
         if(!$t['info'])$this->errorCode(439);
@@ -27,7 +27,7 @@ class inquiry extends base\e{
 
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
         foreach($t['adopt'] as &$v)$v['zan'] = $v['zan']?'1':'0';
@@ -44,7 +44,7 @@ class inquiry extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'zan')
         ))->where(array('bid'=>$id))->page($page,$limit)->order(array('adopt'=>'DESC','ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v)$v['zan'] = $v['zan']?'1':'0';
@@ -59,7 +59,7 @@ class inquiry extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
@@ -111,7 +111,7 @@ class inquiry extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';

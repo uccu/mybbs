@@ -88,7 +88,7 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname')
+            'user'=>array('_on'=>'uid','thumb','nickname','type')
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
@@ -125,8 +125,8 @@ class my extends base\e{
 
         $t['list'] = model('inquiry_list')->mapping('r')->add_table(array(
             'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'i','title','content'=>'icontent','img'=>'iimg'),
-            'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','_mapping'=>'u'),
-            'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','_mapping'=>'u2'),
+            'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','type','_mapping'=>'u'),
+            'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','type'=>'itype','_mapping'=>'u2'),
             
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
 
@@ -259,7 +259,7 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname'),
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
