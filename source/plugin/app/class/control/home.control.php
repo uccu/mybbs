@@ -57,8 +57,10 @@ class home extends base\e{
         $z['list'] = model('repository')->mapping('r')->add_table(array(
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
-            )
+            ),
+            'collect'=>array('_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->page($page,$limit)->select();
+        foreach($z['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
@@ -72,8 +74,10 @@ class home extends base\e{
         $z['list'] = model('repository')->mapping('r')->add_table(array(
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
-            )
+            ),
+            'collect'=>array('_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->page($page,$limit)->select();
+        foreach($z['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
