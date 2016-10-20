@@ -33,12 +33,13 @@ class item extends base\basic{
     function info($tid){
         $tid = post('tid',$tid);
         $q['info'] = model('goods')->add_table(array(
-            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g'),
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a'
+                'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($where)->find($tid);
         if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
+        $q['info']['attribute_name'] = $q['info']['attribute_name']?$q['info']['attribute_name']:'';
         $q['collected'] =0;
         if($this->uid && model('collect')->where(array('uid'=>$this->uid,'tid'=>$tid))->find())$q['collected'] =1;
         $this->success($q);
