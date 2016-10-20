@@ -101,7 +101,7 @@ class user extends base\e{
         $data['fans_id'] = $this->uid;
         $user = model('user')->find($uid);
         if(!$user)$this->errorCode(414);
-        $data['uid'] = $id;
+        $data['uid'] = $uid;
 
         $f = model('fans')->where($data)->find();
         if($f){
