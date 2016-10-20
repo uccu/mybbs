@@ -20,7 +20,7 @@ class item extends base\basic{
         $q['list'] = model('goods')->mapping('g')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid','id'),
             'goods_list_goods'=>array('_on'=>'tid','lid'=>'lgid','location')
-        ))->where($where)->order(array('location'=>'DESC'))->limit(999)->select();
+        ))->where($where)->order(array('lgid','location'))->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
