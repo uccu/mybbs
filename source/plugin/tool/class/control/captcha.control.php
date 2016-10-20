@@ -13,7 +13,41 @@ class captcha extends \plugin\app\control\base\e{
         for($i=0;$i<6;$i++){
             $s.=$a[rand(0,9)];
         }
-        //$z['o'] = file_get_contents ("https://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$usercode}&needstatus=false&msg=您好，您的验证码是：{$s}");
+        
+        $ch=curl_init();
+		$headers = array();
+        $headers[] = 'X-Apple-Tz: 0';
+        $headers[] = 'X-Apple-Store-Front: 143444,12';
+        $headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+        $headers[] = 'Accept-Encoding: gzip, deflate';
+        $headers[] = 'Accept-Language: en-US,en;q=0.5';
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Content-type:text/xml; charset=utf-8';
+        $headers[] = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0';
+        $headers[] = 'X-MicrosoftAjax: Delta=true';
+		$p = '<?xml version="1.0" encoding="utf-8"?>
+<mtpacket>
+  <cpid>4205</cpid>
+  <userpass>4370b00a2465a841f4a7103468b3a7cf</userpass>
+  <port>512010</port>
+  <cpmid>0'.time().'</cpmid>
+  
+  <mobile><![CDATA['.$usercode.']]></mobile>
+  <message><![CDATA[【运维卫士】您好：本次验证码是'.$s.'，请妥善保管，勿泄露给他人！]]></message>
+  <respDataType>JSON</respDataType>
+</mtpacket>';
+
+        curl_setopt($ch, CURLOPT_URL, 'http://api.ict-china.com/do/smsApi!mt.shtml');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		//curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($p));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $p);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$output = curl_exec($ch);
+		curl_close($ch);
+
+
+
         session_start();
         $_SESSION['captcha'] = $s;
         $_SESSION['usercode'] = $usercode;
@@ -21,15 +55,15 @@ class captcha extends \plugin\app\control\base\e{
         $this->success($z);
     }
     function _check_captcha(){
-        // session_start();
-        // if($this->uid>0){
-        //     if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
-        // }else{
-        //     if($_POST['usercode']!=$_SESSION['usercode'])$this->error(502,'发送验证码手机号与注册手机号不同:');
-        // }
-        // if($_SESSION['captcha'] !== post('captcha',-1)){
-        //     $this->error(501,'验证码错误');
-        // }
+        session_start();
+        if($this->uid>0){
+            if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
+        }else{
+            if($_POST['usercode']!=$_SESSION['usercode'])$this->error(502,'发送验证码手机号与注册手机号不同:');
+        }
+        if($_SESSION['captcha'] !== post('captcha',-1)){
+            $this->error(501,'验证码错误');
+        }
         return true;
     }
 }
