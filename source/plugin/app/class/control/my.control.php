@@ -32,7 +32,7 @@ class my extends base\e{
         $this->success();
     }
     function change_o_info($nickname,$sex,$city,$plant){
-        $this->_check_type(-1);
+        //$this->_check_type(-1);
         $data['nickname'] = post('nickname','');
         $data['sex'] = post('sex',0,'%d');
         $data['city'] = post('city',$city);
@@ -159,16 +159,16 @@ class my extends base\e{
     //————————
 
     function my_equip(){
-        $t['list'] = model('user_equip')->mapping('u')->add_table(array(
-            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
+        $t['list'] = model('mine_equipment')->mapping('u')->add_table(array(
+            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.bid'),
             'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($t);
     }
     function my_equip_info($id=0){
         $id = post('id',$id,'%d');
-        $t['info'] = model('user_equip')->mapping('u')->add_table(array(
-            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.eid'),
+        $t['info'] = model('mine_equipment')->mapping('u')->add_table(array(
+            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=u.bid'),
             'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
         ))->order(array('ctime'=>'DESC'))->find($id);
         if(!$t['info'])$this->error(421);
