@@ -33,6 +33,7 @@ class item extends base\basic{
     function info($tid){
         $tid = post('tid',$tid);
         $q['info'] = model('goods')->add_table(array(
+            'goods_list_goods'=>array('_on'=>'tid','lid','location'),
             'goods_attribute'=>array(
                 'attribute_name','_on'=>'lid'
             )
