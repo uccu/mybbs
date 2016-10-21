@@ -110,7 +110,7 @@ class my extends base\e{
         $id = post('id',$id,'%d');
         $i= model('inquiry')->find($id);
         if(!$i)$this->errorCode(439);
-        if($i['user']!==$this->uid)$this->errorCode(411);
+        if($i['uid']!==$this->uid)$this->errorCode(411);
         model('inquiry')->remove($id);
         model('inquiry_list')->where(array('bid'=>$id))->remove();
         $this->success();
