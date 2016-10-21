@@ -102,7 +102,7 @@ class user extends base\e{
         $user = model('user')->find($uid);
         if(!$user)$this->errorCode(414);
         $data['uid'] = $uid;
-
+        if($this->uid == $uid)$this->errorCode(425);
         $f = model('fans')->where($data)->find();
         if($f){
             model('fans')->where($data)->remove();
