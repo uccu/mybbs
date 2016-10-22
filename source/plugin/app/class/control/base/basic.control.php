@@ -72,8 +72,9 @@ class basic extends \control\ajax{
         $where['tid'] = $tid;
         $where['del'] = 1;
         if(!$z = model('goods')->add_table(array(
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'lid'
+                'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($where)->find())$this->errorCode(411);
         if($aid){
