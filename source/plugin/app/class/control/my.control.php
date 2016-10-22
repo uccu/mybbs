@@ -78,8 +78,9 @@ class my extends base\basic{
             'goods'=>array(
                 'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'lid'
+                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
