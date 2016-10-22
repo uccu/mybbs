@@ -74,7 +74,7 @@ class rank extends base\basic{
         $where['score'] = 0;
         $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
-        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
         $z['list'] = model('order')->table(array(
             'order'=>array(
@@ -138,7 +138,7 @@ class rank extends base\basic{
         $where['referee'] = array('logic',0,'!=');
         $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
-        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
         $z['list'] = model('order')->table(array(
             'order'=>array(
@@ -197,7 +197,7 @@ class rank extends base\basic{
         $where['aid'] = post('aid',$aid);
         $z['count'] = model('rank_bang')->where($where)->get_field();
         $z['allCoin_'] = 0;
-        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
         $z['list'] = model('rank_bang')->add_table(array(
             'user'=>array(
@@ -246,7 +246,7 @@ class rank extends base\basic{
         $where['aid'] = post('aid',$aid);
         $z['count'] = model('rank_bean')->where($where)->get_field();
         $z['allCoin_'] = 0;
-        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
         $z['list'] = model('rank_bean')->add_table(array(
             'user'=>array(
