@@ -75,7 +75,7 @@ class rank extends base\basic{
         $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
-
+        $z['allCoin_'] = floor($z['allCoin_']);
         $z['list'] = model('order')->table(array(
             'order'=>array(
                 'score','oid','uid','aid','status','pay_time'=>'time','first','_mapping'=>'o'
@@ -139,7 +139,7 @@ class rank extends base\basic{
         $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
-
+        $z['allCoin_'] = floor($z['allCoin_']);
         $z['list'] = model('order')->table(array(
             'order'=>array(
                 'score','oid','aid','referee'=>'uid','status','pay_time'=>'time','share_first','_mapping'=>'o'
@@ -198,7 +198,7 @@ class rank extends base\basic{
         $z['count'] = model('rank_bang')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
-
+        $z['allCoin_'] = floor($z['allCoin_']);
         $z['list'] = model('rank_bang')->add_table(array(
             'user'=>array(
                 'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
@@ -247,7 +247,7 @@ class rank extends base\basic{
         $z['count'] = model('rank_bean')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
-
+        $z['allCoin_'] = floor($z['allCoin_']);
         $z['list'] = model('rank_bean')->add_table(array(
             'user'=>array(
                 'avatar','_on'=>'uid','_join'=>'LEFT JOIN'
