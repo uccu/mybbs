@@ -72,7 +72,7 @@ class rank extends base\basic{
         $where['first'] = 1;
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
-        $z['count'] = model('order')->where($where)->get_filed();
+        $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
@@ -136,7 +136,7 @@ class rank extends base\basic{
         $where['status'] = array('contain',array(2,3,4),'IN');
         $where['score'] = 0;
         $where['referee'] = array('logic',0,'!=');
-        $z['count'] = model('order')->where($where)->get_filed();
+        $z['count'] = model('order')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
@@ -195,7 +195,7 @@ class rank extends base\basic{
         $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         $where['aid'] = post('aid',$aid);
-        $z['count'] = model('rank_bang')->where($where)->get_filed();
+        $z['count'] = model('rank_bang')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
@@ -244,7 +244,7 @@ class rank extends base\basic{
         $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
 
         $where['aid'] = post('aid',$aid);
-        $z['count'] = model('rank_bean')->where($where)->get_filed();
+        $z['count'] = model('rank_bean')->where($where)->get_field();
         $z['allCoin_'] = 0;
         for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($rank,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
 
