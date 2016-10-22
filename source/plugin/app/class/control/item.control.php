@@ -134,8 +134,9 @@ class item extends base\basic{
                 'goods'=>array(
                     'name','thumb','bean','price_act','var','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
                 ),
+                'goods_list_goods'=>array('_on'=>'g.tid=g2.tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
                 'goods_attribute'=>array(
-                    'attribute_name','_on'=>'lid'
+                    'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
                 )
             )
         )->where($data)->limit(999)->select();
@@ -196,8 +197,9 @@ class item extends base\basic{
             'goods'=>array(
                 'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'lid'
+                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
@@ -213,8 +215,9 @@ class item extends base\basic{
             'goods'=>array(
                 'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'lid'
+                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
@@ -230,8 +233,9 @@ class item extends base\basic{
             'goods'=>array(
                 'name','thumb','bean','price_act','var','price','_on'=>'tid'
             ),
+            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
-                'attribute_name','_on'=>'lid'
+                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
