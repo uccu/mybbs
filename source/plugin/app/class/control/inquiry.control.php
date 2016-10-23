@@ -152,10 +152,34 @@ class inquiry extends base\e{
         $data['id'] = $id;
         $f = model('collect')->where($data)->find();
         if($f){
+            if($i['collect'])model('inquiry')->data(array('collect'=>array('add',-1)))->save($id);
             model('collect')->where($data)->remove();
             $z['collected'] = '0';
         }else{
+            model('inquiry')->data(array('collect'=>array('add',1)))->save($id);
             model('collect')->data($data)->add();
+            $z['collected'] = '1';
+        }
+        $this->success($z);
+    }
+    function zan($id){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $data['uid'] = $this->uid;
+
+
+        $i = model('inquiry_list')->find($id);
+        if(!$i)$this->errorCode(439);
+
+        $data['id'] = $id;
+        $f = model('inquiry_zan')->where($data)->find();
+        if($f){
+            if($i['zan'])model('inquiry_list')->data(array('zan'=>array('add',-1)))->save($id);
+            model('inquiry_zan')->where($data)->remove();
+            $z['collected'] = '0';
+        }else{
+            model('inquiry_list')->data(array('zan'=>array('add',1)))->save($id);
+            model('inquiry_zan')->data($data)->add();
             $z['collected'] = '1';
         }
         $this->success($z);
