@@ -115,6 +115,7 @@ class coherent{
 		$this->auto = $auto;
 		return $this;
 	}
+
 	public function table_first(){
 		if(!$this->tableMap)return $this;
 		foreach($this->tableMap as $k =>$v){
@@ -122,10 +123,19 @@ class coherent{
 		}
 		return $this;
 	}
-	public function mapping($x){
-		if(!$this->tableMap)return $this;
+	public function mapping($x,$z){
+		
+		if(!$this->tableMap || !$x)return $this;
 		foreach($this->tableMap as $k =>&$v){
-			$v['_mapping'] = $x;break;
+			if(!$z){
+				$v['_mapping'] = $x;break;
+			}else{
+				$e = array_search($x,$v);
+				if(!is_null($e)){
+					unset($v[$e]);
+					$v[$x] = $z;
+				}
+			}
 		}
 		return $this;
 	}
