@@ -334,7 +334,7 @@ class item extends base\basic{
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
             $data['attribute_name'] = $t['attribute_name'];
-            $data['var'] = $t['var_value'];
+            $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
             if($this->out){
@@ -404,7 +404,7 @@ class item extends base\basic{
             $data['oid'] = (string)$zz;
             $data['name'] = $t['name'];
             $data['attribute_name'] = $t['attribute_name'];
-            $data['var'] = $t['var_value'];
+            $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
             if($this->out){
