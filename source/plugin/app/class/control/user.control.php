@@ -47,6 +47,23 @@ class user extends base\e{
         
         $this->success($t);
     }
+    function info_2($uid){
+        $uid = post('uid',$uid,'%d');
+        $u = $this->_check_uid($uid);
+        $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience','content'))->find($uid);
+        $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
+        $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
+        $t['followed'] = $this->_check_follow($uid);
+        $t['inquiry'] = model('inquiry')->where(array('uid'=>$uid))->get_field();
+        $t['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
+
+        $$t['info']['content'] = $$t['info']['content'] ? $$t['info']['content'] : '';
+
+ 
+
+        
+        $this->success($t);
+    }
     function info_0($uid){
         $uid = post('uid',$uid,'%d');
         $u = $this->_check_uid($uid);
