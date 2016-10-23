@@ -46,6 +46,7 @@ class my extends base\e{
         $data['label'] = post('label','');
         $data['field'] = post('field',0,'%d');
         $data['thumb'] = post('thumb','');
+        $data['post'] = post('post','');
         if($this->userInfo['type']<0)$data['type'] = 0;
         $data['apply'] = 1;
         if(!$data['thumb'])unset($data['thumb']);
@@ -59,8 +60,11 @@ class my extends base\e{
         $t['info'] = model('user')/*->field(array('uid','nickname','type','label','thumb','sex','score','vip'))*/->find($this->uid);
         unset($t['info']['password']);
         $t['info']['isvip'] = $t['info']['vip']>TIME_NOW ?'1':'0';
+        $t['info']['city_name'] = $this->_city_name($t['info']['city']);
+        $t['info']['plant_name'] = $this->_equip_name($t['info']['plant']);
+        $t['info']['field_name'] = $this->_equip_name_m($t['info']['field']);
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
-        $t['follow'] = model('fans')->where(array('follow'=>$this->uid))->get_field();
+        $t['follow'] = model('fans')->where(array('fans_id'=>$this->uid))->get_field();
         $t['collect'] = model('collect')->where(array('uid'=>$this->uid))->get_field();
         $t['message'] = model('message')->where(array('uid'=>$this->uid,'read'=>0))->get_field();
         $t['wx'] = $this->userInfo['wx_pay']?1:0;
@@ -165,6 +169,11 @@ class my extends base\e{
             'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit(999)->select();
         $this->success($t);
+    }
+    function my_equip_remove($id){
+        $id = post('id',$id,'%d');
+        model('mine_equipment')->remove($id);
+        $this->success();
     }
     function my_equip_info($id=0){
         $id = post('id',$id,'%d');

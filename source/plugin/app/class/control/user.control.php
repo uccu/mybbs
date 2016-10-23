@@ -105,9 +105,13 @@ class user extends base\e{
         if($this->uid == $uid)$this->errorCode(425);
         $f = model('fans')->where($data)->find();
         if($f){
+            if($user['fans'])model('user')->data(array('fans'=>array('add',-1)))->save($uid);
+            if($userInfo['follow'])model('user')->data(array('follow'=>array('add',-1)))->save($this->uid);
             model('fans')->where($data)->remove();
             $z['followed'] = '0';
         }else{
+            model('user')->data(array('fans'=>array('add',1)))->save($uid);
+            model('user')->data(array('follow'=>array('add',1)))->save($this->uid);
             model('fans')->data($data)->add();
             $z['followed'] = '1';
         }

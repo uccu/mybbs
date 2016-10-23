@@ -53,6 +53,28 @@ class e extends \control\ajax{
         //
         $this->_check_vip();
     }
+    function _city_name($id = 0){
+        $c = model('manager_organ')->find($id);
+        if(!$c)return '';
+        if(!$c['bid'])return $c['jgmc'];
+        $p = model('manager_organ')->find($c['bid']);
+        if(!$p)return $c['jgmc'];
+        return $p['jgmc'].' - '.$c['jgmc'];
+    }
+    function _equip_name($id = 0){
+        $c = model('equipment_list')->find($id);
+        if(!$c)return '';
+        if(!$c['bid'])return $c['name'];
+        $p = model('equipment_list')->find($c['bid']);
+        if(!$p)return $c['name'];
+        return $p['name'].' - '.$c['name'];
+    }
+    function _equip_name_m($id = ''){
+        $array = explode(';',$id);
+        $where['id'] = array('contain',$array,'IN');
+        $z = model('equipment_list')->where($where)->limit(99)->select('name');
+        return implode(';',array_keys($z));
+    }
     function _check_follow($uid){
         return model('fans')->where(array('uid'=>$uid,'fans_id'=>$this->uid))->find() ? 1 : 0;
     }
