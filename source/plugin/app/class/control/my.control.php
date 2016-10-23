@@ -76,7 +76,7 @@ class my extends base\basic{
         if($status)$data['status'] = array('contain',array(2,3,4),'IN');
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','var','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             'goods_attribute'=>array(
