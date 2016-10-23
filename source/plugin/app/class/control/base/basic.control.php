@@ -10,7 +10,7 @@ class basic extends \control\ajax{
     }
     function __construct(){
         $this->uid;
-        model('goods');
+        model('goods')->mapping('var_value','var');
         call_user_func_array(array(parent,'__construct'),func_get_args());
     }
     function session_start(){
