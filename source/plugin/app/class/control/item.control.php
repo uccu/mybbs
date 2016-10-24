@@ -34,12 +34,12 @@ class item extends base\basic{
         $tid = post('tid',$tid);
         $q['info'] = model('goods')->add_table(array(
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g','_join'=>'LEFT JOIN'),
-            'goods_attribute'=>array(
-                'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
-            )
+            // 'goods_attribute'=>array(
+            //     'attribute_name','_on'=>'g.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
+            // )
         ))->where($where)->find($tid);
         if(!$q['info'] || !$q['info']['del'])$this->errorCode(411);
-        $q['info']['attribute_name'] = $q['info']['attribute_name']?$q['info']['attribute_name']:'';
+        // $q['info']['attribute_name'] = $q['info']['attribute_name']?$q['info']['attribute_name']:'';
         $q['collected'] =0;
         if($this->uid && model('collect')->where(array('uid'=>$this->uid,'tid'=>$tid))->find())$q['collected'] =1;
         $this->success($q);
@@ -135,9 +135,9 @@ class item extends base\basic{
                     'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
                 ),
                 'goods_list_goods'=>array('_on'=>'g.tid=g2.tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
-                'goods_attribute'=>array(
-                    'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
-                )
+                // 'goods_attribute'=>array(
+                //     'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
+                // )
             )
         )->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
@@ -198,9 +198,9 @@ class item extends base\basic{
                 'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
-            'goods_attribute'=>array(
-                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
-            )
+            // 'goods_attribute'=>array(
+            //     'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
+            // )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
         $this->_parse_order($q['list']);
@@ -216,9 +216,9 @@ class item extends base\basic{
                 'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
-            'goods_attribute'=>array(
-                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
-            )
+            // 'goods_attribute'=>array(
+            //     'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
+            // )
         ))->where($data)->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
         $this->_parse_order($q['list']);
@@ -234,9 +234,9 @@ class item extends base\basic{
                 'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
-            'goods_attribute'=>array(
-                'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
-            )
+            // 'goods_attribute'=>array(
+            //     'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
+            // )
         ))->where($data)->find($oid);
         if(!$q['info'])$this->errorCode(427);
         $this->_parse_order($q['info']);
@@ -333,7 +333,7 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
-            $data['attribute_name'] = $t['attribute_name'];
+            //$data['attribute_name'] = $t['attribute_name'];
             $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
@@ -403,7 +403,7 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = (string)$zz;
             $data['name'] = $t['name'];
-            $data['attribute_name'] = $t['attribute_name'];
+            //$data['attribute_name'] = $t['attribute_name'];
             $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
