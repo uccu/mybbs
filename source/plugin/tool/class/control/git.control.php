@@ -18,7 +18,7 @@ class git extends \control\ajax{
         $this->success($array);
     }
     function ping(){
-        $last_line = system('ping baidu.com',$retval);
+        $last_line = system('ping baidu.com ',$retval);
         $array['last_line'] = $last_line;
         $array['retval'] = $retval;
         $this->success($array);
