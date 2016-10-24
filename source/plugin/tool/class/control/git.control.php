@@ -6,6 +6,8 @@ class git extends \control\ajax{
         
     }
     function pull(){
+        error_reporting(-1);
+
         $last_line = system('E:\phpStudy\WWW\lg\git_pull.bat',$retval);
         $array['last_line'] = $last_line;
         $array['retval'] = $retval;
