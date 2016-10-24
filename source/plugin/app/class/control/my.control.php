@@ -33,7 +33,7 @@ class my extends base\e{
     }
     function change_o_info($nickname,$sex,$city,$plant){
         //$this->_check_type(-1);
-        $data['nickname'] = post('nickname','');
+        $data['nametrue'] = post('nametrue',post('nickname',''));
         $data['sex'] = post('sex',0,'%d');
         $data['city'] = post('city',$city);
         if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
@@ -129,7 +129,7 @@ class my extends base\e{
         $limit = post('limit',10);
 
         $t['list'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'i','title','content'=>'icontent','img'=>'iimg'),
+            'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'iuid','_mapping'=>'i','title','content'=>'icontent','img'=>'iimg'),
             'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','type','_mapping'=>'u'),
             'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','type'=>'itype','_mapping'=>'u2'),
             

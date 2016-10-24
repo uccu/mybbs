@@ -292,6 +292,8 @@
 
 **nickname**    `昵称`
 
+**iszan**       `是否点赞`
+
 ```
 {
     "id": "1",
@@ -304,7 +306,8 @@
     "thank": "",
     "zan": "0",
     "thumb": "",
-    "nickname": ""
+    "nickname": "",
+    "iszan":"0"
 }
 
 ```
