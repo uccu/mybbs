@@ -132,7 +132,7 @@ class item extends base\basic{
                     '_on'=>'tuan_cart.uid=c.uid AND tuan_cart.tid=c.tid','id'=>'collected','_mapping'=>'c','_join'=>'LEFT JOIN'
                 ),
                 'goods'=>array(
-                    'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
+                    'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tuan_cart.tid=g.tid','_mapping'=>'g'
                 ),
                 'goods_list_goods'=>array('_on'=>'g.tid=g2.tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
                 // 'goods_attribute'=>array(
@@ -195,7 +195,7 @@ class item extends base\basic{
         if($status)$data['status'] = $status;
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             // 'goods_attribute'=>array(
@@ -213,7 +213,7 @@ class item extends base\basic{
         if($status)$data['status'] = $status;
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             // 'goods_attribute'=>array(
@@ -231,7 +231,7 @@ class item extends base\basic{
         if(!$oid)$this->errorCode(425);
         $q['info'] = model('order')->add_table(array(
             'goods'=>array(
-                'name','thumb','bean','price_act','var_value'=>'var','price','_on'=>'tid'
+                'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tid'
             ),
             'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             // 'goods_attribute'=>array(
