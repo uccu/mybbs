@@ -1,2 +1,2 @@
-cd d:\wamp\www\lg
+cd E:\phpStudy\WWW\lg
 git pull
