@@ -102,11 +102,13 @@ class my extends base\e{
         $id = post('id',$id,'%d');
         $r= model('inquiry_list')->find($id);
         if(!$r)$this->errorCode(439);
-        $i= model('inquiry_list')->find($r['bid']);
+        $i= model('inquiry')->find($r['bid']);
+        if($i['finish'])$this->erorCode(426);
         if(!$i)$this->errorCode(439);
         if(!$i['uid']!=$this->uid)$this->erorCode(411);
         $thank = post('thank',$thank);
         model('inquiry_list')->where(array('adopt'=>1,'thank'=>$thank))->save($id);
+        model('inquiry')->where(array('finish'=>TIME_NOW))->save($r['bid']);
         $this->success();
     }
 

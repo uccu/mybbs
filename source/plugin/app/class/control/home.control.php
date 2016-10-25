@@ -36,7 +36,8 @@ class home extends base\e{
         $z = model('repository')->mapping('r')->add_table(array(
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
-            )
+            ),
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ));
         if($bid = $this->userInfo['plant']){
             $where['bid'] = $bid;
@@ -44,6 +45,7 @@ class home extends base\e{
         }else{
             $z = model('repository')->limit(15)->order('rand()')->select();
         }
+        foreach($z as &$v)$v['collected'] = $v['collected']?'1':'0';
         if($this->outter)$this->success($z);
         return $z;
     }
