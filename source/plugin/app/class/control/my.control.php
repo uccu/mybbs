@@ -92,8 +92,10 @@ class my extends base\e{
     function my_inquiry(){
         $page = post('page',1);
         $limit = post('limit',10);
-        $t['list'] = model('inquiry')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname','type')
+        $t['list'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
+            'equipment_list@2'=>array('_on'=>'i.bid=e2.id','_join'=>'LEFT JOIN','name2','_mapping'=>'e2'),
+            'equipment_list@1'=>array('_on'=>'e2.bid=e1.id','_join'=>'LEFT JOIN','name1','_mapping'=>'e1')
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
