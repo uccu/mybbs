@@ -31,7 +31,7 @@ class captcha extends \plugin\app\control\base\basic{
             $this->errorCode(701);
         }
         
-        $z['o'] = file_get_contents ("https://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg=您好，您的验证码是：{$s}");
+        $z['o'] = file_get_contents ("http://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg=您好，您的验证码是：{$s}");
         session_start();
         $_SESSION['captcha'] = $s;
         $_SESSION['phone'] = $phone;
