@@ -270,7 +270,7 @@ class my extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
-            'collect'=>array('_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($t);
@@ -280,7 +280,7 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',10);
         $t['list'] = model('course')->mapping('i')->add_table(array(
-            'collect'=>array('_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'k\' AND c.uid='.$this->uid,'uid'=>'collected')
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'k\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->order(array('open_time'))->page($page,$limit)->select();
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
@@ -300,7 +300,7 @@ class my extends base\e{
             'repository_list'=>array(
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
             ),
-            'collect'=>array('_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($t);
