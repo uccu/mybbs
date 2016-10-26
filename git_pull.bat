@@ -1,2 +1,2 @@
 cd E:\phpStudy\WWW\lg
-git pull
+C:\Program Files\Git\git-cmd.exe git pull
