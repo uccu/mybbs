@@ -212,7 +212,7 @@ class my extends base\basic{
         $where['score'] = array('logic',0,'!=');
         $where['del'] = 1;
         $z['list'] = model('goods')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
-        if(!$z['list'])$this->errorCode(427);
+        //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
     function exchange_list(){
