@@ -39,8 +39,10 @@ class my extends base\e{
         if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
         $data['plant'] = post('plant','');
         $data['company'] = post('company','');
-        $this->_dateline_format($data,'at_start');
-        $this->_dateline_format($data,'at_end');
+        $data['at_start'] = post('at_start','');
+        $data['at_end'] = post('at_end','');
+        // $this->_dateline_format($data,'at_start');
+        // $this->_dateline_format($data,'at_end');
         $data['experience'] = post('experience','');
         $data['generator'] = post('generator',0,'%d');
         $data['label'] = post('label','');
