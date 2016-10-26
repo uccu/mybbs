@@ -17,10 +17,10 @@ class equip extends base\e{
             }else{
                 $v['count'] = model('inquiry')->mapping('i')->add_table(array(
                     'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
-                ))->where(array('kid'=>$bid))->get_field();
+                ))->where(array('kid'=>$v['id']))->get_field();
                 $v['today_count'] = model('inquiry')->mapping('i')->add_table(array(
                     'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
-                ))->where(array('kid'=>$bid,'ctime'=>array('logic',$this->today,'>')))->get_field();
+                ))->where(array('kid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
             }
 
 
