@@ -7,7 +7,7 @@ class equip extends base\e{
     }
 
     function types($bid = 0){
-        $where['bid'] = post('bid',$bid,'%d');
+        $bid = $where['bid'] = post('bid',$bid,'%d');
         $where['del'] = 1;
         $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
         foreach($f['list'] as &$v){
