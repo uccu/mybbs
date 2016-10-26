@@ -110,7 +110,7 @@ class my extends base\e{
         if(!$i['uid']!=$this->uid)$this->erorCode(411);
         $thank = post('thank',$thank);
         $z['il'] = model('inquiry_list')->data(array('adopt'=>1,'thank'=>$thank))->save($id);
-        model('inquiry')->where(array('finish'=>TIME_NOW))->save($r['bid']);
+        model('inquiry')->data(array('finish'=>TIME_NOW))->save($r['bid']);
         $this->success($z);
     }
 
