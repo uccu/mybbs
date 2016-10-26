@@ -106,8 +106,8 @@ class my extends base\e{
         if(!$r)$this->errorCode(439);
         $i= model('inquiry')->find($r['bid']);
         if(!$i)$this->errorCode(439);
-        if($i['finish'])$this->erorCode(426);
-        if(!$i['uid']!=$this->uid)$this->erorCode(411);
+        if($i['finish'])$this->errorCode(426);
+        if($i['uid']!=$this->uid)$this->errorCode(411);
         $thank = post('thank',$thank);
         $z['r'] = $r;
         $z['i'] = $i;
