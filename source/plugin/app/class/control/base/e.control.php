@@ -10,6 +10,7 @@ class e extends \control\ajax{
     }
     function __construct(){
         $this->uid;
+        $this->$salt = $this->g->config['PASSWORD_SALT'];
         call_user_func_array(array(parent,'__construct'),func_get_args());
     }
     function session_start(){
