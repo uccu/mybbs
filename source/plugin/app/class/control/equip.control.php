@@ -12,8 +12,8 @@ class equip extends base\e{
         $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
         foreach($f['list'] as &$v){
             if($v['bid']){
-                $v['count'] = model('inquiry')->where(array('bid'=>$bid))->get_field();
-                $v['today_count'] = model('inquiry')->where(array('bid'=>$bid,'ctime'=>array('logic',$this->today,'>')))->get_field();
+                $v['count'] = model('inquiry')->where(array('bid'=>$v['id']))->get_field();
+                $v['today_count'] = model('inquiry')->where(array('bid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
             }else{
                 $v['count'] = model('inquiry')->mapping('i')->add_table(array(
                     'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
