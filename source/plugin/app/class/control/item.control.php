@@ -333,7 +333,7 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = $zz;
             $data['name'] = $t['name'];
-            //$data['attribute_name'] = $t['attribute_name'];
+            $data['var_name'] = $t['var_name'];
             $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
@@ -403,7 +403,7 @@ class item extends base\basic{
             if(!$zz)$this->errorCode(421);
             $data['oid'] = (string)$zz;
             $data['name'] = $t['name'];
-            //$data['attribute_name'] = $t['attribute_name'];
+            $data['var_name'] = $t['var_name'];
             $data['var'] = $t['var'];
             $this->_parse_order($data);
             model('cart')->remove($cid);
