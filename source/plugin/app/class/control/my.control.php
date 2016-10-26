@@ -94,8 +94,8 @@ class my extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
-            'equipment_list@2'=>array('_on'=>'i.bid=e2.id','_join'=>'LEFT JOIN','name2','_mapping'=>'e2'),
-            'equipment_list@1'=>array('_on'=>'e2.bid=e1.id','_join'=>'LEFT JOIN','name1','_mapping'=>'e1')
+            'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=i.bid'),
+            'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
