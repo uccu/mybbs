@@ -7,7 +7,7 @@ if(!defined('IN_PLAY')) {
  $config=array(
 	 'host'=>'localhost',
 	 'user'=>'tuan',
-	 'password'=>'123456',
+	 'password'=>'a27D9WtevuwwWJC8',
 	 'db'=>'tuan',
 	 'prefix'=>'tuan_',
 	 'charset'=>'utf8'
