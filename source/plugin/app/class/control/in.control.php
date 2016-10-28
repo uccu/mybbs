@@ -169,7 +169,7 @@ class in extends base\basic{
     }
     function _add_user($info){
         $info['ctime'] = time();
-        $info['coin'] = 10000;
+        //$info['coin'] = 10000;
         $info['username'] = '用户_'.$info['ctime'];
         $info['terminal'] = post('terminal','');
         $info['score'] = model('cache')->get('register');
