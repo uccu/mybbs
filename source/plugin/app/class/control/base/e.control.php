@@ -159,14 +159,13 @@ class e extends \control\ajax{
 
     function _getCloudToken($uid = 0){
         $user = model('user')->find($uid);
-        if(!$user)return '';
         $nickname = $user['type']==2?$user['nametrue']:$user['nickname'];
         $nickname = $nickname?$nickname:' ';
         require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
         $p = new \ServerAPI('YXA6PdAMsJwVEear3dnihXs_Zw','YXA6tcRaygOWAwlbm6vMHIqQcBecSyc');
         $r = $p->getToken($uid,$nickname,'http://www.scthalia.com:6087/pic/iavatar/0/0/7.png');
         $o = json_decode($r,true);
-        return $o['token']?$o['token']:'';
+        return $o;
     }
 }
 ?>

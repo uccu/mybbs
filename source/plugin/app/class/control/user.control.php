@@ -142,8 +142,11 @@ class user extends base\e{
         if(!$uid)$this->errorCode(416);
         $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);
         if(!$data['info'])$this->errorCode(440);
-        $data['token'] = $this->_getCloudToken($uid);
-        if(!$data['token'])$this->errorCode(429);
+        $o = $this->_getCloudToken($uid);
+
+        $data['token'] = $o['token']?$o['token']:'';
+        if(!$data['token'])$this->error(429,$o );
+        // if(!$data['token'])$this->errorCode(429);
         $this->success($data);
     }
 
