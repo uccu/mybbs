@@ -9,7 +9,7 @@ class home extends base\e{
     function banner(){
         $z = model('banner')->limit(99)->order(array('bid'))->select();
         foreach($z as &$v){
-            $v['url'] = 'app/h5/banner/'.$z['bid'];
+            $v['url'] = 'app/h5/banner/'.$v['bid'];
         }
         if($this->outter)$this->success($z);
         return $z;
@@ -53,7 +53,7 @@ class home extends base\e{
         }
         foreach($z as &$v){
             $v['collected'] = $v['collected']?'1':'0';
-            $v['url'] = 'app/h5/repository/'.$v['id'];
+            $v['url'] = 'app/h5/repository/'.$v['rid'];
         }
         if($this->outter)$this->success($z);
         return $z;
@@ -74,7 +74,7 @@ class home extends base\e{
         ))->where($where)->page($page,$limit)->select();
         foreach($z['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
-            $v['url'] = 'app/h5/repository/'.$v['id'];
+            $v['url'] = 'app/h5/repository/'.$v['rid'];
         }
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
@@ -94,7 +94,7 @@ class home extends base\e{
         ))->where($where)->page($page,$limit)->select();
         foreach($z['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
-            $v['url'] = 'app/h5/repository/'.$v['id'];
+            $v['url'] = 'app/h5/repository/'.$v['rid'];
         }
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
