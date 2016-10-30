@@ -32,7 +32,7 @@ class user extends base\e{
         $u = $this->_check_uid($uid);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
-        $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
+        $t['follow'] = model('fans')->where(array('fans_id'=>$uid))->get_field();
         $t['followed'] = $this->_check_follow($uid);
         $t['inquiry'] = model('inquiry')->where(array('uid'=>$uid))->get_field();
         $t['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
@@ -52,7 +52,7 @@ class user extends base\e{
         $u = $this->_check_uid($uid);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience','content','nametrue'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
-        $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
+        $t['follow'] = model('fans')->where(array('fans_id'=>$uid))->get_field();
         $t['followed'] = $this->_check_follow($uid);
         $t['inquiry'] = model('inquiry')->where(array('uid'=>$uid))->get_field();
         $t['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
@@ -69,7 +69,7 @@ class user extends base\e{
         $u = $this->_check_uid($uid);
         $t['info'] = model('user')->field(array('uid','nickname','type','label','thumb','sex','experience'))->find($uid);
         $t['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
-        $t['follow'] = model('fans')->where(array('follow'=>$uid))->get_field();
+        $t['follow'] = model('fans')->where(array('fans_id'=>$uid))->get_field();
         $t['followed'] = $this->_check_follow($uid);
         $t['inquiry'] = model('inquiry')->where(array('uid'=>$uid))->get_field();
         $t['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
