@@ -75,13 +75,13 @@ class lession extends base\e{//运维
         $z['list_p'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
         ))->where(array('states'=>3))->limit(2)->select();
-        foreach($t['list_r'] as &$v){
+        foreach($z['list_r'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
-        foreach($t['list_y'] as &$v){
+        foreach($z['list_y'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
-        foreach($t['list_p'] as &$v){
+        foreach($z['list_p'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
         $this->success($z);
@@ -91,7 +91,7 @@ class lession extends base\e{//运维
         $z['list'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
         ))->where(array('states'=>$states))->limit(9999)->select();
-        foreach($t['list'] as &$v){
+        foreach($z['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
         $this->success($z);
