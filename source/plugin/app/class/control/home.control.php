@@ -67,7 +67,7 @@ class home extends base\e{
         $this->success($z);
     }
     function repository_search($search){
-        $search = post('search',$search,'%d');
+        $search = post('search',$search,'');
         if($search)$where['title'] = array('contain','%'.$search.'%','LIKE');
         else $where = '1=2';
         $limit = post('limit',20,'%d');
