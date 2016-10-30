@@ -8,11 +8,17 @@ class home extends base\e{
     }
     function banner(){
         $z = model('banner')->limit(99)->order(array('bid'))->select();
+        foreach($z as &$v){
+            $v['url'] = 'app/h5/banner/'.$z['bid'];
+        }
         if($this->outter)$this->success($z);
         return $z;
     }
     function top_line(){
         $z = model('top_line')->limit(99)->order(array('tid'))->select();
+        foreach($z as &$v){
+            $v['url'] = 'app/h5/top/'.$z['tid'];
+        }
         if($this->outter)$this->success($z);
         return $z;
     }

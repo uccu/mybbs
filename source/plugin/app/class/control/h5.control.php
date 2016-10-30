@@ -6,34 +6,40 @@ class h5 extends base\e{
         //$this->_check_login();
     }
 
-    function shuoming($z=0){
-        $this->g->template['value'] = model('user_instruction')->where(array('type'=>$z))->get_field('instruction');
+    function shuoming($id=0){
+        $id = post('id',$id,'%d');
+        $this->g->template['value'] = model('user_instruction')->where(array('type'=>$id))->get_field('instruction');
         T('tool:static');
     }
 
-    function tequan($z=0){
-        $this->g->template['value'] = model('user_instruction')->where(array('type'=>$z))->get_field('title');
+    function tequan($id=0){
+        $id = post('id',$id,'%d');
+        $this->g->template['value'] = model('user_instruction')->where(array('type'=>$id))->get_field('title');
         T('tool:static');
     }
 
     function banner($id=0){
+        $id = post('id',$id,'%d');
         $this->g->template['value'] = model('banner')->find($id,false)->get_field('content');
         T('tool:static');
     }
 
 
     function top($id=0){
+        $id = post('id',$id,'%d');
         $this->g->template['value'] = model('top_line')->find($id,false)->get_field('content');
         T('tool:static');
     }
     
     function vip($id=1){
+        $id = post('id',$id,'%d');
         $this->g->template['value'] = model('member')->find($id,false)->get_field('content');
         T('tool:static');
 
     }
 
     function sale($id=0){
+        $id = post('id',$id,'%d');
         $this->g->template['value'] = model('member')->find($id,false)->get_field('details');
         T('tool:static');
     }

@@ -17,6 +17,10 @@ class maintenance extends base\e{//运维
         $page = post('page',1);
         $limit = post('limit',10);
         $z['list'] = model('sale')->page($page,$limit)->order(array('location'))->select();
+
+        foreach($z['list'] as &$v){
+            $v['url'] = 'app/h5/sale/'.$z['sid'];
+        }
         $this->success($z);
     }
     
