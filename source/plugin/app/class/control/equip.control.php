@@ -61,6 +61,28 @@ class equip extends base\e{
     }
 
 
+    function protect_type($t=0){
+
+        $z = array(
+            '汽轮机'=>array('Fisher阀门','泵维修','西门子旁路维护'),
+            '锅炉'=>array('分类一','分类二','分类三'),
+            '电气设备及系统'=>array('电机维修','变压器维修','ABB火检'),
+            '热控设备及系统'=>array('Ovatin／艾默生仪表'),
+            '燃料及化水设备'=>array('西门子DCS','工业电视','Flender减速机'),
+            '环保'=>array('CEMS维护'),
+            '综合'=>array('金属分析')
+        );
+        
+        if(!$t || !$z[$t]){
+            $data['list'] = array_keys($z);
+            $this->success($data);
+        }else{
+            $data['list'] = $z[$t];
+            $this->success($data);
+        }
+    }
+
+
 
 }
 ?>
