@@ -140,7 +140,7 @@ class user extends base\e{
         $this->_check_login();
         $uid = post('uid',$uid,'%d');
         if(!$uid)$this->errorCode(416);
-        $data['user'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);
+        $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);
         if(!$data['user'])$this->errorCode(440);
         $data['token'] = $this->_getCloudToken($uid);
         if(!$data['token'])$this->errorCode(429);
