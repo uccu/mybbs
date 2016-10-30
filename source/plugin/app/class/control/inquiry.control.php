@@ -220,7 +220,7 @@ class inquiry extends base\e{
                 'uid'=>$this->uid,
                 'ctime'=>TIME_NOW,
                 'id'=>$id
-            ))-add();
+            ))->add();
             $this->success();
         }else{
 

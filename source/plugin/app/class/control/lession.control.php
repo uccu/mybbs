@@ -138,7 +138,7 @@ class lession extends base\e{//运维
                 'uid'=>$this->uid,
                 'ctime'=>TIME_NOW,
                 'pid'=>$id
-            ))-add();
+            ))->add();
             $this->success();
         }else{
 
