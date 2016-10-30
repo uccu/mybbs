@@ -28,8 +28,12 @@ class lession extends base\e{//运维
             model('course')->data(array('nums'=>array('add',1)))->save($id);
             $t['nums']++;
         }
-        // elseif($t['etime']<TIME_NOW){
-        //     $this->_check_vip();
+        $p = model('paper_paid')->where(array(
+                'uid'=>$this->uid,
+                'pid'=>$id
+            ))->find();
+            if(!$p)$this->_check_vip();
+        //     
         // }
         $t['now'] = TIME_NOW;
         $data['info'] = $t;
