@@ -88,6 +88,8 @@ class inquiry extends base\e{
         model('user')->data(array('answer'=>array('add',1)))->save($this->uid);
 
 
+        $user = model('user')->find($i['uid']);
+        if($user)$this->_pusher($user['nickname'].'回答了您发布的问诊',$i['uid']);
         $this->_handle_score(5,'发布问诊',3);
         $this->success();
     }

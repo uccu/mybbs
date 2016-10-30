@@ -117,6 +117,7 @@ class my extends base\e{
         model('inquiry')->data(array('finish'=>TIME_NOW))->save($r['bid']);
 
 
+        $this->_pusher('恭喜您！您的答案被作者采纳了',$r['uid']);
         $this->_handle_score(5,'回答被采纳',0,$r['uid']);
         $this->success($z);
     }
