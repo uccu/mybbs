@@ -337,6 +337,7 @@ class my extends base\e{
         $data['nickname'] = $this->userInfo['nickname'];
         $data['avatar'] = $this->userInfo['avatar'];
         $data['vip'] = $this->userInfo['vip']>TIME_NOW?'1':'0';
+        $data['date'] = $this->userInfo['vip'];
         $data['vip_type'] = $data['vip']?$this->userInfo['vip_type']:'0';
         $data['list'] =model('member')->limit(99)->select();
         $this->success($data);
