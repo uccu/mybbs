@@ -115,6 +115,9 @@ class my extends base\e{
         $z['i'] = $i;
         $z['il'] = model('inquiry_list')->data(array('adopt'=>1,'thank'=>$thank))->save($id);
         model('inquiry')->data(array('finish'=>TIME_NOW))->save($r['bid']);
+
+
+        $this->_handle_score(5,'回答被采纳',0,$r['uid']);
         $this->success($z);
     }
 
@@ -164,6 +167,8 @@ class my extends base\e{
             if($u['sign_time']>$this->today)$this->errorCode(423);
             model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
         }
+
+        $this->_handle_score(5,'签到');
         $this->success();
     }
 
@@ -314,6 +319,15 @@ class my extends base\e{
         $this->success($t);
 
 
+    }
+
+    function share(){
+
+        $c = $this->_handle_score(5,'分享',-1);
+
+        if(!$c)$this->errorCode(428);
+
+        $this->success();
     }
 
     

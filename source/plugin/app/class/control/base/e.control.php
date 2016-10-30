@@ -105,6 +105,38 @@ class e extends \control\ajax{
     function _get_yesterday(){
         return $this->today-24*3600;
     }
+
+    function _handle_score($score=0,$content='',$limit=0,$uid = 0){
+        if(!$uid)$uid = $this->uid;
+        if(!$score || !$content || $this->uid<1)return false;
+        
+        $data['score'] = $score;
+        $data['content'] = $content;
+        $data['ctime'] = TIME_NOW;
+        $data['uid'] = $uid;
+        $data2['score'] = array('add',$score);
+        if($score<0 && abs($score)>$this->userInfo['score'])return false;
+
+        if($limit){
+            $where['user'] = $uid;
+            $where['content'] = $content;
+
+            if($limit==-1){
+                $count = model('score_log')->where($where)->get_field();
+                $limit = 1;
+            }else{
+                $where['time'] = array('logic','>',$this->today);
+                $count = model('score_log')->where($where)->get_field();  
+            }
+            if($count>=$limit)return false;
+            
+        }
+
+        model('score_log')->data($data)->add();
+        model('user')->data($data2)->save($this->uid);
+        return true;
+
+    }
     
     // function _pusher($content='测试~',$uid=0){
     //     if(!$uid){

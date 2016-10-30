@@ -86,6 +86,9 @@ class inquiry extends base\e{
         if(!$r)$this->errorCode(413);
         model('inquiry')->data(array('answer'=>array('add',1)))->save($data['bid']);
         model('user')->data(array('answer'=>array('add',1)))->save($this->uid);
+
+
+        $this->_handle_score(5,'发布问诊',3);
         $this->success();
     }
 
@@ -104,6 +107,8 @@ class inquiry extends base\e{
         if($e1['utime']<$this->today)$data['today_count'] = 1;
         else $data['today_count'] = array('add',1);
         model('equipment_list')->data($data)->save($e1['id']);
+
+        $this->_handle_score(5,'回答问题');
         $this->success();
 
     }
