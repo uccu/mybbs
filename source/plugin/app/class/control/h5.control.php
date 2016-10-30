@@ -45,5 +45,11 @@ class h5 extends base\e{
     }
 
 
+    function index(){
+
+        T('app:index');
+
+    }
+
 }
 ?>
