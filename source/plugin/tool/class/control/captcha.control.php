@@ -16,6 +16,7 @@ class captcha extends \plugin\app\control\base\e{
         $data['captcha'] = $s;
         $data['usercode'] = $usercode;
         $data['ip'] = $this->g->ip;
+        $data['ctime'] = TIME_NOW;
         model('captcha')->data($data)->add();
 
 
