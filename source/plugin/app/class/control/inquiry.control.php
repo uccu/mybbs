@@ -44,15 +44,17 @@ class inquiry extends base\e{
 
     function reply($id){
 
-        $p = model('inquiry_paid')->where(array(
-                'uid'=>$this->uid,
-                'id'=>$id
-            ))->find();
-            if(!$p)$this->_check_access();
+        
         
         $id = post('id',$id,'%d');
         $page = post('page',1);
         $limit = post('limit',10);
+        $p = model('inquiry_paid')->where(array(
+            'uid'=>$this->uid,
+            'id'=>$id
+        ))->find();
+        if(!$p)$this->_check_access();
+
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan')
