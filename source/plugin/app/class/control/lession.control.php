@@ -89,7 +89,7 @@ class lession extends base\e{//运维
     function test_list($states=0){
         $states = post('states',$states,'%d');
         $z['list'] = model('paper')->mapping('p')->add_table(array(
-            'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.id=p.id AND i.uid='.$this->uid,'ctime'=>'paid')
+            'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.tid=p.tid AND i.uid='.$this->uid,'ctime'=>'paid')
         ))->where(array('states'=>$states))->limit(9999)->select();
         foreach($t['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
