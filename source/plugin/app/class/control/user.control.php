@@ -144,7 +144,7 @@ class user extends base\e{
         if(!$data['info'])$this->errorCode(440);
         $o = $this->_getCloudToken($uid);
 
-        if(!$data['token'])$this->errorCode(429);
+        if(!$data)$this->errorCode(429);
         // if(!$data)$this->error(429,$o);
         $data['uuid'] = $o['entities'][0]['uuid']?$o['entities'][0]['uuid']:'';
 
