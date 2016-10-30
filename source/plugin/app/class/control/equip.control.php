@@ -30,6 +30,16 @@ class equip extends base\e{
     }
 
 
+    function protect(){
+        $this->_check_login();
+        unset($_POST['id']);
+        $_POST['uid'] = $this->uid;
+        $_POST['ctime'] = TIME_NOW;
+        $z = model('equip_protect')->data($_POST)->add();
+        if(!$z)$this->errorCode(432);
+        $this->success();
+    }
+
 
 
 }
