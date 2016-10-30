@@ -340,9 +340,9 @@ class my extends base\e{
     function pay($id=0){
         $this->_check_login();
         $id = post('id',$id,'%d');
-        $type = post('type','score');
+        $type = post('type',0);
         $time = post('time',3); 
-        if($type=='score'){
+        if($type==0){
             $score = model('member')->find($time,false)->get_field('postage');
             if(!$score)$this->errorCode(416);
             $score *= 100;

@@ -204,9 +204,9 @@ class inquiry extends base\e{
     function pay($id=0){
         $this->_check_login();
         $id = post('id',$id,'%d');
-        $type = post('type','score');
+        $type = post('type',0);
 
-        if($type=='score'){
+        if($type==0){
             if($this->userInfo['score']<100)$this->errorCode(442);
             $p = model('inquiry_paid')->where(array(
                 'uid'=>$this->uid,
