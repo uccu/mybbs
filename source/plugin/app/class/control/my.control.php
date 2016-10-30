@@ -333,6 +333,12 @@ class my extends base\e{
         $this->success();
     }
 
+    function vip_info(){
+        $data['vip'] = $this->userInfo['vip']>TIME_NOW?'1':'0';
+        $data['vip_type'] = $data['vip']?$this->userInfo['vip_type']:'0';
+        $data['list'] =model('member')->limit(99)->select();
+        $this->success($data);
+    }
     
 
 
@@ -356,7 +362,7 @@ class my extends base\e{
             if($time == 1)$add = 3600*24*30;
             elseif($time == 2)$add = 3600*24*91;
             else $add = 3600*24*365;
-
+            $data['vip_type'] = $time;
             if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
             else $data['vip'] = TIME_NOW + $add;
             $data['score'] = array('add',-1*$score);
