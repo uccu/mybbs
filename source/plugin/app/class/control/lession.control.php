@@ -28,11 +28,7 @@ class lession extends base\e{//运维
             model('course')->data(array('nums'=>array('add',1)))->save($id);
             $t['nums']++;
         }
-        $p = model('paper_paid')->where(array(
-                'uid'=>$this->uid,
-                'pid'=>$id
-            ))->find();
-            if(!$p)$this->_check_vip();
+        
         //     
         // }
         $t['now'] = TIME_NOW;
@@ -98,6 +94,7 @@ class lession extends base\e{//运维
         foreach($z['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
+        
         $this->success($z);
     }
     function paper($id=0){
@@ -105,7 +102,12 @@ class lession extends base\e{//运维
         $id = post('id',$id,'%d');
         $paper = model('paper')->find($id);
         if($paper['states']==3){
-            $this->_check_access();
+            $p = model('paper_paid')->where(array(
+                'uid'=>$this->uid,
+                'pid'=>$id
+            ))->find();
+            if(!$p)$this->_check_vip();
+            
         }
         $t['list'] = model('question')->where(array('states'=>$paper['states']))->order('rand()')->limit(20)->select();
         $this->success($t);
