@@ -28,6 +28,7 @@ class my extends base\e{
         $data['plant'] = post('plant',$plant);
         $data['thumb'] = post('thumb');
         if(!$data['thumb'])unset($data['thumb']);
+        $data['complete'] = 1;
         $this->_change_info($data);
         $this->success();
     }
@@ -51,6 +52,7 @@ class my extends base\e{
         $data['post'] = post('post','');
         if($this->userInfo['type']<0)$data['type'] = 0;
         $data['apply'] = 1;
+        $data['complete'] = 1;
         if(!$data['thumb'])unset($data['thumb']);
         $this->_change_info($data);
         $this->success();
