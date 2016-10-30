@@ -43,7 +43,13 @@ class inquiry extends base\e{
     }
 
     function reply($id){
-        $this->_check_access();
+
+        $p = model('inquiry_paid')->where(array(
+                'uid'=>$this->uid,
+                'id'=>$id
+            ))->find();
+            if(!$p)$this->_check_access();
+        
         $id = post('id',$id,'%d');
         $page = post('page',1);
         $limit = post('limit',10);
