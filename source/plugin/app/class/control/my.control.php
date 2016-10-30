@@ -353,11 +353,7 @@ class my extends base\e{
             if(!$score)$this->errorCode(416);
             $score *= 100;
             if($this->userInfo['score']<$score)$this->errorCode(442);
-            $p = model('paper_paid')->where(array(
-                'uid'=>$this->uid,
-                'pid'=>$id
-            ))->find();
-            if($p)$this->errorCode(431);
+
 
             if($time == 1)$add = 3600*24*30;
             elseif($time == 2)$add = 3600*24*91;
