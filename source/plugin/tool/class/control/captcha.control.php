@@ -13,6 +13,11 @@ class captcha extends \plugin\app\control\base\e{
         for($i=0;$i<6;$i++){
             $s.=$a[rand(0,9)];
         }
+        $data['captcha'] = $s;
+        $data['usercode'] = $usercode;
+        $data['ip'] = $this->g->ip;
+        model('captcha')->data($data)->add();
+
         
         $ch=curl_init();
 		$headers = array();
@@ -51,10 +56,7 @@ class captcha extends \plugin\app\control\base\e{
         // session_start();
         // $_SESSION['captcha'] = $s;
         // $_SESSION['usercode'] = $usercode;
-        $data['captcha'] = $s;
-        $data['usercode'] = $usercode;
-        $data['ip'] = $this->g->ip;
-        model('captcha')->data($data)->add();
+        
         $z['new'] = model('user')->where(array('usercode'=>$usercode))->find() ? 0 : 1;
         $this->success($z);
     }
