@@ -60,7 +60,7 @@ class captcha extends \plugin\app\control\base\e{
             if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
         }else{
             if($_POST['usercode']!=$_SESSION['usercode']){
-                $this->error(502,'发送验证码手机号与操作手机号不同'.$_POST['usercode'].'/'.$_SESSION['usercode']);
+                //$this->error(502,'发送验证码手机号与操作手机号不同'.$_POST['usercode'].'/'.$_SESSION['usercode']);
             }
         }
         if($_SESSION['captcha'] !== post('captcha',-1)){
