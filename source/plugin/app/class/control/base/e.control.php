@@ -168,7 +168,7 @@ class e extends \control\ajax{
         $options['org_name']='1166161027178790';
         $options['app_name']='qingce';
 
-        $h=new Easemob($options);
+        $h=new \Easemob($options);
 
         $time = (string)TIME_NOW;
 
