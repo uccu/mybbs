@@ -159,13 +159,32 @@ class e extends \control\ajax{
 
     function _getCloudToken($uid = 0){
         $user = model('user')->find($uid);
-        $nickname = $user['type']==2?$user['nametrue']:$user['nickname'];
-        $nickname = $nickname?$nickname:' ';
-        require PLUGIN_ROOT.'tool/class/control/cloud/ServerAPI.php';
-        $p = new \ServerAPI('1166161027178790#qingce','YXA6tcRaygOWAwlbm6vMHIqQcBecSyc');
-        $r = $p->getToken($uid,$nickname,'http://www.scthalia.com:6087/pic/iavatar/0/0/7.png');
-        $o = json_decode($r,true);
-        return $o;
+        if(!user)return false;
+        $nickname = 'A'.$user['uid'];
+
+        require PLUGIN_ROOT.'tool/class/control/cloud/Easemob.class.php';
+        $options['client_id']='YXA6PdAMsJwVEear3dnihXs_Zw';
+        $options['client_secret']='YXA6tcRaygOWAwlbm6vMHIqQcBecSyc';
+        $options['org_name']='1166161027178790';
+        $options['app_name']='qingce';
+
+        $h=new Easemob($options);
+
+        $time = (string)TIME_NOW;
+
+        $huan = false;
+        if($user['huan'])
+            $huan = $h->getUser($nickname);
+        
+        if(!$huan){
+            $huan = $h->createUser($nickname,$time );
+            if($huan && !$huan['error']){
+                model('user')->data(array('huan'=>$huan['entities'][0]['uuid']))->save($uid);
+            }
+        }
+        
+
+        return $huan;
     }
 }
 ?>
