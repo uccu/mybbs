@@ -335,7 +335,7 @@ class my extends base\e{
 
     function vip_info(){
         $data['nickname'] = $this->userInfo['nickname'];
-        $data['avatar'] = $this->userInfo['avatar'];
+        $data['thumb'] = $this->userInfo['thumb'];
         $data['vip'] = $this->userInfo['vip']>TIME_NOW?'1':'0';
         $data['date'] = $this->userInfo['vip'];
         $data['vip_type'] = $data['vip']?$this->userInfo['vip_type']:'0';
