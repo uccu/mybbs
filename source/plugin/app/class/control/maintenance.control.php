@@ -19,7 +19,7 @@ class maintenance extends base\e{//运维
         $z['list'] = model('sale')->page($page,$limit)->order(array('location'))->select();
 
         foreach($z['list'] as &$v){
-            $v['url'] = 'app/h5/sale/'.$z['sid'];
+            $v['url'] = 'app/h5/sale/'.$v['sid'];
         }
         $this->success($z);
     }
