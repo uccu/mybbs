@@ -51,7 +51,7 @@ class equip extends base\e{
         foreach($a as $v){
 
             if(array_search($city,explode(',',$v['value']))!==false){
-                control('tool:captcha')->_message($v['usercode']);
+                control('tool:captcha')->_message($v['usercode'],'您好！用户 '.$this->userInfo['usercode'].' 提交了一条维保的信息，请尽快到管理后台查看详情，并尽快与该用户取得联系，谢谢！');
             }
             
 
