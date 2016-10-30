@@ -17,7 +17,7 @@ class home extends base\e{
     function top_line(){
         $z = model('top_line')->limit(99)->order(array('tid'))->select();
         foreach($z as &$v){
-            $v['url'] = 'app/h5/top/'.$z['tid'];
+            $v['url'] = 'app/h5/top/'.$v['tid'];
         }
         if($this->outter)$this->success($z);
         return $z;
