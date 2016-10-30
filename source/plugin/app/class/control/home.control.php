@@ -114,6 +114,7 @@ class home extends base\e{
         $this->success();
     }
 
+
     function collect($id=0){
         $this->_check_login();
         $id = post('id',$id,'%d');

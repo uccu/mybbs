@@ -51,5 +51,16 @@ class h5 extends base\e{
 
     }
 
+    function repository($id){
+        $id = post('id',$id,'%d');
+        $r = model('repository')->find($id);
+        $this->g->template['value'] = $r['content'];
+        $this->g->template['title'] = $r['title'];
+        $this->g->template['time'] = date('Y-m-d H:i:s',$r['ctime']);
+        T('tool:static');
+
+
+    }
+
 }
 ?>
