@@ -51,10 +51,14 @@ class home extends base\e{
         }else{
             $z = model('repository')->limit(15)->order('rand()')->select();
         }
-        foreach($z as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($z as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['url'] = 'app/h5/repository/'.$v['id'];
+        }
         if($this->outter)$this->success($z);
         return $z;
     }
+
 
     function repository_list($bid){
         $where['bid'] = post('bid',$bid,'%d');
@@ -68,7 +72,10 @@ class home extends base\e{
             ),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->page($page,$limit)->select();
-        foreach($z['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($z['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['url'] = 'app/h5/repository/'.$v['id'];
+        }
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
@@ -85,7 +92,10 @@ class home extends base\e{
             ),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where($where)->page($page,$limit)->select();
-        foreach($z['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($z['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['url'] = 'app/h5/repository/'.$v['id'];
+        }
         //if(!$z['list'])$this->errorCode(427);
         $this->success($z);
     }
