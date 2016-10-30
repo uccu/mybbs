@@ -4,7 +4,9 @@
 {if $title}
 <hr style="color:#bbb">
 {/if}
-{value}
 
+<div class="container">
+{value}
+</div>
 
 <!--{subtemplate tool:footer}-->
