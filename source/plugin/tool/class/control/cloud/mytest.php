@@ -18,7 +18,7 @@ $options['app_name']='qingce';
 
 $h=new Easemob($options);
 
-$i=70;
+$i=$_GET['i']?$_GET['i']:'10';
 switch($i){
 	case 10://获取token
 		$token=$h->getToken();
