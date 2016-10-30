@@ -119,16 +119,16 @@ class lession extends base\e{//运维
     }
 
 
-    function pay($pid=0){
+    function pay($id=0){
         $this->_check_login();
-        $pid = post('pid',$pid,'%d');
+        $id = post('id',$id,'%d');
         $type = post('type','score');
 
         if($type=='score'){
             if($this->userInfo['score']<100)$this->errorCode(442);
             $p = model('paper_paid')->where(array(
                 'uid'=>$this->uid,
-                'pid'=>$pid
+                'pid'=>$id
             ))->find();
             if($p)$this->errorCode(431);
 
@@ -137,7 +137,7 @@ class lession extends base\e{//运维
             model('paper_paid')->data(array(
                 'uid'=>$this->uid,
                 'ctime'=>TIME_NOW,
-                'pid'=>$pid
+                'pid'=>$id
             ))-add();
             $this->success();
         }else{

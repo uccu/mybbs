@@ -335,5 +335,41 @@ class my extends base\e{
 
     
 
+
+
+    function pay($id=0){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $type = post('type','score');
+        $time = post('time',3); 
+        if($type=='score'){
+            $score = model('member')->find($time,false)->get_field('postage');
+            if(!$score)$this->errorCode(416);
+            $score *= 100;
+            if($this->userInfo['score']<$score)$this->errorCode(442);
+            $p = model('paper_paid')->where(array(
+                'uid'=>$this->uid,
+                'pid'=>$id
+            ))->find();
+            if($p)$this->errorCode(431);
+
+            if($time == 1)$add = 3600*24*30;
+            elseif($time == 2)$add = 3600*24*91;
+            else $add = 3600*24*365;
+
+            if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+            else $data['vip'] = TIME_NOW + $add;
+            $data['score'] = array('add',-1*$score);
+
+            model('user')->data($data)->save($this->uid);
+            $this->_handle_score(-1*$score,'支付VIP');
+            
+            $this->success();
+        }else{
+
+            $this->errorCode(430);
+        }
+
+    }
 }
 ?>

@@ -201,5 +201,34 @@ class inquiry extends base\e{
     }
 
 
+    function pay($id=0){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $type = post('type','score');
+
+        if($type=='score'){
+            if($this->userInfo['score']<100)$this->errorCode(442);
+            $p = model('inquiry_paid')->where(array(
+                'uid'=>$this->uid,
+                'id'=>$id
+            ))->find();
+            if($p)$this->errorCode(431);
+
+            model('user')->data(array('score'=>array('add',-100)))->save($this->uid);
+            $this->_handle_score(-100,'支付问诊');
+            model('inquiry_paid')->data(array(
+                'uid'=>$this->uid,
+                'ctime'=>TIME_NOW,
+                'id'=>$id
+            ))-add();
+            $this->success();
+        }else{
+
+            $this->errorCode(430);
+        }
+
+    }
+
+
 }
 ?>
