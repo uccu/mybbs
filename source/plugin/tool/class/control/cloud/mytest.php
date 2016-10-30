@@ -12,8 +12,8 @@
 include "Easemob.class.php";
 
 $options['client_id']='YXA6PdAMsJwVEear3dnihXs_Zw';
-$options['client_secret']='	YXA6tcRaygOWAwlbm6vMHIqQcBecSyc';
-$options['org_name']='上海擎测机电工程技术有限公司';
+$options['client_secret']='YXA6tcRaygOWAwlbm6vMHIqQcBecSyc';
+$options['org_name']='1166161027178790';
 $options['app_name']='qingce';
 
 $h=new Easemob($options);
