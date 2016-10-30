@@ -37,6 +37,26 @@ class equip extends base\e{
         $_POST['ctime'] = TIME_NOW;
         $z = model('equip_protect')->data($_POST)->add();
         if(!$z)$this->errorCode(432);
+
+
+
+        $city = $this->userInfo['city'];
+
+        $a = model('user_area')->mapping('a')->add_table(array(
+            'user'=>array('_on'=>'a.mid=u.uid','_mapping'=>'u','usercode')
+        ))->limit(999)->select();
+
+        //$r = array();
+
+        foreach($a as $v){
+
+            if(array_search($city,explode(',',$v['value']))!==false){
+                control('tool:captcha')->_message($v['usercode']);
+            }
+            
+
+        }
+
         $this->success();
     }
 

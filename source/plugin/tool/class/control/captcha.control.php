@@ -20,6 +20,19 @@ class captcha extends \plugin\app\control\base\e{
         model('captcha')->data($data)->add();
 
 
+        $this->_message($usercode,'您好：本次验证码是'.$s.'，请妥善保管，勿泄露给他人！');
+
+
+
+        // session_start();
+        // $_SESSION['captcha'] = $s;
+        // $_SESSION['usercode'] = $usercode;
+        
+        $z['new'] = model('user')->where(array('usercode'=>$usercode))->find() ? 0 : 1;
+        $this->success($z);
+    }
+
+    function _message($usercode,$s){
         $ch=curl_init();
 		$headers = array();
         $headers[] = 'X-Apple-Tz: 0';
@@ -39,7 +52,7 @@ class captcha extends \plugin\app\control\base\e{
   <cpmid>0'.time().'</cpmid>
   
   <mobile><![CDATA['.$usercode.']]></mobile>
-  <message><![CDATA[【运维卫士】您好：本次验证码是'.$s.'，请妥善保管，勿泄露给他人！]]></message>
+  <message><![CDATA[【运维卫士】'.$s.']]></message>
   <respDataType>JSON</respDataType>
 </mtpacket>';
 
@@ -51,15 +64,8 @@ class captcha extends \plugin\app\control\base\e{
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$output = curl_exec($ch);
 		curl_close($ch);
+        return $output;
 
-
-
-        // session_start();
-        // $_SESSION['captcha'] = $s;
-        // $_SESSION['usercode'] = $usercode;
-        
-        $z['new'] = model('user')->where(array('usercode'=>$usercode))->find() ? 0 : 1;
-        $this->success($z);
     }
     function _check_captcha(){
         //session_start();
