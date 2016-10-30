@@ -166,7 +166,7 @@ class e extends \control\ajax{
         $p = new \ServerAPI('YXA6PdAMsJwVEear3dnihXs_Zw','YXA6tcRaygOWAwlbm6vMHIqQcBecSyc');
         $r = $p->getToken($uid,$nickname,'http://www.scthalia.com:6087/pic/iavatar/0/0/7.png');
         $o = json_decode($r,true);
-        return $o['toeken']?$o['toeken']:'';
+        return $o['token']?$o['token']:'';
     }
 }
 ?>
