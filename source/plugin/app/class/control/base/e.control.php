@@ -146,6 +146,7 @@ class e extends \control\ajax{
             $userInfo = model('user')->find($uid);
             if(!$userInfo)return false;
         }
+        model('message')->data(array('uid'=>$uid,'ctime'=>TIME_NOW,'content'=>$content))->add();
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('597751d938baa0b47784437d', 'd7c39d2b6efb566575c02e5c');
         $result = $client->push()
