@@ -43,7 +43,7 @@ class h5 extends base\e{
 
     function sale($id=0){
         $id = post('id',$id,'%d');
-        $this->g->template['value'] = model('member')->find($id,false)->get_field('details');
+        $this->g->template['value'] = model('sale')->find($id,false)->get_field('details');
         T('tool:static');
     }
 
