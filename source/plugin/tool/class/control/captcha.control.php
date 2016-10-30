@@ -48,22 +48,29 @@ class captcha extends \plugin\app\control\base\e{
 
 
 
-        session_start();
-        $_SESSION['captcha'] = $s;
-        $_SESSION['usercode'] = $usercode;
+        // session_start();
+        // $_SESSION['captcha'] = $s;
+        // $_SESSION['usercode'] = $usercode;
+        $data['captcha'] = $s;
+        $data['usercode'] = $usercode;
+        $data['ip'] = $this->g->ip;
+        model('captcha')->data($data)->add();
         $z['new'] = model('user')->where(array('usercode'=>$usercode))->find() ? 0 : 1;
         $this->success($z);
     }
     function _check_captcha(){
-        session_start();
+        //session_start();
+        $where['ip'] = $this->g->ip;
+        $c = model('captcha')->where($where)->order(array('ctime'=>'DESC'))->find();
+        if(!$c)$this->error(501,'验证码错误');
         if($this->uid>0){
-            if($this->userInfo['usercode']!=$_SESSION['usercode'])$this->error(501,'手机号与预留的手机号不同');
+            if($this->userInfo['usercode']!=$c['usercode'])$this->error(501,'手机号与预留的手机号不同');
         }else{
-            if($_POST['usercode']!=$_SESSION['usercode']){
-                //$this->error(502,'发送验证码手机号与操作手机号不同'.$_POST['usercode'].'/'.$_SESSION['usercode']);
+            if($_POST['usercode']!=$c['usercode']){
+                $this->error(502,'发送验证码手机号与操作手机号不同'.$_POST['usercode'].'/'.$_SESSION['usercode']);
             }
         }
-        if($_SESSION['captcha'] !== post('captcha',-1)){
+        if($c['captcha'] !== post('captcha',-1)){
             $this->error(501,'验证码错误');
         }
         return true;
