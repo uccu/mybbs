@@ -32,9 +32,13 @@ class inquiry extends base\e{
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
+
+        $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->get_field();
+
         $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
+        
         $this->success($t);
     }
 
@@ -121,7 +125,7 @@ class inquiry extends base\e{
     function expert_search($search){
         $search = post('search',$search);
         $where['type'] = 2;
-        if($search)$where['nickname'] = array('contain','%'.$search.'%','LIKE');
+        if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
         //else $where['is_login'] = '1';
         $page = post('page',1);
         $limit = post('limit',10);
