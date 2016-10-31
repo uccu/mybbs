@@ -65,7 +65,7 @@ class my extends base\e{
         unset($t['info']['password']);
         $t['info']['isvip'] = $t['info']['vip']>TIME_NOW ?'1':'0';
         $t['info']['city_name'] = $this->_city_name($t['info']['city']);
-        $t['info']['plant_name'] = $this->_equip_name($t['info']['plant']);
+        $t['info']['plant_name'] = $this->_rtype_name($t['info']['plant']);
         $t['info']['field_name'] = $this->_equip_name_m($t['info']['field']);
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('fans_id'=>$this->uid))->get_field();

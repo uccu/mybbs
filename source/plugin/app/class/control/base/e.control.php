@@ -70,6 +70,13 @@ class e extends \control\ajax{
         if(!$p)return $c['name'];
         return $p['name'].' - '.$c['name'];
     }
+    function _rtype_name($id = 0){
+        $c = model('repository_list')->find($id);
+        if(!$c)return '';
+
+        return $c['name'];
+
+    }
     function _dateline_format(&$data,$key){
         if(!$data[$key])$data[$key] = post($key,0);
         if(!is_numeric($data[$key]))$data[$key] = strtotime($data[$key]);
