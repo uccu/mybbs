@@ -518,12 +518,12 @@ class my extends base\basic{
 
     function draw_log(){
         $data['list'] = model('draw_log')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->limit(999)->select();
-        if(!$data['list'])$this->errorCode(427);
+        //if(!$data['list'])$this->errorCode(427);
         $this->success($data);
     }
     function draw_logs(){
         $data['list'] = model('draw_log')->limit(10)->select();
-        if(!$data['list'])$this->errorCode(427);
+        //if(!$data['list'])$this->errorCode(427);
         $this->success($data);
     }
 
