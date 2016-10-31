@@ -222,7 +222,7 @@ class inquiry extends base\e{
             ))->find();
             if($p)$this->errorCode(431);
 
-            model('user')->data(array('score'=>array('add',-100)))->save($this->uid);
+
             $this->_handle_score(-100,'支付问诊');
             model('inquiry_paid')->data(array(
                 'uid'=>$this->uid,

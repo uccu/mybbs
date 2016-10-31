@@ -138,7 +138,7 @@ class lession extends base\e{//运维
             ))->find();
             if($p)$this->errorCode(431);
 
-            model('user')->data(array('score'=>array('add',-100)))->save($this->uid);
+
             $this->_handle_score(-100,'支付考卷');
             model('paper_paid')->data(array(
                 'uid'=>$this->uid,
