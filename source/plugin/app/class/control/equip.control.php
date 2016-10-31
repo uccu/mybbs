@@ -43,7 +43,7 @@ class equip extends base\e{
         $city = $this->userInfo['city'];
 
         $a = model('user_area')->mapping('a')->add_table(array(
-            'user'=>array('_on'=>'a.mid=u.uid','_mapping'=>'u','usercode')
+            'manager_user'=>array('_on'=>'mid','_mapping'=>'u','phone')
         ))->limit(999)->select();
 
         //$r = array();
@@ -51,7 +51,7 @@ class equip extends base\e{
         foreach($a as $v){
 
             if(array_search($city,explode(',',$v['value']))!==false){
-                control('tool:captcha')->_message($v['usercode'],'您好！用户 '.$this->userInfo['usercode'].' 提交了一条维保的信息，请尽快到管理后台查看详情，并尽快与该用户取得联系，谢谢！');
+                control('tool:captcha')->_message($v['phone'],'您好！用户 '.$this->userInfo['usercode'].' 提交了一条维保的信息，请尽快到管理后台查看详情，并尽快与该用户取得联系，谢谢！');
             }
             
 
