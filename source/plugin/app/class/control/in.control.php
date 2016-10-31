@@ -173,9 +173,20 @@ class in extends base\basic{
         $info['username'] = '用户_'.$info['ctime'];
         $info['terminal'] = post('terminal','');
         $info['score'] = model('cache')->get('register');
+        if($referee = $info['referee']){
+            $info['score'] = 200;
+            model('user')->data(array('score'=>array('add',100)))->save($referee);
+            model('score_log')->data(array(
+                'uid'=>$referee,
+                'score'=>100,
+                'info'=>'分享好友',
+                'ctime'=>TIME_NOW
+            ))->add();
+        }
         $z = model('user')->data($info)->add();
-        if(!$z)$this->errorCode(409);
         
+        if(!$z)$this->errorCode(409);
+       
         $info['uid'] = $z;
         $info['new'] = 1;
         $this->_out_info($info,$this->cookie);
