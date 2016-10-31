@@ -46,8 +46,10 @@ class home extends base\e{
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ));
         if($bid = $this->userInfo['plant']){
-            $where['bid'] = $bid;
-            $z = model('repository')->where($where)->limit(15)->order('rand()')->select();
+            $where['id'] = $bid;
+            $z = model('repository')->mapping('r')->add_table(array(
+                'equipment_list'=>array('id','bid','_on'=>'e.id=r.bid','_mapping'=>'e')
+            ))->where($where)->limit(15)->order('rand()')->select();
         }else{
             $z = model('repository')->limit(15)->order('rand()')->select();
         }
