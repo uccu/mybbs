@@ -369,7 +369,9 @@ class my extends base\e{
             model('user')->data($data)->save($this->uid);
             $this->_handle_score(-1*$score,'支付VIP');
             
-            $this->success();
+
+            $f['vip'] = $data['vip'];
+            $this->success($f);
         }else{
 
             $this->errorCode(430);
