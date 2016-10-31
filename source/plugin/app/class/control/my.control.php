@@ -364,7 +364,7 @@ class my extends base\e{
             $data['vip_type'] = $time;
             if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
             else $data['vip'] = TIME_NOW + $add;
-            $data['score'] = array('add',-1*$score);
+            //$data['score'] = array('add',-1*$score);
 
             model('user')->data($data)->save($this->uid);
             $this->_handle_score(-1*$score,'支付VIP');
