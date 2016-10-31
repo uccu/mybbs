@@ -34,8 +34,15 @@ class h5 extends base\e{
         T('tool:static');
     }
     
-    function vip($id=1){
+    function vip($id=0){
         $id = post('id',$id,'%d');
+
+        if($id == 0){
+            $this->g->template['value'] .= model('member')->find(1,false)->get_field('content');
+            $this->g->template['value'] .= model('member')->find(2,false)->get_field('content');
+            $this->g->template['value'] .= model('member')->find(3,false)->get_field('content');
+
+        }else
         $this->g->template['value'] = model('member')->find($id,false)->get_field('content');
         T('tool:static');
 
