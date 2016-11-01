@@ -174,7 +174,7 @@ class in extends base\basic{
     function _add_user($info){
         $info['ctime'] = time();
         //$info['coin'] = 10000;
-        $info['username'] = '用户_'.$info['ctime'];
+        $info['username'] = '用户_'.TIME_NOW;
         $info['terminal'] = post('terminal','');
         $info['score'] = model('cache')->get('register');
         if($referee = $info['referee']){
