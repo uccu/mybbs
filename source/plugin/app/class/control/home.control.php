@@ -140,9 +140,11 @@ class home extends base\e{
         if($f){
             model('collect')->where($data)->remove();
             $z['collected'] = '0';
+            model('repository')->data(array('collection'=>array('add',-1)))->save($id);
         }else{
             model('collect')->data($data)->add();
             $z['collected'] = '1';
+            model('repository')->data(array('collection'=>array('add',1)))->save($id);
         }
         $this->success($z);
     }

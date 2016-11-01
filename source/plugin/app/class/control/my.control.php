@@ -318,7 +318,10 @@ class my extends base\e{
             ),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['url'] = 'app/h5/repository/'.$v['rid'];
+        }
         $this->success($t);
 
 
