@@ -149,8 +149,8 @@ class in extends base\basic{
             model('user')->data($data)->save($info['uid']);
             $this->_out_info($info);
         }else{
-            //$this->_check_password($password);
-            $password = md5(md5(')&DAQ(^DQ)(W&(ASK').$this->salt);
+            $this->_check_password($password);
+            $password = md5(md5($password).$this->salt);
             if($type=='qq'){
                 $info['qq'] = '';
             }elseif($type=='wb'){
