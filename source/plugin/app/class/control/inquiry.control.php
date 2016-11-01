@@ -57,9 +57,13 @@ class inquiry extends base\e{
 
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
-            'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan')
+            'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan'),
+            'inquiry_paid'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=p.id AND p.uid='.$this->uid,'_mapping'=>'p','uid'=>'ispaid')
         ))->where(array('bid'=>$id))->page($page,$limit)->order(array('adopt'=>'DESC','ctime'=>'DESC'))->select();
-        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
+        foreach($t['reply'] as &$v){
+            $v['iszan'] = $v['iszan']?'1':'0';
+            $v['ispaid'] = $v['ispaid']?'1':'0';
+        }
 
         $this->success($t);
     }
