@@ -54,7 +54,7 @@ class basic extends \control\ajax{
         $where = array();
         $where['etime'] = array('logic',$now,'<');
         $z = model('activity')->where($where)->find();
-        if(!$z)$this->errorCode(419);
+       //if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
     function _check_login(){
