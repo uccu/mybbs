@@ -162,6 +162,10 @@ class in extends base\basic{
             }
             $info['phone'] = $phone;
             $info['password'] = $password;
+            if($referee = post('referee','0')){
+                if(!model('user')->find($referee))$this->errorCode(408);
+                $info['referee'] = $referee;
+            }
             $this->_add_user($info);
         }
 
