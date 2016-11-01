@@ -57,6 +57,17 @@ class basic extends \control\ajax{
        //if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
+    function _get_lastAid2(){
+        $now = TIME_NOW;
+        $where = "stime<=$now AND stime+ktime*3600>$now";
+        $z = model('activity')->where($where)->find();
+        if($z)return $z['aid'];
+        $where = array();
+        $where['stime'] = array('logic',$now,'>');
+        $z = model('activity')->where($where)->find();
+       //if(!$z)$this->errorCode(419);
+        return $z ? $z['aid'] : 0;
+    }
     function _check_login(){
         if(!$this->uid || $this->uid<0)$this->errorCode(410,$this->uid);
     }

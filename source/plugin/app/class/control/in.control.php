@@ -200,7 +200,7 @@ class in extends base\basic{
         if($referee = post('referee')){
             $data['fans_id'] = $info['uid'];
             $data['uid'] = $referee;
-            $data['aid'] = $this->lastAid;
+            $data['aid'] = $this->lastAid2;
             if(!model('fans')->where($data)->find() && $data['uid']!=$data['fans_id']){
                 $data['ctime'] = TIME_NOW;
                 $data['buy'] = 0; 
