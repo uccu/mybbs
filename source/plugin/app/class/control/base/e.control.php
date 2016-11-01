@@ -178,14 +178,14 @@ class e extends \control\ajax{
 
         $h=new \Easemob($options);
 
-        $time = (string)TIME_NOW;
+        //$time = (string)TIME_NOW;
 
         $huan = false;
         if($user['huan'])
             $huan = $h->getUser($nickname);
         
         if(!$huan){
-            $huan = $h->createUser($nickname,$time );
+            $huan = $h->createUser($nickname,$nickname );
             if($huan && !$huan['error']){
                 model('user')->data(array('huan'=>$huan['entities'][0]['uuid']))->save($uid);
             }
