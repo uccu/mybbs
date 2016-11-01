@@ -137,6 +137,9 @@ class in extends base\e{
     function _out_info($info,$cookie = false){
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
         if($cookie)cookie('user_token',$user_token,0);
+
+        $o = $this->_getCloudToken($info['uid']);
+
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
@@ -146,7 +149,9 @@ class in extends base\e{
             'complete'=>$info['complete']?"1":"0",
             'vip'=>$info['vip']?$info['vip']:"0",
             'isvip'=>$info['vip']>TIME_NOW?'1':"0",
+            'huan'=>$o
         );
+        
         $this->success($out);
 
     }
