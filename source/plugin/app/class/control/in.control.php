@@ -149,7 +149,8 @@ class in extends base\e{
             'complete'=>$info['complete']?"1":"0",
             'vip'=>$info['vip']?$info['vip']:"0",
             'isvip'=>$info['vip']>TIME_NOW?'1':"0",
-            'huan'=>$o
+            'qust'=>$info['qust']?$info['qust']:'3',
+            //'huan'=>$o
         );
         
         $this->success($out);
