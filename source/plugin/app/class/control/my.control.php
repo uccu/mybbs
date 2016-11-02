@@ -287,7 +287,7 @@ class my extends base\e{
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected'),
-        ))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($t);
     }
@@ -297,7 +297,7 @@ class my extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('course')->mapping('i')->add_table(array(
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.cid=c.id AND c.type=\'k\' AND c.uid='.$this->uid,'uid'=>'collected')
-        ))->order(array('open_time'))->page($page,$limit)->select();
+        ))->where(array('uid'=>$this->uid))->order(array('open_time'))->page($page,$limit)->select();
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
             $v['now'] = TIME_NOW;
@@ -317,7 +317,7 @@ class my extends base\e{
                 'name','del','_on'=>'r.bid=i.rid','_mapping'=>'i'
             ),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'r.rid=c.id AND c.type=\'z\' AND c.uid='.$this->uid,'uid'=>'collected')
-        ))->page($page,$limit)->select();
+        ))->where(array('uid'=>$this->uid))->page($page,$limit)->select();
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
             $v['url'] = 'app/h5/repository/'.$v['rid'];
