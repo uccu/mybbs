@@ -174,11 +174,11 @@ class in extends base\basic{
     function _add_user($info){
         $info['ctime'] = time();
         //$info['coin'] = 10000;
-        $info['username'] = '用户_'.TIME_NOW;
+        
         $info['terminal'] = post('terminal','');
-        $info['score'] = model('cache')->get('register');
+        
         if($referee = $info['referee']){
-            $info['score'] = 200;
+            $info['score'] = model('cache')->get('register');
             model('user')->data(array('score'=>array('add',100)))->save($referee);
             model('score_log')->data(array(
                 'uid'=>$referee,
@@ -187,6 +187,8 @@ class in extends base\basic{
                 'ctime'=>TIME_NOW
             ))->add();
         }
+        $info['username'] = '用户_'.TIME_NOW;
+        $info['dev'] = '1';
         $z = model('user')->data($info)->add();
         
         if(!$z)$this->errorCode(409);
