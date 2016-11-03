@@ -15,7 +15,7 @@ class item extends base\basic{
         if($lid)$where['lgid'] = $lid;
         $where['del'] = 1;
         $aid = post('aid',$aid);
-        if(!$aid)$aid = $this->lastAid;
+        if(!$aid)$aid = $this->lastAid2;
         $where['aid'] = $aid;
         $q['list'] = model('goods')->mapping('g')->add_table(array(
             'activity_list'=>array('aid','_on'=>'tid','id'),
