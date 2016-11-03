@@ -24,7 +24,7 @@ class my extends base\e{
         $data['nickname'] = post('nickname',$nickname);
         $data['sex'] = post('sex',$sex);
         $data['city'] = post('city',$city);
-        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
+        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_field('id');
         $data['plant'] = post('plant',$plant);
         $data['thumb'] = post('thumb');
         if(!$data['thumb'])unset($data['thumb']);
@@ -37,7 +37,7 @@ class my extends base\e{
         $data['nametrue'] = post('nametrue',post('nickname',''));
         $data['sex'] = post('sex',0,'%d');
         $data['city'] = post('city',$city);
-        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_filed('id');
+        if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_field('id');
         $data['plant'] = post('plant','');
         $data['company'] = post('company','');
         $data['at_start'] = post('at_start','');
