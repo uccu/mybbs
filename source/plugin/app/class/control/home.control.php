@@ -27,6 +27,13 @@ class home extends base\basic{
             'aid'=>$aid))->get_field();
         return $all;
     }
+    function _allpeople($aid){
+        $where['aid'] = $aid;
+        $where['first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        return model('order')->where($where)->get_field();
+    }
     function banner(){
         $z = model('banner')->limit(999)->select();
         //if(!$z)$this->errorCode(427);
@@ -78,7 +85,7 @@ class home extends base\basic{
         $q['activityInfo'] = $z;
         if($z){
             $q['activityInfo'][0]['time'] = TIME_NOW;
-            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney($z[0]['aid']).'元，参团'.$this->_allFans($z[0]['aid']).'人，奖金'.$this->_allBean($z[0]['aid']).'元';
+            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney($z[0]['aid']).'元，参团'.$this->_allpeople($z[0]['aid']).'人，奖金'.$this->_allBean($z[0]['aid']).'元';
             $where2['stime'] = array('logic',$z[0]['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->limit(9999)->select();
         }else{
