@@ -488,7 +488,8 @@ class item extends base\basic{
         $oid = post('oid',$oid);
         $z = model('order')->find($oid);
         if(!$z)$this->errorCode(425);
-        model('goods')->data(array(
+        $good = model('goods')->find($z['tid']);
+        if($good['sale'])model('goods')->data(array(
             'stock'=>array('add',$z['num']),
             'sale'=>array('add',-1*$z['num'])
         ))->save($z['tid']);
