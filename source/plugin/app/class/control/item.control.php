@@ -293,13 +293,22 @@ class item extends base\basic{
         if(!model('user_address')->where(array('uid'=>$this->uid,'type'=>'1'))->find()){
             $this->errorCode(444);
         }
+
+
+
+
+
+        /*扣除*/
          model('goods')->data(array(
             'stock'=>array('add',-1),
             'sale'=>array('add',1)
         ))->save($tid);
-
+        /*扣除*/
 
         
+
+
+
 
         //验证购物车
         $has = 0;
@@ -392,10 +401,19 @@ class item extends base\basic{
             $t = $this->_check_tid($tid,$this->aid);
             //验证库存
             if($t['stock']<$z['num'])$this->errorCode(435);
+
+
+
+            /*扣除*/
             model('goods')->data(array(
                 'stock'=>array('add',-1*$z['num']),
                 'sale'=>array('add',$z['num'])
             ))->save($tid);
+            /*扣除*/
+
+
+
+
             $data['aid'] = $this->aid;
             $data['uid'] = $this->uid;
             $data['tid'] = $z['tid'];
@@ -501,11 +519,20 @@ class item extends base\basic{
         $oid = post('oid',$oid);
         $z = model('order')->find($oid);
         if(!$z)$this->errorCode(425);
+        
+
+
+
+        /*增加*/
         $good = model('goods')->find($z['tid']);
         if($good['sale'])model('goods')->data(array(
             'stock'=>array('add',$z['num']),
             'sale'=>array('add',-1*$z['num'])
         ))->save($z['tid']);
+        /*增加*/
+
+
+
         if($z['uid']==$this->uid)model('order')->data(array('status'=>-1))->save($oid);
         $this->success();
     }
@@ -532,10 +559,24 @@ class item extends base\basic{
         if(!$oids = post('oids',$oids))$this->errorCode(425);
         $oids = explode(',',$oids);
         if(!$oids)$this->errorCode(425);
+        
         $where['oid'] = array('contain',$oids,'IN');
         $where['status'] = 1;
         $where['aid'] = $this->aid;
         $o = model('order')->where($where)->limit(999)->select();
+
+
+
+        //请求付款判断是否商品充足
+
+        // if(model('order')->mapping('o')->add_table(array(
+        //     'goods'=>array('_on'=>'tid','_mapping'=>'g')
+        // ))->where($where)->where('o.num>g.stock')->find()){
+        //     $this->errorCode(445);
+        // }
+
+
+
         $money = 0;
         if(!$o)$this->errorCode(425);
         foreach($o as $v)$money += $v['money'];
@@ -631,6 +672,28 @@ class item extends base\basic{
         $CONFIG_SHARE_FIRST = array();
         $CONFIG_REFEREE_FIRST = array();
         foreach($orders as $o){
+
+
+            
+            //订单完成扣除商品数量
+
+
+            // $good = model('goods')->find($o['tid']);
+            
+            // model('goods')->data(array(
+            //     'stock'=>array('add',-1*($good['stock']-$o['num']>=0?$o['num']:$good['stock'])),
+            //     'sale'=>array('add',$good['stock']-$o['num']>=0?$o['num']:$good['stock'])
+            // ))->save($o['tid']);
+
+
+
+
+
+
+
+
+
+
             $data = array();
             $where = array();
             if($o['referee']){
