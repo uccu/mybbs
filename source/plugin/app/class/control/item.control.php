@@ -290,7 +290,10 @@ class item extends base\basic{
         $t = $this->_check_tid($tid,$this->aid);
         //验证库存
         if(!$t['stock'])$this->errorCode(435);
-
+         model('goods')->data(array(
+            'stock'=>array('add',-1),
+            'sale'=>array('add',1)
+        ))->save($tid);
         //验证购物车
         $has = 0;
 
