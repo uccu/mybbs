@@ -290,15 +290,16 @@ class item extends base\basic{
         $t = $this->_check_tid($tid,$this->aid);
         //验证库存
         if(!$t['stock'])$this->errorCode(435);
+        if(!model('user_address')->where(array('uid'=>$this->uid,'type'=>'1'))->find()){
+            $this->errorCode(444);
+        }
          model('goods')->data(array(
             'stock'=>array('add',-1),
             'sale'=>array('add',1)
         ))->save($tid);
 
 
-        if(!model('user_address')->where(array('uid'=>$this->uid,'type'=>'1'))->find()){
-            $this->errorCode(444);
-        }
+        
 
         //验证购物车
         $has = 0;
