@@ -50,6 +50,7 @@ class in extends base\e{
         if(!$info){
             $info = $where;
             $info['password'] = md5(time());
+            $info['type'] = 0;
             $this->_add_user($info);
         }
         $this->_out_info($info,$this->cookie);
@@ -119,6 +120,7 @@ class in extends base\e{
 
         $info['usercode'] = $usercode;
         $info['password'] = $password;
+        $info['type'] = '-1';
         $this->_add_user($info);
     }
     function _add_user($info){
@@ -130,7 +132,7 @@ class in extends base\e{
         if(!$z)$this->errorCode(409);
         $info['uid'] = (string)$z;
         $info['news'] = "1";
-        $info['type'] = "-1";
+
         $this->_out_info($info,$this->cookie);
 
     }
