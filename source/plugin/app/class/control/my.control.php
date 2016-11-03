@@ -78,7 +78,7 @@ class my extends base\basic{
             'goods'=>array(
                 'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tid'
             ),
-            'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
+            //'goods_list_goods'=>array('_on'=>'tid','lid','location','_mapping'=>'g2','_join'=>'LEFT JOIN'),
             // 'goods_attribute'=>array(
             //     'attribute_name','_on'=>'g2.lid=a.lid','_mapping'=>'a','_join'=>'LEFT JOIN'
             // )
