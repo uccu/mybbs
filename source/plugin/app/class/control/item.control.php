@@ -294,6 +294,12 @@ class item extends base\basic{
             'stock'=>array('add',-1),
             'sale'=>array('add',1)
         ))->save($tid);
+
+
+        if(!model('user_address')->where(array('uid'=>$this->uid,'type'=>'1'))->find()){
+            $this->errorCode(444);
+        }
+
         //验证购物车
         $has = 0;
 
@@ -374,7 +380,7 @@ class item extends base\basic{
     function order($cid){
         //验证登录
         $this->_check_login();
-
+        
         //验证购物车
         $cid = post('cid',$cid);
         $z = model('cart')->find($cid);
@@ -445,6 +451,9 @@ class item extends base\basic{
         $cids = post('cids',$cids);
         $cid = explode(',',$cids);
         $money = 0;
+        if(!model('user_address')->where(array('uid'=>$this->uid,'type'=>'1'))->find()){
+            $this->errorCode(444);
+        }
         foreach($cid as &$v){
             $v = $this->order($v);
             if($v['money'])$money+=$v['money'];
