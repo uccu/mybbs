@@ -51,6 +51,8 @@ class in extends base\e{
             $info = $where;
             $info['password'] = md5(time());
             $info['type'] = 0;
+            $info['thumb'] = post('thumb','');
+            $info['nickname'] = post('nickname','');
             $this->_add_user($info);
         }
         $this->_out_info($info,$this->cookie);

@@ -73,7 +73,7 @@ class captcha extends \plugin\app\control\base\e{
         $c = model('captcha')->where($where)->order(array('ctime'=>'DESC'))->find();
         if(!$c)$this->error(501,'验证码错误');
         if($this->uid>0){
-            if($this->userInfo['usercode']!=$c['usercode'])$this->error(501,'手机号与预留的手机号不同');
+            if($this->userInfo['usercode'] && $this->userInfo['usercode']!=$c['usercode'])$this->error(501,'手机号与预留的手机号不同');
         }else{
             if($_POST['usercode']!=$c['usercode']){
                 $this->error(502,'发送验证码手机号与操作手机号不同'.$_POST['usercode'].'/'.$c['usercode']);
