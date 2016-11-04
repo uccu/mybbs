@@ -299,10 +299,10 @@ class item extends base\basic{
 
 
         /*扣除*/
-         model('goods')->data(array(
-            'stock'=>array('add',-1),
-            'sale'=>array('add',1)
-        ))->save($tid);
+        //  model('goods')->data(array(
+        //     'stock'=>array('add',-1),
+        //     'sale'=>array('add',1)
+        // ))->save($tid);
         /*扣除*/
 
         
@@ -405,10 +405,10 @@ class item extends base\basic{
 
 
             /*扣除*/
-            model('goods')->data(array(
-                'stock'=>array('add',-1*$z['num']),
-                'sale'=>array('add',$z['num'])
-            ))->save($tid);
+            // model('goods')->data(array(
+            //     'stock'=>array('add',-1*$z['num']),
+            //     'sale'=>array('add',$z['num'])
+            // ))->save($tid);
             /*扣除*/
 
 
@@ -524,11 +524,11 @@ class item extends base\basic{
 
 
         /*增加*/
-        $good = model('goods')->find($z['tid']);
-        if($good['sale'])model('goods')->data(array(
-            'stock'=>array('add',$z['num']),
-            'sale'=>array('add',-1*$z['num'])
-        ))->save($z['tid']);
+        // $good = model('goods')->find($z['tid']);
+        // if($good['sale'])model('goods')->data(array(
+        //     'stock'=>array('add',$z['num']),
+        //     'sale'=>array('add',-1*$z['num'])
+        // ))->save($z['tid']);
         /*增加*/
 
 
@@ -569,11 +569,11 @@ class item extends base\basic{
 
         //请求付款判断是否商品充足
 
-        // if(model('order')->mapping('o')->add_table(array(
-        //     'goods'=>array('_on'=>'tid','_mapping'=>'g')
-        // ))->where($where)->where('o.num>g.stock')->find()){
-        //     $this->errorCode(445);
-        // }
+        if(model('order')->mapping('o')->add_table(array(
+            'goods'=>array('_on'=>'tid','_mapping'=>'g')
+        ))->where($where)->where('o.num>g.stock')->find()){
+            $this->errorCode(445);
+        }
 
 
 
@@ -678,12 +678,12 @@ class item extends base\basic{
             //订单完成扣除商品数量
 
 
-            // $good = model('goods')->find($o['tid']);
+            $good = model('goods')->find($o['tid']);
             
-            // model('goods')->data(array(
-            //     'stock'=>array('add',-1*($good['stock']-$o['num']>=0?$o['num']:$good['stock'])),
-            //     'sale'=>array('add',$good['stock']-$o['num']>=0?$o['num']:$good['stock'])
-            // ))->save($o['tid']);
+            model('goods')->data(array(
+                'stock'=>array('add',-1*($good['stock']-$o['num']>=0?$o['num']:$good['stock'])),
+                'sale'=>array('add',$good['stock']-$o['num']>=0?$o['num']:$good['stock'])
+            ))->save($o['tid']);
 
 
 
