@@ -65,7 +65,7 @@ class captcha extends \plugin\app\control\base\basic{
     function push_cc($uid){
         $z = $this->_pusher('测试',$uid);
         
-        $this->success($z);
+        var_dump($z);
     }
 }
 ?>
