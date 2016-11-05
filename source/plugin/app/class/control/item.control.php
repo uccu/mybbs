@@ -626,7 +626,7 @@ class item extends base\basic{
         $uid = $p['uid'];
 
         //余额抵扣
-        if($p['coin']){
+        if($p['coin']!='0.00'){
             $userInfo = model('user')->find($uid);
             if($userInfo['coin']<$p['coin'])$this->errorCode(429);
             model('user')->data(array('coin'=>array('add',-1*$p['coin'])))->save($p['uid']);
@@ -636,8 +636,9 @@ class item extends base\basic{
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
             model('message')->data(array('uid'=>$p['uid'],'content'=>'购买抵扣扣除'.$p['coin'].'余额','ctime'=>TIME_NOW))->add();
 
-            model('message')->data(array('uid'=>$p['uid'],'content'=>'购买商品消费'.$p['money'].'元','ctime'=>TIME_NOW))->add();
+            
         }
+        model('message')->data(array('uid'=>$p['uid'],'content'=>'购买商品消费'.$p['money'].'元','ctime'=>TIME_NOW))->add();
 
         //操作订单列表
         $oids = unserialize($p['oids']);
