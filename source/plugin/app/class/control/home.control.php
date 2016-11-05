@@ -22,6 +22,18 @@ class home extends base\basic{
         ))->find();
         return $all['s']?floor($all['s']):0;
     }
+
+    function _allMoney2($aid){
+        $c = 0;
+
+        $c += control('item')->rank_gou_count($aid);
+        $c += control('item')->rank_xiang_count($aid);
+        $c += control('item')->rank_bang_count($aid);
+        $c += control('item')->rank_dou_count($aid);
+        
+
+        return $c;
+    }
     function _allFans($aid){
         $all = model('fans')->where(array(
             'aid'=>$aid))->get_field();
@@ -85,7 +97,7 @@ class home extends base\basic{
         $q['activityInfo'] = $z;
         if($z){
             $q['activityInfo'][0]['time'] = TIME_NOW;
-            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney($z[0]['aid']).'元，参团'.$this->_allpeople($z[0]['aid']).'人，奖金'.$this->_allBean($z[0]['aid']).'元';
+            $q['activityInfo'][0]['message'] = '总销售'.$this->_allMoney2($z[0]['aid']).'元，参团'.$this->_allpeople($z[0]['aid']).'人，奖金'.$this->_allBean($z[0]['aid']).'元';
             $where2['stime'] = array('logic',$z[0]['stime'],'>');
             $z2 = model('activity')->where($where2)->order(array('stime'))->limit(9999)->select();
         }else{

@@ -133,6 +133,10 @@ class my extends base\basic{
 
         if(model('user_address')->where($where)->get_field()==1)$this->errorCode(446);
 
+        $addr = model('user_address')->where($where)->find();
+
+        if($addr['type'])$this->errorCode(447);
+
         $where['id'] = post('id',0);
 
         model('user_address')->where($where)->remove();

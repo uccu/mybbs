@@ -53,6 +53,24 @@ class rank extends base\basic{
             $v['time'] = !$time || $v['time'] - $time < 0 ? 0 : $v['time'] - $time;
         }
     }
+
+    function rank_gou_count($aid){
+
+        $allBean = $this->_allBean($aid);
+        $rule = model('rule')->find(1);
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
+        $where['aid'] = $aid;
+        $where['first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $z['count'] = model('order')->where($where)->get_field();
+        $z['allCoin_'] = 0;
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        $z['allCoin_'] = floor($z['allCoin_']);
+        return $z['allCoin_'];
+
+    }
+    
     function rank_gou($aid,$page=1){
         //获取AID
         $aid = post('aid',$aid,'%d');
@@ -118,6 +136,22 @@ class rank extends base\basic{
         $z['me']['aid'] = $aid;
         $this->success($z);
     }
+
+    function rank_xiang_count($aid){
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+        $rule = model('rule')->find(2);
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
+        $where['aid'] = $aid;
+        $where['share_first'] = 1;
+        $where['status'] = array('contain',array(2,3,4),'IN');
+        $where['score'] = 0;
+        $where['referee'] = array('logic',0,'!=');
+        $z['count'] = model('order')->where($where)->get_field();
+        $z['allCoin_'] = 0;
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        $z['allCoin_'] = floor($z['allCoin_']);
+        return $z['allCoin_'];
+    }
     function rank_xiang($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
@@ -182,6 +216,22 @@ class rank extends base\basic{
 
         $this->success($z);
     }
+
+    function rank_bang_count($aid){
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+
+        //获取当前排行的奖金
+        $rule = model('rule')->find(3);
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
+
+        $where['aid'] = post('aid',$aid);
+        $z['count'] = model('rank_bang')->where($where)->get_field();
+        $z['allCoin_'] = 0;
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        $z['allCoin_'] = floor($z['allCoin_']);
+        return $z['allCoin_'];
+
+    }
     function rank_bang($aid){
         //获取AID
         $aid = post('aid',$aid,'%d');
@@ -230,6 +280,21 @@ class rank extends base\basic{
         $z['me']['aid'] = $aid;
 
         $this->success($z);
+    }
+
+    function rank_dou_count($aid){
+        $allBean = $z['allBean'] = $this->_allBean($aid);
+
+        //获取当前排行的奖金
+        $rule = model('rule')->find(4);
+        $allCoin = $z['allCoin'] = floor($allBean*$rule['value']/100);
+
+        $where['aid'] = post('aid',$aid);
+        $z['count'] = model('rank_bean')->where($where)->get_field();
+        $z['allCoin_'] = 0;
+        for($i=1;$i<=$z['count'];$i++)$z['allCoin_'] += $this->get_c($i,$allCoin,array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']));
+        $z['allCoin_'] = floor($z['allCoin_']);
+        return $z['allCoin_'];
     }
     function rank_dou($aid){
         //获取AID
