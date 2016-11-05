@@ -51,5 +51,15 @@ class captcha extends \plugin\app\control\base\basic{
 
         return true;
     }
+
+
+    function token_cc($uid){
+
+        $info = model('user')->find($uid);
+        $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
+
+        echo $user_token;
+
+    }
 }
 ?>
