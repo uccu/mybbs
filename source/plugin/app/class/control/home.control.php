@@ -20,7 +20,7 @@ class home extends base\basic{
             'aid'=>$aid,
             'status'=>array('contain',array(2,3,4),'IN'),
         ))->find();
-        return $all['s']?floor($all['s']):0;
+        return $all['s']?number_format($all['s'],2):0;
     }
 
     function _allMoney2($aid){
@@ -32,7 +32,7 @@ class home extends base\basic{
         $c += control('rank')->rank_dou_count($aid);
         
 
-        return $c;
+        return number_format($c,2);
     }
     function _allFans($aid){
         $all = model('fans')->where(array(
