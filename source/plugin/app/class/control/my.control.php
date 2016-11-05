@@ -98,7 +98,7 @@ class my extends base\basic{
         //$data['type'] = 1;
         $data['lid'] = post('lid',0);
         if(!$data['addr'])$this->errorCode(414);
-        if($data['type'] || !model('user_address')->where($where)->get_field()){
+        if($data['type'] || model('user_address')->where($where)->get_field()){
             $data['type'] = 1;
             $where['uid'] = $this->uid;
             $data2['type'] = 0;
@@ -118,7 +118,7 @@ class my extends base\basic{
         $where['uid'] = $this->uid;
         $where['id'] = post('id',0);
         if(!$data['addr'])$this->errorCode(414);
-        if($data['type'] || !model('user_address')->where($where)->get_field()){
+        if($data['type'] || model('user_address')->where($where)->get_field()==1){
             $data['type'] = 1;
             $where2['uid'] = $this->uid;
             $data2['type'] = 0;
