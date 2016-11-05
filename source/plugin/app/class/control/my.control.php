@@ -31,6 +31,8 @@ class my extends base\basic{
             'birth',
             'coin_all'
         ))->find($this->uid);
+        $q['myInfo']['coin'] = number_format($q['myInfo']['coin'],2,'.','');
+        $q['myInfo']['coin_all'] = number_format($q['myInfo']['coin_all'],2,'.','');
         $where['uid'] = $this->uid;
         $q['count']['pay_1'] = model('order')->where($where)->where(array('status'=>1))->get_field();
         $q['count']['pay_2'] = model('order')->where($where)->where(array('status'=>2))->get_field();
