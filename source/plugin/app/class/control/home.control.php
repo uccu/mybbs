@@ -65,8 +65,9 @@ class home extends base\basic{
         $q = array();
         $q = array_merge($q,$this->banner());
         $q = array_merge($q,$this->nav());
-        $q = array_merge($q,$this->activity());
+        
         $q = array_merge($q,$this->recommend());
+        $q = array_merge($q,$this->activity());
         $q['message'] = $this->uid<1?0:control('my')->_has_message();
         $this->success($q);
     }
