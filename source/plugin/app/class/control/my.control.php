@@ -94,11 +94,12 @@ class my extends base\basic{
         $data['addr'] = post('addr','');
         $data['name'] = post('name','');
         $data['phone'] = post('phone','');
-        //$data['type'] = post('type',0);
-        $data['type'] = 1;
+        $data['type'] = post('type',0);
+        //$data['type'] = 1;
         $data['lid'] = post('lid',0);
         if(!$data['addr'])$this->errorCode(414);
-        if($data['type']){
+        if($data['type'] || !model('user_address')->where($where)->get_field()){
+            $data['type'] = 1;
             $where['uid'] = $this->uid;
             $data2['type'] = 0;
             model('user_address')->where($where)->data($data2)->save();
@@ -117,7 +118,8 @@ class my extends base\basic{
         $where['uid'] = $this->uid;
         $where['id'] = post('id',0);
         if(!$data['addr'])$this->errorCode(414);
-        if($data['type']){
+        if($data['type'] || !model('user_address')->where($where)->get_field()){
+            $data['type'] = 1;
             $where2['uid'] = $this->uid;
             $data2['type'] = 0;
             model('user_address')->where($where2)->data($data2)->save();
@@ -127,7 +129,12 @@ class my extends base\basic{
     }
     function remove_address(){
         $where['uid'] = $this->uid;
+        
+
+        if(model('user_address')->where($where)->get_field()==1)$this->errorCode(446);
+
         $where['id'] = post('id',0);
+
         model('user_address')->where($where)->remove();
         $this->success();
     }

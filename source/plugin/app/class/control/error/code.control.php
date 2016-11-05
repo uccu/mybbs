@@ -49,8 +49,12 @@ class code extends \control\ajax{
         443=>'已经绑定第三方登录',
         444=>'默认地址没有设置',
         445=>'商品已无库存，无法支付',
+        446=>'您只有一条地址，不能删除',
+
+
         700=>'安全错误警告',
         701=>'黑名单',
+        
     );
     public function errorCode($z,$e){
         file_put_contents ( 'tt.txt', (string)$z.($e?':'.$e:'') );
