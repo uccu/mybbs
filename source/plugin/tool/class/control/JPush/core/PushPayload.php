@@ -547,6 +547,7 @@ class PushPayload {
     }
 
     public function send() {
+        echo '123';
         $response = $this->client->_request(PushPayload::PUSH_URL, JPush::HTTP_POST, $this->toJSON());
         return $this->__processResp($response);
     }
