@@ -61,5 +61,10 @@ class captcha extends \plugin\app\control\base\basic{
         echo $user_token;
 
     }
+
+    function push_cc($uid){
+        $this->_pusher('测试',$uid);
+
+    }
 }
 ?>
