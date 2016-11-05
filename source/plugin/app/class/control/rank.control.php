@@ -19,6 +19,7 @@ class rank extends base\basic{
         $rank = floor($rank);
         if($rank==1)return number_format($c*$b[0],1);
         $rankz = $rank;
+        $rank = $rank+$b[5]-1;
         for($i=0;$i<4;$i++){
             $rankz -= $b[5]*pow(10,$i);
             if($rankz>$b[5]*pow(10,$i+1))continue;
