@@ -209,7 +209,7 @@ class my extends base\basic{
     function cash(){
         $_POST['uid'] = $this->uid;
         if(model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find())$this->errorCode(428);
-        $_POST['money'] = post('money',0,'%d');
+        $_POST['money'] = post('money',0,'%f');
         if($_POST['money']>$this->userInfo['coin'])$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$_POST['money'])))->save($this->uid);
         $this->_pusher('余额发生变动：申请提现',$this->uid);

@@ -795,7 +795,7 @@ class item extends base\basic{
     }
     function alipayx($money){
         $this->_check_login();
-        $money = post('money',$money,'%d'); 
+        $money = post('money',$money,'%f'); 
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
@@ -809,7 +809,7 @@ class item extends base\basic{
     }
     function wxpayx($money){
         $this->_check_login();
-        $money = post('money',$money,'%d'); 
+        $money = post('money',$money,'%f'); 
         $string = '1234567890';
         $data['pay_id']='98'.TIME_NOW;
         for($i=0;$i<10;$i++)$data['pay_id'] .=$string[rand(0,9)];
@@ -823,7 +823,7 @@ class item extends base\basic{
     }
     function coinx($money){
         $this->_check_login();
-        $money = post('money',$money,'%d'); 
+        $money = post('money',$money,'%f'); 
         if($this->userInfo['coin']<$money)$this->errorCode(429);
         model('user')->data(array('coin'=>array('add',-1*$money),'score'=>array('add',$money*100)))->save($this->uid);
         $this->_pusher('余额发生变动：充值积分',$this->uid);
