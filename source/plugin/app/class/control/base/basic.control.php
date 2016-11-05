@@ -115,6 +115,13 @@ class basic extends \control\ajax{
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('63ddbe7d549d8f10cc3f8147', '7d74c3b8440233580b903081');
 
+        $result = $client->push()
+
+            ->setPlatform('all')
+            ->addAlias('A'.$uid)
+            ->setNotificationAlert($content)
+            ->addIosNotification(null,'default','+1')
+            ->send();
 
         return $result = $client->push()
             ->setOptions(null,null,null,true)
