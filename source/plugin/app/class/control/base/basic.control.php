@@ -93,7 +93,7 @@ class basic extends \control\ajax{
         if($aid){
             $w['aid'] = $aid;
             $w['tid'] = $tid;
-            if(!model('activity_list')->where($where)->find())$this->errorCode(423);
+            if(!model('activity_list')->where($w)->find())$this->errorCode(423);
         }
         return $z;
     }
