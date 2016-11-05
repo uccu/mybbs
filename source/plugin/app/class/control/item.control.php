@@ -613,10 +613,10 @@ class item extends base\basic{
         if(!$p)$this->errorCode(426);
 
         //删除其他支付单
-        $where = array();
-        $where['uid'] = $p['uid'];
-        $where['pay_id'] = array('logic',$pay_id,'!=');
-        model('pay_log')->where($where)->remove();
+        // $where = array();
+        // $where['uid'] = $p['uid'];
+        // $where['pay_id'] = array('logic',$pay_id,'!=');
+        // model('pay_log')->where($where)->remove();
 
         if($p['score'])$this->_pay_score_c($p);
 
@@ -767,7 +767,7 @@ class item extends base\basic{
 
 
         //删除支付单
-        model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
+        //model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
         
     }
     function _pay_score_c($p){
