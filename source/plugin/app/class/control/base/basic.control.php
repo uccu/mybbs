@@ -113,7 +113,7 @@ class basic extends \control\ajax{
             //if(!$userInfo['push'])return false;
         }
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
-        $client = new \JPush('6505eff9f988de697771e58b', '29a604d9acbeba974b11d3c6');
+        $client = new \JPush('63ddbe7d549d8f10cc3f8147', '7d74c3b8440233580b903081');
         return $result = $client->push()
             ->setOptions(null,null,null,true)
             ->setPlatform('all')
