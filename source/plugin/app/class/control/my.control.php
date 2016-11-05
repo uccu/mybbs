@@ -186,10 +186,13 @@ class my extends base\basic{
     }
     
     function coin(){
-        $z['coin'] = $this->userInfo['coin'];
+        $z['coin'] = number_format($this->userInfo['coin'],2);
         $where['uid'] = $this->uid;
         $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
+
+        foreach($z['list'] as &$v)$v['coin'] = number_format($v['coin'],2);
         $g = model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find();
+        
         $z['status'] = $g?1:0;
         $this->success($z);
     }
