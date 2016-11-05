@@ -127,7 +127,7 @@ class logic{
 					$sql .= $comma . $d .' BETWEEN ' . $tr;
 				}elseif($v[0]==='add'){
 					$d2 = $this->quote_field_in($v[2],$tablemap);
-					$sql .= $comma . $d . ' = ' . ($d2?$d2:$d) . ' + ' . dintval($v[1]);
+					$sql .= $comma . $d . ' = ' . ($d2?$d2:$d) . ' + ' . ($v[1]);
 				}elseif($v[0]==='raw'){
 					$sql .= $comma . $d . ($v[2]?$v[2]:$c) . $v[1];
 				}else continue;
