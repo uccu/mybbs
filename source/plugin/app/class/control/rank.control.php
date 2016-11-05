@@ -127,7 +127,7 @@ class rank extends base\basic{
             $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
 
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
@@ -205,7 +205,7 @@ class rank extends base\basic{
             $where['time'] = array('logic',$me['time'],'<');
             $z['me']['rank'] = $rank = model('order')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
@@ -271,7 +271,7 @@ class rank extends base\basic{
             $where['time'] = array('logic',$me['time'],'<');
             $z['me']['rank'] = $rank = model('rank_bang')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
@@ -334,7 +334,7 @@ class rank extends base\basic{
             $where['bean'] = array('logic',$me['bean'],'>');
             $z['me']['rank'] = $rank = model('rank_bean')->where($where)->get_field()+1;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['me']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['bean'] = $me['bean'];
         }else{
             $z['me']['rank'] = $z['me']['coin'] = $z['me']['bean'] = 0;
@@ -368,7 +368,9 @@ class rank extends base\basic{
             $rule = model('rule')->find(1);
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['gou']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['gou']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
+
+            
             $z['gou']['time'] = $me['pay_time'];
         }else{
             $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
@@ -390,7 +392,7 @@ class rank extends base\basic{
             $rule = model('rule')->find(2);
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['xiang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['xiang']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['xiang']['time'] = $me['pay_time'];
         }else{
             $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
@@ -403,7 +405,7 @@ class rank extends base\basic{
             $tr = $this->_xiang($aid,$v['referee']);
             $z['xiang_x']['coin'] += $tr['xiang']['coin']/2;
         }
-        $z['xiang_x']['coin'] = floor($z['xiang_x']['coin']);
+        $z['xiang_x']['coin'] = number_format($z['xiang_x']['coin'],2,'.','');
 
         $where = array();
         $where['aid'] = $aid;
@@ -417,7 +419,7 @@ class rank extends base\basic{
             $rule = model('rule')->find(3);
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['bang']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['bang']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['bang']['time'] = $me['time'];
         }else{
             $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
@@ -433,7 +435,7 @@ class rank extends base\basic{
             $tr = $this->_bang($aid,$v['referee']);
             $z['bang_x']['coin'] += $tr['bang']['num']?$tr['bang']['coin']/2/$tr['bang']['num']:0;
         }
-        $z['bang_x']['coin'] = floor($z['bang_x']['coin']);
+        $z['bang_x']['coin'] = number_format($z['bang_x']['coin'],2,'.','');
 
 
         $where = array();
@@ -447,7 +449,7 @@ class rank extends base\basic{
             $rule = model('rule')->find(4);
             $allCoin =  $allBean*$rule['value']/100;
             $b = array($rule['value1']/100,$rule['value2']/100,$rule['value3']/100,$rule['value4']/100,$rule['value5']/100,$rule['type']);
-            $z['bean']['coin'] = $coin = $this->get_c($rank,$allCoin,$b);
+            $z['bean']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['bean']['bean'] = $me['bean'];
         }else{
             $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['bean'] = 0;
@@ -459,10 +461,10 @@ class rank extends base\basic{
 
         $z['avatar'] = $this->userInfo['avatar'];
         $z['uid'] = $this->uid;
-        $z['allCoin'] = floor($z['gou']['coin']+
+        $z['allCoin'] = number_format($z['gou']['coin']+
         $z['xiang']['coin']+$z['bang']['coin']+
         $z['xiang_x']['coin']+$z['bang_x']['coin']+
-        $z['bean']['coin']);
+        $z['bean']['coin'],2,'.','');
         $this->success($z);
 
     }
