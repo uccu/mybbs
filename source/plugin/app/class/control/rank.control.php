@@ -130,7 +130,8 @@ class rank extends base\basic{
             $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
-            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+            $z['me']['rank'] = $z['me']['time'] = 0;
+            $z['me']['coin'] = '0.00';
         }
         $z['me']['uid'] = $this->userInfo['uid'];
         $z['me']['avatar'] = $this->userInfo['avatar'];
@@ -208,7 +209,8 @@ class rank extends base\basic{
             $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
-            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+            $z['me']['rank'] = $z['me']['time'] = 0;
+            $z['me']['coin'] = '0.00';
         }
         $z['me']['uid'] = $this->userInfo['uid'];
         $z['me']['avatar'] = $this->userInfo['avatar'];
@@ -274,7 +276,8 @@ class rank extends base\basic{
             $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['time'] = $me['time'];
         }else{
-            $z['me']['rank'] = $z['me']['coin'] = $z['me']['time'] = 0;
+            $z['me']['rank'] = $z['me']['time'] = 0;
+            $z['me']['coin'] = '0.00';
         }
         $z['me']['uid'] = $this->userInfo['uid'];
         $z['me']['avatar'] = $this->userInfo['avatar'];
@@ -337,7 +340,8 @@ class rank extends base\basic{
             $z['me']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['me']['bean'] = $me['bean'];
         }else{
-            $z['me']['rank'] = $z['me']['coin'] = $z['me']['bean'] = 0;
+            $z['me']['rank'] = $z['me']['time'] = 0;
+            $z['me']['coin'] = '0.00';
         }
         $z['me']['uid'] = $this->userInfo['uid'];
         $z['me']['avatar'] = $this->userInfo['avatar'];
@@ -373,7 +377,8 @@ class rank extends base\basic{
             
             $z['gou']['time'] = $me['pay_time'];
         }else{
-            $z['gou']['rank'] = $z['gou']['coin'] = $z['gou']['time'] = 0;
+            $z['gou']['rank'] = $z['gou']['time'] = 0;
+            $z['gou']['coin'] = '0.00';
         }
 
 
@@ -395,7 +400,8 @@ class rank extends base\basic{
             $z['xiang']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['xiang']['time'] = $me['pay_time'];
         }else{
-            $z['xiang']['rank'] = $z['xiang']['coin'] = $z['xiang']['time'] = 0;
+            $z['xiang']['rank'] = $z['xiang']['time'] = 0;
+            $z['xiang']['coin'] = '0.00';
         }
         unset($where['pay_time']);
         $where['referee'] = array('logic','0','!=');
@@ -422,7 +428,8 @@ class rank extends base\basic{
             $z['bang']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['bang']['time'] = $me['time'];
         }else{
-            $z['bang']['rank'] = $z['bang']['coin'] = $z['bang']['time'] = 0;
+            $z['bang']['rank'] = $z['bang']['time'] = 0;
+            $z['bang']['coin'] = '0.00';
         }
         $where = array();
         $where['aid'] = $aid;
@@ -452,7 +459,8 @@ class rank extends base\basic{
             $z['bean']['coin'] = $coin = number_format( $this->get_c($rank,$allCoin,$b) ,2,'.','');
             $z['bean']['bean'] = $me['bean'];
         }else{
-            $z['bean']['rank'] = $z['bean']['coin'] = $z['bean']['bean'] = 0;
+            $z['bean']['rank'] =  $z['bean']['bean'] = 0;
+            $z['bean']['coin'] = '0.00';
         }
 
         
