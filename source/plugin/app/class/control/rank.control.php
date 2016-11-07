@@ -473,6 +473,16 @@ class rank extends base\basic{
         $z['xiang']['coin']+$z['bang']['coin']+
         $z['xiang_x']['coin']+$z['bang_x']['coin']+
         $z['bean']['coin'],2,'.','');
+        $rank = array();
+        if($z['gou']['rank'])$ranks[] = $z['gou']['rank'];
+        if($z['xiang']['rank'])$ranks[] = $z['xiang']['rank'];
+        if($z['bang']['rank'])$ranks[] = $z['bang']['rank'];
+        if($z['bean']['rank'])$ranks[] = $z['bean']['rank'];
+        if(!$ranks)$z['high'] = 0;
+        else{
+            $z['high'] = min($ranks);
+        }
+
         $this->success($z);
 
     }
