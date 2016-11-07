@@ -634,10 +634,10 @@ class item extends base\basic{
             $this->_pusher('余额发生变动：购买抵扣',$uid);
             //余额明细调整
             model('coin_log')->data(array('uid'=>$p['uid'],'coin'=>-1*$p['coin'],'info'=>'购买抵扣','ctime'=>TIME_NOW))->add();
-            model('message')->data(array('uid'=>$p['uid'],'content'=>'购买抵扣扣除'.$p['coin'].'余额','ctime'=>TIME_NOW))->add();
+            model('message')->data(array('uid'=>$p['uid'],'content'=>'购买商品扣除'.$p['coin'].'余额','ctime'=>TIME_NOW))->add();
 
             
-        }
+        }else 
         model('message')->data(array('uid'=>$p['uid'],'content'=>'购买商品消费'.$p['money'].'元','ctime'=>TIME_NOW))->add();
 
         //操作订单列表
