@@ -24,6 +24,13 @@ class h5 extends base\e{
         T('tool:static');
     }
 
+    function user($id=1){
+        $id = post('id',$id,'%d');
+        $this->g->template['value'] = model('html')->find($id,false)->get_field('content');
+        T('tool:static');
+
+    }
+
 
     function top($id=0){
         $id = post('id',$id,'%d');
