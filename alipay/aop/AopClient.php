@@ -911,7 +911,7 @@ class AopClient {
 
 		if (!$this->checkEmpty($this->alipayPublicKey) || !$this->checkEmpty($this->alipayrsaPublicKey)) {
 
-
+			var_dump($signData);
 			if ($signData == null || $this->checkEmpty($signData->sign) || $this->checkEmpty($signData->signSourceData)) {
 
 				throw new Exception(" check sign Fail! The reason : signData is Empty");
