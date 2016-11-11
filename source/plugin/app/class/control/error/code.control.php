@@ -45,6 +45,12 @@ class code extends \control\ajax{
     440=>'用户不存在',
         441=>'推荐人不能为自己',
     442=>'积分不足',
+
+    501=>'微信连接失败',
+    502=>'微信通信失败',
+
+
+
     700=>'安全错误警告',
     );
     public function errorCode($z,$e){
