@@ -24,7 +24,7 @@ class inquiry extends base\e{
         $t['follow'] = model('fans')->where(array('uid'=>$t['info']['uid'],'fans_id'=>$this->uid))->get_field();
         $t['collect'] = model('collect')->where(array('type'=>'w','uid'=>$this->uid,'id'=>$t['info']['id']))->get_field();
 
-
+        $t['paid'] = model('inquiry_paid')->where(array('uid'=>$this->uid,'id'=>$id))?'1':'0';
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
