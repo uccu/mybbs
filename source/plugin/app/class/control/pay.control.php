@@ -48,7 +48,7 @@ class pay extends base\e{
         $aop->apiVersion = '1.0';
         $aop->postCharset='UTF-8';
         $aop->format='json';
-        $request = new AlipayTradeCreateRequest ();
+        $request = new \AlipayTradeCreateRequest ();
         $request->setBizContent("{" .
         "    \"out_trade_no\":\"20150320010101001\"," .
         "    \"seller_id\":\"2088102146225135\"," .
