@@ -77,19 +77,19 @@ class pay extends base\e{
         $data['pay_type'] = 'wcpay';
 
         if(!$da){
-            $data['error'] = '访问超时/无法访问';
+            $data['error'] = '微信服务器访问超时/无法访问';
             model('pay_log')->data($data)->add();
             $this->errorCode(501);
         }
         $result = simplexml_load_string ( $da );
 
         if($result->return_code == 'FAIL'){
-            $data['error'] = '通信失败';
+            $data['error'] = '微信通信失败';
             model('pay_log')->data($data)->add();
             $this->errorCode(502);
         }
         if($result->result_code == 'FAIL'){
-            $data['error'] = '交易失败';
+            $data['error'] = '微信预支付交易失败';
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
