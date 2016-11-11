@@ -139,9 +139,13 @@ class inquiry extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
-            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
+            'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected'),
+            'inquiry_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'p','_on'=>'i.id=p.id AND p.uid='.$this->uid,'ctime'=>'paid')
         ))->where($where)->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['paid'] = $v['paid']?'1':'0';
+        }
         $this->success($t);
     }
 
