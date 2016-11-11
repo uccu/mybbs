@@ -29,7 +29,7 @@ class pay extends base\e{
 
         $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
 
-        $out_trade_no = md5(rand ());
+        $out_trade_no = date('YmdHis').rand ( 1000000, 9999999 );
         
         $uid = $this->uid;
 
