@@ -457,9 +457,10 @@ class AopClient {
 		$signData = null;
 
 		if ("json" == $this->format) {
-
+			echo 1;
 			$respObject = json_decode($r);
 			if (null !== $respObject) {
+				echo 2;
 				$respWellFormed = true;
 				$signData = $this->parserJSONSignData($request, $resp, $respObject);
 			}
@@ -472,7 +473,7 @@ class AopClient {
 				$signData = $this->parserXMLSignData($request, $resp);
 			}
 		}
-
+		
 
 		//返回的HTTP文本不是标准JSON或者XML，记下错误日志
 		if (false === $respWellFormed) {
