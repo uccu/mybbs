@@ -43,8 +43,8 @@ class pay extends base\e{
         $aop = new \AopClient ();
         $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
         $aop->appId = '2016100900647998';
-        $aop->rsaPrivateKeyFilePath = PLAY_ROOT.'rsa_private_key.pem';
-        $aop->alipayPublicKey= PLAY_ROOT.'alipay_public_key.pem';
+        $aop->rsaPrivateKeyFilePath = PLAY_ROOT.'alipay/rsa_private_key.pem';
+        $aop->alipayPublicKey= PLAY_ROOT.'alipay/alipay_public_key.pem';
         $aop->apiVersion = '1.0';
         $aop->postCharset='UTF-8';
         $aop->format='json';
