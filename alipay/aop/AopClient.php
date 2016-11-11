@@ -769,7 +769,7 @@ class AopClient {
 		$signData->sign = $this->parserJSONSign($responseJSON);
 		$signData->signSourceData = $this->parserJSONSignSource($request, $responseContent);
 
-		var_dump($signData);die();
+		var_dump($responseContent, $responseJSON);die();
 		return $signData;
 
 	}
