@@ -39,7 +39,7 @@ class pay extends base\e{
     }
     function _alipay($type,$money){
         require_once PLAY_ROOT.'alipay/aop/AopClient.php';
-
+        require_once PLAY_ROOT.'alipay/aop/request/AlipayTradeCreateRequest.php';
         $aop = new \AopClient ();
         $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
         $aop->appId = '2016100900647998';
