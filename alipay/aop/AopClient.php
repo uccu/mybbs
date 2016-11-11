@@ -457,10 +457,10 @@ class AopClient {
 		$signData = null;
 
 		if ("json" == $this->format) {
-			echo 1;
+			
 			$respObject = json_decode($r);
 			if (null !== $respObject) {
-				echo 2;
+				
 				$respWellFormed = true;
 				$signData = $this->parserJSONSignData($request, $resp, $respObject);
 			}
@@ -769,7 +769,7 @@ class AopClient {
 		$signData->sign = $this->parserJSONSign($responseJSON);
 		$signData->signSourceData = $this->parserJSONSignSource($request, $responseContent);
 
-
+		var_dump($signData);die();
 		return $signData;
 
 	}
