@@ -98,7 +98,7 @@ class pay extends base\e{
         "      \"merchant_id\":\"19023454\"" .
         "    }" .
         "  }");
-        var_dump(decode_json("{" .
+        var_dump(json_decode("{" .
         "    \"out_trade_no\":\"20150320010101001\"," .
         "    \"seller_id\":\"2088102146225135\"," .
         "    \"total_amount\":88.88," .
