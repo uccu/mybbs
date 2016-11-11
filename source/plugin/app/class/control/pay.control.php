@@ -66,7 +66,7 @@ class pay extends base\e{
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
         // grab URL, and print
         $da = curl_exec ( $ch );
-
+        var_dump($da);
         $data['uid'] = $uid;
         $data['ctime'] = TIME_NOW;
         $data['nonce_str'] = $nonce_str;
