@@ -37,16 +37,18 @@
     font-size: 40px;
     height: 20px;
     position: relative;
-    top: 10px;
+    top: 15px;
     color: #ccc;
+    line-height: 0px;
 }
 .describe::after{
     content: '”';
     font-size: 40px;
     height: 20px;
     position: relative;
-    top: 10px;
+    top: 20px;
     color: #ccc;
+    line-height: 0px;
 }
 
 .info-mi .col-xs-3{padding:20px 0}
