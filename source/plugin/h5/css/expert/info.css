@@ -50,3 +50,12 @@
 }
 
 .info-mi .col-xs-3{padding:20px 0}
+.info-mi .col-xs-3.line{
+    content: ' ';
+    height: 30px;
+    width: 1px;
+    background: #ccc;
+    position: absolute;
+    right: 0;
+    top: 33%;
+}

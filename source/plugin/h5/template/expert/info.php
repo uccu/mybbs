@@ -18,17 +18,17 @@
         <p>从业经验：{info.experience}</p>
     </div>
 </div>
-<div class="info-mi tc">
+<div class="info-mi tc container-fluid">
     <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-3 line">
             <div>{fans}</div>
             <div class="text-muted">粉丝</div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 line">
             <div>{follow}</div>
             <div class="text-muted">关注</div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 line">
             <div>{inquiry}</div>
             <div class="text-muted">发布</div>
         </div>
