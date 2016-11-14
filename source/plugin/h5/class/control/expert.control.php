@@ -20,7 +20,7 @@ class expert extends e{
 
         $user = model('user')->find($id);
 
-        if(!user)return;
+        if(!$user)return;
 
         $this->g->template['info'] = $user;
 
