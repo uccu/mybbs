@@ -5,13 +5,15 @@ defined('IN_PLAY') || exit('Access Denied');
 class expert extends e{
     
 
-    function lists(){
+    function lists($search = ''){
 
+        if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
 
+        $this->g->template['list'] = model('user')->where($where)->select(999);
 
+        $this->g->template['title'] = '专家列表';
 
-
-
+        T('expert/lists');
 
     }
 
@@ -30,6 +32,7 @@ class expert extends e{
         $this->g->template['answer'] = model('inquiry_list')->where(array('uid'=>$uid))->get_field();
 
         $this->g->template['info'] = $user;
+        $this->g->template['title'] = '专家详情';
 
         T('expert/info');
 
