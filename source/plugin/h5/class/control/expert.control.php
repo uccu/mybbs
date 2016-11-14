@@ -22,6 +22,8 @@ class expert extends e{
 
         if(!$user)return;
 
+        $user['thumb'] = $this->imgDir.$user['thumb'];
+
         $this->g->template['info'] = $user;
 
         T('expert/info');

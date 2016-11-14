@@ -202,5 +202,10 @@ class e extends \control\ajax{
 
         return $huan;
     }
+
+    function _get_imgDir(){
+
+        return $this->g->config['IMG_URL'];
+    }
 }
 ?>

@@ -14,6 +14,7 @@ $config=array(
 	'AJAX_JSON_HEADER'=>1,
 	'DEBUG'=>1,
 	'MODEL_DEBUG'=>1,
-	'PASSWORD_SALT'=>'zetga145'
+	'PASSWORD_SALT'=>'zetga145',
+	'IMG_URL'=>'http://121.199.8.244:8509/sbgl/upload_all/head/news_img/'
 );
 ?>
