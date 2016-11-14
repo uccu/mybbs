@@ -1,4 +1,5 @@
 <!--{subtemplate header}-->
+<!--{eval addcss('info','expert','h5')}-->
 <div class="info-top">
     <div class="avatar">
         <img src="{info.thumb}">
