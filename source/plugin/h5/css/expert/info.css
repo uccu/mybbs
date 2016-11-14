@@ -4,9 +4,10 @@
     background: url('/pic/h5/expert/b@2x.png');
     background-position: center;
     background-size: cover;
+    padding-top: 40px;
 }
 .info-top .avatar{
-    margin-top: 40px;
+    
 }
 .info-top .avatar img{
     width: 100px;
@@ -21,6 +22,7 @@
 .info-top .name img{
     margin-left:10px;
 }
-.info-top tag{
-    margin-top: 30px;color:#ccc
+.info-top .tag{
+    margin: 30px 0 40px 0;
+    color:#ccc
 }
