@@ -149,5 +149,14 @@ class home extends base\basic{
         $this->success($z);
     }
 
+
+    function android(){
+   
+        $z['android_id'] = model('cache')->get('android_id');
+        $z['android_download'] = model('cache')->get('android_download');
+       
+        $this->success($z);
+    }
+
 }
 ?>
