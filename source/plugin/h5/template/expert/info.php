@@ -19,5 +19,12 @@
     </div>
 </div>
 
+<div class="describe">
+
+    {info.describe}
+
+
+</div>
+
 
 <!--{subtemplate tool:footer}-->
