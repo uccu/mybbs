@@ -18,7 +18,7 @@
         <p>从业经验：{info.experience}</p>
     </div>
 </div>
-<div class="info-mi row">
+<div class="info-mi row tc">
 
     <div class="col-xs-3">
         <div>{fans}</div>
