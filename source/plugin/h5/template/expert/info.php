@@ -22,19 +22,19 @@
 
     <div class="col-xs-3">
         <div>{fans}</div>
-        <div>粉丝</div>
+        <div class="text-muted">粉丝</div>
     </div>
     <div class="col-xs-3">
         <div>{follow}</div>
-        <div>关注</div>
+        <div class="text-muted">关注</div>
     </div>
     <div class="col-xs-3">
         <div>{inquiry}</div>
-        <div>发布</div>
+        <div class="text-muted">发布</div>
     </div>
     <div class="col-xs-3">
         <div>{answer}</div>
-        <div>回答</div>
+        <div class="text-muted">回答</div>
     </div>
 </div>
 
