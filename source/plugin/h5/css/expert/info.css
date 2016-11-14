@@ -30,6 +30,7 @@
     line-height: 30px;
     font-size: 15px;
     color: #999;
+        border-top: 15px #eee solid;
 }
 .describe::before{
     content: '“';
