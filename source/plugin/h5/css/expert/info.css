@@ -50,7 +50,7 @@
 }
 
 .info-mi .col-xs-3{padding:20px 0}
-.info-mi .col-xs-3.line{
+.info-mi .col-xs-3.line::after{
     content: ' ';
     height: 30px;
     width: 1px;
