@@ -9,7 +9,7 @@ class expert extends e{
 
         if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
 
-        $this->g->template['list'] = model('user')->where($where)->select(999);
+        $this->g->template['list'] = model('user')->where($where)->limit(999)->select();
 
         $this->g->template['title'] = '专家列表';
 
