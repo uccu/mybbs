@@ -6,11 +6,11 @@
     </div>
     <div class="name">
         {info.nametrue}
-        <img src="/pic/h5/expert/zj.png">
+        <img src="/pic/h5/expert/zj@2x.png">
         {if $info['sex']==1}
-        <img src="/pic/h5/expert/male.png">
+        <img src="/pic/h5/expert/male@2x.png">
         {elseif $info['sex']==2}
-        <img src="/pic/h5/expert/female.png">
+        <img src="/pic/h5/expert/female@2x.png">
         {/if}
     </div>
     <div class="tag">
