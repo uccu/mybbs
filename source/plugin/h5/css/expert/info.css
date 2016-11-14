@@ -16,10 +16,11 @@
 .info-top .name{
     font-size: 20px;
     margin-top: 20px;
+    color:#fff
 }
 .info-top .name img{
     margin-left:10px;
 }
 .info-top tag{
-    margin-top: 30px;
+    margin-top: 30px;color:#ccc
 }
