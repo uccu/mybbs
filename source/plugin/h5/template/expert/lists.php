@@ -12,10 +12,9 @@
 j('.search .db').click(function(){
     j(this).addClass('dn');j('.search form').removeClass('dn');
     j('.search [name=search]').focus();
-})
+});
 j('.search [name=search]').blur(function(){
     j('.search form').addClass('dn');j(this).removeClass('dn');
-    
 })
 
 </script>
