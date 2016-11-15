@@ -34,8 +34,8 @@ j('.search [name=search]').blur(function(){
                 <img src="/pic/h5/expert/zj@2x.png">
             </div>
             <div class="tag">
-                <p>{lable}</p>
-                <p>从业经验：{experience}</p>
+                <p>{lable}　</p>
+                <p>从业经验：{experience}　</p>
             </div>
         </div>
     </div>
