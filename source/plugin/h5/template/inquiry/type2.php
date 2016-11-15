@@ -13,7 +13,7 @@
 <div class="list container-fluid">
     <!--{loop $list $kk=>$v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
-    <a href="/h5/inquiry/type/{id}">
+    <a href="/h5/inquiry/lists/{id}">
         <div class="row">
             <div class="col-xs-2 num tc">
                 <!--{eval echo $kk+1}-->

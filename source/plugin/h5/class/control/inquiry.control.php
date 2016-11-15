@@ -28,5 +28,28 @@ class inquiry extends e{
         T('inquiry/type'.($bid?'2':''));
     }
 
+    function lists($bid){
+
+        $bid = post('bid',$bid,'%d');
+        if($bid)$where['bid'] = $bid;
+        $search = post('search','');
+        if($search)$where['title'] = array('contain','%'.$search.'%','LIKE');
+
+        $this->g->template['list'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
+        ))->where($where)->order(array('ctime'=>'DESC'))->limit(30)->select();
+
+        foreach($this->g->template['list'] as &$v){
+            $v['img'] = $v['img']?explode(';',$v['img']):array();
+            foreach($v['img'] as &$v2)$v2 = $this->imgDir.$v2;
+            $v['thumb'] = $this->imgDir.$v['thumb'];
+        }
+        
+        $this->g->template['equip'] = model('equipment_list')->find($bid,false)->get_field('name');
+        $this->g->template['title'] = '常见问题';
+
+        T('inquiry/lists');
+    }
+
 }
 ?>
