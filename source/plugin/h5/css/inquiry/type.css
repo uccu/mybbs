@@ -31,6 +31,15 @@
     color:#025dae;
 }
 .list a{color:#333}
-.list .right img{
-    margin-top:24px
+.list .right span{
+    background: #ffb200;
+    margin-top: 24px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    text-align: center;
+    line-height: 24px;
+    color: #FFF;
+    margin-right: 20px;
 }
