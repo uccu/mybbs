@@ -14,7 +14,7 @@ j('.search .db').click(function(){
     j('.search [name=search]').focus();
 });
 j('.search [name=search]').blur(function(){
-    j('.search form').addClass('dn');j(this).removeClass('dn');
+    j('.search form').addClass('dn');j('.search .db').removeClass('dn');
 })
 
 </script>
