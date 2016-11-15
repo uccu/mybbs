@@ -11,6 +11,10 @@ class expert extends e{
 
         $this->g->template['list'] = model('user')->where($where)->limit(999)->select();
 
+        foreach($this->g->template['list'] as &$v){
+            $v['thumb'] = $this->imgDir.$user['thumb'];
+        }
+
         $this->g->template['title'] = '专家列表';
 
         T('expert/lists');
