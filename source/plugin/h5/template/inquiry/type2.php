@@ -12,7 +12,7 @@
     <!--{loop $list $kk=>$v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
     <div class="row">
-        <div class="col-xs-2 avatar">
+        <div class="col-xs-2 num">
             <!--{eval echo $kk+1}-->
         </div>
         <div class="col-xs-7">

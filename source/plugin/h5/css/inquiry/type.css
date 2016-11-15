@@ -47,3 +47,10 @@
 .list .right img{
     margin-top: 24px;
 }
+.list .num{
+    color: #ffb200;
+    width: 16.66666667%;
+    font-family: serif;
+    font-size: 24px;
+    line-height: 64px;
+}
