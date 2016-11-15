@@ -1,13 +1,24 @@
 <!--{subtemplate header}-->
 <!--{eval addcss('lists','expert','h5')}-->
 
-<div class="search">
-    <div>搜索专家</div>
+<div class="search tc">
+    <span class="db">搜索专家</span>
     <form method="post" class="dn">
-    <input type="text" name="search">
-    <input type="submit" class="dn">
+        <input type="text" name="search">
+        <input type="submit" class="dn">
     </form>
 </div>
+<script>
+j('.search .db').click(function(){
+    j(this).addClass('dn');j('.search form').removeClass('dn');
+    j('.search [name=search]').focus();
+})
+j('.search [name=search]').blur(function(){
+    j('.search form').addClass('dn');j(this).removeClass('dn');
+    
+})
+
+</script>
 
 
 <div class="list container-fluid">
@@ -28,7 +39,6 @@
                 <p>从业经验：{experience}</p>
             </div>
         </div>
-        
     </div>
     <div class="row">
         <div class="col-xs-4">关注 {follow}</div>
