@@ -33,7 +33,8 @@
 .list a{color:#333}
 .list .right span{
     background: #ffb200;
-    margin-top: 24px;
+    margin-top: 22px;
+    float:left;
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -44,5 +45,5 @@
     margin-right: 20px;
 }
 .list .right img{
-    vertical-align: inherit;
+    margin-top: 24px;
 }
