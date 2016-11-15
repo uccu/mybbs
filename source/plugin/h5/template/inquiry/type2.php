@@ -2,7 +2,7 @@
 <!--{eval addcss('type','inquiry','h5')}-->
 <div class="search tc">
     <form method="post" action="/h5/inquiry/lists">
-        <input type="text" name="search" placeholder="搜索问题">
+        <input type="text" name="search" placeholder="搜索问题" class="tc">
         <input type="submit" class="dn">
     </form>
 </div>
@@ -13,7 +13,7 @@
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
     <a href="/h5/inquiry/type/{id}">
         <div class="row">
-            <div class="col-xs-2 num">
+            <div class="col-xs-2 num tc">
                 <!--{eval echo $kk+1}-->
             </div>
             <div class="col-xs-7">

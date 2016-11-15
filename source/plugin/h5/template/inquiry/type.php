@@ -2,11 +2,13 @@
 <!--{eval addcss('type','inquiry','h5')}-->
 <div class="search tc">
     <form method="post" action="/h5/inquiry/lists">
-        <input type="text" name="search" placeholder="搜索问题">
+        <input type="text" name="search" placeholder="搜索问题" class="tc">
         <input type="submit" class="dn">
     </form>
 </div>
-
+<div class="title">
+    请选择设备问诊问题
+</div>
 
 <div class="list container-fluid">
     <!--{loop $list $v}-->

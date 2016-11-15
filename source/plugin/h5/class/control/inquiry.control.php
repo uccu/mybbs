@@ -23,7 +23,7 @@ class inquiry extends e{
             }
             if($v['img'])$v['img'] = $this->imgDir.$v['img'];
         }
-        
+        $this->g->template['title'] = '常见问题';
         T('inquiry/type'.($bid?'2':''));
     }
 
