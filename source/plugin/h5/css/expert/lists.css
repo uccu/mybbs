@@ -1,3 +1,21 @@
-.search{border:20px #f5f5f5 solid}
+.search{border:20px #f5f5f5 solid;color:#a1a1a1}
 .search span{padding:3px}
 .search input{width:100%}
+.list .avatar img{
+    border-radius: 50%;
+    width: 60px;
+    margin: 20px;
+}
+.list .name{
+    font-size: 20px;
+    margin-top: 10px;
+    color:#333;
+}
+.list .name{
+    height: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+.list p{
+    margin:0;color:#a1a1a1
+}
