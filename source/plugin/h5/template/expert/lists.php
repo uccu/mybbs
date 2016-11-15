@@ -39,10 +39,10 @@ j('.search [name=search]').blur(function(){
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-4">关注 {follow}</div>
-        <div class="col-xs-4">粉丝 {fans}</div>
-        <div class="col-xs-4">回答 {answer}</div>
+    <div class="row tc">
+        <div class="col-xs-4"><span class="nn">关注</span> {follow}</div>
+        <div class="col-xs-4"><span class="nn">粉丝</span> {fans}</div>
+        <div class="col-xs-4"><span class="nn">回答</span> {answer}</div>
     </div>
     <!--{/loop}-->
 </div>
