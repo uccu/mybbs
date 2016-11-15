@@ -10,8 +10,8 @@
 }
 .list .avatar img{
     border-radius: 50%;
-    width: 60px;
-    margin: 20px;
+    height:48px;
+    margin: 10px;
 }
 .list .name{
     font-size: 20px;
@@ -24,9 +24,10 @@
     margin-bottom: 5px;
 }
 .list p{
-    margin:0;color:#999
+    color:#999;
+    margin-bottom: 10px;
 }
 .list p font{
-    color:#025dae
+    color:#025dae;
 }
 .list a{color:#333}
