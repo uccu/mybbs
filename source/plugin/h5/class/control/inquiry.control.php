@@ -21,7 +21,9 @@ class inquiry extends e{
                     'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
                 ))->where(array('kid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
             }
+            if($v['img'])$v['img'] = $this->imgDir.$v['img'];
         }
+        
         T('inquiry/type'.($bid?'2':''));
     }
 
