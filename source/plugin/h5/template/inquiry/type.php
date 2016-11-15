@@ -12,10 +12,10 @@
     <!--{loop $list $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
     <div class="row">
-        <div class="col-xs-3 avatar">
+        <div class="col-xs-2 avatar">
             <a href="/h5/inquiry/type/{id}"><img src="{img}"></a>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-7">
             <div class="name">
                 <a href="/h5/inquiry/type/{id}">{name}</a>
             </div>
