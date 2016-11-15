@@ -11,3 +11,10 @@
     padding-left:20px;
     color:#a1a1a1;
 }
+.list .avatar{
+    line-height: 40px
+}
+.list .avatar img{
+    height: 40px;
+    border-radius: 50%;
+}

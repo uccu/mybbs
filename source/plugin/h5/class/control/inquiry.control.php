@@ -43,8 +43,9 @@ class inquiry extends e{
             $v['img'] = $v['img']?explode(';',$v['img']):array();
             foreach($v['img'] as &$v2)$v2 = $this->imgDir.$v2;
             $v['thumb'] = $this->imgDir.$v['thumb'];
+            $v['content'] = mb_substr($v['content'],0,100);
         }
-        
+
         $this->g->template['equip'] = model('equipment_list')->find($bid,false)->get_field('name');
         $this->g->template['title'] = '常见问题';
 
