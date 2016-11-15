@@ -33,7 +33,7 @@
     color: #b2b2b2;
     margin-bottom: 20px;
 }
-.list .img>div{
+.list .img>div>div{
     background-position: center;
     background-size: center;
 }

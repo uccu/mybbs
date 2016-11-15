@@ -30,14 +30,14 @@
                     </div>
                 {elseif count($img)==2}
                     <div class="row tc">
-                        <div class="col-xs-6" style="background-image:url({img.0});height:150px"></div>
-                        <div class="col-xs-6" style="background-image:url({img.1});height:150px"></div>
+                        <div class="col-xs-6"><div style="background-image:url({img.0});height:150px"></div></div>
+                        <div class="col-xs-6"><div style="background-image:url({img.1});height:150px"></div></div>
                     </div>
                 {elseif count($img)==3}
                     <div class="row tc">
-                        <div class="col-xs-4" style="background-image:url({img.0});height:100px"></div>
-                        <div class="col-xs-4" style="background-image:url({img.1});height:100px"></div>
-                        <div class="col-xs-4" style="background-image:url({img.2});height:100px"></div>
+                        <div class="col-xs-4"><div style="background-image:url({img.0});height:100px"></div></div>
+                        <div class="col-xs-4"><div style="background-image:url({img.1});height:100px"></div></div>
+                        <div class="col-xs-4"><div style="background-image:url({img.2));height:100px"></div></div>
                     </div>
                 {else}
                     {content}
