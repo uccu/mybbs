@@ -6,7 +6,9 @@
         <input type="submit" class="dn">
     </form>
 </div>
-
+<div class="title">
+    {equip}
+</div>
 
 <div class="list container-fluid">
     <!--{loop $list $kk=>$v}-->
