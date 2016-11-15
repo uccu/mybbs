@@ -44,13 +44,13 @@
                 {/if}
             </div>
         </div>
-        <div class="row tc">
-            <div class="col-xs-3">{answer} 回答</div>
-            <div class="col-xs-3"> {read} 阅读</div>
-            <div class="col-xs-3">{collect} 关注</div>
-        </div>
+        
     </div>
-    
+    <div class="row tc tag">
+        <div class="col-xs-3">{answer} 回答</div>
+        <div class="col-xs-3"> {read} 阅读</div>
+        <div class="col-xs-3">{collect} 关注</div>
+    </div>
     <!--{/loop}-->
 </div>
 
