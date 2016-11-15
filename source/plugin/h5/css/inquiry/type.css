@@ -43,3 +43,6 @@
     color: #FFF;
     margin-right: 20px;
 }
+.list .right img{
+    vertical-align: inherit;
+}
