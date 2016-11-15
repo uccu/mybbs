@@ -23,8 +23,8 @@
                 <p>问题总数<font>{count}</font>条</p>
             </div>
         </div>
-        <div class="col-xs-3">
-            <span>{today_today}</span>
+        <div class="col-xs-3 right">
+            <span>{today_count}</span>
             <img src="/pic/h5/inquiry/arrow@2x.png">
         </div>
     </div>
