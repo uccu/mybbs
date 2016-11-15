@@ -20,7 +20,7 @@
                 <a href="/h5/inquiry/type/{id}">{name}</a>
             </div>
             <div class="tag">
-                <p>{lable}<font>{count}</font></p>
+                <p>问题总数<font>{count}</font>条</p>
             </div>
         </div>
         <div class="col-xs-3">

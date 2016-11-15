@@ -2,7 +2,12 @@
     border:20px #f5f5f5 solid;
     color:#a1a1a1
 }
-.search input{width:100%}
+.search input{
+    width:100%
+}
+.list .row{
+    border-bottom:10px #f5f5f5 solid;
+}
 .list .avatar img{
     border-radius: 50%;
     width: 60px;
@@ -24,3 +29,4 @@
 .list p font{
     color:#025dae
 }
+.list a{color:#333}
