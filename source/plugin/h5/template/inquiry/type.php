@@ -15,14 +15,16 @@
         <div class="col-xs-3 avatar">
             <a href="/h5/inquiry/type/{id}"><img src="{img}"></a>
         </div>
-        <div class="col-xs-9">
+        <div class="col-xs-6">
             <div class="name">
-                <a href="/h5/expert/info/{uid}">{nametrue}</a>
-                <img src="/pic/h5/expert/zj@2x.png">
+                <a href="/h5/inquiry/type/{id}">{name}</a>
             </div>
             <div class="tag">
-                <p>{lable}　</p>
+                <p>{lable}<font>{count}</font></p>
             </div>
+        </div>
+        <div class="col-xs-3">
+            
         </div>
     </div>
     <!--{/loop}-->

@@ -8,8 +8,8 @@ class inquiry extends e{
     function type($bid = 0){
         $bid = $where['bid'] = post('bid',$bid,'%d');
         $where['del'] = 1;
-        $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
-        foreach($f['list'] as &$v){
+        $this->g->template['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
+        foreach($this->g->template['list'] as &$v){
             if($v['bid']){
                 $v['count'] = model('inquiry')->where(array('bid'=>$v['id']))->get_field();
                 $v['today_count'] = model('inquiry')->where(array('bid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
@@ -23,7 +23,6 @@ class inquiry extends e{
             }
         }
         T('inquiry/type'.($bid?'2':''));
-        
     }
 
 }
