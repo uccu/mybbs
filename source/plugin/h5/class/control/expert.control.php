@@ -7,6 +7,7 @@ class expert extends e{
 
     function lists($search = ''){
 
+        $search = post('search',$search);
         if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
 
         $this->g->template['list'] = model('user')->where($where)->limit(999)->select();
