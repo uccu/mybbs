@@ -25,10 +25,10 @@ j('.search [name=search]').blur(function(){
     <!--{loop $list $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
     <div class="row">
-        <div class="col-xs-2 avatar">
+        <div class="col-xs-3 avatar">
             <img src="{thumb}">
         </div>
-        <div class="col-xs-10">
+        <div class="col-xs-9">
             <div class="name">
                 {nametrue}
                 <img src="/pic/h5/expert/zj@2x.png">
