@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-xs-3 right tr">
-            <span>{if $today_count}{today_count}{/if}</span>
+            {if $today_count}<span>{today_count}</span>{/if}
             <img src="/pic/h5/inquiry/arrow@2x.png">
         </div>
     </div>
