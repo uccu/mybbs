@@ -12,6 +12,7 @@
     color:#a1a1a1;
 }
 .list .avatar{
+    margin-top: 10px;
     line-height: 40px;
     font-size: 16px;
     color: #999;
@@ -31,6 +32,10 @@
 .list .img{
     color: #b2b2b2;
     margin-bottom: 20px;
+}
+.list .img>div{
+    background-position: center;
+    background-size: center;
 }
 .list .tag{
     color: #ccc;
