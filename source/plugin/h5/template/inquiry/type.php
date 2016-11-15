@@ -24,8 +24,8 @@
             </div>
         </div>
         <div class="col-xs-3">
-            <span>{count_today}</span>
-            <img src="/pic/h5/inquiry/arrow2x.png">
+            <span>{today_today}</span>
+            <img src="/pic/h5/inquiry/arrow@2x.png">
         </div>
     </div>
     <!--{/loop}-->
