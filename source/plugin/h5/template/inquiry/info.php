@@ -47,7 +47,7 @@
                 <p style="color:#a1a1a1">{date}　</p>
             </div>
             <div class="col-xs-3 avatar2">
-                <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
+                <img src="/pic/h5/inquiry/zan0@2x.png"><span>{zan}</span>
             </div>
             <div class="content2 col-xs-12">{content}</div>
             <div class="reply col-xs-12">
@@ -78,7 +78,7 @@
                 <p style="color:#a1a1a1">{date}　</p>
             </div>
             <div class="col-xs-3 avatar2">
-                <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
+                <img src="/pic/h5/inquiry/zan0@2x.png"><span>{zan}</span>
             </div>
             <div class="content2 col-xs-12">{content}</div>
         </div>
