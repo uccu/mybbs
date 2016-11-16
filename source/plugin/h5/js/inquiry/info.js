@@ -45,10 +45,10 @@
             })
             j('.large-pic .pic').eq(p).addClass('active')
             clearInterval(inte);
-            setInterval(next,5000);
+            inte = setInterval(next,5000);
         }
 
-        setInterval(next,5000);
+        inte = setInterval(next,5000);
     })
 
     
