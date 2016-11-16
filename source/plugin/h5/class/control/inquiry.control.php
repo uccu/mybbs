@@ -63,11 +63,13 @@ class inquiry extends e{
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
         ))->find($id);
         if(!$info)return;
+        var_dump($info['img']);
         $info['img'] = $info['img']?explode(';',$info['img']):array();
+        var_dump($info['img']);
         foreach($info['img'] as &$v){
             $v = $this->imgDir.$v;
         }
-        
+        var_dump($info['img']);
         foreach($info as $k=>$v){
             $this->g->template[$k] = $v;
         }
