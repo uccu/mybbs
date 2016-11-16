@@ -10,12 +10,12 @@
             j('.large-pic .pic').removeClass('active');
             if(l==n+1){
                 j('.large-pic .pic').each(function(e){
-                    j(e).css('left',j(e).index()+'00%');
+                    j(this).css('left',j(this).index()+'00%');
                 })
                 j('.large-pic .pic').eq(0).addClass('active')
             }else{
-                j('.large-pic .pic').each(function(e){
-                    j(e).css('left',(j(e).index()-n-1)*100+'%')
+                j('.large-pic .pic').each(function(){
+                    j(this).css('left',(j(this).index()-n-1)*100+'%')
                 })
                 j('.large-pic .pic').eq(n+1).addClass('active')
             }
