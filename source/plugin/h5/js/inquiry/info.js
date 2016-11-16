@@ -65,6 +65,8 @@
         j('.avatar2').click(function(){
             j(this).find('img')[0].src = '/pic/h5/inquiry/zan@2x.png';
             j(this).find('span').text(parseInt(j(this).find('span').text())+1);
+            j(this).find('span').css('color','#4e9dee');
+            j(this).unbind('click');
         })
     })
 
