@@ -35,8 +35,10 @@
                 })
                 j('.large-pic .pic').eq(n-1).addClass('active')
             }
-
         }
+
+
+        setTimeout(next,5000);
     })
 
     
