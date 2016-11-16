@@ -33,7 +33,7 @@
 {if $list_adopt}
 <div class="info">
     <div class="title">
-        <img src="/pic/h5/inquiry/adoption@2x.png">{title}
+        <img src="/pic/h5/inquiry/adoption@2x.png">改答案已被作者采纳
     </div>
     <!--{loop $list_adopt $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
@@ -44,9 +44,9 @@
             </div>
             <div class="col-xs-9">
                 <div class="name">
-                    {nametrue}
+                    {nickname}
                 </div>
-                <p style="color:#f1f1f1">{date}　</p>>
+                <p style="color:#f1f1f1">{date}　</p>
             </div>
             <div class="content">{content}</div>
         </div>
