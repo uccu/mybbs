@@ -81,7 +81,6 @@
                 <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
             </div>
             <div class="content2 col-xs-12">{content}</div>
-
         </div>
     </div>
     <!--{/loop}-->
