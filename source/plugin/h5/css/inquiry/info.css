@@ -7,7 +7,7 @@
 .banner .small-pic{
     width: 100%;
     bottom: 0;
-    padding: 20px;
+    margin: 15px 0;
     height: 20px;
 }
 .banner .small-pic .pic{
