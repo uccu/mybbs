@@ -20,7 +20,7 @@
     </div>
     <div class="col-xs-12 avatar">
         <img src="{thumb}">
-        {nickname} · {date}
+        <font style="color:#666">{nickname}· </font> <font style="color:#a1a1a1">{date}</font>
     </div>
 
 </div>
