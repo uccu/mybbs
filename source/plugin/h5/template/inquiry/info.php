@@ -4,12 +4,12 @@
 {if $img}
 <div class="banner ofh pr">
     <div class="large-pic pr">
-        <!--{loop $img as $v}-->
+        <!--{loop $img $v}-->
         <div class="pic" style="background-image:url($v)"></div>
         <!--{/loop}-->
     </div>
     <div class="small-pic">
-        <!--{loop $img as $v}-->
+        <!--{loop $img $v}-->
         <div class="pic"></div>
         <!--{/loop}-->
     </div>
