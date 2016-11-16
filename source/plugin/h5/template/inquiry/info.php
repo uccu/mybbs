@@ -18,7 +18,7 @@
     <div class="name">
         {title}
     </div>
-    <div class="col-xs-12 avatar">
+    <div class="avatar">
         <img src="{thumb}">
         <font style="color:#666">{nickname}· </font> <font style="color:#a1a1a1">{date}</font>
     </div>
