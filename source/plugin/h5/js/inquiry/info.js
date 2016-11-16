@@ -3,7 +3,7 @@
     j(function(){
         j('.large-pic .pic').eq(0).addClass('active');
         var l = j('.large-pic .pic').length;
-
+        var inte;
         window.next = function(){
             if(!j('.large-pic .pic.active').length)return;
             var n = j('.large-pic .pic.active').index();
@@ -37,8 +37,18 @@
             }
         }
 
+        window.toPic = function(p){
+            var n = j('.large-pic .pic.active').index();
+            j('.large-pic .pic').removeClass('active');
+            j('.large-pic .pic').each(function(e){
+                j(this).css('left',j(this).index()-p+'00%');
+            })
+            j('.large-pic .pic').eq(p).addClass('active')
+            clearInterval(inte);
+            setInterval(next,5000);
+        }
 
-        setTimeout(next,5000);
+        setInterval(next,5000);
     })
 
     
