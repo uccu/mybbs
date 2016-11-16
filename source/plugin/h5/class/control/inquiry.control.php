@@ -67,7 +67,7 @@ class inquiry extends e{
         $info['img'] = $info['img']?explode(';',$info['img']):array();
         var_dump($info['img']);
         foreach($info['img'] as &$v2){
-            $v = $this->imgDir.$v2;
+            $v2 = $this->imgDir.$v2;
         }
         var_dump($info['img']);
         foreach($info as $k=>$v){
