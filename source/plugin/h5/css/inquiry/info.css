@@ -68,3 +68,11 @@
     color: #666;
     font-weight: normal;
 }
+
+.info .avatar2{
+    color: #a1a1a1;
+}
+.info .avatar2 img{
+    height: 18px;
+    margin-right: 6px;
+}
