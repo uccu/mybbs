@@ -71,7 +71,7 @@ class inquiry extends e{
         foreach($info as $k=>$v){
             $this->g->template[$k] = $v;
         }
-
+        var_dump($this->g->template['img']);
         model('inquiry_list')->mapping('r')->add_table(array('user'=>array('_on'=>'uid','thumb','nickname','type')));
         
         $this->g->template['list_adopt'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
