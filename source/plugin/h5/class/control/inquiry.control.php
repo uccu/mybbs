@@ -53,5 +53,27 @@ class inquiry extends e{
         T('inquiry/lists');
     }
 
+    function info($id){
+        $id = post('id',$id,'%d');
+        
+        
+        model('inquiry')->data(array('read'=>array('add',1)))->save($id);
+
+        $t['info'] = model('inquiry')->mapping('i')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname','type'),
+        ))->find($id);
+        if(!$t['info'])return;
+
+        model('inquiry_list')->mapping('r')->add_table(array('user'=>array('_on'=>'uid','thumb','nickname','type')));
+        
+        $t['adopt'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
+
+        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('zan'=>'DESC'))->select();
+
+
+        
+        $this->success($t);
+    }
+
 }
 ?>
