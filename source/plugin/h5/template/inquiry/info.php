@@ -73,11 +73,11 @@
             <div class="col-xs-2 avatar">
                 <img src="{thumb}">
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-7">
                 <h5>{nickname}</h5>
                 <p style="color:#a1a1a1">{date}　</p>
             </div>
-            <div class="col-xs-2 avatar2">
+            <div class="col-xs-3 avatar2">
                 <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
             </div>
             <div class="content2 col-xs-12">{content}</div>
