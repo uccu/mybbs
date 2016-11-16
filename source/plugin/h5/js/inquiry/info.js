@@ -1,9 +1,9 @@
 ~function(){
 
 
-    j('.large-pic .pic').eq(0).addClass('active');
-    j('.large-pic .pic').eq(2).insertBefore('.large-pic');
-    
+    j('.large-pic .pic').eq(1).css('left','100%')
+    j('.large-pic .pic').eq(2).css('left','200%')
+
     var next = function(){
 
 
