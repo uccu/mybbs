@@ -3,3 +3,23 @@
 .banner .large-pic{height:380px;background-color: #ccc;width:100%}
 
 .banner .large-pic .pic{height: 380px;width:100%;background-position: center;background-size: cover;top:0;left:0;}
+
+.banner .small-pic{
+    width: 100%;
+    bottom: 0;
+    padding: 20px;
+    height: 20px;
+}
+.banner .small-pic .pic{
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    border-radius: 50%;
+    border: 3px solid #333;
+    opacity: 0.5
+}
+
+.banner .small-pic .pic.active{
+    border: 3px solid #4e9dee;
+    opacity: 1
+}

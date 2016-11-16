@@ -8,9 +8,9 @@
         <div class="pic pa t-1" style="background-image:url({v});left:{$k}00%"></div>
         <!--{/loop}-->
     </div>
-    <div class="small-pic">
+    <div class="small-pic pa">
         <!--{loop $img $v}-->
-        <div class="pic"></div>
+        <div class="pic dib t"></div>
         <!--{/loop}-->
     </div>
 </div>
