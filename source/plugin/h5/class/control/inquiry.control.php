@@ -59,20 +59,24 @@ class inquiry extends e{
         
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
-        $t['info'] = model('inquiry')->mapping('i')->add_table(array(
+        $info = model('inquiry')->mapping('i')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
         ))->find($id);
-        if(!$t['info'])return;
+        if(!$info)return;
+
+        foreach($info as $k=>$v){
+            $this->g->template[$k] = $v;
+        }
 
         model('inquiry_list')->mapping('r')->add_table(array('user'=>array('_on'=>'uid','thumb','nickname','type')));
         
-        $t['adopt'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
+        $this->g->template['list_adopt'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
 
-        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('zan'=>'DESC'))->select();
+        $this->g->template['list_reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('zan'=>'DESC'))->select();
 
 
         
-        $this->success($t);
+        T('inquiry/info');
     }
 
 }
