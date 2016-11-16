@@ -62,7 +62,7 @@
 
 
 {if $list_reply}
-<div class="info">
+<div class="info reply">
     <div class="title2">
         最新答案
     </div>
