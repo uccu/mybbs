@@ -39,16 +39,14 @@
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
     <div class="block">
         <div class="row">
-            <div class="col-xs-3 avatar">
+            <div class="col-xs-2 avatar">
                 <img src="{thumb}">
             </div>
-            <div class="col-xs-9">
-                <div class="name">
-                    {nickname}
-                </div>
-                <p style="color:#f1f1f1">{date}　</p>
+            <div class="col-xs-8">
+                <h5>{nickname}</h5>
+                <p style="color:#a1a1a1">{date}　</p>
             </div>
-            <div class="content">{content}</div>
+            <div class="content2 col-xs-12">{content}</div>
         </div>
     </div>
     <!--{/loop}-->
