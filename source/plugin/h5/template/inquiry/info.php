@@ -14,7 +14,7 @@
         <!--{/loop}-->
     </div>
 </div>
-<div class="container info">
+<div class="info">
     <div class="name">
         {title}
     </div>
@@ -22,7 +22,6 @@
         <img src="{thumb}">
         <font style="color:#666">{nickname}· </font> <font style="color:#a1a1a1">{date}</font>
     </div>
-
 </div>
 
 {/if}
