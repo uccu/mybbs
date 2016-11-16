@@ -54,6 +54,10 @@
             inte = setInterval(next,5000);
         }
 
+        j('.small-pic .pic').click(function(){
+            toPic(j(this).index())
+        })
+
         inte = setInterval(next,5000);
     })
 

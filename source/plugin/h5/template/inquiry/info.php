@@ -14,11 +14,12 @@
         <!--{/loop}-->
     </div>
 </div>
-<script>
-    
-
-
-
-</script>
+<div class="name">
+    {title}
+</div>
+<div class="col-xs-12 avatar">
+    <img src="{thumb}">
+    {nickname} · {date}
+</div>
 {/if}
 <!--{subtemplate tool:footer}-->

@@ -15,7 +15,7 @@ class expert extends e{
         $this->g->template['list'] = model('user')->where($where)->limit(999)->select();
 
         foreach($this->g->template['list'] as &$v){
-            $v['thumb'] = $this->imgDir.$v['thumb'];
+            $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
         }
 
         $this->g->template['title'] = '专家列表';
@@ -31,7 +31,7 @@ class expert extends e{
 
         if(!$user)return;
 
-        $user['thumb'] = $this->imgDir.$user['thumb'];
+        $user['thumb'] = $user['thumb']?$this->imgDir.$user['thumb']:'/pic/h5/avatar.png';
         $this->g->template['fans'] = model('fans')->where(array('uid'=>$uid))->get_field();
         $this->g->template['follow'] = model('fans')->where(array('fans_id'=>$uid))->get_field();
 

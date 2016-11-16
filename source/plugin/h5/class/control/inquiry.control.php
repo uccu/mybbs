@@ -43,6 +43,7 @@ class inquiry extends e{
             $v['img'] = $v['img']?explode(';',$v['img']):array();
             foreach($v['img'] as &$v2)$v2 = $this->imgDir.$v2;
             if($v['thumb'])$v['thumb'] = $this->imgDir.$v['thumb'];
+            else $v['thumb'] = '/pic/h5/avatar.png';
             if($v['content'])$v['content'] = mb_substr($v['content'],0,100);
             if(mb_strlen($v['content'])==100)$v['content'] .= '...';
         }
@@ -63,7 +64,9 @@ class inquiry extends e{
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
         ))->find($id);
         if(!$info)return;
-;
+
+        $info['thumb'] = $info['thumb']?$this->imgDir.$info['thumb']:'/pic/h5/avatar.png';
+
         $info['img'] = $info['img']?explode(';',$info['img']):array();
 
         foreach($info['img'] as &$v2){
@@ -73,6 +76,8 @@ class inquiry extends e{
         foreach($info as $k=>$v){
             $this->g->template[$k] = $v;
         }
+
+        $this->g->template['date'] = date('y-m',$info['ctime']);
 
         model('inquiry_list')->mapping('r')->add_table(array('user'=>array('_on'=>'uid','thumb','nickname','type')));
         
