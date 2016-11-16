@@ -51,7 +51,7 @@
             </div>
             <div class="content2 col-xs-12">{content}</div>
             <div class="reply col-xs-12">
-                <div style="background:url(/pic/h5/reply.png);height:10px;background-size:100%"></div>
+                <div style="background:url(/pic/h5/reply.png);height:10px;background-size:100%;margin-top:15px"></div>
                 <div style="background:#eee;padding:8px;color:#777;"><font style="color:#a1a1a1">作者回复：</font>{thank}</div>
             </div>
         </div>
