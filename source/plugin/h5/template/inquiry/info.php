@@ -21,7 +21,7 @@
     </div>
     <div class="avatar">
         <img src="{thumb}">
-        <font style="color:#666">{nickname}· </font> <font style="color:#a1a1a1">{date}</font>
+        <font style="color:#666">{nickname} · </font><font style="color:#a1a1a1">{date}</font>
     </div>
 </div>
 

@@ -83,8 +83,16 @@ class inquiry extends e{
         
         $this->g->template['list_adopt'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
 
+        foreach($this->g->template['list_adopt'] as &$v){
+            $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
+            
+        }
+
         $this->g->template['list_reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('zan'=>'DESC'))->select();
 
+        foreach($this->g->template['list_reply'] as &$v){
+            $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
+        }
 
         
         T('inquiry/info');
