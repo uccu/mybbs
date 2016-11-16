@@ -46,11 +46,42 @@
                 <h5>{nickname}</h5>
                 <p style="color:#a1a1a1">{date}　</p>
             </div>
+            <div class="col-xs-2 avatar2">
+                <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
+            </div>
             <div class="content2 col-xs-12">{content}</div>
             <div class="reply col-xs-12">
-                <div style="background:url(/pic/h5/reply.png);height:20px;background-size:100%"></div>
-                <div style="background:#eee;padding:8px;color:#999;"><font style="color:#a1a1a1">作者回复：</font>{thank}</div>
+                <div style="background:url(/pic/h5/reply.png);height:10px;background-size:100%"></div>
+                <div style="background:#eee;padding:8px;color:#777;"><font style="color:#a1a1a1">作者回复：</font>{thank}</div>
             </div>
+        </div>
+    </div>
+    <!--{/loop}-->
+</div>
+{/if}
+
+
+{if $list_reply}
+<div class="info">
+    <div class="title2">
+        最新答案
+    </div>
+    <!--{loop $list_reply $v}-->
+    <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
+    <div class="block">
+        <div class="row">
+            <div class="col-xs-2 avatar">
+                <img src="{thumb}">
+            </div>
+            <div class="col-xs-8">
+                <h5>{nickname}</h5>
+                <p style="color:#a1a1a1">{date}　</p>
+            </div>
+            <div class="col-xs-2 avatar2">
+                <img src="/pic/h5/inquiry/zan0@2x.png">{zan}
+            </div>
+            <div class="content2 col-xs-12">{content}</div>
+
         </div>
     </div>
     <!--{/loop}-->
