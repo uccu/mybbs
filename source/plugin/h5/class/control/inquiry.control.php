@@ -44,7 +44,7 @@ class inquiry extends e{
             foreach($v['img'] as &$v2)$v2 = $this->imgDir.$v2;
             if($v['thumb'])$v['thumb'] = $this->imgDir.$v['thumb'];
             if($v['content'])$v['content'] = mb_substr($v['content'],0,100);
-            if(mb_substr_count($v['content'])==100)$v['content'] .= '...';
+            if(mb_strlen($v['content'])==100)$v['content'] .= '...';
         }
 
         $this->g->template['equip'] = model('equipment_list')->find($bid,false)->get_field('name');
