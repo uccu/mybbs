@@ -85,13 +85,14 @@ class inquiry extends e{
 
         foreach($this->g->template['list_adopt'] as &$v){
             $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
-            
+            $v['date'] = date('y-m',$v['ctime']);
         }
 
         $this->g->template['list_reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('zan'=>'DESC'))->select();
 
         foreach($this->g->template['list_reply'] as &$v){
             $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
+            $v['date'] = date('y-m',$v['ctime']);
         }
 
         

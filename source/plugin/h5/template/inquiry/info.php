@@ -33,7 +33,7 @@
 {if $list_adopt}
 <div class="info">
     <div class="title">
-        <img src="/pic/h5/inquiry/adoption@2x.png">改答案已被作者采纳
+        <img src="/pic/h5/inquiry/adoption@2x.png">该答案已被作者采纳
     </div>
     <!--{loop $list_adopt $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
@@ -86,4 +86,15 @@
     <!--{/loop}-->
 </div>
 {/if}
+
+
+
+<div class="info">
+    <div class="title">
+        <img src="/pic/h5/inquiry/view@2x.png">查看更多答案请下载APP
+    </div>
+    <div class="content">
+        <img src="/pic/h5/inquiry/download@2x.png" class="img-responsive center-block">
+    </div>
+</div>
 <!--{subtemplate tool:footer}-->
