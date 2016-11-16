@@ -24,10 +24,11 @@
     background: #fff;
     border-radius: 50%;
     border: 3px solid #333;
-    opacity: 0.5
+    opacity: 0.5;
+    margin:auto 15px;
 }
 
 .banner .small-pic .pic.active{
     border: 3px solid #4e9dee;
-    opacity: 1
+    opacity: 1;
 }
