@@ -1,7 +1,7 @@
 ~function(){
 
     j(function(){
-        j('.large-pic .pic').eq(0).addClass('active');
+        j('.large-pic .pic,.small-pic .pic').eq(0).addClass('active');
         var l = j('.large-pic .pic').length;
         var inte;
         window.next = function(){
