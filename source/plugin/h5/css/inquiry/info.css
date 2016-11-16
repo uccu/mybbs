@@ -1,5 +1,5 @@
-.banner{height:400pxp;}
+.banner{height:400px;}
 
-.banner .large-pic{height:400px;background-color: #ccc;width:400%}
+.banner .large-pic{height:380px;background-color: #ccc;width:100%}
 
-.banner .large-pic .pic{height: 400px;float:left;width:100%}
+.banner .large-pic .pic{height: 380px;width:100%;background-position: center;background-size: cover;top:0;left:0}
