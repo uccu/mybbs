@@ -14,7 +14,7 @@
             <h4 class="name">{title}</h4>
             <div class="tag">
                 <p style="color:#a1a1a1;">{content}　</p>
-                <button style="background: #ffedbf;border: 0;border-radius: 30px;padding: 2px 17px;color: #ff9c00;">查看详情</button>
+                <a href="/h5/fili/info/{id}" style="background: #ffedbf;border: 0;border-radius: 30px;padding: 2px 17px;color: #ff9c00;">查看详情</a>
             </div>
         </div>
     </div>

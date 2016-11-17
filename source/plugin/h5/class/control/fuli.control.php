@@ -25,7 +25,22 @@ class fuli extends e{
     }
 
     function info($id){
-        
+        $info = model('weixin')->find($id);
+
+        if(!$info)return;
+
+        foreach($info as $k=>$v){
+            $this->g->template[$k] = $v;
+        }
+        $this->g->template['name'] = $this->g->template['title'];
+
+        $this->g->template['date'] = date('Y-m-d',$info['ctime']);
+
+        $this->g->template['title'] = '活动与福利';
+
+        T('fuli/info');
+
+
     }
 
 }
