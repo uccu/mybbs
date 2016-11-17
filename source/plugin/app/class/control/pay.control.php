@@ -106,11 +106,66 @@ class pay extends base\e{
     function alipay(){
 
 
-        $this->_alipay('expert',5000);
+        $data = $this->_alipay('expert',5000,1);
 
+        $this->success($data);
 
     }
     function _alipay($type,$money,$id){
+
+        $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
+
+        $out_trade_no = date('YmdHis').rand ( 1000000, 9999999 );
+        
+        $uid = $this->uid;
+
+        $p['partner']           = '2088521069857975';       // 签约的支付宝账号对应的支付宝唯一用户号
+        $p['seller_id']         = 'qingcesh@163.com';  // 签约卖家支付宝账号
+        $p['out_trade_no']      = $out_trade_no;          // 商户网站唯一订单号
+        $p['subject']           = '设备运维支付';          // 商品名称
+        $p['body']              = '设备运维支付';             // 商品详情
+        $p['total_fee']         = $money;             // 商品金额
+        $p['notify_url']        = 'http://121.199.8.244:5000/app/pay/alipay_c/'.$nonce_str;// 服务器异步通知页面路径
+        $p['service']           = 'mobile.securitypay.pay'; // 服务接口名称， 固定值
+        $p['payment_type']      = '1';                      // 支付类型， 固定值
+        $p['_input_charset']    = 'utf-8';                  // 参数编码， 固定值
+        $p['it_b_pay']          = '30m';                    // 设置未付款交易的超时时间
+        
+
+        $info = array();
+        foreach($p as $k=>$v)$info[] = $k.'="'.$v.'"';
+        $info = implode('&',$info);
+        $priKey = file_get_contents ( PLAY_ROOT . 'alipay/rsa_private_key.pem' );
+        $res = openssl_get_privatekey ( $priKey );
+        openssl_sign ( $info, $sign, $res );
+        openssl_free_key ( $res );
+        // base64编码
+        $sign = base64_encode ( $sign );
+        $sign = urlencode ( $sign );
+        // 执行签名函数
+        $info .= "&sign=\"" . $sign . "\"";
+        $p['sign'] = $sign;
+
+        $info .= "&sign_type=\"RSA\"";
+        $p['sign_type'] = "RSA";
+        $data2['string'] = $info;
+        $data2['array'] = $p;
+
+        $data['uid'] = $uid;
+        $data['ctime'] = TIME_NOW;
+        $data['nonce_str'] = $nonce_str;
+        $data['type'] = $type;
+        $data['gid'] = $gid;
+        $data['total_fee'] = $money*100;
+        $data['out_trade_no'] = $out_trade_no;
+        $data['pay_type'] = 'alipay';
+        $data['prepay_success'] = 1;
+        model('pay_log')->data($data)->add();
+
+
+        return $data2;
+    }
+    function _alipay2($type,$money,$id){
 
         //$this->_check_login();
 
@@ -146,7 +201,7 @@ class pay extends base\e{
         openssl_free_key ( $res );
 
         $data['sign']  = base64_encode($sign);
-        //echo $sign;
+
 
         $ch = curl_init ();
         // set URL and other appropriate options
@@ -175,7 +230,7 @@ class pay extends base\e{
             'body'              => '设备运维支付',
             'mch_id'            => '1406390402',
             'nonce_str'         => $nonce_str,
-            'notify_url'        => 'http://121.199.8.244:5000/app/pay/wcpay_c/'.$rand,
+            'notify_url'        => 'http://121.199.8.244:5000/app/pay/wcpay_c/'.$nonce_str,
             'out_trade_no'      => $out_trade_no,
             'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
             'total_fee'         => $money,              //单位分
