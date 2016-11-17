@@ -238,6 +238,10 @@ class inquiry extends base\e{
                 'id'=>$id
             ))->add();
             $this->success();
+        }elseif($type==2){
+
+            control('pay')->__wcpay('inquiry',100,$id);
+
         }else{
 
             $this->errorCode(430);

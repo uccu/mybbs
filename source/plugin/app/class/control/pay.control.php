@@ -7,8 +7,52 @@ class pay extends base\e{
     }
 
     function wcpay_c($nonce_str){
+        $postStr = file_get_contents ( 'php://input' );
+        $a =  simplexml_load_string ( $postStr );
+        if($a->result_code.'' == 'SUCCESS'){
+            $h = 'appid='.$a->appid;
+            $h .= '&bank_type='.$a->bank_type;
+            $h .= '&cash_fee='.$a->cash_fee;
+            $h .= '&fee_type='.$a->fee_type;
+            $h .= '&is_subscribe='.$a->is_subscribe;
+            $h .= '&mch_id='.$a->mch_id;
+            $h .= '&nonce_str='.$nonce_str;
+            $h .= '&openid='.$a->openid;
+            $h .= '&out_trade_no='.$a->out_trade_no;
+            $h .= '&result_code='.$a->result_code;
+            $h .= '&return_code='.$a->return_code;
+            $h .= '&time_end='.$a->time_end;
+            $h .= '&total_fee='.$a->total_fee;
+            $h .= '&trade_type='.$a->trade_type;
+            $h .= '&transaction_id='.$a->transaction_id;
+            $h .= '&key=6839885DC11C1D03E85357763CD6ABD9';
+            if($a->sign.'' === strtoupper ( md5 ( $h ) )){
+
+                $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->find();
+
+                if(!$log){echo "FAIL";die();}
+                if($log['success']){echo "FAIL";die();}
+
+                model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>1))->save();
+                if($log['type']=='inquiry'){
+
+                    model('inquiry_paid')->data(array(
+                        'uid'=>$log['uid'],
+                        'ctime'=>TIME_NOW,
+                        'id'=>$log['gid']
+                    ))->add(true);
 
 
+                }else{
+
+                    echo "FAIL";die();
+
+                }
+
+                echo "SUCCESS";die();
+            }
+        }
+        echo "FAIL";
 
 
 
@@ -22,11 +66,19 @@ class pay extends base\e{
     }
 
 
-    function wcpay(){
+    function __wcpay($type,$money,$gid){
 
+        $data['prepay_id'] = $this->_wcpay($type,$money,$gid);
 
-        $this->_wcpay('expert',1);
+        $this->success($data);
 
+    }
+
+    function wcpay($type,$money,$id){
+
+        $data['prepay_id'] = $this->_wcpay('expert',1,1);
+
+        $this->success($data);
 
     }
 
@@ -37,7 +89,7 @@ class pay extends base\e{
 
 
     }
-    function _alipay($type,$money){
+    function _alipay($type,$money,$id){
 
         //$this->_check_login();
 
@@ -88,7 +140,7 @@ class pay extends base\e{
 
     }
 
-    function _wcpay($type,$money){
+    function _wcpay($type,$money,$gid){
         $this->_check_login();
 
         $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
@@ -130,14 +182,14 @@ class pay extends base\e{
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
         // grab URL, and print
         $da = curl_exec ( $ch );
-        var_dump($da);
+
         $data['uid'] = $uid;
         $data['ctime'] = TIME_NOW;
         $data['nonce_str'] = $nonce_str;
         $data['type'] = $type;
-
+        $data['gid'] = $gid;
         $data['total_fee'] = $money;
-        $data['	out_trade_no'] = $out_trade_no;
+        $data['out_trade_no'] = $out_trade_no;
         $data['pay_type'] = 'wcpay';
 
         if(!$da){
@@ -160,7 +212,7 @@ class pay extends base\e{
         $data['prepay_success'] = 1;
         model('pay_log')->data($data)->add();
 
-        return $result;
+        return $result->prepay_id;
     }
     
 
