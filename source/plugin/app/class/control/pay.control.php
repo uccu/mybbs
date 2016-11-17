@@ -30,8 +30,14 @@ class pay extends base\e{
 
                 $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->find();
 
-                if(!$log){echo "FAIL";die();}
-                if($log['success']){echo "FAIL";die();}
+                if(!$log){
+                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-2))->save();
+                    echo "FAIL";die();
+                }
+                if($log['success']){
+                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-3))->save();
+                    echo "FAIL";die();
+                }
 
                 model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
                 if($log['type']=='inquiry'){
@@ -78,6 +84,8 @@ class pay extends base\e{
 
                 echo "SUCCESS";die();
             }
+
+            model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-1))->save();
         }
         echo "FAIL";
 
