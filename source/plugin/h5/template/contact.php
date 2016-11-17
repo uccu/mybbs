@@ -17,28 +17,31 @@ p{color: #999;
     <h4>联系方式</h4>
 
     <div class="row">
-    
         <div class="col-xs-2">
-        
+            <img src="/pic/h5/contact/phone@2x.png" alt="">
         </div>
-        <div class="col-xs-10"></div>
-    
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png)">
+            电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
+        </div>
     </div>
-    <p>
-        全国统一合作电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
-    </p>
-    <p>
-        邮箱：Coop@qingce.com
-    </p>
-    <p>
-        来信请寄：Coop@qingce.com
-    </p>
-    <p style="color:#015caf;margin-top:25px">
-        欢迎前来我司当面进行合作商洽！
-    </p>
-    <p>
-        地址：上海市上宁区延安西路777号601室
-    </p>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="/pic/h5/contact/email@2x.png" alt="">
+        </div>
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png)">
+            邮箱：yunweiws@126.com
+        </div>
+    </div>
+    <p style="color:#015caf;margin-top:25px">欢迎前来我司参观与考察</p>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="/pic/h5/contact/addr@2x.png" alt="">
+        </div>
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png)">
+            地址：上海市上宁区延安西路777号601室
+        </div>
+    </div>
+    
 </div>
 
 
