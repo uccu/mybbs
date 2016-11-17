@@ -143,6 +143,12 @@ class user extends base\e{
         if(!$data['info'])$this->errorCode(440);
 
         if($this->userInfo['qust'])model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
+
+        $data['qust'] = $this->userInfo['qust'];
+        $pay = model('expert')->where(array('uid'=>$this->uid,'id'=>$uid))->find();
+
+        $data['paid'] = $pay && $pay['ctime']>TIME_NOW-24*3600 ? '1' : '0';
+        
         // $o = $this->_getCloudToken($uid);
 
         // if(!$data)$this->errorCode(429);
