@@ -122,8 +122,8 @@ class pay extends base\e{
         $p['partner']           = '2088521069857975';       // 签约的支付宝账号对应的支付宝唯一用户号
         $p['seller_id']         = 'qingcesh@163.com';  // 签约卖家支付宝账号
         $p['out_trade_no']      = $out_trade_no;          // 商户网站唯一订单号
-        $p['subject']           = '设备运维支付';          // 商品名称
-        $p['body']              = '设备运维支付';             // 商品详情
+        $p['subject']           = '运维卫士支付';          // 商品名称
+        $p['body']              = '运维卫士支付';             // 商品详情
         $p['total_fee']         = $money;             // 商品金额
         $p['notify_url']        = 'http://121.199.8.244:5000/app/pay/alipay_c/'.$nonce_str;// 服务器异步通知页面路径
         $p['service']           = 'mobile.securitypay.pay'; // 服务接口名称， 固定值
@@ -227,7 +227,7 @@ class pay extends base\e{
 
         $array = array (
             'appid'             => 'wx74ee35941bdfb302',
-            'body'              => '设备运维支付',
+            'body'              => '运维卫士支付',
             'mch_id'            => '1406390402',
             'nonce_str'         => $nonce_str,
             'notify_url'        => 'http://121.199.8.244:5000/app/pay/wcpay_c/'.$nonce_str,
