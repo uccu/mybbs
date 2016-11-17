@@ -9,6 +9,7 @@ class pay extends base\e{
     function wcpay_c($nonce_str){
         $postStr = file_get_contents ( 'php://input' );
         $a =  simplexml_load_string ( $postStr );
+        model('cache')->replace('wcpay_1',$a->result_code);
         if($a->result_code.'' == 'SUCCESS'){
             $h = 'appid='.$a->appid;
             $h .= '&bank_type='.$a->bank_type;
@@ -26,6 +27,7 @@ class pay extends base\e{
             $h .= '&trade_type='.$a->trade_type;
             $h .= '&transaction_id='.$a->transaction_id;
             $h .= '&key=6839885DC11C1D03E85357763CD6ABD9';
+            model('cache')->replace('wcpay_2',$h);
             if($a->sign.'' === strtoupper ( md5 ( $h ) )){
 
                 $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->find();
