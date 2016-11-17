@@ -53,6 +53,12 @@ p{color: #999;
 </div>
 
 
+<div class="pf" style="width:100%;bottom:0;left:0;z-index:1">
 
+<img src="/pic/h5/d.png" alt="">
+
+<span class="db pa clos" style="height:100%;width:30px;background:#ccc;z-index:3"></span>
+
+</div>
 
 <!--{subtemplate tool:footer}-->
