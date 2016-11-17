@@ -1,10 +1,12 @@
 <!--{subtemplate header}-->
 <style>
 h4{font-size:20px;margin-bottom:20px}
+p{color: #999;
+    line-height: 24px;}
 </style>
 <div class="container" style="margin-top: 20px;">
     <h4>合作前言</h4>
-    <p>
+    <p style="margin-bottom: 0">
         运维卫士APP隶属于上海擎测机电工程技术有限公司（以下简称“擎測机电”）版权所有，任何第三方或个人不得未经允许以任何名义进行推广、使用和宣传。
     </p>
     <p>
@@ -24,7 +26,7 @@ h4{font-size:20px;margin-bottom:20px}
     <p>
         来信请寄：Coop@qingce.com
     </p>
-    <p style="color:#015caf">
+    <p style="color:#015caf;margin-top:25px">
         欢迎前来我司当面进行合作商洽！
     </p>
     <p>
