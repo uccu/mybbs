@@ -204,11 +204,11 @@ class pay extends base\e{
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
-        $data['prepayid'] = $result->prepayid;
+        $data['prepayid'] = $result->prepayid.'';
         $data['prepay_success'] = 1;
         model('pay_log')->data($data)->add();
 
-        return $result->prepayid;
+        return $data['prepayid'];
     }
     
 
