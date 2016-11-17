@@ -18,21 +18,21 @@ p{color: #999;
 
     <div class="row">
         <div class="col-xs-2 tr">
-            <img src="/pic/h5/contact/phone@2x.png" alt="">
+            <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 20px 40px;width: 280px;">
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 40px;width: 280px;">
             电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-bottom:15px">
         <div class="col-xs-2 tr">
-            <img src="/pic/h5/contact/email@2x.png" alt="">
+            <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 20px 40px;width: 255px;">
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 40px;width: 255px;">
             邮箱：yunweiws@126.com
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-bottom:15px">
         <div class="col-xs-2 tr">
 
         </div>
@@ -41,11 +41,11 @@ p{color: #999;
         </div>
     </div>
    
-    <div class="row">
+    <div class="row" style="margin-bottom:15px">
         <div class="col-xs-2 tr">
-            <img src="/pic/h5/contact/addr@2x.png" alt="">
+            <img src="/pic/h5/contact/addr@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 20px 40px;width: 340px;">
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 40px;width: 340px;">
             地址：上海市上宁区延安西路777号601室
         </div>
     </div>
