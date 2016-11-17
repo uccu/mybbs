@@ -349,17 +349,17 @@ class my extends base\e{
 
 
 
-    function pay($id=0){
+    function pay($time=3){
         $this->_check_login();
-        $id = post('id',$id,'%d');
         $type = post('type',0);
-        $time = post('time',3); 
+        $id = $time = post('time',3); 
+        $score = model('member')->find($time,false)->get_field('postage');
+        if(!$score)$this->errorCode(416);
+
         if($type==0){
-            $score = model('member')->find($time,false)->get_field('postage');
-            if(!$score)$this->errorCode(416);
+            
             $score *= 100;
             if($this->userInfo['score']<$score)$this->errorCode(442);
-
 
             if($time == 1)$add = 3600*24*30;
             elseif($time == 2)$add = 3600*24*91;
@@ -367,14 +367,16 @@ class my extends base\e{
             $data['vip_type'] = $time;
             if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
             else $data['vip'] = TIME_NOW + $add;
-            //$data['score'] = array('add',-1*$score);
 
             model('user')->data($data)->save($this->uid);
             $this->_handle_score(-1*$score,'支付VIP');
-            
 
             $f['vip'] = $data['vip'];
             $this->success($f);
+        }elseif($type==2){
+
+            control('pay')->__wcpay('vip',$score*100,$id);
+
         }else{
 
             $this->errorCode(430);

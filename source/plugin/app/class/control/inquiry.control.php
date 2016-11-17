@@ -227,7 +227,7 @@ class inquiry extends base\e{
             'id'=>$id
         ))->find();
         if($p)$this->errorCode(431);
-        
+
         if($type==0){
             if($this->userInfo['score']<100)$this->errorCode(442);
             $this->_handle_score(-100,'支付问诊');
@@ -238,11 +238,36 @@ class inquiry extends base\e{
             ))->add();
             $this->success();
         }elseif($type==2){
-
             control('pay')->__wcpay('inquiry',100,$id);
-
         }else{
+            $this->errorCode(430);
+        }
 
+    }
+
+    function ex_pay($id=0){
+        $this->_check_login();
+        $id = post('id',$id,'%d');
+        $type = post('type',0);
+
+        $p = model('expert_paid')->where(array(
+            'uid'=>$this->uid,
+            'id'=>$id
+        ))->find();
+        if($p)$this->errorCode(431);
+
+        if($type==0){
+            if($this->userInfo['score']<100)$this->errorCode(442);
+            $this->_handle_score(-100,'支付问诊');
+            model('expert_paid')->data(array(
+                'uid'=>$this->uid,
+                'ctime'=>TIME_NOW,
+                'id'=>$id
+            ))->add();
+            $this->success();
+        }elseif($type==2){
+            control('pay')->__wcpay('expert',100,$id);
+        }else{
             $this->errorCode(430);
         }
 

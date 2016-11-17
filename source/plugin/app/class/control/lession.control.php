@@ -130,16 +130,13 @@ class lession extends base\e{//运维
         $this->_check_login();
         $id = post('id',$id,'%d');
         $type = post('type',0);
-
+        $p = model('paper_paid')->where(array(
+            'uid'=>$this->uid,
+            'pid'=>$id
+        ))->find();
+        if($p)$this->errorCode(431);
         if($type==0){
             if($this->userInfo['score']<100)$this->errorCode(442);
-            $p = model('paper_paid')->where(array(
-                'uid'=>$this->uid,
-                'pid'=>$id
-            ))->find();
-            if($p)$this->errorCode(431);
-
-
             $this->_handle_score(-100,'支付考卷');
             model('paper_paid')->data(array(
                 'uid'=>$this->uid,
@@ -147,6 +144,8 @@ class lession extends base\e{//运维
                 'pid'=>$id
             ))->add();
             $this->success();
+        }elseif($type==2){
+            control('pay')->__wcpay('paper',100,$id);
         }else{
 
             $this->errorCode(430);

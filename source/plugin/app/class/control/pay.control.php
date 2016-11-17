@@ -42,6 +42,33 @@ class pay extends base\e{
                         'id'=>$log['gid']
                     ))->add(true);
 
+                }elseif($log['type']=='expert'){
+
+                    model('expert_paid')->data(array(
+                        'uid'=>$log['uid'],
+                        'ctime'=>TIME_NOW,
+                        'id'=>$log['gid']
+                    ))->add(true);
+                }elseif($log['type']=='paper'){
+
+                    model('paper_paid')->data(array(
+                        'uid'=>$log['uid'],
+                        'ctime'=>TIME_NOW,
+                        'pid'=>$log['gid']
+                    ))->add(true);
+
+                }elseif($log['type']=='vip'){
+
+                    $time = $log['gid'];
+
+                    $userInfo = model('user')->find($log['uid']);
+                    if($time == 1)$add = 3600*24*30;
+                    elseif($time == 2)$add = 3600*24*91;
+                    else $add = 3600*24*365;
+                    $data['vip_type'] = $time;
+                    if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+                    else $data['vip'] = TIME_NOW + $add;
+                    model('user')->data($data)->save($log['uid']);
 
                 }else{
 
