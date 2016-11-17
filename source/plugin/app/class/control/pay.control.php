@@ -84,9 +84,17 @@ class pay extends base\e{
 
 
     }
-    function alipay_c(){
+    function alipay_c($nonce_str){
 
-
+        //file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
+        $out_trade_no = $_POST ['out_trade_no'];
+        if(post('trade_status')=='TRADE_SUCCESS')$this->_pay_c($out_trade_no.'');
+        // require "/alipay/alipay.config.php";
+        // require "/alipay/lib/alipay_notify.class.php";
+        // $alipayNotify = new \AlipayNotify ( $alipay_config );
+        // $verify_result = $alipayNotify->verifyNotify ();
+        //file_put_contents ('ALIPAY_SERVER2.txt' ,json_encode($verify_result) );
+        echo "SUCCESS";die();
 
 
 
@@ -95,7 +103,7 @@ class pay extends base\e{
 
     function __wcpay($type,$money,$gid){
 
-        $data['prepay_id'] = $this->_wcpay($type,$money,$gid);
+        $data['prepay_id'] = $this->_wcpay($type,1,$gid);
 
         $this->success($data);
 
