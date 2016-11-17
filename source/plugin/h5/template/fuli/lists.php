@@ -6,7 +6,7 @@
 
     <!--{loop $list $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
-    <div class="row" style="padding: 25px 0;border-bottom: 2px solid #f1f1f1;">
+    <div class="row" style="padding: 15px 0;border-bottom: 2px solid #f1f1f1;background:#fff">
         <div class="col-xs-3 avatar">
             <img src="{thumb}" style="margin-top: 20px;">
         </div>
