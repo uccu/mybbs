@@ -13,7 +13,7 @@ class fuli extends e{
         foreach($this->g->template['list'] as &$v){
             
             if($v['thumb'])$v['thumb'] = $this->imgDir.$v['thumb'];
-            $v['content'] = preg_replace('<.*?>','',$v['content']);
+            $v['content'] = preg_replace('#<.*?>#','',$v['content']);
             if($v['content'])$v['content'] = mb_substr($v['content'],0,20);
             if(mb_strlen($v['content'])==20)$v['content'] .= '...';
         }
