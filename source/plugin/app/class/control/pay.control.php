@@ -114,7 +114,7 @@ class pay extends base\e{
             $sign .= trim ( $key ) . "=" . trim ( $val ) . "&";
             $xml .= "<" . trim ( $key ) . ">" . trim ( $val ) . "</" . trim ( $key ) . ">";
         }
-        $sign .= 'key=7EA97FA5C1534CD91FE666690A60E927';
+        $sign .= 'key=6839885DC11C1D03E85357763CD6ABD9';
 
         $sign = strtoupper ( md5 ( $sign ) );
         $xml .= "<sign>$sign</sign>";
