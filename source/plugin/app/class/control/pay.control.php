@@ -36,7 +36,7 @@ class pay extends base\e{
                     model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-2))->save();
                     echo "FAIL";die();
                 }
-                if($log['success']<1){
+                if($log['success']!=0){
                     die();
                 }
 
