@@ -36,9 +36,8 @@ class pay extends base\e{
                     model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-2))->save();
                     echo "FAIL";die();
                 }
-                if($log['success']){
-                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-3))->save();
-                    echo "FAIL";die();
+                if($log['success']<1){
+                    die();
                 }
 
                 model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
@@ -111,9 +110,11 @@ class pay extends base\e{
     }
 
 
-    function __wcpay($type,$money,$gid){
+    function __wcpay($type,$money,$gid,$return = false){
 
         $data['prepay_id'] = $this->_wcpay($type,1,$gid);
+        
+        if($return)return $data;
 
         $this->success($data);
 
