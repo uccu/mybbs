@@ -111,7 +111,7 @@ class pay extends base\e{
         $this->success($data);
 
     }
-    function _alipay($type,$money,$id){
+    function _alipay($type,$money,$gid){
 
         $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
 
