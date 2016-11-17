@@ -6,17 +6,15 @@
 
     <!--{loop $list $v}-->
     <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
-    <div class="row">
+    <div class="row" style="padding: 25px 0;border-bottom: 2px solid #f1f1f1;">
         <div class="col-xs-3 avatar">
-            <img src="{thumb}">
+            <img src="{thumb}" style="margin-top: 20px;">
         </div>
         <div class="col-xs-9">
-            <div class="name">
-                {title}
-            </div>
+            <h4 class="name">{title}</h4>
             <div class="tag">
-                <p>{content}　</p>
-                <button>查看详情</button>
+                <p style="color:#a1a1a1;">{content}　</p>
+                <button style="background: #ffedbf;border: 0;border-radius: 30px;padding: 2px 17px;color: #ff9c00;">查看详情</button>
             </div>
         </div>
     </div>
