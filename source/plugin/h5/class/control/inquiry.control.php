@@ -94,7 +94,7 @@ class inquiry extends e{
             $v['thumb'] = $v['thumb']?$this->imgDir.$v['thumb']:'/pic/h5/avatar.png';
             $v['date'] = date('y-m',$v['ctime']);
         }
-
+        $this->g->template['title'] = '常见问题';
         
         T('inquiry/info');
     }
