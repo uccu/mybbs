@@ -68,7 +68,7 @@ class pay extends base\e{
 
     function __wcpay($type,$money,$gid){
 
-        $data['prepayid'] = $this->_wcpay($type,$money,$gid);
+        $data['prepay_id'] = $this->_wcpay($type,$money,$gid);
 
         $this->success($data);
 
@@ -194,23 +194,23 @@ class pay extends base\e{
         }
         $result = simplexml_load_string ( $da );
 
-        var_dump($result);
-        
-        if($result->return_code == 'FAIL'){
+        //var_dump($result);
+
+        if($result->return_code.'' == 'FAIL'){
             $data['error'] = '微信通信失败';
             model('pay_log')->data($data)->add();
             $this->errorCode(502);
         }
-        if($result->result_code == 'FAIL'){
+        if($result->result_code.'' == 'FAIL'){
             $data['error'] = '微信预支付交易失败';
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
-        $data['prepayid'] = $result->prepayid.'';
+        $data['prepay_id'] = $result->prepay_id.'';
         $data['prepay_success'] = 1;
         model('pay_log')->data($data)->add();
 
-        return $data['prepayid'];
+        return $data['prepay_id'];
     }
     
 
