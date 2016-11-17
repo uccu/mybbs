@@ -16,7 +16,7 @@ p{color: #999;
 <div class="container" style="margin-top: 40px;">
     <h4>联系方式</h4>
 
-    <div class="row">
+    <div class="row" style="margin-bottom:15px">
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
@@ -24,7 +24,7 @@ p{color: #999;
             电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
         </div>
     </div>
-    <div class="row" style="margin-bottom:15px">
+    <div class="row">
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
@@ -32,7 +32,7 @@ p{color: #999;
             邮箱：yunweiws@126.com
         </div>
     </div>
-    <div class="row" style="margin-bottom:15px">
+    <div class="row">
         <div class="col-xs-2 tr">
 
         </div>
