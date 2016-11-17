@@ -365,7 +365,7 @@ class my extends base\e{
             elseif($time == 2)$add = 3600*24*91;
             else $add = 3600*24*365;
             $data['vip_type'] = $time;
-            if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+            if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $this->userInfo['vip'] + $add;
             else $data['vip'] = TIME_NOW + $add;
 
             model('user')->data($data)->save($this->uid);
@@ -375,7 +375,18 @@ class my extends base\e{
             $this->success($f);
         }elseif($type==2){
 
-            control('pay')->__wcpay('vip',$score*100,$id);
+            if($time == 1)$add = 3600*24*30;
+            elseif($time == 2)$add = 3600*24*91;
+            else $add = 3600*24*365;
+
+            if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $this->userInfo['vip'] + $add;
+            else $data['vip'] = TIME_NOW + $add;
+
+            $data2 = control('pay')->__wcpay('vip',$score*100,$id,true);
+
+            $data = array_merge($data,$data2);
+
+            $this->success($data);
 
         }else{
 
