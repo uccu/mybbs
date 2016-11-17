@@ -105,7 +105,7 @@ class pay extends base\e{
             'notify_url'        => 'http://121.199.8.244:5000/app/pay/wcpay_c/'.$rand,
             'out_trade_no'      => $out_trade_no,
             'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
-            'total_fee'         => $money_f,              //单位分
+            'total_fee'         => $money,              //单位分
             'trade_type'        => 'APP' 
         );
         $xml = '<xml>';
