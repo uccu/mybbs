@@ -68,19 +68,13 @@ class pay extends base\e{
 
     function __wcpay($type,$money,$gid){
 
-        $data['prepay_id'] = $this->_wcpay($type,$money,$gid);
+        $data['prepayid'] = $this->_wcpay($type,$money,$gid);
 
         $this->success($data);
 
     }
 
-    function wcpay($type,$money,$id){
 
-        $data['prepay_id'] = $this->_wcpay('expert',1,1);
-
-        $this->success($data);
-
-    }
 
     function alipay(){
 
@@ -191,6 +185,7 @@ class pay extends base\e{
         $data['total_fee'] = $money;
         $data['out_trade_no'] = $out_trade_no;
         $data['pay_type'] = 'wcpay';
+        
 
         if(!$da){
             $data['error'] = '微信服务器访问超时/无法访问';
@@ -209,10 +204,11 @@ class pay extends base\e{
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
+        $data['prepayid'] = $result->prepayid;
         $data['prepay_success'] = 1;
         model('pay_log')->data($data)->add();
 
-        return $result->prepay_id;
+        return $result->prepayid;
     }
     
 
