@@ -194,6 +194,8 @@ class pay extends base\e{
         }
         $result = simplexml_load_string ( $da );
 
+        var_dump($result);
+        
         if($result->return_code == 'FAIL'){
             $data['error'] = '微信通信失败';
             model('pay_log')->data($data)->add();
