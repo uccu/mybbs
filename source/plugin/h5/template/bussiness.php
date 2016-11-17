@@ -49,5 +49,9 @@ p{color: #999;
     </div>
 </div>
 
-
+<div class="pf bbg" style="width:100%;bottom:0;left:0;z-index:1">
+    <img src="/pic/h5/d.png" alt="" class="img-responsive">
+    <span class="db pa clos" style="height:100%;width:40px;z-index:3;top:0;left:0"></span>
+    <script>j('.clos').click(function(){j('.bbg').fadeOut()})</script>
+</div>
 <!--{subtemplate tool:footer}-->
