@@ -16,7 +16,7 @@ p{color: #999;
 <div class="container" style="margin-top: 40px;">
     <h4>联系方式</h4>
 
-    <div class="row" style="margin-bottom:15px">
+    <div class="row" style="margin-bottom:15px;color: #999;">
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
@@ -28,7 +28,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 40px;width: 255px;">
+        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 40px;width: 255px;;color: #999;">
             邮箱：yunweiws@126.com
         </div>
     </div>
@@ -41,7 +41,7 @@ p{color: #999;
         </div>
     </div>
    
-    <div class="row" style="margin-bottom:15px">
+    <div class="row" style="margin-bottom:15px;color: #999;">
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/addr@2x.png" alt="" style="height: 49px;">
         </div>
