@@ -9,7 +9,7 @@ class pay extends base\e{
     function wcpay_c($nonce_str){
         $postStr = file_get_contents ( 'php://input' );
         $a =  simplexml_load_string ( $postStr );
-        model('cache')->replace('wcpay_1',$a->result_code);
+        model('cache')->replace('wcpay_1',$a->result_code.'');
         if($a->result_code.'' == 'SUCCESS'){
             $h = 'appid='.$a->appid;
             $h .= '&bank_type='.$a->bank_type;
@@ -30,18 +30,18 @@ class pay extends base\e{
             model('cache')->replace('wcpay_2',$h);
             if($a->sign.'' === strtoupper ( md5 ( $h ) )){
 
-                $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->find();
+                $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->find();
 
                 if(!$log){
-                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-2))->save();
+                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-2))->save();
                     echo "FAIL";die();
                 }
                 if($log['success']){
-                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-3))->save();
+                    model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-3))->save();
                     echo "FAIL";die();
                 }
 
-                model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
+                model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
                 if($log['type']=='inquiry'){
 
                     model('inquiry_paid')->data(array(
@@ -87,7 +87,7 @@ class pay extends base\e{
                 echo "SUCCESS";die();
             }
 
-            model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>-1))->save();
+            model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-1))->save();
         }
         echo "FAIL";
 
