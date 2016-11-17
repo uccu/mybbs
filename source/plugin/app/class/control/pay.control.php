@@ -33,7 +33,7 @@ class pay extends base\e{
                 if(!$log){echo "FAIL";die();}
                 if($log['success']){echo "FAIL";die();}
 
-                model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>1))->save();
+                model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
                 if($log['type']=='inquiry'){
 
                     model('inquiry_paid')->data(array(
