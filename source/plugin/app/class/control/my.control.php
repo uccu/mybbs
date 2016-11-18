@@ -228,13 +228,18 @@ class my extends base\e{
 
     function cash_apply($money=0){
         if(!$this->userInfo['wx_pay'])$this->errorCode(417);
-        $data['money'] = post('money',$money,'%d');
-        if(!$data['money'])$this->errorCode(416);
-        if($this->userInfo['score']<$data['money']*100)$this->errorCode(442);
+        $data['money'] = $money = post('money',$money,'%d');
+        if(!$money)$this->errorCode(416);
+        if($this->userInfo['score']<$money)$this->errorCode(442);
+
+
+        control('pay')->_mmpay($money);
+
+
         $data['uid'] = $this->uid;
         $data['ctime'] = TIME_NOW;
         model('cash_apply')->data($data)->add();
-        model('user')->data(array('score'=>array('add',-1*$data['money']*100)))->save($this->uid);
+        model('user')->data(array('score'=>array('add',-1*$money)))->save($this->uid);
         $this->success();
     }
 

@@ -346,7 +346,79 @@ class pay extends base\e{
         return $data['prepay_id'];
     }
     
+    function _mmpay($money){
 
+        $this->_check_login();    
+        $openid = $this->userInfo['wx_pay'];
+        $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
+        $out_trade_no = date('YmdHis').rand ( 1000000, 9999999 );
+        $uid = $this->uid;
+
+        $array = array (
+            'amount'            => $money,
+            'check_name'        => 'NO_CHECK',
+            'mch_appid'         => 'wx74ee35941bdfb302',
+            'mchid'             => '1406390402',
+            'nonce_str'         => $nonce_str,
+            'openid'            => $openid,
+            'partner_trade_no'  => $out_trade_no,
+            'spbill_create_ip'  => $_SERVER ["REMOTE_ADDR"],
+        );
+        $xml = '<xml>';
+        $sign = '';
+        foreach ( $array as $key => $val ) {
+            $sign .= trim ( $key ) . "=" . trim ( $val ) . "&";
+            $xml .= "<" . trim ( $key ) . ">" . trim ( $val ) . "</" . trim ( $key ) . ">";
+        }
+        $sign .= 'key=6839885DC11C1D03E85357763CD6ABD9';
+
+        $sign = strtoupper ( md5 ( $sign ) );
+        $xml .= "<sign>$sign</sign>";
+        $xml .= '</xml>';
+
+        $ch = curl_init ();
+        // set URL and other appropriate options
+        curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+        curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
+        curl_setopt ( $ch, CURLOPT_URL, "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers" );
+        curl_setopt ( $ch, CURLOPT_POST, true );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $xml );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        // grab URL, and print
+        $da = curl_exec ( $ch );
+
+        $data['uid'] = $uid;
+        $data['ctime'] = TIME_NOW;
+        $data['nonce_str'] = $nonce_str;
+        $data['type'] = 'cash';
+        $data['gid'] = 0;
+        $data['total_fee'] = $money;
+        $data['out_trade_no'] = $out_trade_no;
+        $data['pay_type'] = 'mmpay';
+
+        if(!$da){
+            $data['error'] = '微信服务器访问超时/无法访问';
+            model('pay_log')->data($data)->add();
+            $this->errorCode(501);
+        }
+        $result = simplexml_load_string ( $da );
+
+        if($result->return_code.'' == 'FAIL'){
+            $data['error'] = '微信通信失败';
+            model('pay_log')->data($data)->add();
+            $this->errorCode(502);
+        }
+        if($result->result_code.'' == 'FAIL'){
+            $data['error'] = '微信预支付交易失败';
+            model('pay_log')->data($data)->add();
+            $this->errorCode(503);
+        }
+
+        $data['success'] = 1;
+        model('pay_log')->data($data)->add();
+
+        return true;
+    }
 
 }
 ?>
