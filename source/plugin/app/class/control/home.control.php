@@ -45,11 +45,11 @@ class home extends base\e{
             $search = model('equipment_list')->find($this->userInfo['plant']);
             if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
         }
-        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(6)->select();
-        if(!$z){
+        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+        if(!$z['list']){
 
             unset($where['field']);
-            model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
 
         }
         $this->success($z);
