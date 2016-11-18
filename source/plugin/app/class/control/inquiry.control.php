@@ -292,11 +292,11 @@ class inquiry extends base\e{
         $id = post('id',$id,'%d');
         $type = post('type',0);
 
-        $p = model('expert_paid')->where(array(
-            'uid'=>$this->uid,
-            'id'=>$id
-        ))->find();
-        if($p)$this->errorCode(431);
+        // $p = model('expert_paid')->where(array(
+        //     'uid'=>$this->uid,
+        //     'id'=>$id
+        // ))->find();
+        // if($p)$this->errorCode(431);
 
         if($type==0){
             if($this->userInfo['score']<100)$this->errorCode(442);
