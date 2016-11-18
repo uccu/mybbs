@@ -404,12 +404,12 @@ class pay extends base\e{
         $result = simplexml_load_string ( $da );
 
         if($result->return_code.'' == 'FAIL'){
-            $data['error'] = '微信通信失败';
+            $data['error'] = $result->err_code.$result->err_code_des;
             model('pay_log')->data($data)->add();
             $this->errorCode(502);
         }
         if($result->result_code.'' == 'FAIL'){
-            $data['error'] = '微信预支付交易失败';
+            $data['error'] = $result->err_code.$result->err_code_des;
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
