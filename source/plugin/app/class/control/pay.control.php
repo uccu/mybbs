@@ -357,6 +357,7 @@ class pay extends base\e{
         $array = array (
             'amount'            => $money,
             'check_name'        => 'NO_CHECK',
+            'desc'              => '提现',
             'mch_appid'         => 'wx74ee35941bdfb302',
             'mchid'             => '1406390402',
             'nonce_str'         => $nonce_str,
@@ -409,7 +410,7 @@ class pay extends base\e{
             $this->errorCode(502);
         }
         if($result->result_code.'' == 'FAIL'){
-            $data['error'] = $result->err_code.$result->err_code_des;
+            $data['error'] = $result->err_code.$result->err_code_des.'';
             model('pay_log')->data($data)->add();
             $this->errorCode(503);
         }
