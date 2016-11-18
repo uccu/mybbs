@@ -387,6 +387,20 @@ class my extends base\e{
             $data = array_merge($data,$data2);
 
             $this->success($data);
+        }elseif($type==1){
+
+            if($time == 1)$add = 3600*24*30;
+            elseif($time == 2)$add = 3600*24*91;
+            else $add = 3600*24*365;
+
+            if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $this->userInfo['vip'] + $add;
+            else $data['vip'] = TIME_NOW + $add;
+
+            $data2 = control('pay')->__alipay('vip',$score,$id,true);
+
+            $data = array_merge($data,$data2);
+
+            $this->success($data);
 
         }else{
 

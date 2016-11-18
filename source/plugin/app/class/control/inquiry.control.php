@@ -296,6 +296,8 @@ class inquiry extends base\e{
             $this->success();
         }elseif($type==2){
             control('pay')->__wcpay('expert',100,$id);
+        }elseif($type==2){
+            control('pay')->__alipay('expert',1,$id);
         }else{
             $this->errorCode(430);
         }

@@ -146,6 +146,8 @@ class lession extends base\e{//运维
             $this->success();
         }elseif($type==2){
             control('pay')->__wcpay('paper',100,$id);
+        }elseif($type==1){
+            control('pay')->__alipay('paper',1,$id);
         }else{
 
             $this->errorCode(430);

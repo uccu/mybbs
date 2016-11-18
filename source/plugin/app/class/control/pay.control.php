@@ -151,25 +151,17 @@ class pay extends base\e{
 
 
     function __wcpay($type,$money,$gid,$return = false){
-
         $data['prepay_id'] = $this->_wcpay($type,1,$gid);
-        
         if($return)return $data;
-
         $this->success($data);
-
     }
 
-
-
-    function alipay(){
-
-
-        $data = $this->_alipay('expert',0.01,1);
-
+    function __alipay($type,$money,$gid,$return = false){
+        $data = $this->_alipay($type,0.01,$gid);
+        if($return)return $data;
         $this->success($data);
-
     }
+
     function _alipay($type,$money,$gid){
 
         $nonce_str = md5 ( rand ( 1000000, 9999999 ) );
