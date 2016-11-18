@@ -73,7 +73,7 @@ class pay extends base\e{
                     elseif($time == 2)$add = 3600*24*91;
                     else $add = 3600*24*365;
                     $data['vip_type'] = $time;
-                    if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+                    if($userInfo['vip']>TIME_NOW)$data['vip'] = $add + $userInfo['vip'];
                     else $data['vip'] = TIME_NOW + $add;
                     model('user')->data($data)->save($log['uid']);
 
@@ -134,7 +134,7 @@ class pay extends base\e{
             elseif($time == 2)$add = 3600*24*91;
             else $add = 3600*24*365;
             $data['vip_type'] = $time;
-            if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+            if($userInfo['vip']>TIME_NOW)$data['vip'] = $add + $userInfo['vip'];
             else $data['vip'] = TIME_NOW + $add;
             model('user')->data($data)->save($log['uid']);
         }else{
