@@ -230,7 +230,7 @@ class my extends base\e{
         if(!$this->userInfo['wx_pay'])$this->errorCode(417);
         $data['money'] = $money = post('money',$money,'%d');
         if(!$money)$this->errorCode(416);
-        if($this->userInfo['score']<$money)$this->errorCode(442);
+        if($this->userInfo['score']<$money*100)$this->errorCode(442);
 
 
         control('pay')->_mmpay(1);
@@ -239,7 +239,7 @@ class my extends base\e{
         $data['uid'] = $this->uid;
         $data['ctime'] = TIME_NOW;
         model('cash_apply')->data($data)->add();
-        model('user')->data(array('score'=>array('add',-1*$money)))->save($this->uid);
+        model('user')->data(array('score'=>array('add',-1*$money*100)))->save($this->uid);
         $this->success();
     }
 
@@ -249,7 +249,7 @@ class my extends base\e{
         $where['uid'] = $this->uid;
         $t['list'] = model('cash_apply')->where($where)->page($page,$limit)->order(array('ctime'=>'DESC'))->select();
         foreach($t['list'] as &$v){
-            $v['num'] = -1*$v['money'];
+            $v['num'] = $v['money'];
             $v['content'] = '积分提现';
         }
         $this->success($t);
