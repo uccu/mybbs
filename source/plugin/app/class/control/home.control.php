@@ -37,6 +37,25 @@ class home extends base\e{
         return $z;
     }
 
+    function expert_list(){
+
+        $uid = $this->uid;
+        $where['type'] = 2;
+        if($uid>0){
+            $search = model('equipment_list')->find($this->userInfo['plant']);
+            if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
+        }
+        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(6)->select();
+        if(!$z){
+
+            unset($where['field']);
+            model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+
+        }
+        $this->success($z);
+
+    }
+
     function repository(){
         $this->uid;
         $z = model('repository')->mapping('r')->add_table(array(
