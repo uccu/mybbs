@@ -1,1 +1,1 @@
-D:\wamp64\bin\php\php7.0.0\php.exe ofceqmojpewinoawhiofewfouewfioewnfio.php
+D:\wamp64\bin\php\php7.0.0\php.exe D:\wamp\www\sb\ofceqmojpewinoawhiofewfouewfioewnfio.php
