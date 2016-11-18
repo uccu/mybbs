@@ -316,6 +316,27 @@ class inquiry extends base\e{
         }
 
     }
+
+
+
+    function _auto(){
+
+        $where['eanswer'] = 0;
+        $where['ectime'] = array('logic',TIME_NOW-24*3600,'<');
+
+        model('user')->add_table(array(
+            'expert_paid'=>array('_on'=>'uid','answer'=>'eanswer','ctime'=>'ectime')
+        ))->where($where)->data(array('score'=>array('add',100)))->save();
+
+        $where2['answer'] = 0;
+        $where2['ctime'] = array('logic',TIME_NOW-24*3600,'<');
+
+        model('expert_paid')->where($where2)->data(array('answer'=>1))->save();
+
+
+        
+
+    }
     
 
 
