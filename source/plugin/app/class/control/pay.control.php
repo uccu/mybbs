@@ -415,7 +415,8 @@ class pay extends base\e{
             $this->errorCode(504);
         }
 
-        $data['success'] = 1;
+        $data['prepay_id'] = $data->payment_no.'';
+        $data['stime'] = $data->payment_time.'';
         model('pay_log')->data($data)->add();
 
         return true;
