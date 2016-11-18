@@ -216,6 +216,33 @@ class inquiry extends base\e{
         $this->success($z);
     }
 
+    function expert_list($id = 0){
+
+        $id = post('id',$id,'%d');
+
+        $inquiry = model('inquiry')->find($id);
+
+        $d2 = model('equipment_list')->find($inquiry['bid']);
+
+        $d1 = model('equipment_list')->find($d['bid']);
+
+        $where['type'] = 2;
+        
+        if($d1){
+
+            if($search)$where['field'] = array('contain','%'.$d1['name'].'%','LIKE');
+        }
+        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+        if(!$z['list']){
+
+            unset($where['field']);
+            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+
+        }
+        $this->success($z);
+
+    }
+
 
     function pay($id=0){
         $this->_check_login();
@@ -239,6 +266,8 @@ class inquiry extends base\e{
             $this->success();
         }elseif($type==2){
             control('pay')->__wcpay('inquiry',100,$id);
+        }elseif($type==1){
+            control('pay')->__alipay('inquiry',1,$id);
         }else{
             $this->errorCode(430);
         }
@@ -272,32 +301,7 @@ class inquiry extends base\e{
         }
 
     }
-    function expert_list($id = 0){
-
-        $id = post('id',$id,'%d');
-
-        $inquiry = model('inquiry')->find($id);
-
-        $d2 = model('equipment_list')->find($inquiry['bid']);
-
-        $d1 = model('equipment_list')->find($d['bid']);
-
-        $where['type'] = 2;
-        
-        if($d1){
-
-            if($search)$where['field'] = array('contain','%'.$d1['name'].'%','LIKE');
-        }
-        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
-        if(!$z['list']){
-
-            unset($where['field']);
-            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
-
-        }
-        $this->success($z);
-
-    }
+    
 
 
 }

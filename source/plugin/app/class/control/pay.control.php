@@ -9,7 +9,7 @@ class pay extends base\e{
     function wcpay_c($nonce_str){
         $postStr = file_get_contents ( 'php://input' );
         $a =  simplexml_load_string ( $postStr );
-        model('cache')->replace('wcpay_1',$a->result_code.'');
+        //model('cache')->replace('wcpay_1',$a->result_code.'');
         if($a->result_code.'' == 'SUCCESS'){
             $h = 'appid='.$a->appid;
             $h .= '&bank_type='.$a->bank_type;
@@ -27,7 +27,7 @@ class pay extends base\e{
             $h .= '&trade_type='.$a->trade_type;
             $h .= '&transaction_id='.$a->transaction_id;
             $h .= '&key=6839885DC11C1D03E85357763CD6ABD9';
-            model('cache')->replace('wcpay_2',$h);
+            //model('cache')->replace('wcpay_2',$h);
             if($a->sign.'' === strtoupper ( md5 ( $h ) )){
 
                 $log = model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->find();
@@ -97,12 +97,52 @@ class pay extends base\e{
 
         //file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
         $out_trade_no = $_POST ['out_trade_no'];
-        if(post('trade_status')=='TRADE_SUCCESS')$this->_pay_c($out_trade_no.'');
-        // require "/alipay/alipay.config.php";
-        // require "/alipay/lib/alipay_notify.class.php";
-        // $alipayNotify = new \AlipayNotify ( $alipay_config );
-        // $verify_result = $alipayNotify->verifyNotify ();
-        //file_put_contents ('ALIPAY_SERVER2.txt' ,json_encode($verify_result) );
+        if(post('trade_status')!='TRADE_SUCCESS')return;
+        
+        $log = model('pay_log')->where(array('out_trade_no'=>$out_trade_no.''))->find();
+
+        if(!$log){
+            model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-2))->save();
+            echo "FAIL";die();
+        }
+        if($log['success']!=0){
+            die();
+        }
+        model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
+        if($log['type']=='inquiry')
+            model('inquiry_paid')->data(array(
+                'uid'=>$log['uid'],
+                'ctime'=>TIME_NOW,
+                'id'=>$log['gid']
+            ))->add(true);
+        elseif($log['type']=='expert')
+            model('expert_paid')->data(array(
+                'uid'=>$log['uid'],
+                'ctime'=>TIME_NOW,
+                'id'=>$log['gid']
+            ))->add(true);
+        elseif($log['type']=='paper')
+            model('paper_paid')->data(array(
+                'uid'=>$log['uid'],
+                'ctime'=>TIME_NOW,
+                'pid'=>$log['gid']
+            ))->add(true);
+        elseif($log['type']=='vip'){
+            $time = $log['gid'];
+            $userInfo = model('user')->find($log['uid']);
+            if($time == 1)$add = 3600*24*30;
+            elseif($time == 2)$add = 3600*24*91;
+            else $add = 3600*24*365;
+            $data['vip_type'] = $time;
+            if($userInfo['vip']>TIME_NOW)$data['vip'] += $add;
+            else $data['vip'] = TIME_NOW + $add;
+            model('user')->data($data)->save($log['uid']);
+        }else{
+            return;
+    
+        }
+            
+
         echo "SUCCESS";die();
 
 
@@ -125,7 +165,7 @@ class pay extends base\e{
     function alipay(){
 
 
-        $data = $this->_alipay('expert',5000,1);
+        $data = $this->_alipay('expert',0.01,1);
 
         $this->success($data);
 
