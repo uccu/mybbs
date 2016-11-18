@@ -243,6 +243,19 @@ class inquiry extends base\e{
 
     }
 
+    function expert_answer($uid = 0){
+        $this->_check_login();
+
+        $where['uid'] = post('uid',$uid,'%d');
+        $where['id'] = $this->uid;
+        $where['ctime'] = array('logic',TIME_NOW-24*3600,'>');
+
+        model('expert_paid')->where($where)->data(array('answer'=>1))->save();
+
+        $this->success();
+
+    }
+
 
     function pay($id=0){
         $this->_check_login();
