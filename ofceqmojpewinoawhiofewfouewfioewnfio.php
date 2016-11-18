@@ -18,7 +18,7 @@ $_GET['control']='inquiry';
 
 require('source/Library/class/core.php');
 
-control('inquiry')->_auto();
+control('app:inquiry')->_auto();
    
    
    
