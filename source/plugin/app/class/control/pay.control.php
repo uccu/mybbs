@@ -412,7 +412,7 @@ class pay extends base\e{
         if($result->result_code.'' == 'FAIL'){
             $data['error'] = $result->err_code.$result->err_code_des.'';
             model('pay_log')->data($data)->add();
-            $this->errorCode(503);
+            $this->errorCode(504);
         }
 
         $data['success'] = 1;
