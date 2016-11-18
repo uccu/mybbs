@@ -41,6 +41,7 @@ class pay extends base\e{
                 }
 
                 model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
+                
                 if($log['type']=='inquiry'){
 
                     model('inquiry_paid')->data(array(
@@ -102,13 +103,13 @@ class pay extends base\e{
         $log = model('pay_log')->where(array('out_trade_no'=>$out_trade_no.''))->find();
 
         if(!$log){
-            model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>-2))->save();
+            model('pay_log')->where(array('out_trade_no'=>$out_trade_no.''))->data(array('success'=>-2))->save();
             echo "FAIL";die();
         }
         if($log['success']!=0){
             die();
         }
-        model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
+        model('pay_log')->where(array('out_trade_no'=>$out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
         if($log['type']=='inquiry')
             model('inquiry_paid')->data(array(
                 'uid'=>$log['uid'],
