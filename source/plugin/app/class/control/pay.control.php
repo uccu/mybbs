@@ -199,8 +199,8 @@ class pay extends base\e{
 
         $info .= "&sign_type=\"RSA\"";
         $p['sign_type'] = "RSA";
-        $data2['string'] = $info;
-        $data2['array'] = $p;
+        $data2['s'] = $info;
+        $data2['a'] = $p;
 
         $data['uid'] = $uid;
         $data['ctime'] = TIME_NOW;
