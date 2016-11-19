@@ -147,7 +147,7 @@ class user extends base\e{
         $data['qust'] = $this->userInfo['qust'];
         $pay = model('expert_paid')->where(array('uid'=>$this->uid,'id'=>$uid))->order(array('ctime'=>'DESC'))->find();
 
-        $data['paid'] = $pay && $pay['ctime']>TIME_NOW-24*3600 ? '1' : '0';
+        $data['paid'] = $pay && $pay['ctime']>TIME_NOW-60 ? '1' : '0';
 
         // $o = $this->_getCloudToken($uid);
 
