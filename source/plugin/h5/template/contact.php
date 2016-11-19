@@ -30,7 +30,7 @@ p{color: #999;
         <div class="col-xs-3 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 200px;border-radius:22px">
+        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 180px;border-radius:22px">
             <font style="color:orange;font-size:16px">400-666-666</font> （免费）
         </div>
     </div>
@@ -38,7 +38,7 @@ p{color: #999;
         <div class="col-xs-3 tr">
             <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 180px;color: #999;border-radius:22px">
+        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 160px;color: #999;border-radius:22px">
             yunweiws@126.com
         </div>
     </div>
