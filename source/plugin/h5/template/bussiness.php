@@ -36,15 +36,15 @@ p{color: #999;
 
 <div class="container" style="margin-top: 40px;">
     <h4>合作伙伴<span style="font-weight: normal;font-size: 15px;color: #a1a1a1;">（排名不分先后）</span></h4>
-    <div class="row">
+    <div class="row container">
 
-            <img src="/pic/h5/bussiness/1@2x.png" class="ilb" style="margin:5px;max-width:22%">
+            <img src="/pic/h5/bussiness/1@2x.png" class="ilb" style="margin:5px;max-width:20%">
 
-            <img src="/pic/h5/bussiness/2@2x.png" class="ilb" style="margin:5px;max-width:22%">
+            <img src="/pic/h5/bussiness/2@2x.png" class="ilb" style="margin:5px;max-width:20%">
 
-            <img src="/pic/h5/bussiness/3@2x.png" class="ilb" style="margin:5px;max-width:22%">
+            <img src="/pic/h5/bussiness/3@2x.png" class="ilb" style="margin:5px;max-width:20%">
 
-            <img src="/pic/h5/bussiness/4@2x.png" class="ilb" style="margin:5px;max-width:22%">
+            <img src="/pic/h5/bussiness/4@2x.png" class="ilb" style="margin:5px;max-width:20%">
 
     </div>
 </div>
