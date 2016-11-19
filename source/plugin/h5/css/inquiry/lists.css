@@ -1,3 +1,5 @@
+input{border:none}
+input:focus{border:none}
 .search{
     border:20px #f5f5f5 solid;
     color:#a1a1a1
