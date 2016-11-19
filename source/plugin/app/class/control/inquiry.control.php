@@ -331,6 +331,16 @@ class inquiry extends base\e{
         $where2['answer'] = 0;
         $where2['ctime'] = array('logic',TIME_NOW-24*3600,'<');
 
+        $list = model('expert_paid')->where($where2)->select();
+
+        foreach($list as $v){
+
+            $this->_pusher('很抱歉！您咨询的专家24小时内未回复您的问题，我们已经退款到您的积分账户。',$v['uid']);
+            
+        }
+
+        ;
+
         model('expert_paid')->where($where2)->data(array('answer'=>1))->save();
 
 
