@@ -3,6 +3,16 @@
 h4{font-size:20px;margin-bottom:20px}
 p{color: #999;
     line-height: 24px;}
+
+.col-xs-10.jt::before{
+            content: ' ';
+    position: absolute;
+    background: url(/pic/h5/jt.png);
+    bottom: -5px;
+    left: -5px;
+    width: 30px;
+    height: 30px;
+    }
 </style>
 <div class="container" style="margin-top: 20px;">
     <h4>关于运维卫士</h4>
@@ -20,7 +30,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 200px;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 200px;border-radius:22px">
             <font style="color:orange;font-size:16px">400-666-666</font> （免费）
         </div>
     </div>
@@ -28,7 +38,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 180px;color: #999;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 180px;color: #999;border-radius:22px">
             yunweiws@126.com
         </div>
     </div>
@@ -45,7 +55,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/addr@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 250px;font-size: 13px;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 250px;font-size: 13px;border-radius:22px">
             上海市长宁区延安西路777号601室
         </div>
     </div>
