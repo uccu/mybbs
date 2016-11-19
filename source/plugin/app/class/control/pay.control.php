@@ -152,13 +152,13 @@ class pay extends base\e{
 
 
     function __wcpay($type,$money,$gid,$return = false){
-        $data['prepay_id'] = $this->_wcpay($type,1,$gid);
+        $data['prepay_id'] = $this->_wcpay($type,$money,$gid);
         if($return)return $data;
         $this->success($data);
     }
 
     function __alipay($type,$money,$gid,$return = false){
-        $data = $this->_alipay($type,0.01,$gid);
+        $data = $this->_alipay($type,$money,$gid);
         if($return)return $data;
         $this->success($data);
     }
