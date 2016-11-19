@@ -1,9 +1,9 @@
 <!--{subtemplate header}-->
 <div class="container">
-<h4>{name}</h4>
+<h4 style="padding-top:15px">{name}</h4>
 <p style="color:#a1a1a1">发表于：{date}</p>
 </div>
-<hr style="color:#a1a1a1">
+<hr style="color:#a1a1a1;margin-top:0">
 <div class="container">
 {content}
 </div>
