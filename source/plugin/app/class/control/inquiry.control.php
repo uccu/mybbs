@@ -331,7 +331,7 @@ class inquiry extends base\e{
         $where2['answer'] = 0;
         $where2['ctime'] = array('logic',TIME_NOW-300,'<');
 
-        $list = model('expert_paid')->where($where2)->select();
+        $list = model('expert_paid')->where($where2)->limit(999)->select();
 
         foreach($list as $v){
 
