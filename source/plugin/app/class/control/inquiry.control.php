@@ -322,21 +322,21 @@ class inquiry extends base\e{
     function _auto(){
 
         $where['eanswer'] = 0;
-        $where['ectime'] = array('logic',TIME_NOW-24*3600,'<');
+        $where['ectime'] = array('logic',TIME_NOW-300,'<');
 
         model('user')->add_table(array(
             'expert_paid'=>array('_on'=>'uid','answer'=>'eanswer','ctime'=>'ectime')
         ))->where($where)->data(array('score'=>array('add',100)))->save();
 
         $where2['answer'] = 0;
-        $where2['ctime'] = array('logic',TIME_NOW-24*3600,'<');
+        $where2['ctime'] = array('logic',TIME_NOW-300,'<');
 
         $list = model('expert_paid')->where($where2)->select();
 
         foreach($list as $v){
 
             $this->_pusher('很抱歉！您咨询的专家24小时内未回复您的问题，我们已经退款到您的积分账户。',$v['uid']);
-            
+
         }
 
         ;
