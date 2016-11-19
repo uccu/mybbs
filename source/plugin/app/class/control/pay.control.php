@@ -386,6 +386,12 @@ class pay extends base\e{
         curl_setopt ( $ch, CURLOPT_POST, true );
         curl_setopt ( $ch, CURLOPT_POSTFIELDS, $xml );
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        if(!file_exists(PLAY_ROOT.'wcpay/apiclient_cert.pem') || !file_exists(PLAY_ROOT.'wcpay/apiclient_key.pem')){
+            $this->errorCode(505);
+        }
+        curl_setopt($ch,CURLOPT_SSLCERT,PLAY_ROOT.'wcpay/apiclient_cert.pem');
+        curl_setopt($ch,CURLOPT_SSLKEY,PLAY_ROOT.'wcpay/apiclient_key.pem');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, 'merchantid=1406390402');
         // grab URL, and print
         $da = curl_exec ( $ch );
 
