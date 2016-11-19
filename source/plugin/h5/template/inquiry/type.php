@@ -11,12 +11,12 @@
 </div>
 
 <div class="list container-fluid">
-    <!--{loop $list $v}-->
-    <!--{eval foreach($v as $k=>$v2)$$k=$v2}-->
+    <!--{loop $list $k1=>$v}-->
+    <!--{eval $e=$k+1;foreach($v as $k=>$v2){$$k=$v2;}}-->
     <a href="/h5/inquiry/type/{id}">
         <div class="row">
             <div class="col-xs-2 avatar">
-                <img src="{img}">
+                <img src="/pic/h5/inquiry/t{e}.png">
             </div>
             <div class="col-xs-7">
                 <div class="name">
