@@ -55,7 +55,7 @@ p{color: #999;
         <div class="col-xs-3 tr">
             <img src="/pic/h5/contact/addr@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 250px;font-size: 13px;border-radius:22px">
+        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 230px;font-size: 13px;border-radius:22px">
             上海市长宁区延安西路777号601室
         </div>
     </div>
