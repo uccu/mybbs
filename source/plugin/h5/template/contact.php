@@ -20,7 +20,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 0 10px 30px;width: 200px;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 200px;">
             <font style="color:orange;font-size:16px">400-666-666</font> （免费）
         </div>
     </div>
@@ -28,7 +28,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/email@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 0 10px 30px;width: 180px;color: #999;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 180px;color: #999;">
             yunweiws@126.com
         </div>
     </div>
@@ -45,7 +45,7 @@ p{color: #999;
         <div class="col-xs-2 tr">
             <img src="/pic/h5/contact/addr@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-10" style="background:url(/pic/h5/contact/b.png);background-size: 100% 100%;padding: 10px 0 10px 30px;width: 250px;font-size: 13px;">
+        <div class="col-xs-10 jt" style="background: #f3f3f3;padding: 10px 0 10px 30px;width: 250px;font-size: 13px;">
             上海市长宁区延安西路777号601室
         </div>
     </div>
