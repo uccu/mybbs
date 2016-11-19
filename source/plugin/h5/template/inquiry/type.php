@@ -12,7 +12,7 @@
 
 <div class="list container-fluid">
     <!--{loop $list $k1=>$v}-->
-    <!--{eval $e=$k+1;foreach($v as $k=>$v2){$$k=$v2;}}-->
+    <!--{eval $e=$k1+1;foreach($v as $k=>$v2){$$k=$v2;}}-->
     <a href="/h5/inquiry/type/{id}">
         <div class="row">
             <div class="col-xs-2 avatar">
