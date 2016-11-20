@@ -159,6 +159,7 @@ class my extends base\e{
         if(!$content)$this->errorCode(416);
         $data['uid'] = $this->uid;
         $data['content'] = $content;
+        $data['ctime'] = TIME_NOW;
         model('feedback')->data($data)->add();
         $this->success();
     }

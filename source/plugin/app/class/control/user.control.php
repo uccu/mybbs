@@ -142,7 +142,7 @@ class user extends base\e{
         $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);
         if(!$data['info'])$this->errorCode(440);
 
-        if($this->userInfo['qust']<1)model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
+        if($this->userInfo['qust']>0)model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
 
         $data['qust'] = $this->userInfo['qust'];
         $pay = model('expert_paid')->where(array('uid'=>$this->uid,'id'=>$uid))->order(array('ctime'=>'DESC'))->find();
