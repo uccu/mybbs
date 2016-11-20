@@ -207,6 +207,9 @@ class my extends base\basic{
 
     }
     function cash(){
+
+        $this->errorCode(448);
+
         $_POST['uid'] = $this->uid;
         if(model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find())$this->errorCode(428);
         $_POST['money'] = post('money',0,'%f');
