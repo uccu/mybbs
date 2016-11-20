@@ -233,7 +233,7 @@ class my extends base\e{
         if($this->userInfo['score']<$money*100)$this->errorCode(442);
 
 
-        control('pay')->_mmpay($money);
+        control('pay')->_mmpay($money*100);
 
 
         $data['uid'] = $this->uid;
