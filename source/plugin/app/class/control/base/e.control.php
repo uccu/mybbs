@@ -126,7 +126,7 @@ class e extends \control\ajax{
         if($score<0 && abs($score)>$userInfo['score'])return false;
 
         if($limit){
-            $where['user'] = $uid;
+            $where['uid'] = $uid;
             $where['content'] = $content;
 
             if($limit==-1){
