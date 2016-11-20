@@ -117,12 +117,13 @@ class e extends \control\ajax{
         if(!$uid)$uid = $this->uid;
         if(!$score || !$content || $uid<1)return false;
         
+        $userInfo = model('user')->find($uid);
         $data['score'] = $score;
         $data['content'] = $content;
         $data['ctime'] = TIME_NOW;
         $data['uid'] = $uid;
         $data2['score'] = array('add',$score);
-        if($score<0 && abs($score)>$this->userInfo['score'])return false;
+        if($score<0 && abs($score)>$userInfo['score'])return false;
 
         if($limit){
             $where['user'] = $uid;
