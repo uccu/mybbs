@@ -115,7 +115,7 @@ class e extends \control\ajax{
 
     function _handle_score($score=0,$content='',$limit=0,$uid = 0){
         if(!$uid)$uid = $this->uid;
-        if(!$score || !$content || $this->uid<1)return false;
+        if(!$score || !$content || $uid<1)return false;
         
         $data['score'] = $score;
         $data['content'] = $content;
