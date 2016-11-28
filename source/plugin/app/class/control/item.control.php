@@ -683,6 +683,11 @@ class item extends base\basic{
 
         $CONFIG_SHARE_FIRST = array();
         $CONFIG_REFEREE_FIRST = array();
+
+        model('goods')->add_table(array(
+            'manager_user'=>array('_join'=>'LEFT JOIN','_on'=>'mid','groupid','phone','nusername')
+        ));
+
         foreach($orders as $o){
 
 
@@ -691,6 +696,12 @@ class item extends base\basic{
 
 
             $good = model('goods')->find($o['tid']);
+
+            if($good['groupid']==2){
+
+                $this->_push_message($good['phone'],'尊敬的'.$good['nusername'].'，您有新的订单，请及时处理！');
+
+            }
             
             model('goods')->data(array(
                 'stock'=>array('add',-1*($good['stock']-$o['num']>=0?$o['num']:$good['stock'])),

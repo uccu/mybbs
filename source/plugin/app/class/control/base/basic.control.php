@@ -131,5 +131,12 @@ class basic extends \control\ajax{
             ->addIosNotification(null,'default','+1')
             ->send();
     }
+
+    function _push_message($phone,$s){
+
+        $z = file_get_contents ("http://sapi.253.com/msg/HttpBatchSendSM?account=VIP-lssm-1&pswd=Key-147852&mobile={$phone}&needstatus=false&msg={$s}");
+        return $z;
+
+    }
 }
 ?>
