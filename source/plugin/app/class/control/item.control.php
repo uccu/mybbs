@@ -127,6 +127,8 @@ class item extends base\basic{
         $this->_check_login();
         $data['uid'] = $this->uid;
 		$cartModel = model('cart');
+        $cartModel->where(array('ctime'=>array('logic',TIME_NOW-3600*3,'<')))->remove();
+        
         $q['list'] = $cartModel->add_table(
             array(
                 'collect'=>array(
