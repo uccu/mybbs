@@ -611,7 +611,7 @@ class item extends base\basic{
         if(!$data['money'])$this->_pay_c($data['pay_id'],$id);
         return $data;
     }
-    function _pay_c($pay_id,$id,$pay_type=3){
+    function _pay_c($pay_id,$id=0,$pay_type=3){
         file_put_contents ( 't3.txt', $pay_id );
         //获取支付单详情
         $pay_id = post('pay_id',$pay_id);
@@ -619,6 +619,7 @@ class item extends base\basic{
         else $where['pay_id'] = $pay_id;
         $p = model('pay_log')->where($where)->find();
         if(!$p)$this->errorCode(426);
+        $pay_id = $p['pay_id'];
 
         //删除其他支付单
         // $where = array();
@@ -776,8 +777,8 @@ class item extends base\basic{
         }
 
 
-        //删除支付单
-        //model('pay_log')->where(array('pay_id'=>$pay_id))->remove();
+        //修改支付单状态
+        model('pay_log')->where(array('pay_id'=>$pay_id))->data(array('finish'=>TIME_NOW,'pay_type'=>$pay_type))->save();
         
     }
     function _pay_score_c($p){
