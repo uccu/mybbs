@@ -128,7 +128,7 @@ class in extends base\e{
     function _add_user($info){
         $info['ctime'] = time();
         if(!$info['usercode'])$info['usercode']='';
-        $info['nickname'] = $info['usercode'];
+        $info['nickname'] = post('nickname',$info['usercode']);
         $info['terminal'] = post('terminal','');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
