@@ -53,7 +53,7 @@ class basic extends \control\ajax{
         if($z)return $z['aid'];
         $where = array();
         $where['etime'] = array('logic',$now,'<');
-        $z = model('activity')->where($where)->find();
+        $z = model('activity')->where($where)->order(array('stime'=>'DESC'))->find();
        //if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
@@ -64,7 +64,7 @@ class basic extends \control\ajax{
         if($z)return $z['aid'];
         $where = array();
         $where['stime'] = array('logic',$now,'>');
-        $z = model('activity')->where($where)->find();
+        $z = model('activity')->where($where)->order(array('stime'))->find();
        //if(!$z)$this->errorCode(419);
         return $z ? $z['aid'] : 0;
     }
