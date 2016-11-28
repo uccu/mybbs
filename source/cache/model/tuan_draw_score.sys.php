@@ -1,0 +1,1 @@
+<?php $tableMap=array("draw_score"=>array("did","name","score","thumb","num")) ?>

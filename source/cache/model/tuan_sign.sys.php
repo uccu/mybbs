@@ -1,0 +1,1 @@
+<?php $tableMap=array("sign"=>array("uid","time","times")) ?>

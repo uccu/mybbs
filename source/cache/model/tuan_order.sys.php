@@ -1,0 +1,1 @@
+<?php $tableMap=array("order"=>array("oid","aid","uid","tid","ctime","status","money","courier","company","balance","score","coin","bean","num","referee","first","pay_time","share_first","addr_id","referee_first","send_time","get_time","back_time","pay_type")) ?>

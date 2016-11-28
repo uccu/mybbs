@@ -126,7 +126,8 @@ class item extends base\basic{
     function cart(){
         $this->_check_login();
         $data['uid'] = $this->uid;
-        $q['list'] = model('cart')->add_table(
+		$cartModel = model('cart');
+        $q['list'] = $cartModel->add_table(
             array(
                 'collect'=>array(
                     '_on'=>'tuan_cart.uid=c.uid AND tuan_cart.tid=c.tid','id'=>'collected','_mapping'=>'c','_join'=>'LEFT JOIN'
@@ -543,7 +544,9 @@ class item extends base\basic{
         if(!$z)$this->errorCode(425);
         if($z['status']!=3)$this->errorCode(439);
         $score = model('cache')->get('get_item');
+		//给用户添加积分
         model('user')->data(array('score'=>array('add',$score)))->save($z['uid']);
+		//添加积分记录
         model('score_log')->data(array(
             'uid'=>$z['uid'],
             'score'=>$score,

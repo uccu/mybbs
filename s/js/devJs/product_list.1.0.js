@@ -1,6 +1,17 @@
 /**
  * Created by ZhuXueSong on 16/9/23.
  */
+
+var param = get_param();
+if(param.type == undefined || param.type == null || param.type == ""){
+    param.type = sessionStorage.getItem("LG_type") ? sessionStorage.getItem("LG_type") : 0;
+}
+sessionStorage.setItem("LG_type", param.type);
+if(param.uid == undefined || param.uid == null || param.uid == ""){
+    param.uid = sessionStorage.getItem("LG_parent_id") ? sessionStorage.getItem("LG_parent_id") : 1;
+}
+sessionStorage.setItem("LG_parent_id", param.uid);
+
 var type_id = 0;
 var cart_num = 0;
 $(document).ready(function () {
@@ -12,6 +23,10 @@ $(document).ready(function () {
  * 设置购物车商品数量
  */
 function setCartBtnNumber() {
+    if(!checkLogin(true)){
+        $("#index_cart_btn").addClass("hidden");
+        return false;
+    }
     requestData("app/item/cart_count", {user_token:user_token}, function(json){
         if(json.code == 200){
             cart_num = parseInt(json.data.count);
@@ -62,6 +77,7 @@ function getProductList(typeId, page) {
     requestData("app/item/lists", {lid:typeId, page:page}, function(json){
         if(json.code != 200){
             show_alert(json.desc);
+            $(".product-list").html("");
             return false;
         }
         var html = getProductListHtml(json.data.list);
@@ -119,8 +135,11 @@ function listTopBindFunction() {
  * @param product_id
  */
 function addCartFunction(product_id) {
+    if(!checkLogin(false)){
+        return false;
+    }
     var parent_id = sessionStorage.getItem("LG_parent_id");
-    if(parent_id == "nulltype"){
+    if(parent_id == "nulltype" || parent_id == null){
         parent_id = 0;
     }
     requestData("app/item/add_cart", {tid:product_id, user_token: user_token, num:1, referee:parent_id}, function(data){

@@ -1,0 +1,1 @@
+<?php $tableMap=array("coin_log"=>array("id","uid","coin","info","ctime")) ?>

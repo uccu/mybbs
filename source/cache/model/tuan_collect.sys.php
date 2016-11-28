@@ -1,0 +1,1 @@
+<?php $tableMap=array("collect"=>array("id","uid","tid","ctime")) ?>

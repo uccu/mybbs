@@ -1,0 +1,1 @@
+<?php $tableMap=array("rank_bean"=>array("uid","aid","bean")) ?>

@@ -17,26 +17,102 @@
     <script type="text/javascript" src="js/user.js"></script>
 </head>
 <body>
-<header>
-    <div class="head-left"><i class="icon-head-back" onclick="history.back();"></i></div>
-    <div class="head-center">购物车</div>
-    <div class="head-right"></div>
-</header>
-<div class="head"></div>
-<div class="cart_product_list">
+<div class="order-body">
+	<header>
+		<div class="head-left"><i class="icon-head-back" onclick="history.back();"></i></div>
+		<div class="head-center">购物车</div>
+		<div class="head-right"></div>
+	</header>
+	<div class="head"></div>
+	<div class="cart_product_list">
 
+	</div>
+	<div style="height: 0.8rem;"></div>
+	<footer>
+		<div class="cart_foot_left">
+			<label><i class="checkBox checkAll" id="checkBox"></i> 全选</label>
+		</div>
+		<div class="cart_foot_center">
+			<h1>合计：¥ 0.00</h1>
+			<h2>0乐豆</h2>
+		</div>
+		<div class="cart_foot_right" onclick="confirmOrder();">去结算(0)</div>
+	</footer>
 </div>
-<div style="height: 0.8rem;"></div>
-<footer>
-    <div class="cart_foot_left">
-        <label><i class="checkBox checkAll" id="checkBox"></i> 全选</label>
+
+
+<!-- 地址列表开始 -->
+<div class="address-list-body hidden">
+    <header>
+        <div class="head-left"><i class="icon-head-back" onclick="showConfirmOrder();"></i></div>
+        <div class="head-center">地址管理</div>
+        <div class="head-right"></div>
+    </header>
+    <div class="head"></div>
+    <div class="address-list-box"></div>
+    <!--<div class="one-address-content">
+        <h1><i>默认</i>朱雪松&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13855347423<em onclick="showAddressEdit();">编辑</em></h1>
+        <h2>上海 上海市 青浦区 华徐公路888号中国梦谷1号楼2楼</h2>
+    </div>-->
+    <div style="height: 1.5rem;"></div>
+    <div class="address-btn-box">
+        <span class="address-btn btn" onclick="showAddressAdd();">新 增</span>
     </div>
-    <div class="cart_foot_center">
-        <h1>合计：¥ 0.00</h1>
-        <h2>0乐豆</h2>
+</div>
+<!-- 地址列表开始 -->
+
+<!-- 编辑地址开始 -->
+<div class="address-edit-body hidden">
+    <header>
+        <div class="head-left"><i class="icon-head-back" onclick="showAddressList();"></i></div>
+        <div class="head-center">编辑收货地址</div>
+        <div class="head-right" onclick="deleteAddress(this);" enctype="0">删除</div>
+    </header>
+    <div class="head"></div>
+    <div class="address-common">姓名：<input type="text" class="name"/></div>
+    <div class="address-common">电话：<input type="number" class="mobile"/></div>
+    <div class="address-common">地区：<i></i><input type="text" readonly="readonly" class="region" lid="" onclick="getAreaNo1('.address-edit-body');"/></div>
+    <div class="address-common">详细地址：<input type="text" class="addressInfo"/></div>
+    <div class="address-common">设为默认<b onclick="setDefault(this);"></b></div>
+    <div style="height: 1.5rem;"></div>
+    <div class="address-btn-box">
+        <span class="address-btn btn" onclick="saveAddressConfirm(this);">确定</span>
     </div>
-    <div class="cart_foot_right" onclick="confirmOrder();">去结算(0)</div>
-</footer>
+</div>
+<!-- 编辑地址结束 -->
+
+<!-- 新增地址开始 -->
+<div class="address-add-body hidden">
+    <header>
+        <div class="head-left"><i class="icon-head-back" onclick="showAddressList();"></i></div>
+        <div class="head-center">新增收货地址</div>
+        <div class="head-right"></div>
+    </header>
+    <div class="head"></div>
+    <div class="address-common">姓名：<input type="text" value="" class="name"/></div>
+    <div class="address-common">电话：<input type="number" value="" class="mobile"/></div>
+    <div class="address-common">地区：<i></i><input type="text" readonly="readonly" class="region" lid="" value="" onclick="getAreaNo1('.address-add-body');"/></div>
+    <div class="address-common">详细地址：<input type="text" value="" class="addressInfo"/></div>
+    <div class="address-common">设为默认<b onclick="setDefault(this);"></b></div>
+    <div style="height: 1.5rem;"></div>
+    <div class="address-btn-box">
+        <span class="address-btn btn" onclick="addAddressConfirm();">确定</span>
+    </div>
+</div>
+<!-- 新增地址结束 -->
+
+<div class="dialog-address-area hidden">
+    <div class="xx_area">
+        <select name="areaNo1" onchange="getAreaNo2(this);" class="areaNo1">
+            <option value="">==请选择==</option>
+        </select>
+    </div>
+    <div class="address-btn-box" style="background: #FFFFFF;">
+        <span class="address-btn btn" onclick="$('.dialog-address-area').addClass('hidden');">取消</span>
+    </div>
+</div>
+
+
 <script type="text/javascript" src="js/devJs/cart.1.0.js"></script>
 </body>
 </html>

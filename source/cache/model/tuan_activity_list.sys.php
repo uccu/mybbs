@@ -1,0 +1,1 @@
+<?php $tableMap=array("activity_list"=>array("id","aid","tid")) ?>

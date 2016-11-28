@@ -66,13 +66,16 @@ header{width: 6.4rem; height: 0.8rem; position: fixed; top:0; left: 0; backgroun
 /*注册*/
 .login-body{width: 6.4rem; background: url(../images/background.png) no-repeat; background-size: 6.44rem 100%; position:relative;}
 #reg_mobile{width: 2.6rem; height: 0.6rem; border-radius: 0.06rem; position: absolute; bottom:3.2rem; left: 1.2rem; font-size: 0.24rem; padding-left:0.1rem; padding-right:1.3rem;}
-.get-mobile-code-btn{width: 1.2rem; height: 0.6rem; line-height: 0.6rem; background: rgb(226, 59, 65); position: fixed; bottom:3.2rem; right: 1.2rem; border-radius: 0.06rem; font-size: 0.18rem;}
-#reg_verify{width: 3.8rem; height: 0.6rem; border-radius: 0.06rem; position: absolute; bottom: 2.2rem; left: 1.2rem; padding: 0 0.1rem;}
-.reg-next-btn{width: 4rem; height: 0.6rem; font-size: 0.24rem; line-height: 0.6rem; background-color: #E23B41; border-radius: 0.06rem; position: absolute; bottom: 1.2rem; left: 1.2rem;}
-.common-input{width: 6rem; padding: 0.1rem 0.2rem; height: 0.6rem; line-height: 0.6rem; background: #FFF; font-size: 0.24rem; margin-top: 0.15rem;}
+.get-mobile-code-btn{width: 1.2rem; height: 0.6rem; line-height: 0.6rem; background: rgb(226, 59, 65); position: absolute; bottom:3.2rem; right: 1.2rem; border-radius: 0.06rem; font-size: 0.18rem;}
+#reg_verify{width: 3.8rem; font-size:0.24rem;  height: 0.6rem; border-radius: 0.06rem; position: absolute; bottom: 2.2rem; left: 1.2rem; padding: 0 0.1rem;}
+.reg-next-btn{width: 4rem; height: 0.6rem; font-size: 0.24rem; line-height: 0.6rem; background-color: #E23B41; border-radius: 0.06rem; position: absolute; bottom: 0.8rem; left: 1.2rem;}
+.common-input{width: 6rem; padding: 0.1rem 0.2rem; height: 0.6rem; position: relative; line-height: 0.6rem; background: #FFF; font-size: 0.24rem; margin-top: 0.15rem;}
 .common-input>div{float: left; width: 1.2rem; color:#666;}
 .common-input>input{width: 4.8rem; float: left; height: 0.6rem; color:#666;}
 .prompt-register{padding-left: 0.2rem; line-height: 0.5rem; font-size: 0.19rem; color:#898989;}
+.common-input>.btn{width: 1.5rem; height: 0.56rem; float: right; line-height:0.58rem; border:0.02rem solid #E23B41; border-radius: 0.4rem; color:#E23B41; font-size: 0.22rem;}
+#reg_now{display: block; width: 3.8rem; position: absolute; font-size:0.22rem; left:1.2rem; bottom:1.7rem; color:#666666;}
+#reg_now a{color:#E23B41;}
 
 /*产品列表*/
 .list-top{width: 6.4rem; height: 0.5rem; padding: 0.1rem 0; position: fixed; left:0; top:0.8rem; background: #FFF; z-index: 9}
@@ -121,7 +124,7 @@ header{width: 6.4rem; height: 0.8rem; position: fixed; top:0; left: 0; backgroun
 .product-sale-info h1{font-size: 0.18rem; line-height: 0.4rem; color:#E23B41; padding: 0 0.15rem;}
 .product-sale-info h1 em{color:#BCBCBC; float: right;}
 .product-assess{background: #FFF; padding: 0.15rem 0.15rem; color:#454545; font-size: 0.2rem; line-height: 0.3rem;/* text-indent: 0.4rem;*/ margin-top: 0.1rem;}
-.product-assess pre{margin: 0;}
+.product-assess pre{margin: 0; white-space: pre-wrap; word-wrap: break-word;}
 .footer-click{text-align: center; line-height: 0.6rem; font-size: 0.22rem; color:#676767; background: #FFF; margin-top: 0.1rem;}
 footer{width: 6.4rem; height: 0.8rem;position: fixed; bottom:0; background: #FFF;}
 footer .collect{width: 26%; height: 0.8rem; float: left; z-index: 9;}
@@ -136,10 +139,10 @@ footer .collect i.collected{background-image: url(../images/collect.png);}
 .service-assess{min-width:5.8rem; padding: 0.1rem 0.1rem; text-indent: 0.4rem; line-height: 0.3rem; margin-top: 0.2rem; background: #FFF; display: none; font-size: 0.2rem; color:#898989;}
 
 /*下载页*/
-.download-top{width: 6.4rem; height: 5rem; background: url(../images/download1.png) no-repeat; background-size: 4.5rem; background-position: 50% 80%;}
+.download-top{width: 5.8rem; height: 7.2rem; background: url(../images/d_one@3x.png) no-repeat; background-size: 5.8rem; background-position: 50% 80%; float:right;}
 .download-text{line-height: 0.4rem; font-size: 0.3rem; text-align: center; color:#010101; margin-top: 0.6rem;}
-.download-ios{width: 100%; height: 1.2rem; background: url(../images/download2.png) no-repeat; background-position: 50% 0; background-size: 3rem; margin-top: 1.2rem;}
-.download-android{width: 100%; height: 1rem; background: url(../images/download3.png) no-repeat; background-position: 50% 0; background-size: 3rem;}
+.download-ios{width: 100%; height: 0.8rem; background: url(../images/ios@2x.png) no-repeat; background-position: 50% 0; background-size: 3rem; margin-top: 0.6rem;}
+.download-android{width: 100%; height: 0.7rem; background: url(../images/android@3x.png) no-repeat; background-position: 50% 0; background-size: 3rem;}
 .download-ios>span,.download-android>span{width: 2.84rem; height: 0.62rem; margin: 0 auto;}
 
 /*购物车*/
@@ -201,7 +204,7 @@ footer .collect i.collected{background-image: url(../images/collect.png);}
 .payment-aliPay{width: 0.8rem; height: 0.8rem; float: left; margin-right: 0.1rem; background: url(../images/pay_alipay@3x.png) no-repeat; background-size: 0.78rem; background-position: 50%;}
 .payment-common-list i{position: absolute; right: 0.15rem; top:0.33rem;}
 .payment-weiPay{width: 0.8rem; height: 0.8rem; float: left; margin-right: 0.1rem; background: url(../images/pay_weixin@3x.png) no-repeat; background-size: 0.78rem; background-position: 50%;}
-
+.payment-yuePay{width: 0.8rem; height: 0.8rem; float: left; margin-right: 0.1rem; background: url(../images/pay_yue@3x.png) no-repeat; background-size: 0.78rem; background-position: 50%;}
 
 .dialog-address-area{background: #FFF; position: fixed; width: 6rem; height: 100%; left:0; top:0; z-index: 102; padding: 0 0.2rem;}
 .dialog-address-area select{display: block; width: 100%; border: 0.02rem solid #DEDEDE; margin-top: 0.2rem; height: 0.7rem; background-color: #FFF; border-radius: 0.1rem;}

@@ -22,12 +22,13 @@
 </header>
 <div class="head"></div>
 <div class="login-body">
-    <input type="number" maxlength="11" id="reg_mobile" placeholder="输入手机号码"/>
-    <span class="btn get-mobile-code-btn" onclick="getVerify(this);">发送验证</span>
-    <input type="number" id="reg_verify" placeholder="输入验证码">
-    <span class="btn reg-next-btn" onclick="regNext();">下 一 步</span>
+    <input type="number" maxlength="11" id="reg_mobile" placeholder="输入手机号码" style="padding-right: 0.1rem; width: 3.8rem;"/>
+    <!--<span class="btn get-mobile-code-btn" onclick="getVerify(this);">发送验证</span>-->
+    <input type="password" id="reg_verify" placeholder="输入登录密码">
+    <span id="reg_now">还没有账号？请您 <a href="javascript:void(0);" onclick="redirect('register_next.html', true);">立即注册</a></span>
+    <span class="btn reg-next-btn" onclick="regNext();">登 录</span>
 </div>
 
-<script type="text/javascript" src="js/devJs/index.1.0.js"></script>
+<script type="text/javascript" src="js/devJs/login.1.0.js"></script>
 </body>
 </html>

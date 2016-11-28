@@ -1,0 +1,1 @@
+<?php $tableMap=array("bussiness_company"=>array("uid","name","ctime","suport","addr","phone","email","type","site","content","company")) ?>

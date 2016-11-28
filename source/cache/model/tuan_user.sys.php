@@ -1,0 +1,1 @@
+<?php $tableMap=array("user"=>array("uid","username","password","phone","ctime","qq","wb","wx","avatar","referee","type","coin","sex","score","pay_password","push","birth","coin_all","terminal","dev")) ?>

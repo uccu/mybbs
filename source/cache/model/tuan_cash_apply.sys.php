@@ -1,0 +1,1 @@
+<?php $tableMap=array("cash_apply"=>array("id","uid","money","ctime","status","name","bankaccount","bankname")) ?>

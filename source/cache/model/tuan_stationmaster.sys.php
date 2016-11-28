@@ -1,0 +1,1 @@
+<?php $tableMap=array("stationmaster"=>array("uid","name","sex","birth","phone","location","profession","type","ctime")) ?>

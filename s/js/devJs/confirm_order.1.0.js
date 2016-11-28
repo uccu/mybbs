@@ -23,7 +23,13 @@ $(document).ready(function(){
     }
 
     getAddress(true);
-
+	requestData("app/item/order_change", {user_token:user_token, addr_id:address_id, oid:oids}, function(data){
+        if(data.code == 200){
+            return true;
+        } else {
+            show_alert(data.desc);
+        }
+    });
 });
 
 /**
@@ -90,10 +96,11 @@ function setDefault(obj) {
 function getForPay() {
     if(address_id == null){
         show_alert("请选择收货地址");
+		showAddressList();
         return false;
     }
     sessionStorage.setItem("LG_create_order", "");
-    redirect('payment.html', true);
+    redirect('payment.html?oids='+oids, true);
 }
 
 /**
@@ -134,8 +141,12 @@ function getAddress(first) {
                 html += '<div class="one-address-content"><s onclick="checkThisAddress('+i+');"></s><h1>'+ v.name +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ v.phone +'<em onclick="showAddressEdit('+ i +');">编辑</em></h1> <h2>'+ v.provinceName +' '+ v.cityName +' '+ v.areaName +' ' + v.addr +'</h2></div>';
             }
         });
+		if (address_id == null && first == true) {
+			$(".order_address .center span").html("收货人：" + v.name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话：" + v.phone + "<br/>" + v.provinceName + " " + v.cityName + " " + v.areaName + " " + v.addr);
+			address_id = v.id;
+		}
         $(".address-list-box").html(html);
-    });
+    }, false);
 }
 
 /**

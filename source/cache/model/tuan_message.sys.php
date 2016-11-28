@@ -1,0 +1,1 @@
+<?php $tableMap=array("message"=>array("mid","content","uid","ctime","read")) ?>

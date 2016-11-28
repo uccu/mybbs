@@ -1,0 +1,1 @@
+<?php $tableMap=array("exchange"=>array("eid","uid","info","ctime","score")) ?>

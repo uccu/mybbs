@@ -24,18 +24,43 @@
     <div class="head-right"></div>
 </header>
 <div class="head"></div>
-<div class="payment-common-list">
+<div class="payment-common-list" id="ali_pay">
     <span class="payment-aliPay"></span>支付宝支付
-    <i class="checkBox" cntype="aliPay"></i>
+    <i class="checkBox" nctype="aliPay"></i>
 </div>
-<div class="payment-common-list">
+<div class="payment-common-list" id="wei_pay">
     <span class="payment-weiPay"></span>微信支付
     <i class="checkBox" nctype="weiXin"></i>
+</div>
+<div class="payment-common-list" id="yue_pay">
+    <span class="payment-yuePay"></span>余额支付
+    <i class="checkBox" nctype="yuePay"></i>
 </div>
 <div style="height: 1.5rem;"></div>
 <div class="address-btn-box">
     <span class="address-btn btn" onclick="payNow();">确 定</span>
 </div>
-<script type="text/javascript" src="js/devJs/payment.1.0.js"></script>
+
+
+<form method="post" action="aliPay.php" enctype="multipart/form-data" id="aliPayForm">
+    <input type="hidden" name="service" id="service" value=""/>
+    <input type="hidden" name="partner" id="partner" value=""/>
+    <input type="hidden" name="method" id="method" value="alipay.wap.create.direct.pay.by.user"/>
+    <input type="hidden" name="format" id="format" value="JSON"/>
+    <input type="hidden" name="return_url" id="return_url" value=""/>
+    <input type="hidden" name="charset" id="charset" value="utf-8"/>
+    <input type="hidden" name="sign_type" id="sign_type" value=""/>
+    <input type="hidden" name="sign" id="sign" value=""/>
+    <input type="hidden" name="notify_url" id="notify_url" value=""/>
+    <input type="hidden" name="body" id="body" value=""/>
+    <input type="hidden" name="subject" id="subject" value=""/>
+    <input type="hidden" name="out_trade_no" id="out_trade_no" value=""/>
+    <input type="hidden" name="timeout_express" id="timeout_express" value=""/>
+    <input type="hidden" name="total_fee" id="total_fee" value=""/>
+    <input type="hidden" name="seller_id" id="seller_id" value=""/>
+    <input type="hidden" name="show_url" id="show_url" value=""/>
+</form>
+
+<script type="text/javascript" src="js/devJs/payment.1.1.js"></script>
 </body>
 </html>

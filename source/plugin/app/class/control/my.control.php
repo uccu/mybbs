@@ -208,7 +208,7 @@ class my extends base\basic{
     }
     function cash(){
 
-        $this->errorCode(448);
+        //$this->errorCode(448);
 
         $_POST['uid'] = $this->uid;
         if(model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find())$this->errorCode(428);
@@ -217,7 +217,7 @@ class my extends base\basic{
         model('user')->data(array('coin'=>array('add',-1*$_POST['money'])))->save($this->uid);
         $this->_pusher('余额发生变动：申请提现',$this->uid);
         model('coin_log')->data(array('uid'=>$this->uid,'coin'=>-1*$_POST['money'],'info'=>'申请提现','ctime'=>TIME_NOW))->add();
-        model('message')->data(array('uid'=>$this->uid,'content'=>'申请提现扣除'.$_POST['money'].'余额','ctime'=>TIME_NOW))->add();
+        model('message')->data(array('uid'=>$this->uid,'content'=>'申请提现扣除'.number_format(floatval($_POST['money']), 2, ".", "").'余额','ctime'=>TIME_NOW))->add();
         unset($_POST['id']);
         $_POST['ctime'] = TIME_NOW;
         $z['id'] = model('cash_apply')->data($_POST)->add();
