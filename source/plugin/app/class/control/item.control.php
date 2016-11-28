@@ -611,7 +611,7 @@ class item extends base\basic{
         if(!$data['money'])$this->_pay_c($data['pay_id'],$id);
         return $data;
     }
-    function _pay_c($pay_id,$id){
+    function _pay_c($pay_id,$id,$pay_type=3){
         file_put_contents ( 't3.txt', $pay_id );
         //获取支付单详情
         $pay_id = post('pay_id',$pay_id);
@@ -769,6 +769,7 @@ class item extends base\basic{
             //订单设置为状态2
             if($CONFIG_FIRST)$data['first'] = 1;
             $data['status'] = 2;
+            $data['pay_type'] = $pay_type;
             $data['pay_time'] = $this->microtime;
             model('order')->data($data)->save($o['oid']);
             $CONFIG_FIRST = 0;
@@ -859,7 +860,7 @@ class item extends base\basic{
     function alipay_c(){
         //file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
         $out_trade_no = $_POST ['out_trade_no'];
-        if(post('trade_status')=='TRADE_SUCCESS')$this->_pay_c($out_trade_no.'');
+        if(post('trade_status')=='TRADE_SUCCESS')$this->_pay_c($out_trade_no.'',0,1);
         // require "/alipay/alipay.config.php";
         // require "/alipay/lib/alipay_notify.class.php";
         // $alipayNotify = new \AlipayNotify ( $alipay_config );
@@ -869,10 +870,6 @@ class item extends base\basic{
     }
     function wcpay_c(){
         $postStr = file_get_contents ( 'php://input' );
-        // file_put_contents ( 't1.txt', $postStr );
-        // preg_match('#(98\d{20})#',$postStr,$zk);
-        // file_put_contents ( 't2.txt', $zk[0] );
-        // 
         $a =  simplexml_load_string ( $postStr );
         if($a->result_code.'' == 'SUCCESS'){
             $h = 'appid='.$a->appid;
@@ -892,7 +889,7 @@ class item extends base\basic{
             $h .= '&transaction_id='.$a->transaction_id;
             $h .= '&key=7EA97FA5C1534CD91FE666690A60E927';
             if($a->sign.'' === strtoupper ( md5 ( $h ) )){
-                $this->_pay_c($a->out_trade_no.'');
+                $this->_pay_c($a->out_trade_no.'',0,2);
                 echo "SUCCESS";die();
             }
         }
