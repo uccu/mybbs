@@ -685,7 +685,7 @@ class item extends base\basic{
         $CONFIG_REFEREE_FIRST = array();
 
         model('goods')->add_table(array(
-            'manager_user'=>array('_join'=>'LEFT JOIN','_on'=>'mid','groupid','phone','nusername')
+            'manager_user'=>array('_join'=>'LEFT JOIN','_on'=>'mid','groupid','phone','musername')
         ));
 
         foreach($orders as $o){
@@ -699,7 +699,7 @@ class item extends base\basic{
 
             if($good['groupid']==2){
 
-                $this->_push_message($good['phone'],'尊敬的'.$good['nusername'].'，您有新的订单，请及时处理！');
+                $this->_push_message($good['phone'],'尊敬的'.$good['musername'].'，您有新的订单，请及时处理！');
 
             }
             
