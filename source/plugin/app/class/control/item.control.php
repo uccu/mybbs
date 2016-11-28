@@ -697,7 +697,7 @@ class item extends base\basic{
 
             $good = model('goods')->find($o['tid']);
 
-            if($good['groupid']==2){
+            if($good['phone']){
 
                 $this->_push_message($good['phone'],'尊敬的'.$good['musername'].'，您有新的订单，请及时处理！');
 
