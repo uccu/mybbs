@@ -1,1 +1,0 @@
-<?php $tableMap=array("profession"=>array("pid","name")) ?>

@@ -1,1 +1,0 @@
-<?php $tableMap=array("draw_log"=>array("id","uid","did","draw_round_id","ctime","score")) ?>

@@ -1,1 +1,0 @@
-<?php $tableMap=array("goods_list"=>array("lid","bid","type_name","orders","del","ctime")) ?>

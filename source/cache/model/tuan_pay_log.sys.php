@@ -1,1 +1,0 @@
-<?php $tableMap=array("pay_log"=>array("id","pay_id","uid","oids","coin","money","ctime","score","finish")) ?>

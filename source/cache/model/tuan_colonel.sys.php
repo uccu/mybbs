@@ -1,1 +1,0 @@
-<?php $tableMap=array("colonel"=>array("uid","name","sex","phone","birth","location","profession","type","ctime")) ?>

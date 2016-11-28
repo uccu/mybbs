@@ -1,1 +1,0 @@
-<?php $tableMap=array("fans_record"=>array("id","uid","ctime","score","num")) ?>

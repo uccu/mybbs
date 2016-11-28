@@ -1,1 +1,0 @@
-<?php $tableMap=array("score_log"=>array("id","uid","score","info","ctime")) ?>

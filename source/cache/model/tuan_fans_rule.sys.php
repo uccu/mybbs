@@ -1,1 +1,0 @@
-<?php $tableMap=array("fans_rule"=>array("id","num","score")) ?>

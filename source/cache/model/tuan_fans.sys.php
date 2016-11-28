@@ -1,1 +1,0 @@
-<?php $tableMap=array("fans"=>array("id","uid","fans_id","ctime","aid","buy")) ?>

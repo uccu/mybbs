@@ -1,1 +1,0 @@
-<?php $tableMap=array("nav"=>array("id","ctime","priority","name","thumb")) ?>

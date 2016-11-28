@@ -1,1 +1,0 @@
-<?php $tableMap=array("activity"=>array("aid","bid","title","ctime","stime","etime","ktime","act_poster","type")) ?>

@@ -1,1 +1,0 @@
-<?php $tableMap=array("captcha_log"=>array("id","captcha","phone","ctime","ip")) ?>

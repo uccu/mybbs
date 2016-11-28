@@ -1,1 +1,0 @@
-<?php $tableMap=array("sign_rule"=>array("day","score")) ?>
