@@ -128,7 +128,7 @@ class item extends base\basic{
         $data['uid'] = $this->uid;
 		$cartModel = model('cart');
         $cartModel->where(array('ctime'=>array('logic',TIME_NOW-3600*3,'<')))->remove();
-        
+
         $q['list'] = $cartModel->add_table(
             array(
                 'collect'=>array(
@@ -196,6 +196,9 @@ class item extends base\basic{
         $data['uid'] = $this->uid;
         $status = post('status',$status);
         if($status)$data['status'] = $status;
+
+        model('order')->where(array('status'=>1,'ctime'=>array('logic',TIME_NOW-3600*3,'<')))->data(array('status'=>-1))->save();
+
         $q['list'] = model('order')->add_table(array(
             'goods'=>array(
                 'name','thumb','bean','price_act','var_name','var_value'=>'var','price','_on'=>'tid'
