@@ -45,7 +45,7 @@ class my extends base\e{
         // $this->_dateline_format($data,'at_start');
         // $this->_dateline_format($data,'at_end');
         $data['experience'] = post('experience','');
-        $data['generator'] = post('generator',0,'%d');
+        $data['generator'] = post('generator','');
         $data['label'] = post('label','');
         $data['field'] = post('field','');
         $data['thumb'] = post('thumb','');
