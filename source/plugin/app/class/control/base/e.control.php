@@ -206,7 +206,7 @@ class e extends \control\ajax{
 
     function _check_phone(){
 
-        if(!$this->userInfo['type']==-2)$this->error(433);
+        if(!$this->userInfo['type']==-2)$this->errorCode(433);
     }
 
     function _get_imgDir(){
