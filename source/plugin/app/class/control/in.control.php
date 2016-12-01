@@ -86,9 +86,11 @@ class in extends base\e{
                 $data['wx'] = $this->userInfo['wx'];
                 $data['qq'] = $this->userInfo['qq'];
                 $data['wb'] = $this->userInfo['wb'];
+                $data['nickname'] = $this->userInfo['nickname'];
+                $data['thumb'] = $this->userInfo['thumb'];
                 $phoneUser = array_merge($phoneUser,$data);
                 model('user')->where(array('usercode'=>$usercode))->data($data)->save();
-                model('user')->data(array('wx'=>'','wb'=>'','qq'=>''))->save($uid);
+                model('user')->remove($uid);
                 $this->_out_info($phoneUser,$this->cookie);
             }
             $data['type'] = 0;
