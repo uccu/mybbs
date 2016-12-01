@@ -50,7 +50,7 @@ class in extends base\e{
         if(!$info){
             $info = $where;
             $info['password'] = md5(time());
-            $info['type'] = 0;
+            $info['type'] = -2;
             $info['thumb'] = post('thumb','');
             $info['nickname'] = post('nickname','');
             $this->_add_user($info);
@@ -64,25 +64,40 @@ class in extends base\e{
         $value = post('key','');
         if($type=='qq'){
             $data['qq'] = $value;
+            if(!$value)$this->errorCode(403);
         }elseif($type=='wb'){
             $data['wb'] = $value;
+            if(!$value)$this->errorCode(403);
         }elseif($type=='wx'){
             $data['wx'] = $value;
+            if(!$value)$this->errorCode(403);
         }elseif(preg_match('#^1\d{10}$#',$type)){
             $usercode = $type;
-            if(model('user')->where(array('usercode'=>$usercode))->find()){
-                $this->errorCode(405);
-            }
-            $password = post('password','');
-            $this->_check_password($password);
-            $password = md5(md5($password).$this->salt);
-            $data['password'] = $password;
-            $data['usercode'] = $usercode;
             control('tool:captcha')->_check_captcha();
+            
+            if($password = post('password','')){
+                $this->_check_password($password);
+                $password = md5(md5($password).$this->salt);
+                $data['password'] = $password;
+            }
+            
+
+            if($phoneUser = model('user')->where(array('usercode'=>$usercode))->find()){
+                $data['wx'] = $this->userInfo['wx'];
+                $data['qq'] = $this->userInfo['qq'];
+                $data['wb'] = $this->userInfo['wb'];
+                $phoneUser = array_merge($phoneUser,$data);
+                model('user')->where(array('usercode'=>$usercode))->data($data)->save();
+                model('user')->data(array('wx'=>'','wb'=>'','qq'=>''))->save($uid);
+                $this->_out_info($phoneUser,$this->cookie);
+            }
+            
+            $data['usercode'] = $usercode;
+            
         }else{
             $this->errorCode(403);
         }
-        if(!$value)$this->errorCode(403);
+        
         $z = model('user')->data($data)->save($uid);
         $info = model('user')->find($uid);
         $this->_out_info($info,$this->cookie);
