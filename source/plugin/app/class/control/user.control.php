@@ -112,7 +112,7 @@ class user extends base\e{
     }
 
     function collect($uid){
-        $this->_check_login();
+        $this->_check_phone();
         $uid = post('uid',$uid,'%d');
         $data['fans_id'] = $this->uid;
         $user = model('user')->find($uid);
@@ -136,7 +136,7 @@ class user extends base\e{
 
 
     function get_cloud_token($uid = 0){
-        $this->_check_login();
+        $this->_check_phone();
         $uid = post('uid',$uid,'%d');
         if(!$uid)$this->errorCode(416);
         $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);

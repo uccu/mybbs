@@ -204,6 +204,11 @@ class e extends \control\ajax{
         return $huan;
     }
 
+    function _check_phone(){
+
+        if(!$this->userInfo['usercode'])$this->error(433);
+    }
+
     function _get_imgDir(){
 
         return $this->g->config['IMG_URL'];

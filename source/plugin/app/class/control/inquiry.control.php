@@ -53,6 +53,7 @@ class inquiry extends base\e{
             'uid'=>$this->uid,
             'id'=>$id
         ))->find();
+        $this->_check_phone();
         if(!$p)$this->_check_access();
 
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
@@ -90,6 +91,7 @@ class inquiry extends base\e{
     
     function answer(){
         $this->_check_login();
+        $this->_check_phone();
         $ty = $this->userInfo['type'];
         if($ty<1)$this->errorCode(411);
         $data['uid'] = $this->uid;
@@ -112,6 +114,7 @@ class inquiry extends base\e{
 
     function publish(){
         $this->_check_login();
+        $this->_check_phone();
         $z = model('inquiry')->data($_POST)->add();
         if(!$z)$this->errorCode(415);
         $e2 = model('equipment_list')->find($_POST['bid']);
@@ -172,6 +175,7 @@ class inquiry extends base\e{
 
     function collect($id){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
         $data['type'] = 'w';
@@ -195,6 +199,7 @@ class inquiry extends base\e{
     }
     function zan($id){
         $this->_check_login();
+        
         $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
 
@@ -259,6 +264,7 @@ class inquiry extends base\e{
 
     function pay($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $type = post('type',0);
 
@@ -289,6 +295,7 @@ class inquiry extends base\e{
 
     function ex_pay($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $type = post('type',0);
 

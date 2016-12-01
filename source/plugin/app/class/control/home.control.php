@@ -137,6 +137,7 @@ class home extends base\e{
 
     function fast(){
         $this->_check_login();
+        $this->_check_phone();
         $_POST['uid'] = $this->uid;
         $z = model('fast_call')->data($_POST)->add();
         if(!$z)$this->errorCode(415);
@@ -146,6 +147,7 @@ class home extends base\e{
 
     function collect($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
         $data['type'] = 'z';

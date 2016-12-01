@@ -47,6 +47,7 @@ class lession extends base\e{//运维
     }
     function collect($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $data['uid'] = $this->uid;
         $data['type'] = 'k';
@@ -100,6 +101,7 @@ class lession extends base\e{//运维
     }
     function paper($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $paper = model('paper')->find($id);
         if($paper['states']==3){
@@ -116,6 +118,7 @@ class lession extends base\e{//运维
     }
     function submit($pid,$result=0){
         $this->_check_login();
+        $this->_check_phone();
         $result = post('result',$result,'%d');
         $pid = post('pid',$pid,'%d');
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
@@ -128,6 +131,7 @@ class lession extends base\e{//运维
 
     function pay($id=0){
         $this->_check_login();
+        $this->_check_phone();
         $id = post('id',$id,'%d');
         $type = post('type',0);
         $p = model('paper_paid')->where(array(

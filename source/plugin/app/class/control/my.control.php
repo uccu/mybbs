@@ -33,7 +33,7 @@ class my extends base\e{
         $this->success();
     }
     function change_o_info($nickname,$sex,$city,$plant){
-        //$this->_check_type(-1);
+        $this->_check_phone();
         $data['nametrue'] = post('nametrue',post('nickname',''));
         $data['sex'] = post('sex',0,'%d');
         $data['city'] = post('city',$city);
@@ -164,7 +164,7 @@ class my extends base\e{
         $this->success();
     }
     function sign(){
-        
+        $this->_check_phone();
         $u = model('sign')->find($this->uid);
         if(!$u)model('sign')->data(array('uid'=>$this->uid,'sign_time'=>TIME_NOW,'times'=>1))->add();
         else{
@@ -222,21 +222,19 @@ class my extends base\e{
     }
 
     function cash_bind(){
+        $this->_check_phone();
         $wx_pay = post('wx_pay','');
         model('user')->data(array('wx_pay'=>$wx_pay))->save($this->uid);
         $this->success();
     }
 
     function cash_apply($money=0){
+        $this->_check_phone();
         if(!$this->userInfo['wx_pay'])$this->errorCode(417);
         $data['money'] = $money = post('money',$money,'%d');
         if(!$money)$this->errorCode(416);
         if($this->userInfo['score']<$money*100)$this->errorCode(442);
-
-
         control('pay')->_mmpay($money*100);
-
-
         $data['uid'] = $this->uid;
         $data['ctime'] = TIME_NOW;
         model('cash_apply')->data($data)->add();
@@ -255,8 +253,6 @@ class my extends base\e{
         }
         $this->success($t);
     }
-
-
     function paper_list(){
         $page = post('page',1);
         $limit = post('limit',10);
@@ -277,7 +273,6 @@ class my extends base\e{
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
         $this->success($data);
     }
-
     function message(){
         $page = post('page',1);
         $limit = post('limit',10);
@@ -285,8 +280,6 @@ class my extends base\e{
         $t['list'] = model('message')->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
-
-
     function collect_inquiry(){
         $page = post('page',1);
         $limit = post('limit',10);
@@ -297,7 +290,6 @@ class my extends base\e{
         foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
         $this->success($t);
     }
-
     function collect_lession(){
         $page = post('page',1);
         $limit = post('limit',10);
@@ -312,7 +304,6 @@ class my extends base\e{
         
 
     }
-
     function collect_repository(){
 
         $limit = post('limit',20,'%d');
@@ -332,17 +323,16 @@ class my extends base\e{
 
 
     }
-
     function share(){
-
+        $this->_check_phone();
         $c = $this->_handle_score(5,'分享',-1);
 
         if(!$c)$this->errorCode(428);
 
         $this->success();
     }
-
     function vip_info(){
+
         $data['nickname'] = $this->userInfo['nickname'];
         $data['thumb'] = $this->userInfo['thumb'];
         $data['vip'] = $this->userInfo['vip']>TIME_NOW?'1':'0';
@@ -351,12 +341,8 @@ class my extends base\e{
         $data['list'] =model('member')->limit(99)->select();
         $this->success($data);
     }
-    
-
-
-
     function pay($time=3){
-        $this->_check_login();
+        $this->_check_phone();
         $type = post('type',0);
         $id = $time = post('time',3); 
         $score = model('member')->find($time,false)->get_field('postage');
