@@ -74,7 +74,7 @@ class in extends base\e{
         }elseif(preg_match('#^1\d{10}$#',$type)){
             $usercode = $type;
             control('tool:captcha')->_check_captcha();
-            
+
             if($password = post('password','')){
                 $this->_check_password($password);
                 $password = md5(md5($password).$this->salt);
@@ -91,7 +91,7 @@ class in extends base\e{
                 model('user')->data(array('wx'=>'','wb'=>'','qq'=>''))->save($uid);
                 $this->_out_info($phoneUser,$this->cookie);
             }
-            
+            $data['type'] = 0;
             $data['usercode'] = $usercode;
             
         }else{
