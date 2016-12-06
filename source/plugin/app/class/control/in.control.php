@@ -102,6 +102,7 @@ class in extends base\e{
         
         $z = model('user')->data($data)->save($uid);
         $info = model('user')->find($uid);
+        $info = array_merge($info,$data);
         $this->_out_info($info,$this->cookie);
     }
 
