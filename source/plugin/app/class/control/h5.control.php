@@ -72,9 +72,22 @@ class h5 extends base\e{
         $id = post('id',$id,'%d');
         $r = model('repository')->find($id);
         model('repository')->data(array('reading'=>array('add',1)))->save($id);
+
+
+        
+
+
         $this->g->template['value'] = $r['content'];
         $this->g->template['title'] = $r['title'];
         $this->g->template['time'] = date('Y-m-d H:i:s',$r['ctime']);
+
+        $this->g->template['footer'] .= '<hr style="height:20px;background:#f1f1f1">';
+
+        $this->g->template['footer'] .= '<div class="container">如果您有相关的知识信息或视频想要与大家分享，请将您的资料发送至我们的邮箱：<a>ywws@qingce.com</a>，
+我们会免费帮您上传。</div>';
+
+
+
         T('tool:static');
 
 

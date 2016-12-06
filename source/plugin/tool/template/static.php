@@ -11,6 +11,10 @@
 {/if}
 
 {value}
+
+
 </div>
+
+{footer}
 
 <!--{subtemplate tool:footer}-->
