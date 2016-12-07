@@ -26,7 +26,7 @@ class item extends base\basic{
     }
     function types(){
         $where['del'] = 1;
-        $q['list'] = model('goods_list')->where($where)->order(array('orders'))->limit(999)->select();
+        $q['list'] = model('goods_list')->where($where)->order(array('location'))->limit(999)->select();
         if(!$q['list'])$this->errorCode(427);
         $this->success($q);
     }
