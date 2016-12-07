@@ -186,6 +186,7 @@ class in extends base\basic{
                 'info'=>'分享好友',
                 'ctime'=>TIME_NOW
             ))->add();
+            $info['score'] = 200;
         }
         $info['username'] = '用户_'.TIME_NOW;
         $info['dev'] = '1';
