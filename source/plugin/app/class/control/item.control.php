@@ -687,7 +687,7 @@ class item extends base\basic{
         model('goods')->add_table(array(
             'manager_user'=>array('_join'=>'LEFT JOIN','_on'=>'mid','groupid','phone','musername')
         ));
-
+        $cc = model('cache')->get('bang_count');
         foreach($orders as $o){
 
 
@@ -743,13 +743,14 @@ class item extends base\basic{
                     // $sql = model('order')->where($where)->sql()->get_field();model('order')->sql(false);
                     // model('cache')->replace('test',$sql);
                     unset($where['uid']);
+                    
                     $data2['num'] = model('order')->where($where)->get_field()+1;
-                    if($data2['num']==5){
+                    if($data2['num']==$cc){
                         $data2['aid'] = $aid;
                         $data2['uid'] = $o['referee'];
                         $data2['time'] = $this->microtime;
                         model('rank_bang')->data($data2)->add();
-                    }elseif($data2['num']>5){
+                    }elseif($data2['num']>$cc){
                         model('rank_bang')->where(array('uid'=>$o['referee'],'aid'=>$aid))->data($data2)->save();
                     }
                 }
