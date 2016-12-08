@@ -734,13 +734,15 @@ class item extends base\basic{
                 $where['aid'] = $aid;
                 $where['referee'] = $o['referee'];
                 $where['referee_first'] = 1;
+                $where['uid'] = $uid;
                 $where['status'] = array('contain',array(2,3,4),'IN');
                 if(!$CONFIG_REFEREE_FIRST[$o['referee']] && !model('order')->where($where)->find()){
                     $data['referee_first'] = 1;$CONFIG_REFEREE_FIRST[$o['referee']]=1;
-                }else{
+                    
                     //调整乐帮排名
                     // $sql = model('order')->where($where)->sql()->get_field();model('order')->sql(false);
                     // model('cache')->replace('test',$sql);
+                    unset($where['uid']);
                     $data2['num'] = model('order')->where($where)->get_field()+1;
                     if($data2['num']==5){
                         $data2['aid'] = $aid;
