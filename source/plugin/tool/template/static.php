@@ -4,20 +4,20 @@
 .container p{font-size:14px}
 .describe::before{
     content: '“';
-    font-size: 40px;
+    font-size: 50px;
     height: 20px;
     position: relative;
-    top: 15px;
-    color: #ccc;
+    top: 21px;
+    color: #99a1b4;
     line-height: 0px;
 }
 .describe::after{
     content: '”';
-    font-size: 40px;
+    font-size: 50px;
     height: 20px;
     position: relative;
-    top: 20px;
-    color: #ccc;
+    top: 26px;
+    color: #99a1b4;
     line-height: 0px;
 }
 </style>
