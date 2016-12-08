@@ -83,7 +83,7 @@ class h5 extends base\e{
 
         $this->g->template['footer'] .= '<hr style="height:20px;background:#f1f1f1">';
 
-        $this->g->template['footer'] .= '<div class="container" style="margin-bottom: 15px;">如果您有相关的知识信息或视频想要与大家分享，请将您的资料发送至我们的邮箱：<a>ywws@qingce.com</a>，
+        $this->g->template['footer'] .= '<div class="container describe" style="margin-bottom: 15px;">如果您有相关的知识信息或视频想要与大家分享，请将您的资料发送至我们的邮箱：<a>ywws@qingce.com</a>，
 我们会免费帮您上传。</div>';
 
 
