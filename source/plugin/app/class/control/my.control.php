@@ -192,7 +192,7 @@ class my extends base\basic{
         $where['uid'] = $this->uid;
         $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->select();
 
-        foreach($z['list'] as &$v)$v['coin'] = number_format($v['coin'],2,'.','');
+        foreach($z['list'] as &$v)$v['coin'] = ($v['coin']>0?'+':'').number_format($v['coin'],2,'.','');
         $g = model('cash_apply')->where(array('uid'=>$this->uid,'status'=>0))->find();
         
         $z['status'] = $g?1:0;
@@ -201,7 +201,7 @@ class my extends base\basic{
     function coin_custom(){//获取余额明细
         $where['uid'] = $this->uid;
         $z['list'] = model('coin_log')->where($where)->order(array('ctime'=>'DESC'))->limit(5)->select();
-        foreach($z['list'] as &$v)$v['coin'] = number_format($v['coin'],2,'.','');
+        foreach($z['list'] as &$v)$v['coin'] = ($v['coin']>0?'+':'').number_format($v['coin'],2,'.','');
         if(!$z['list'])$this->errorCode(427);
         $this->success($z);
 
