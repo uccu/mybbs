@@ -80,12 +80,13 @@ class in extends base\e{
                 $password = md5(md5($password).$this->salt);
                 $data['password'] = $password;
             }
-            
+            $data['type'] = -1;
 
             if($phoneUser = model('user')->where(array('usercode'=>$usercode))->find()){
                 $data['wx'] = $this->userInfo['wx'];
                 $data['qq'] = $this->userInfo['qq'];
                 $data['wb'] = $this->userInfo['wb'];
+                unset($data['type']);
                 $data['nickname'] = $this->userInfo['nickname'];
                 $data['thumb'] = $this->userInfo['thumb'];
                 $phoneUser = array_merge($phoneUser,$data);
@@ -93,7 +94,7 @@ class in extends base\e{
                 model('user')->remove($uid);
                 $this->_out_info($phoneUser,$this->cookie);
             }
-            $data['type'] = 0;
+            
             $data['usercode'] = $usercode;
             
         }else{
