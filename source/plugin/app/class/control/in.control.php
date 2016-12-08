@@ -80,7 +80,7 @@ class in extends base\e{
                 $password = md5(md5($password).$this->salt);
                 $data['password'] = $password;
             }
-            $data['type'] = -1;
+            $data['type'] = '-1';
 
             if($phoneUser = model('user')->where(array('usercode'=>$usercode))->find()){
                 $data['wx'] = $this->userInfo['wx'];
