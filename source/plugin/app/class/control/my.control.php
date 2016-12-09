@@ -224,7 +224,7 @@ class my extends base\basic{
         $this->success($z);
     }
     function my_cash(){
-        $data['uid'] = $this->uid;
+        $where['uid'] = $this->uid;
         $z['info'] = model('cash_apply')->where($where)->order(array('ctime'=>'DESC'))->limit(999)->find();
         if(!$z['info'])$this->errorCode(427);        
         $this->success($z);
