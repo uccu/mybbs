@@ -705,7 +705,7 @@ class item extends base\basic{
             
             model('goods')->data(array(
                 'stock'=>array('add',-1*($good['stock']-$o['num']>=0?$o['num']:$good['stock'])),
-                'sale'=>array('add',$good['stock']-$o['num']>=0?$o['num']:$good['stock'])
+                'sale'=>array('add',$o['num'])
             ))->save($o['tid']);
 
 
