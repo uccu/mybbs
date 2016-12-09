@@ -72,7 +72,7 @@ class my extends base\e{
         $t['collect'] = model('collect')->where(array('uid'=>$this->uid))->get_field();
         $t['message'] = model('message')->where(array('uid'=>$this->uid,'read'=>0))->get_field();
         $t['wx'] = $this->userInfo['wx_pay']?1:0;
-        $t['sign'] = model('sign')->where(array('uid'=>$this->uid,'sign_time'=>array('logic',$this->today,'>')))->find() ? 1 : 0 ;
+        $t['sign'] = model('sign')->where(array('uid'=>$this->uid,'sign_time'=>array('logic',$this->today,'>')))->find() ? '1' : '0' ;
         $this->success($t);
     }
 
