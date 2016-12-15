@@ -10,6 +10,6 @@ if(!defined('IN_PLAY')) {
 	 'password'=>'123456',
 	 'db'=>'sbgl',
 	 'prefix'=>'t_',
-	 'charset'=>'utf8'
+	 'charset'=>'utf8mb4'
  );
 ?>

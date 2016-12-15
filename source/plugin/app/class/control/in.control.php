@@ -148,7 +148,7 @@ class in extends base\e{
         $info['ctime'] = time();
         if(!$info['usercode'])$info['usercode']='';
         $info['nickname'] = post('nickname',$info['usercode']);
-        $info['nickname'] = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $info['nickname']);
+        //$info['nickname'] = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $info['nickname']);
         $info['terminal'] = post('terminal','');
         $z = model('user')->data($info)->add();
         if(!$z)$this->errorCode(409);
