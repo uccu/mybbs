@@ -83,7 +83,7 @@ class inquiry extends base\e{
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
             $v['paid'] = $v['paid']?'1':'0';
-            $t['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
         }
         $t['uid'] = $this->uid;
         $this->success($t);
