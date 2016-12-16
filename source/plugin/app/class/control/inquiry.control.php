@@ -26,6 +26,11 @@ class inquiry extends base\e{
 
         $t['paid'] = model('inquiry_paid')->where(array('uid'=>$this->uid,'id'=>$id))?'1':'0';
 
+        $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id))->get_field();
+
+        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
+        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
+
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan')
@@ -33,10 +38,7 @@ class inquiry extends base\e{
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
 
-        $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id))->get_field();
-
-        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
-        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
+        
 
         
         $this->success($t);
@@ -149,6 +151,7 @@ class inquiry extends base\e{
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
             $v['paid'] = $v['paid']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
         }
         $this->success($t);
     }
