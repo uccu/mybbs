@@ -311,7 +311,7 @@ class inquiry extends base\e{
 
         if($type==0){
             if($this->userInfo['score']<100)$this->errorCode(442);
-            $this->_handle_score(-100,'支付问诊');
+            $this->_handle_score(-100,'支付专家咨询');
             model('expert_paid')->data(array(
                 'uid'=>$this->uid,
                 'ctime'=>TIME_NOW,
