@@ -33,7 +33,7 @@ class inquiry extends base\e{
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
 
-        $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->get_field();
+        $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id))->get_field();
 
         $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
@@ -83,6 +83,7 @@ class inquiry extends base\e{
         foreach($t['list'] as &$v){
             $v['collected'] = $v['collected']?'1':'0';
             $v['paid'] = $v['paid']?'1':'0';
+            $t['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
         }
         $t['uid'] = $this->uid;
         $this->success($t);
