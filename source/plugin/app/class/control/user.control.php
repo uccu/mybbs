@@ -42,7 +42,10 @@ class user extends base\e{
             'inquiry_list'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='."'{$this->uid}'",'uid'=>'collected')
         ))->where(array('ruid'=>$uid))->order(array('ctime'=>'DESC'))->limit(10)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
 
         
         $this->success($t);
@@ -77,7 +80,10 @@ class user extends base\e{
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->limit(10)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
 
         
         $this->success($t);
@@ -93,7 +99,10 @@ class user extends base\e{
             'inquiry_list'=>array('_on'=>'r.bid=i.id','uid'=>'ruid','_mapping'=>'r'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='."'{$this->uid}'",'uid'=>'collected')
         ))->where(array('ruid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
 
         $this->success($t);
     }
@@ -106,7 +115,10 @@ class user extends base\e{
             'user'=>array('_on'=>'uid','thumb','nickname'),
             'collect'=>array('_join'=>'LEFT JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected')
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
         $this->success($t);
 
     }

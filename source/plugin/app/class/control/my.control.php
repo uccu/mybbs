@@ -101,6 +101,9 @@ class my extends base\e{
             'equipment_list@2'=>array('_mapping'=>'e2','name'=>'ename2','_on'=>'e2.id=i.bid'),
             'equipment_list@1'=>array('_mapping'=>'e1','name'=>'ename1','_on'=>'e2.bid=e1.id'),
         ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
+        foreach($t['list'] as &$v){
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
         $this->success($t);
     }
 
@@ -287,7 +290,10 @@ class my extends base\e{
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
             'collect'=>array('_join'=>'JOIN','_mapping'=>'c','_on'=>'i.id=c.id AND c.type=\'w\' AND c.uid='.$this->uid,'uid'=>'collected'),
         ))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-        foreach($t['list'] as &$v)$v['collected'] = $v['collected']?'1':'0';
+        foreach($t['list'] as &$v){
+            $v['collected'] = $v['collected']?'1':'0';
+            $v['answer'] = model('inquiry_list')->where(array('bid'=>$v['id']))->get_field().'';
+        }
         $this->success($t);
     }
     function collect_lession(){
