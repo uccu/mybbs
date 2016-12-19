@@ -174,8 +174,17 @@ class my extends base\e{
             if($u['sign_time']>$this->today)$this->errorCode(423);
             model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
         }
-
-        $this->_handle_score(5,'签到');
+        if($this->type==0){
+            if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(1,'签到');
+            else $this->_handle_score(1,'签到');
+        }elseif($this->type==1){
+            if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(1,'签到');
+            else $this->_handle_score(1,'签到');
+        }elseif($this->type==2){
+            if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(1,'签到');
+            else $this->_handle_score(1,'签到');
+        }
+        
         $this->success();
     }
 
@@ -331,7 +340,17 @@ class my extends base\e{
     }
     function share(){
         $this->_check_phone();
-        $c = $this->_handle_score(5,'分享',-1);
+        if($this->type==0){
+            if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(2.5,'分享',-1);
+            else $c = $this->_handle_score(2,'分享',-1);
+        }elseif($this->type==1){
+            if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(3.5,'分享',-1);
+            else $c = $this->_handle_score(3,'分享',-1);
+        }elseif($this->type==2){
+            if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(4.5,'分享',-1);
+            else $c = $this->_handle_score(4,'分享',-1);
+        }
+        
 
         if(!$c)$this->errorCode(428);
 
