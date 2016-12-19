@@ -28,7 +28,7 @@
 j(function(){
     j('video').before('<div class="black_tt"></div>');
     j('video').addClass('dn');
-    j('video').bind('play' ,function(){
+    j('video').bind('canplay' ,function(){
 
         j(this).parent().find('video').removeClass('dn');
             
