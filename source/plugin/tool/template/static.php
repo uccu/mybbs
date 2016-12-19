@@ -34,7 +34,9 @@ j(function(){
             
         j(this).parent().find('.black_tt').remove();
         j(this).parent().find('video')[0].play();
-        j(this).parent().find('video')[0].pause();
+        var that = this;
+        setTimeout(function(){j(that).parent().find('video')[0].pause()},100);
+        ;
     });
     
     j('.black_tt').one(function(){
