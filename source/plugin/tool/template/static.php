@@ -20,7 +20,15 @@
     color: #99a1b4;
     line-height: 0px;
 }
+.black_tt{
+    background:#000;height:220px;width:100%
+}
 </style>
+<script>
+
+j('video').before('<div class="black_tt"></div>')
+
+</script>
 <div class="container">
 <h3>{title}</h3>
 <p style="font-size:12px;color:#bbb">{time}</p>
