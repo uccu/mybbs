@@ -36,7 +36,7 @@ j(function(){
         
     });
     
-    j('.black_tt').one(function(){
+    j('.black_tt').one('click',function(){
         j(this).parent().find('video')[0].play();
     })
 })
