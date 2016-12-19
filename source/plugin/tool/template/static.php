@@ -26,7 +26,7 @@
 </style>
 <script>
 
-j('video').before('<div class="black_tt"></div>')
+j('video').before('<div class="black_tt"></div>');
 j('video').addClass('dn');
 </script>
 <div class="container">
