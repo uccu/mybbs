@@ -47,7 +47,7 @@ j(function(){
 
         j(this).parent().find('video').addClass('active');
             
-        j('video:not(.active)').each(function(){this.pause()})
+        j('video:not(.active)').each(function(){this.pause()});
 
         j('video').removeClass('active');
         
