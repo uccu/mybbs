@@ -37,7 +37,7 @@ j(function(){
     j('video').addClass('dn');
     j('video').bind('playing' ,function(){
 
-        j(this).parent().find('video').removeClass('dn');
+        j(this).parent().find('video').removeClass('dn').addClass('db');
             
         j(this).parent().find('.black_tt').remove();
         
