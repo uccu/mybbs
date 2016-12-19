@@ -28,14 +28,14 @@
 j(function(){
     j('video').before('<div class="black_tt"></div>');
     j('video').addClass('dn');
-    j('video').bind('canplay' ,function(){
+    j('video').bind('load' ,function(){
 
         j(this).parent().find('video').removeClass('dn');
             
         j(this).parent().find('.black_tt').remove();
         j(this).parent().find('video')[0].play();
         var that = this;
-        setTimeout(function(){j(that).parent().find('video')[0].pause()},100);
+        setTimeout(function(){j(that).parent().find('video')[0].pause()},1000);
         ;
     });
     
