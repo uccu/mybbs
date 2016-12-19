@@ -49,7 +49,7 @@ j(function(){
 })
 
 </script>
-<div class="container">
+<div class="container" style="padding-bottom:30px">
 <h3>{title}</h3>
 <p style="font-size:12px;color:#bbb">{time}</p>
 {if $title}
