@@ -25,7 +25,7 @@
     height: 220px;
     width: 100%;
     background-position: center;
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: #000;
 
