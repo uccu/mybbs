@@ -43,6 +43,15 @@ j(function(){
         j(this).parent().find('.black_tt').remove();
         
     });
+    j('video').bind('play' ,function(){
+
+        j(this).parent().find('video').addClass('active');
+            
+        j('video:not(.active)').each(function(){this.pause()})
+
+        j('video').removeClass('active');
+        
+    });
     
     j('.black_tt').one('click',function(){
         j(this).parent().find('video')[0].play();
