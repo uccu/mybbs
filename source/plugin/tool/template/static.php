@@ -28,12 +28,12 @@
 j(function(){
     j('video').before('<div class="black_tt"></div>');
     j('video').addClass('dn');
-    j('video').bind('canplay' ,function(){
+    j('video').bind('playing' ,function(){
 
         j(this).parent().find('video').removeClass('dn');
             
         j(this).parent().find('.black_tt').remove();
-        j(this).parent().find('video')[0]。currentTime = 0.001;
+        
         // j(this).parent().find('video')[0].play();
         // var that = this;
         // setTimeout(function(){j(that).parent().find('video')[0].pause()},1000);
@@ -41,7 +41,7 @@ j(function(){
     });
     
     j('.black_tt').one(function(){
-        
+        j(this).parent().find('video')[0].play();
     })
 })
 
