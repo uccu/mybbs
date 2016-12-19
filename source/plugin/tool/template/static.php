@@ -30,6 +30,7 @@
     background-color: #000;
 
 }
+video{background:#000}
 </style>
 <script>
 j(function(){
