@@ -29,7 +29,7 @@ j(function(){
     j('video').before('<div class="black_tt"></div>');
     j('video').addClass('dn');
     j('.black_tt').click(function(){
-        j(this).parent().find('video').play();
+        j(this).parent().find('video')[0].play();
         j(this).remove();
     })
 })
