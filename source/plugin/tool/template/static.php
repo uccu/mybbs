@@ -29,8 +29,8 @@ j(function(){
     j('video').before('<div class="black_tt"></div>');
     j('video').addClass('dn');
     j('.black_tt').click(function(){
-        $(this).parent().find('video').play();
-        $(this).remove();
+        j(this).parent().find('video').play();
+        j(this).remove();
     })
 })
 
