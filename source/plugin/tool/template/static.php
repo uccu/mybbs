@@ -50,7 +50,7 @@ j(function(){
         j('video:not(.active)').each(function(){this.pause()});
 
         j('video').removeClass('active');
-        j(this)[0].webkitEnterFullScreen();
+        j(this)[0].webkitRequestFullScreen();
         
     });
     
