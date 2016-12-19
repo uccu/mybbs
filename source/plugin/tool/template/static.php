@@ -21,7 +21,14 @@
     line-height: 0px;
 }
 .black_tt{
-    background-image:url(/pic/h5/video.png);height:220px;width:100%
+    background-image: url(/pic/h5/video.png);
+    height: 220px;
+    width: 100%;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #000;
+
 }
 </style>
 <script>
