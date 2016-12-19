@@ -33,9 +33,10 @@ j(function(){
         j(this).parent().find('video').removeClass('dn');
             
         j(this).parent().find('.black_tt').remove();
-        j(this).parent().find('video')[0].play();
-        var that = this;
-        setTimeout(function(){j(that).parent().find('video')[0].pause()},1000);
+        j(this).parent().find('video')[0]。currentTime = 0.001;
+        // j(this).parent().find('video')[0].play();
+        // var that = this;
+        // setTimeout(function(){j(that).parent().find('video')[0].pause()},1000);
         ;
     });
     
