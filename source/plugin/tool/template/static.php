@@ -25,9 +25,15 @@
 }
 </style>
 <script>
+j(function(){
+    j('video').before('<div class="black_tt"></div>');
+    j('video').addClass('dn');
+    j('.black_tt').click(function(){
+        $(this).parent().find('video').play();
+        $(this).remove();
+    })
+})
 
-j('video').before('<div class="black_tt"></div>');
-j('video').addClass('dn');
 </script>
 <div class="container">
 <h3>{title}</h3>
