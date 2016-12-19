@@ -33,10 +33,12 @@ j(function(){
         j(this).parent().find('video').removeClass('dn');
             
         j(this).parent().find('.black_tt').remove();
+        j(this).parent().find('video')[0].play();
+        j(this).parent().find('video')[0].pause();
     });
     
     j('.black_tt').one(function(){
-        j(this).parent().find('video')[0].play();
+        
     })
 })
 
