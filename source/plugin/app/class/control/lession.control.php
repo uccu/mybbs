@@ -117,10 +117,8 @@ class lession extends base\e{//运维
                 'uid'=>$this->uid,
                 'pid'=>$id
             ))->find();
-            if(!$p)$this->_check_vip();
-            
         }
-        $t['list'] = model('question')->where(array('states'=>$paper['states']))->order('rand()')->limit(20)->select();
+        $t['list'] = model('question')->where(array('states'=>$paper['states'],'bid'=>$paper['bid']))->order('rand()')->limit(20)->select();
         $this->success($t);
 
     }
