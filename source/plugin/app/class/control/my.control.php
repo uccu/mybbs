@@ -29,7 +29,7 @@ class my extends base\e{
         $data['thumb'] = post('thumb');
         if(!$data['thumb'])unset($data['thumb']);
         $data['complete'] = 1;
-        $data['type'] = 0;
+        if($this->userInfo['type']<0)$data['type'] = 0;
         $this->_change_info($data);
         $this->success();
     }
