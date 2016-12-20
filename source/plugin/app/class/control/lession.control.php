@@ -88,15 +88,23 @@ class lession extends base\e{//运维
         }
         $this->success($z);
     }
-    function test_list($states=0){
+    function test_list($states=0,$bid = 0){
         $states = post('states',$states,'%d');
+        $bid = post('bid',$bid,'%d');
         $z['list'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>$states))->limit(9999)->select();
+        ))->where(array('states'=>$states,'bid'=>$bid))->limit(9999)->select();
         foreach($z['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
         
+        $this->success($z);
+    }
+    function test_type($states=0){
+        $states = post('states',$states,'%d');
+
+        $z['list'] = model('paper_list')->where(array('bid'=>$states,'del'=>1))->limit(9999)->select();
+    
         $this->success($z);
     }
     function paper($id=0){
