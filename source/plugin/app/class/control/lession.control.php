@@ -70,13 +70,13 @@ class lession extends base\e{//运维
     function test(){
         $z['list_r'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>1))->limit(1)->select();
+        ))->where(array('states'=>1))->limit(1)->order(array('location'))->select();
         $z['list_y'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>2))->limit(2)->select();
+        ))->where(array('states'=>2))->limit(2)->order(array('location'))->select();
         $z['list_p'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>3))->limit(2)->select();
+        ))->where(array('states'=>3))->limit(2)->order(array('location'))->select();
         foreach($z['list_r'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
@@ -93,7 +93,7 @@ class lession extends base\e{//运维
         $bid = post('bid',$bid,'%d');
         $z['list'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>$states,'bid'=>$bid))->limit(9999)->select();
+        ))->where(array('states'=>$states,'bid'=>$bid))->order(array('location'))->limit(9999)->select();
         foreach($z['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
