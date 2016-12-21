@@ -148,7 +148,7 @@ class my extends base\e{
 
         $t['list'] = model('inquiry_list')->mapping('r')->add_table(array(
             'inquiry'=>array('_on'=>'r.bid=i.id','uid'=>'iuid','_mapping'=>'i','title','content'=>'icontent','img'=>'iimg'),
-            'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nickname','type','_mapping'=>'u'),
+            'user@1'=>array('_on'=>'u.uid=r.uid','thumb','nametrue'=>'nickname','type','_mapping'=>'u'),
             'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','type'=>'itype','_mapping'=>'u2'),
             
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();

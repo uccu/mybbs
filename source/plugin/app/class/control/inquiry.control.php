@@ -31,7 +31,7 @@ class inquiry extends base\e{
         
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname','type'),
+            'user'=>array('_on'=>'uid','thumb','type','nametrue'=>'nickname'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan')
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
@@ -59,7 +59,7 @@ class inquiry extends base\e{
         if(!$p)$this->_check_access();
 
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
-            'user'=>array('_on'=>'uid','thumb','nickname','type'),
+            'user'=>array('_on'=>'uid','thumb','nametrue'=>'nickname','type'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan'),
             'inquiry_paid'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=p.id AND p.uid='.$this->uid,'_mapping'=>'p','uid'=>'ispaid')
         ))->where(array('bid'=>$id))->page($page,$limit)->order(array('adopt'=>'DESC','ctime'=>'DESC'))->select();
