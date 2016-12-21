@@ -118,7 +118,7 @@ class lession extends base\e{//运维
                 'pid'=>$id
             ))->find();
         }
-        $t['list'] = model('question')->where(array('states'=>$paper['states'],'bid'=>$paper['bid']))->order('rand()')->limit(20)->select();
+        $t['list'] = model('question')->where(array('bid'=>$paper['lid1']?$paper['lid1']:$paper['lid']))->order('rand()')->limit(20)->select();
         $this->success($t);
 
     }
