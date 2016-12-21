@@ -28,8 +28,7 @@ class inquiry extends base\e{
 
         $t['replyCount'] = model('inquiry_list')->where(array('bid'=>$id))->get_field();
 
-        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
-        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
+        
 
         $t['adopt'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nickname','type'),
@@ -37,7 +36,8 @@ class inquiry extends base\e{
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
-
+        $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
+        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
         
 
         
