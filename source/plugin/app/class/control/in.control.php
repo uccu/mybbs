@@ -167,6 +167,7 @@ class in extends base\e{
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
+            'nickname'=>!$info['type'] || $info['type']<1?$info['nickname']:$info['nametrue'],
             'news'=>$info['news']?"1":"0",
             'type'=>$info['type'],
             'apply'=>$info['apply']?$info['apply']:"0",
