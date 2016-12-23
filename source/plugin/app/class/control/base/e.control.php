@@ -31,7 +31,7 @@ class e extends \control\ajax{
         $this->userInfo = $info;
         if(!$info)return '-4';
         $this->userInfo = $info;
-
+        if($this->userInfo['banned'])$this->errorCode(600);
         return $md5 == md5($info['password'].$this->salt2) ? $uid : '-5';
     }
     function _get_userInfo(){
