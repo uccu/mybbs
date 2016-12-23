@@ -72,6 +72,7 @@ class captcha extends \plugin\app\control\base\e{
         $where['ip'] = $this->g->ip;
         $c = model('captcha')->where($where)->order(array('ctime'=>'DESC'))->find();
         if(!$c)$this->error(501,'验证码错误');
+        if($c['ctime']<TIME_NOW-300)$this->error(501,'验证码已过期');
         if($this->uid>0){
             if($this->userInfo['usercode'] && $this->userInfo['usercode']!=$c['usercode'])$this->error(501,'手机号与预留的手机号不同');
         }else{
