@@ -167,7 +167,7 @@ class e extends \control\ajax{
         $client = new \JPush('597751d938baa0b47784437d', 'd7c39d2b6efb566575c02e5c');
         $result = $client->push()
             ->setOptions(null,null,null,true)
-            ->setPlatform('all')
+            ->setPlatform('ios')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
             ->addIosNotification(null,'default','+1')
