@@ -159,6 +159,7 @@ class in extends base\e{
 
     }
     function _out_info($info,$cookie = false){
+        if($info['banned'])$this->errorCode(600);
         $user_token = base64_encode(md5($info['password'].$this->salt2).'|'.$info['uid']);
         if($cookie)cookie('user_token',$user_token,0);
 
