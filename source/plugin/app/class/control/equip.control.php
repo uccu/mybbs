@@ -51,7 +51,7 @@ class equip extends base\e{
 
         //$r = array();
 
-        if($count){
+        if(!$count){
 
             if($this->userInfo['vip']>TIME_NOW){
                 $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得7.5积分！',$this->uid);
