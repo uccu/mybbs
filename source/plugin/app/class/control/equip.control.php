@@ -35,6 +35,9 @@ class equip extends base\e{
         unset($_POST['id']);
         $_POST['uid'] = $this->uid;
         $_POST['ctime'] = TIME_NOW;
+
+        $count = model('equip_protect')->where(array('uid'=>$this->uid,'ctime'=>array('logic',$this->today,'>')))->get_field();
+
         $z = model('equip_protect')->data($_POST)->add();
         if(!$z)$this->errorCode(432);
 
@@ -47,6 +50,22 @@ class equip extends base\e{
         ))->limit(999)->select();
 
         //$r = array();
+
+        if($count){
+
+            if($this->userInfo['vip']>TIME_NOW){
+                $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得7.5积分！',$this->uid);
+                $this->_handle_score(7.5,'发布设备维保',1);
+
+            }else{
+                $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得5积分！',$this->uid);
+                $this->_handle_score(5,'发布设备维保',1);
+
+            }
+
+        }
+
+        
 
         foreach($a as $v){
 
