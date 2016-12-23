@@ -52,7 +52,7 @@ class code extends \control\ajax{
     504=>'微信提现失败',
     505=>'证书文件不存在',
 
-    600=>'该用户已被加入黑名单',
+    600=>'很抱歉！您的帐号已经被冻结，无法登录使用',
     700=>'安全错误警告',
     );
     public function errorCode($z,$e){
