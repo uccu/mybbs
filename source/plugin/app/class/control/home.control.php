@@ -7,7 +7,7 @@ class home extends base\e{
         //$this->_check_login();
     }
     function banner(){
-        $z = model('banner')->limit(99)->order(array('bid'))->select();
+        $z = model('banner')->limit(99)->order(array('location'))->select();
         foreach($z as &$v){
             $v['url'] = 'app/h5/banner/'.$v['bid'];
         }
