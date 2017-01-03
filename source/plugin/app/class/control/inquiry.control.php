@@ -241,7 +241,7 @@ class inquiry extends base\e{
 
             if($search)$where['field'] = array('contain','%'.$d1['name'].'%','LIKE');
         }
-        model('cache')->replace('test1',implode(',',$where));
+        model('cache')->replace('test1',$id.'|'.implode(',',$where));
         $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
         if(!$z['list']){
 
