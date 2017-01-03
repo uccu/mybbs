@@ -233,7 +233,7 @@ class inquiry extends base\e{
 
         $d2 = model('equipment_list')->find($inquiry['bid']);
 
-        $d1 = model('equipment_list')->find($d['bid']);
+        $d1 = model('equipment_list')->find($d2['bid']);
 
         $where['type'] = 2;
         
