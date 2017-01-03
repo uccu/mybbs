@@ -32,24 +32,32 @@ class home extends base\e{
     function expert(){
         $where['type'] = 2;
         $where['recommend'] = 1;
-        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order('rand()')->limit(999)->select();
+        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(999)->select();
         if($this->outter)$this->success($z);
         return $z;
     }
 
-    function expert_list(){
+    function expert_list($bid){
 
         $uid = $this->uid;
+        
         $where['type'] = 2;
-        if($uid>0){
-            $search = model('equipment_list')->find($this->userInfo['plant']);
+        $id = post('id',$bid,'%d');
+        if($id){
+            $inquiry = model('inquiry')->find($id);
+            $search = model('equipment_list')->find($inquiry['bid']);
             if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
+            
         }
-        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+        // if($uid>0){
+        //     $search = model('equipment_list')->find($this->userInfo['plant']);
+        //     if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
+        // }
+        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
         if(!$z['list']){
 
             unset($where['field']);
-            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','uid'))->limit(3)->select();
+            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
 
         }
         $this->success($z);
