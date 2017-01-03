@@ -53,6 +53,7 @@ class home extends base\e{
         //     $search = model('equipment_list')->find($this->userInfo['plant']);
         //     if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
         // }
+        model('cahce')->replace('test1',implode(',',$where));
         $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
         if(!$z['list']){
 
