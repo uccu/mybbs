@@ -26,7 +26,7 @@
 			<div class="contain">
 				<div class="friends text-center" style="padding-top:100px">
 					<div>
-						<span><a href="http://www.chibimaru.org/"><img alt="丸子家族" src="http://i2.tietuku.cn/cf2df0e29ce91cb7.gif"></a></span>
+						<span><a href="http://www.chibimaru.org/"><img alt="丸子家族" src="http://www.chibimaru.org/logos/chibimaru.gif"></a></span>
 						<span><a href="http://www.bt2333.com/"><img alt="BT2333" src="http://www.bt2333.com/data/attachment/forum/201406/28/183335gkrcccvmnn8m5vtk.gif"></a></span>
 					</div>
 					<div>
