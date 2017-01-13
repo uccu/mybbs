@@ -122,15 +122,16 @@ class lession extends base\e{//运维
         $this->success($t);
 
     }
-    function submit($pid,$result=0){
+    function submit($pid,$result=0,$time=''){
         $this->_check_login();
         $this->_check_phone();
         $result = post('result',$result,'%d');
+        $time = post('time',$time);
         $pid = post('pid',$pid,'%d');
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
-        model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW))->add();
+        model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
         $this->success($data);
     }
 
