@@ -281,7 +281,7 @@ class my extends base\e{
         $result = $r['result'];
         $pid = $r['pid'];
         $data['result'] = $r['result'];
-        $data['time'] = $r['result'];
+        $data['time'] = $r['time'];
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
