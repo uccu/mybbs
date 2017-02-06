@@ -156,7 +156,7 @@ class e extends \control\ajax{
         }
         model('message')->data(array('uid'=>$uid,'ctime'=>TIME_NOW,'content'=>$content))->add();
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
-        $client = new \JPush('597751d938baa0b47784437d', 'd7c39d2b6efb566575c02e5c');
+        $client = new \JPush('c25dce89f1d1dba569b745b5', '875cb64c0de30e1445152f1f');
         $result = $client->push()
             //->setOptions(null,null,null,true)
             ->setPlatform('all')
@@ -164,7 +164,7 @@ class e extends \control\ajax{
             ->setNotificationAlert($content)
             ->addIosNotification(null,'default','+1')
             ->send();
-        $client = new \JPush('597751d938baa0b47784437d', 'd7c39d2b6efb566575c02e5c');
+        $client = new \JPush('c25dce89f1d1dba569b745b5', '875cb64c0de30e1445152f1f');
         $result = $client->push()
             ->setOptions(null,null,null,true)
             ->setPlatform('ios')
