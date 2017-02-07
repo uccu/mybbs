@@ -23,8 +23,8 @@ class home extends base\e{
         return $z;
     }
     function inquiry(){
-        $z['unfinish'] = model('inquiry')->where(array('finish'=>0))->get_field()+12314;
-        $z['finish'] = model('inquiry')->where(array('finish'=>array('logic',0,'!=')))->get_field()+23153;
+        $z['unfinish'] = model('inquiry')->where(array('finish'=>0))->get_field()+model('cache')->get('unfinish_inquiry');
+        $z['finish'] = model('inquiry')->where(array('finish'=>array('logic',0,'!=')))->get_field()+model('cache')->get('finish_inquiry');
         if($this->outter)$this->success($z);
         return $z;
     }

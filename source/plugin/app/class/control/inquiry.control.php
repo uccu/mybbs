@@ -343,6 +343,9 @@ class inquiry extends base\e{
         $where2['answer'] = 0;
         $where2['ctime'] = array('logic',TIME_NOW-24*3600,'<');
 
+        if(rand()<0.1)model('cache')->plus('finish_inquiry');
+        if(rand()<0.1)model('cache')->plus('unfinish_inquiry');
+
         $list = model('expert_paid')->where($where2)->limit(999)->select();
 
         foreach($list as $v){
