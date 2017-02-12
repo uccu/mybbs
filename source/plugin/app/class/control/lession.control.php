@@ -128,10 +128,27 @@ class lession extends base\e{//运维
         $result = post('result',$result,'%d');
         $time = post('time',$time);
         $pid = post('pid',$pid,'%d');
+        $qids = post('qids');
+        $qids = explode(',',$qids);
+        $answers = post('answers');
+        $answers = explode(',',$answers);
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
-        model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
+        $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
+
+
+        $data2['rid'] = $id;
+        $data2['uid'] = $this->uid;
+        foreach($qids as $k=>$qid){
+
+            $data2['qid'] = $qid;
+            $data2['answer'] = $answers[$k];
+
+            model('paper_result_detail')->data($data2)->add();
+
+        }
+
         $this->success($data);
     }
 
