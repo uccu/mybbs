@@ -20,7 +20,7 @@ class my extends base\e{
     }
 
     function change_u_info($nickname,$sex,$city,$plant){
-        $this->_check_type(0);
+        //$this->_check_type(0);
         $data['nickname'] = post('nickname',$nickname);
         $data['sex'] = post('sex',$sex);
         $data['city'] = post('city',$city);
