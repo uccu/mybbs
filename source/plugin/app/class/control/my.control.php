@@ -12,7 +12,7 @@ class my extends base\e{
     }
 
     function choose_char($type){
-        $this->_check_type(-1);
+        //$this->_check_type(-1);
         //$type = post('type',$type,'0');
         $type = 0;
         $data['count'] = model('user')->data(array('type'=>$type))->save($this->uid);
