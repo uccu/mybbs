@@ -55,8 +55,13 @@ class inquiry extends base\e{
             'uid'=>$this->uid,
             'id'=>$id
         ))->find();
+        $inquiry = model('inquiry')->find($id);
         $this->_check_phone();
-        if(!$p)$this->_check_access();
+        if($inquiry['uid'] != $this->uid){
+
+            if(!$p)$this->_check_access();
+        }
+        
 
         $t['reply'] = model('inquiry_list')->mapping('r')->add_table(array(
             'user'=>array('_on'=>'uid','thumb','nametrue'=>'nickname','type'),
