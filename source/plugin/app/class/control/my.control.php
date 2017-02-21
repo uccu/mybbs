@@ -294,7 +294,7 @@ class my extends base\e{
             'paper_result_detail'=>[
                 'uid','rid','answer','_on'=>'qid'
             ]
-        ])->where(['rid'=>$id])->select($id);
+        ])->where(['rid'=>$id])->limit(99)->select($id);
         $data['list'] = $d;
 
         $this->success($data);
