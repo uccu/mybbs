@@ -287,6 +287,19 @@ class my extends base\e{
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
         $this->success($data);
     }
+
+    function paper_detail($id=0){
+        $id = post('id',$id,'%d');
+        $d = model('question')->add_table([
+            'paper_result_detail'=>[
+                'uid','rid','answer','_on'=>'qid'
+            ]
+        ])->where(['rid'=>$id])->select($id);
+        $data['list'] = $d;
+
+        $this->success($data);
+
+    }
     function message(){
         $page = post('page',1);
         $limit = post('limit',10);
