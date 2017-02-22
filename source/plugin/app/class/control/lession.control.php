@@ -135,7 +135,7 @@ class lession extends base\e{//运维
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
         $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
-        $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
+        $data['id'] = $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
 
 
         $data2['rid'] = $id;
