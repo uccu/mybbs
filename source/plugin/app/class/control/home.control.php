@@ -14,8 +14,10 @@ class home extends base\e{
         if($this->outter)$this->success($z);
         return $z;
     }
-    function top_line(){
-        $z = model('top_line')->limit(99)->order(array('location','tid'=>'desc'))->select();
+    function top_line($page=1,$limit=3){
+        $limit = post('limit',$limit);
+        $page = post('page',$page);
+        $z = model('top_line')->page(1,3)->order(array('location','tid'=>'desc'))->select();
         foreach($z as &$v){
             $v['url'] = 'app/h5/top/'.$v['tid'];
         }
