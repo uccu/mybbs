@@ -292,9 +292,9 @@ class my extends base\e{
         $id = post('id',$id,'%d');
         $d = model('question')->add_table([
             'paper_result_detail'=>[
-                'uid','rid','answer','_on'=>'qid'
+                'id','uid','rid','answer','_on'=>'qid'
             ]
-        ])->where(['rid'=>$id])->limit(99)->select($id);
+        ])->where(['rid'=>$id])->order(['id'])->limit(99)->select($id);
         $data['list'] = $d;
 
         $this->success($data);
