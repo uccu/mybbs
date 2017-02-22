@@ -271,7 +271,7 @@ class my extends base\e{
         $limit = post('limit',10);
         $t['list'] = model('paper_result')->add_table(array(
             'paper'=>array('_on'=>'pid','name','img')
-        ))->where(array('uid'=>$this->uid))->order(array('citme'=>'DESC'))->page($page,$limit)->select();
+        ))->where(array('uid'=>$this->uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
         $this->success($t);
     }
     function paper_info($id=0){
