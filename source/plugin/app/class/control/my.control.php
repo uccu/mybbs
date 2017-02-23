@@ -533,7 +533,7 @@ class my extends base\e{
                     break;
             }
 
-            $gd['gid'] = $id;
+            $gd['gid'] = $id?$id:0;
             $gd['uid'] = $this->uid;
             $gd['ctime'] = TIME_NOW;
             $gd['type'] = $type;
