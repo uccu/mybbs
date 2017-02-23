@@ -473,7 +473,7 @@ class my extends base\e{
                     $type = post('type','');
                     $id = post('id','0');
                     $total_fee = '100';
-                    if($type=='inquiry')
+                    if($type =='inquiry')
                         model('inquiry_paid')->data(array(
                             'uid'=>$this->uid,
                             'ctime'=>TIME_NOW,
@@ -494,7 +494,7 @@ class my extends base\e{
                     break;
                 case 'vip43200':
                     $type = 'vip';
-                    $total_feemodel('member')->find(1);
+                    $total_fee = model('member')->find(1);
                     $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*30;
                     $data['vip_type'] = 1;
@@ -504,7 +504,7 @@ class my extends base\e{
                     break;
                 case 'vip129600':
                     $type = 'vip';
-                    $total_feemodel('member')->find(2);
+                    $total_fee = model('member')->find(2);
                     $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*90;
                     $data['vip_type'] = 2;
@@ -514,7 +514,7 @@ class my extends base\e{
                     break;
                 case 'vip518400':
                     $type = 'vip';
-                    $total_feemodel('member')->find(3);
+                    $total_fee = model('member')->find(3);
                     $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*365;
                     $data['vip_type'] = 3;
