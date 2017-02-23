@@ -467,6 +467,12 @@ class my extends base\e{
             if($response->receipt->bundle_id != "com.hanyu.OperationGuards")$this->error('400','信息验证错误');
 
             $product_id = $response->receipt->in_app[0]->product_id;
+
+            $gd['prepay_id'] = $response->receipt->in_app[0]->transaction_id;
+
+            if(model('pay_log')->where($gd)->find()){
+                $this->error('400','付款失败！');
+            }
             
             switch($product_id){
                 case 'ywwssh201701':
@@ -535,7 +541,7 @@ class my extends base\e{
             $gd['prepay_success'] = '1';
             $gd['success'] = '0';
             $gd['pay_type'] = 'ios';
-            $gd['prepay_id'] = $response->receipt->in_app[0]->transaction_id;
+            
             model('pay_log')->data($gd)->add();
             $this->success(['total_fee'=>$total_fee]);
 
