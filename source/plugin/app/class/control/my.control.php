@@ -440,5 +440,115 @@ class my extends base\e{
         }
 
     }
+
+
+
+
+    function ios_pay($sandbox = 0){
+
+        $sandbox = post('sandbox',$sandbox);
+        $receiptData = post('receiptData','');
+        $url = $sandbox ? "https://sandbox.itunes.apple.com/verifyReceipt" : "https://buy.itunes.apple.com/verifyReceipt";
+        $jsonData = ['receipt-data'=>($receiptData)];
+        $data_string = json_encode($jsonData);
+        $curl_handle=curl_init();
+        curl_setopt($curl_handle,CURLOPT_URL, $url);
+        curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_handle,CURLOPT_HEADER, 0);
+        curl_setopt($curl_handle,CURLOPT_POST, true);
+        curl_setopt($curl_handle,CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($curl_handle,CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl_handle,CURLOPT_SSL_VERIFYPEER, 0);
+        $response_json =curl_exec($curl_handle);
+        $response = json_decode($response_json);
+        curl_close($curl_handle);
+
+        if($response_json && $response->status == 0){
+            if($response->receipt->bundle_id != "com.hanyu.OperationGuards")$this->error('400','信息验证错误');
+
+            $product_id = $response->receipt->in_app[0]->product_id;
+            
+            switch($product_id){
+                case 'ywwssh201701':
+                    $type = post('type','');
+                    $id = post('id','0');
+                    $total_fee = '100';
+                    if($type=='inquiry')
+                        model('inquiry_paid')->data(array(
+                            'uid'=>$this->uid,
+                            'ctime'=>TIME_NOW,
+                            'id'=>$id
+                        ))->add(true);
+                    elseif($type=='expert')
+                        model('expert_paid')->data(array(
+                            'uid'=>$this->uid,
+                            'ctime'=>TIME_NOW,
+                            'id'=>$id
+                        ))->add(true);
+                    elseif($type=='paper')
+                        model('paper_paid')->data(array(
+                            'uid'=>$this->uid,
+                            'ctime'=>TIME_NOW,
+                            'pid'=>$id
+                        ))->add(true);
+                    break;
+                case 'vip43200':
+                    $type = 'vip';
+                    $total_feemodel('member')->find(1);
+                    $total_fee = $total_fee['postage']*100;
+                    $add = 3600*24*30;
+                    $data['vip_type'] = 1;
+                    if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
+                    else $data['vip'] = TIME_NOW + $add;
+                    model('user')->data($data)->save($this->uid);
+                    break;
+                case 'vip129600':
+                    $type = 'vip';
+                    $total_feemodel('member')->find(2);
+                    $total_fee = $total_fee['postage']*100;
+                    $add = 3600*24*90;
+                    $data['vip_type'] = 2;
+                    if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
+                    else $data['vip'] = TIME_NOW + $add;
+                    model('user')->data($data)->save($this->uid);
+                    break;
+                case 'vip518400':
+                    $type = 'vip';
+                    $total_feemodel('member')->find(3);
+                    $total_fee = $total_fee['postage']*100;
+                    $add = 3600*24*365;
+                    $data['vip_type'] = 3;
+                    if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
+                    else $data['vip'] = TIME_NOW + $add;
+                    model('user')->data($data)->save($this->uid);
+                    break;
+                default:
+                    $this->error('400','错误:'.$response->status);
+                    break;
+            }
+
+            $gd['gid'] = $id;
+            $gd['uid'] = $this->uid;
+            $gd['ctime'] = TIME_NOW;
+            $gd['type'] = $type;
+            $gd['total_fee'] = $total_fee;
+            $gd['prepay_success'] = '1';
+            $gd['success'] = '0';
+            $gd['pay_type'] = 'ios';
+            $gd['prepay_id'] = $response->receipt->in_app[0]->transaction_id;
+            model('pay_log')->data($gd)->add();
+            $this->success(['total_fee'=>$total_fee]);
+
+        }else{
+
+            $this->error('400','错误:'.$response->status);
+        
+        }
+
+           
+
+
+
+    }
 }
 ?>
