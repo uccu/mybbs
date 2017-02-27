@@ -498,7 +498,7 @@ class my extends base\e{
                             'pid'=>$id
                         ))->add(true);
                     break;
-                case 'vip43200':
+                case 'ywwsvip43200':
                     $type = 'vip';
                     $total_fee = model('member')->find(1);
                     $total_fee = $total_fee['postage']*100;
@@ -508,7 +508,7 @@ class my extends base\e{
                     else $data['vip'] = TIME_NOW + $add;
                     model('user')->data($data)->save($this->uid);
                     break;
-                case 'vip129600':
+                case 'ywwsvip129600':
                     $type = 'vip';
                     $total_fee = model('member')->find(2);
                     $total_fee = $total_fee['postage']*100;
@@ -518,7 +518,7 @@ class my extends base\e{
                     else $data['vip'] = TIME_NOW + $add;
                     model('user')->data($data)->save($this->uid);
                     break;
-                case 'vip518400':
+                case 'ywwsvip518400':
                     $type = 'vip';
                     $total_fee = model('member')->find(3);
                     $total_fee = $total_fee['postage']*100;
