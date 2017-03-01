@@ -18,7 +18,7 @@ p{color: #999;
 <div class="container" style="margin-top: 40px;">
     <h4>合作联系方式</h4>
     <p>
-        全国统一合作电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
+        全国统一合作电话：<font style="color:orange;font-size:16px">13764243215</font> （免费）
     </p>
     <p>
         邮箱：Coop@qingce.com
