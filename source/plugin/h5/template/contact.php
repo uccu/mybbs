@@ -30,8 +30,10 @@ p{color: #999;
         <div class="col-xs-3 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
+
         <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 135px;border-radius:22px">
             <font style="color:orange;font-size:16px">13764243215</font> 
+
         </div>
     </div>
     <div class="row">
