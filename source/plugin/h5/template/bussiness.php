@@ -18,7 +18,7 @@ p{color: #999;
 <div class="container" style="margin-top: 40px;">
     <h4>合作联系方式</h4>
     <p>
-        全国统一合作电话：<font style="color:orange;font-size:16px">400-666-666</font> （免费）
+        全国统一合作电话：<font style="color:orange;font-size:16px">13764243215</font> 
     </p>
     <p>
         邮箱：Coop@qingce.com
@@ -50,7 +50,7 @@ p{color: #999;
 </div>
 
 <div class="pf bbg" style="width:100%;bottom:0;left:0;z-index:1">
-    <img src="/pic/h5/d.png" alt="" class="img-responsive">
+    <a href="http://121.199.8.244:4000/customer.html"><img src="/pic/h5/d.png" alt="" class="img-responsive"></a>
     <span class="db pa clos" style="height:100%;width:40px;z-index:3;top:0;left:0"></span>
     <script>j('.clos').click(function(){j('.bbg').fadeOut()})</script>
 </div>

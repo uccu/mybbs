@@ -30,8 +30,8 @@ p{color: #999;
         <div class="col-xs-3 tr">
             <img src="/pic/h5/contact/phone@2x.png" alt="" style="height: 49px;">
         </div>
-        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 180px;border-radius:22px">
-            <font style="color:orange;font-size:16px">400-666-666</font> （免费）
+        <div class="col-xs-9 jt" style="background: #f3f3f3;padding: 10px 0 10px 15px;width: 135px;border-radius:22px">
+            <font style="color:orange;font-size:16px">13764243215</font> 
         </div>
     </div>
     <div class="row">
@@ -64,7 +64,7 @@ p{color: #999;
 
 
 <div class="pf bbg" style="width:100%;bottom:0;left:0;z-index:1">
-    <img src="/pic/h5/d.png" alt="" class="img-responsive">
+    <a href="http://121.199.8.244:4000/customer.html"><img src="/pic/h5/d.png" alt="" class="img-responsive"></a>
     <span class="db pa clos" style="height:100%;width:40px;z-index:3;top:0;left:0"></span>
     <script>j('.clos').click(function(){j('.bbg').fadeOut()})</script>
 </div>
