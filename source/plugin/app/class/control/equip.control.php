@@ -53,15 +53,15 @@ class equip extends base\e{
 
         if(!$count){
 
-            if($this->userInfo['vip']>TIME_NOW){
-                $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得7.5积分！',$this->uid);
-                $this->_handle_score(7.5,'发布设备维保',1);
+            // if($this->userInfo['vip']>TIME_NOW){
+            //     $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得7.5积分！',$this->uid);
+            //     $this->_handle_score(7.5,'发布设备维保',1);
 
-            }else{
-                $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得5积分！',$this->uid);
-                $this->_handle_score(5,'发布设备维保',1);
+            // }else{
+            //     $this->_pusher('恭喜您！您申请设备维保信息已经提交成功，获得5积分！',$this->uid);
+            //     $this->_handle_score(5,'发布设备维保',1);
 
-            }
+            // }
 
         }
 
