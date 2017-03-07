@@ -462,7 +462,21 @@ class my extends base\e{
         $response_json =curl_exec($curl_handle);
         $response = json_decode($response_json);
         curl_close($curl_handle);
-
+        if(!$sandbox && $response_json && $response->status == 21007){
+            $url =  "https://sandbox.itunes.apple.com/verifyReceipt";
+            $curl_handle=curl_init();
+            curl_setopt($curl_handle,CURLOPT_URL, $url);
+            curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl_handle,CURLOPT_HEADER, 0);
+            curl_setopt($curl_handle,CURLOPT_POST, true);
+            curl_setopt($curl_handle,CURLOPT_POSTFIELDS, $data_string);
+            curl_setopt($curl_handle,CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($curl_handle,CURLOPT_SSL_VERIFYPEER, 0);
+            $response_json =curl_exec($curl_handle);
+            $response = json_decode($response_json);
+            curl_close($curl_handle);
+        }
+        
         if($response_json && $response->status == 0){
             if($response->receipt->bundle_id != "com.hanyu.OperationGuards")$this->error('400','信息验证错误');
 
