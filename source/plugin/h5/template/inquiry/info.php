@@ -94,7 +94,7 @@
         <img src="/pic/h5/inquiry/view@2x.png">查看更多答案请下载APP
     </div>
     <div class="content">
-        <a href="#"><img src="/pic/h5/inquiry/download@2x.png" class="img-responsive center-block"></a>
+        <a href="http://121.199.8.244:4000/customer.html"><img src="/pic/h5/inquiry/download@2x.png" class="img-responsive center-block"></a>
     </div>
 </div>
 <!--{subtemplate tool:footer}-->

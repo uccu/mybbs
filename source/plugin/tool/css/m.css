@@ -15,6 +15,7 @@
 .ofh{overflow:hidden}
 a:focus, a:hover{text-decoration: none}
 .clear::after{clear: both;display:block;}
+*{font-family:'微软雅黑'}
 
 
 

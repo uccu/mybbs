@@ -14,7 +14,7 @@ class home extends base\e{
         if($this->outter)$this->success($z);
         return $z;
     }
-    function top_line($page=1,$limit=3){
+    function top_line($page=1,$limit=10){
         $limit = post('limit',$limit);
         $page = post('page',$page);
         $z = model('top_line')->page($page,$limit)->order(array('location','tid'=>'desc'))->select();
