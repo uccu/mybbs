@@ -41,15 +41,15 @@ class pay extends base\e{
                 }
 
                 model('pay_log')->where(array('out_trade_no'=>$a->out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
-                
+                $score = $log['total_fee'];
                 if($log['type']=='inquiry'){
-
+                    
                     model('inquiry_paid')->data(array(
                         'uid'=>$log['uid'],
                         'ctime'=>TIME_NOW,
                         'id'=>$log['gid']
                     ))->add(true);
-
+                    
                 }elseif($log['type']=='expert'){
 
                     model('expert_paid')->data(array(
@@ -57,6 +57,8 @@ class pay extends base\e{
                         'ctime'=>TIME_NOW,
                         'id'=>$log['gid']
                     ))->add(true);
+                    $this->_handle_score(100,'恭喜您！支付成功，并获得了100积分！',0,$log['uid']);
+                    $this->_pusher('恭喜您！支付成功，并获得了100积分！',$log['uid']);
                 }elseif($log['type']=='paper'){
 
                     model('paper_paid')->data(array(
@@ -64,7 +66,8 @@ class pay extends base\e{
                         'ctime'=>TIME_NOW,
                         'pid'=>$log['gid']
                     ))->add(true);
-
+                    $this->_handle_score(100,'恭喜您！支付成功，并获得了100积分！',0,$log['uid']);
+                    $this->_pusher('恭喜您！支付成功，并获得了100积分！',$log['uid']);
                 }elseif($log['type']=='vip'){
 
                     $time = $log['gid'];
@@ -83,6 +86,8 @@ class pay extends base\e{
                     echo "FAIL";die();
 
                 }
+                $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$log['uid']);
+                $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid']);
 
                 echo "SUCCESS";die();
             }
@@ -110,6 +115,7 @@ class pay extends base\e{
             die();
         }
         model('pay_log')->where(array('out_trade_no'=>$out_trade_no.''))->data(array('success'=>1,'stime'=>TIME_NOW))->save();
+        $score = $log['total_fee'];
         if($log['type']=='inquiry')
             model('inquiry_paid')->data(array(
                 'uid'=>$log['uid'],
@@ -142,6 +148,8 @@ class pay extends base\e{
             return;
     
         }
+        $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$log['uid']);
+        $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid']);
             
 
         echo "SUCCESS";die();

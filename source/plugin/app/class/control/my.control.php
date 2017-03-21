@@ -492,7 +492,7 @@ class my extends base\e{
                 case 'ywwssh201701':
                     $type = post('type','');
                     $id = post('id','0');
-                    $total_fee = '100';
+                    $score = $total_fee = '100';
                     if($type =='inquiry')
                         model('inquiry_paid')->data(array(
                             'uid'=>$this->uid,
@@ -511,11 +511,12 @@ class my extends base\e{
                             'ctime'=>TIME_NOW,
                             'pid'=>$id
                         ))->add(true);
+                    
                     break;
                 case 'ywwsvip43200':
                     $type = 'vip';
                     $total_fee = model('member')->find(1);
-                    $total_fee = $total_fee['postage']*100;
+                    $score = $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*30;
                     $data['vip_type'] = 1;
                     if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
@@ -525,7 +526,7 @@ class my extends base\e{
                 case 'ywwsvip129600':
                     $type = 'vip';
                     $total_fee = model('member')->find(2);
-                    $total_fee = $total_fee['postage']*100;
+                    $score = $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*90;
                     $data['vip_type'] = 2;
                     if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
@@ -535,7 +536,7 @@ class my extends base\e{
                 case 'ywwsvip518400':
                     $type = 'vip';
                     $total_fee = model('member')->find(3);
-                    $total_fee = $total_fee['postage']*100;
+                    $score = $total_fee = $total_fee['postage']*100;
                     $add = 3600*24*365;
                     $data['vip_type'] = 3;
                     if($this->userInfo['vip']>TIME_NOW)$data['vip'] = $add + $this->userInfo['vip'];
@@ -547,6 +548,8 @@ class my extends base\e{
                     break;
             }
 
+            
+
             $gd['gid'] = $id?$id:0;
             $gd['uid'] = $this->uid;
             $gd['ctime'] = TIME_NOW;
@@ -557,6 +560,10 @@ class my extends base\e{
             $gd['pay_type'] = 'ios';
             
             model('pay_log')->data($gd)->add();
+
+            $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$this->uid);
+            $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$this->uid);
+
             $this->success(['total_fee'=>$total_fee]);
 
         }else{
