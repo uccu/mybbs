@@ -80,13 +80,45 @@ class my extends base\e{
     function shop(){
 
         $page = post('page',1);
-        $limit = post('limit',10);
+        $limit = post('limit',20);
 
-        $list = model('goods')->page($page,$limit)->order(['location'=>'DESC','goods_id'=>'DESC'])->select();
+        $list = model('goods')->field(['goods_id','goods_name','thumb','score'])->page($page,$limit)->order(['location'=>'DESC','goods_id'=>'DESC'])->select();
 
         $out['list'] = $list;
         $out['score'] = $this->userInfo['score'];
         $this->success($out);
+
+    }
+
+    function shop_detail($id = 0){
+
+        $id = post('id',$id,'%d');
+        $info = model('goods')->find($id);
+        if(!$info)$this->errorCode(443);
+
+        $out['info'] = $info;
+        $this->success($out);
+
+    }
+
+    function shop_log(){
+
+        $page = post('page',1);
+        $limit = post('limit',20);
+
+        $list = model('goods_list')->where(['uid'=>$this->uid])->page($page,$limit)->order(['ctime'=>'DESC'])->select();
+
+        $out['list'] = $list;
+
+        $this->success($out);
+    }
+
+    function shop_get($id){
+
+        $id = post('id',$id,'%d');
+
+        
+
 
     }
 
