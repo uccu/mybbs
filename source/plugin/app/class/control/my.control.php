@@ -77,6 +77,22 @@ class my extends base\e{
         $this->success($t);
     }
 
+    function shop(){
+
+        $page = post('page',1);
+        $limit = post('limit',10);
+
+        $list = model('goods')->page($page,$limit)->order(['location'=>'DESC','goods_id'=>'DESC'])->select();
+
+        $out['list'] = $list;
+        $out['score'] = $this->userInfo['score'];
+        $this->success($out);
+
+    }
+
+
+
+
     function my_fans(){
         model('fans')->mapping('f');
         $t['fans'] = model('fans')->add_table(array(
