@@ -150,6 +150,7 @@ class my extends base\e{
             $this->errorCode(442);
         }
 
+        $this->_handle_score(-1*$info['score'],'兑换商品',0,$this->uid);
 
         $addr = model('address')->find($addr_id);
 
