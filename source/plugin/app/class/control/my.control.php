@@ -108,7 +108,7 @@ class my extends base\e{
 
         $list = model('goods_list')->add_table(array(
             'goods'=>array(
-                '_on'=>'goods_id','goods_name'
+                '_on'=>'goods_id','goods_name','thumb'
             )
         ))->where(['uid'=>$this->uid])->page($page,$limit)->order(['ctime'=>'DESC'])->select();
 
