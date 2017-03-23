@@ -150,6 +150,10 @@ class my extends base\e{
             $this->errorCode(442);
         }
 
+        if(!$info['nums']){
+            $this->errorCode(434);
+        }
+
         $this->_handle_score(-1*$info['score'],'兑换商品',0,$this->uid);
 
         $addr = model('address')->find($addr_id);
@@ -168,6 +172,10 @@ class my extends base\e{
         
 
         $out['id'] = model('goods_list')->data($data)->add();
+
+        model('goods')->data([
+            'nums'=>['add',-1],'sale_nums'=>['add',1]
+        ])->save($id);
 
         $this->success($out);
 
