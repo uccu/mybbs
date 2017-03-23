@@ -106,11 +106,35 @@ class my extends base\e{
         $page = post('page',1);
         $limit = post('limit',20);
 
-        $list = model('goods_list')->where(['uid'=>$this->uid])->page($page,$limit)->order(['ctime'=>'DESC'])->select();
+        $list = model('goods_list')->add_table(array(
+            'goods'=>array(
+                '_on'=>'goods_id','goods_name'
+            )
+        ))->where(['uid'=>$this->uid])->page($page,$limit)->order(['ctime'=>'DESC'])->select();
 
         $out['list'] = $list;
 
         $this->success($out);
+    }
+
+    function shop_log_detail($id){
+
+        $id = post('id',$id,'%d');
+
+        $out['log'] = $info = model('goods_list')->find($id);
+
+        if(!$info){
+            $this->errorCode(446);
+        }
+
+        $out['goods'] = $goods = model('goods')->find($info['goods_id']);
+
+        if(!$info){
+            $this->errorCode(443);
+        }
+
+        $this->success($out);
+
     }
 
     function shop_get($id,$addr_id){
