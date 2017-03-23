@@ -169,6 +169,7 @@ class my extends base\e{
         if(!$addr)$data['main'] = 1;
         $data['ctime'] = TIME_NOW;
 
+        $data['uid'] = $this->uid;
         $data['address'] = post('address','');
         $data['city'] = post('city','');
         $data['postcode'] = post('postcode','');
