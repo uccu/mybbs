@@ -19,8 +19,16 @@ class other extends base\e{
         $this->success($z);
     }
 
+    function time(){
 
+        echo time();
 
+    }
+
+    function date(){
+
+        echo date('Y-m-d H:i:s');
+    }
     
 
 
