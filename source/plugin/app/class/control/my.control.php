@@ -113,11 +113,119 @@ class my extends base\e{
         $this->success($out);
     }
 
-    function shop_get($id){
+    function shop_get($id,$addr_id){
 
         $id = post('id',$id,'%d');
 
+        $addr_id = post('addr_id',$addr_id,'%d');
+
+        $info = model('goods')->find($id);
+        if(!$info)$this->errorCode(443);
+
+        if($this->userInfo['score']<$info['score']){
+            $this->errorCode(442);
+        }
+
+
+        $addr = model('address')->find($addr_id);
+
+        if(!$addr){
+            $this->errorCode(444);
+        }
+
+        $data['uid'] = $this->uid;
+        $data['goods_id'] = $id;
+        $data['receiver'] = $addr['name'];
+        $data['phone'] = $addr['phone'];
+        $data['address'] = $addr['province'].' '.$addr['city'].' '.$addr['region'].' '.$addr['address'];
+        $data['mail'] = $addr['postcode'];
+        $data['ctime'] = TIME_NOW;
         
+
+        $out['id'] = model('goods_list')->data($data)->add();
+
+        $this->success($out);
+
+
+
+    }
+
+    function addr_list(){
+
+        $list = model('address')->where(['uid'=>$this->uid])->order(['id'=>'DESC'])->select();
+
+        $out['list'] = $list;
+        $this->success($out);
+
+    }
+
+    function add_addr(){
+
+        $data['name'] = post('name','');
+        $data['phone']= post('phone','');
+        $data['main'] = post('main','0');
+        $addr = model('address')->where(['uid'=>$this->uid,'main'=>1])->find();
+
+        if(!$addr)$data['main'] = 1;
+        $data['ctime'] = TIME_NOW;
+
+        $data['address'] = post('address','');
+        $data['city'] = post('city','');
+        $data['postcode'] = post('postcode','');
+        $data['province'] = post('province','');
+        $data['region'] = post('region','');
+
+        $addr = model('address')->data($data)->add();
+
+        $this->success();
+
+    }
+
+
+    function remove_addr($id=0){
+
+        $id = post('id',$id);
+
+        $addr = model('address')->where(['id'=>$id,'uid'=>$this->uid])->find();
+
+        if(!$addr){
+            $this->errorCode(444);
+        }
+        if($addr['main']){
+            $this->errorCode(445);
+        }
+
+        $addr = model('address')->remove($id);
+        $this->success();
+
+
+    }
+
+
+    function change_addr($id=0){
+
+        $id = post('id','');
+
+        $data['name'] = post('name','');
+        $data['phone']= post('phone','');
+        $data['main'] = post('main','0');
+        $addr = model('address')->where(['uid'=>$this->uid,'main'=>1])->find();
+
+        if(!$addr)$data['main'] = 1;
+
+        if($data['main']){
+            model('address')->where(['uid'=>$this->uid])->data(['main'=>0])->save();
+        }
+        $data['ctime'] = TIME_NOW;
+        $data['address'] = post('address','');
+        $data['city'] = post('city','');
+        $data['postcode'] = post('postcode','');
+        $data['province'] = post('province','');
+        $data['region'] = post('region','');
+
+        $addr = model('address')->data($data)->save($id);
+
+        $this->success();
 
 
     }
