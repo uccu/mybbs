@@ -152,7 +152,7 @@ class my extends base\e{
 
     function addr_list(){
 
-        $list = model('address')->where(['uid'=>$this->uid])->order(['id'=>'DESC'])->select();
+        $list = model('address')->where(['uid'=>$this->uid])->order(['id'=>'DESC'])->limit(999)->select();
 
         $out['list'] = $list;
         $this->success($out);
