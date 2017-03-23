@@ -19,6 +19,15 @@ class other extends base\e{
         $this->success($z);
     }
 
+    function ver(){
+
+        $out['ver_id'] = model('cache')->get('ver_id');
+        $out['ver_message'] = model('cache')->get('ver_message');
+
+        $this->success($out);
+
+    }
+
     function time(){
 
         echo time();
