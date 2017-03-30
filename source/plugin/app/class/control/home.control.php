@@ -34,7 +34,7 @@ class home extends base\e{
     function expert(){
         $where['type'] = 2;
         $where['recommend'] = 1;
-        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(999)->select();
+        $z = model('user')->field(array('uid','nickname','thumb','nametrue','label','is_free'))->where($where)->order(array('top'=>'DESC','location'))->limit(999)->select();
         if($this->outter)$this->success($z);
         return $z;
     }
@@ -56,11 +56,11 @@ class home extends base\e{
         //     if($search)$where['field'] = array('contain','%'.$search['name'].'%','LIKE');
         // }
         model('cache')->replace('test1',implode(',',$where));
-        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
+        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label','is_free'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
         if(!$z['list']){
 
             unset($where['field']);
-            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
+            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label','is_free'))->where($where)->order(array('top'=>'DESC','location'))->limit(3)->select();
 
         }
         $this->success($z);

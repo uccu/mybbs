@@ -171,7 +171,7 @@ class inquiry extends base\e{
         $t['list'] = model('user')->mapping('u')->add_table(array(
              'fans'=>array('_join'=>'LEFT JOIN','_on'=>'u.uid=f.uid AND f.fans_id='."'{$this->uid}'",'_mapping'=>'f','fans_id'=>'followed')
         ))->field(array(
-            "uid","thumb","nickname","experience","label","type","is_login","answer",'nametrue',"fans","follow","followed"
+            "uid","thumb","nickname","experience","label","type","is_login","answer",'nametrue',"fans","follow","followed",'is_free'
         ))->where($where)->page($page,$limit)->order('location')->select();
         foreach($t['list'] as &$v){
             $v['followed'] = $v['followed']?'1':'0';
@@ -231,7 +231,7 @@ class inquiry extends base\e{
         }
         $this->success($z);
     }
-
+    /* 专家列表 */
     function expert_list($id = 0){
 
         $id = post('id',$id,'%d');
@@ -249,11 +249,11 @@ class inquiry extends base\e{
             $where['field'] = array('contain','%'.$d1['name'].'%','LIKE');
         }
         model('cache')->replace('test1',$id.'|'.implode(',',$where));
-        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('location','uid'))->limit(999)->select();
+        $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label','is_free'))->where($where)->order(array('location','uid'))->limit(999)->select();
         if(!$z['list']){
 
             unset($where['field']);
-            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label'))->where($where)->order(array('location','uid'))->limit(3)->select();
+            $z['list'] = model('user')->field(array('uid','nickname','thumb','nametrue','label','is_free'))->where($where)->order(array('location','uid'))->limit(3)->select();
 
         }
         $this->success($z);
