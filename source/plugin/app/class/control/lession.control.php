@@ -23,11 +23,11 @@ class lession extends base\e{//运维
         $id = post('id',$id,'%d');
         $t = model('course')->find($id);
         if(!$t)$this->errorCode(418);
-        if($t['open_time']<TIME_NOW && $t['etime']>TIME_NOW){
+        // if($t['open_time']<TIME_NOW && $t['etime']>TIME_NOW){
             //if($t['look_nums']<=$t['nums'])$this->errorCode(419);
             model('course')->data(array('nums'=>array('add',1),'watch'=>array('add',1)))->save($id);
             $t['nums']++;
-        }
+        // }
         
         //     
         // }
