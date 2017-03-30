@@ -44,8 +44,8 @@ class equip extends base\e{
 
 
         $city = $this->userInfo['city'];
-        $cityName = model('region')->find($city);
-        $province = model('region')->find($cityName['pid']);
+        $cityName = model('manager_organ')->find($city);
+        $province = model('manager_organ')->find($cityName['pid']);
         $province = $province['title'];
         $cityName = $cityName['title'];
 
