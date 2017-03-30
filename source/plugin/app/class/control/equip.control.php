@@ -44,6 +44,10 @@ class equip extends base\e{
 
 
         $city = $this->userInfo['city'];
+        $cityName = model('region')->find($city);
+        $province = model('region')->find($cityName['pid']);
+        $province = $province['title'];
+        $cityName = $cityName['title'];
 
         $a = model('user_area')->mapping('a')->add_table(array(
             'manager_user'=>array('_on'=>'mid','_mapping'=>'u','phone')
@@ -70,7 +74,7 @@ class equip extends base\e{
         foreach($a as $v){
 
             if(array_search($city,explode(',',$v['value']))!==false){
-                control('tool:captcha')->_message($v['phone'],'您好！用户 '.$this->userInfo['usercode'].' 提交了一条维保的信息，请尽快到管理后台查看详情，并尽快与该用户取得联系，谢谢！');
+                control('tool:captcha')->_message($v['phone'],'您好！'.$province.'-'.$cityName.'的用户 '.$this->userInfo['usercode'].' 提交了一条维保的信息，请尽快到管理后台查看详情，并尽快与该用户取得联系，谢谢！');
             }
             
 
