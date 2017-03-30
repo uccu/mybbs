@@ -151,12 +151,18 @@ class user extends base\e{
         $this->_check_phone();
         $uid = post('uid',$uid,'%d');
         if(!$uid)$this->errorCode(416);
-        $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb'))->find($uid);
+        $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb','is_free'))->find($uid);
         if(!$data['info'])$this->errorCode(440);
 
-        if($this->userInfo['qust']>0)model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
+        if($this->userInfo['qust']>0 && !$data['info']['is_free'])model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
 
         $data['qust'] = $this->userInfo['qust'];
+
+        if($data['info']['is_free']){
+            
+            $data['paid'] = '1';
+            $this->success($data);
+        }
         $pay = model('expert_paid')->where(array('uid'=>$this->uid,'id'=>$uid))->order(array('ctime'=>'DESC'))->find();
 
         $data['paid'] = $pay && $pay['ctime']>TIME_NOW-24*3600 ? '1' : '0';
