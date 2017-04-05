@@ -367,13 +367,12 @@ class my extends base\e{
         }
         if($this->type==0){
             if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(100,'签到');
-            else $this->_handle_score(100,'签到');
+            else $this->_handle_score(150,'签到');
         }elseif($this->type==1){
-            if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(100,'签到');
-            else $this->_handle_score(100,'签到');
+            $this->_handle_score(100,'签到');
         }elseif($this->type==2){
-            if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(100,'签到');
-            else $this->_handle_score(100,'签到');
+            $this->_handle_score(300,'签到');
+            
         }
         
         $this->success();
@@ -549,11 +548,11 @@ class my extends base\e{
             if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(100,'分享',-1);
             else $c = $this->_handle_score(150,'分享',-1);
         }elseif($this->type==1){
-            if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(150,'分享',-1);
-            else $c = $this->_handle_score(150,'分享',-1);
+            $c = $this->_handle_score(150,'分享',-1);
+            
         }elseif($this->type==2){
-            if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(150,'分享',-1);
-            else $c = $this->_handle_score(150,'分享',-1);
+            $c = $this->_handle_score(450,'分享',-1);
+            
         }
         
 
