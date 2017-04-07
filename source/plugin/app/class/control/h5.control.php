@@ -93,5 +93,10 @@ class h5 extends base\e{
 
     }
 
+    function tesst($content='测试~'){
+        $z = $this->_pusher($content,$uid=214);
+        var_dump($z);
+    }
+
 }
 ?>

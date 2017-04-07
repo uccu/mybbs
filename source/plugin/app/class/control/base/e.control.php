@@ -165,13 +165,14 @@ class e extends \control\ajax{
             ->addIosNotification(null,'default','+1')
             ->send();
         $client = new \JPush('c25dce89f1d1dba569b745b5', '875cb64c0de30e1445152f1f');
-        $result = $client->push()
+        $result2 = $client->push()
             ->setOptions(null,null,null,true)
             ->setPlatform('ios')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
             ->addIosNotification(null,'default','+1')
             ->send();
+        return [$result,$result2];
     }
 
     function _getCloudToken($uid = 0){
