@@ -35,7 +35,7 @@ class my extends base\e{
     }
     function change_o_info($nickname,$sex,$city,$plant){
         $this->_check_phone();
-        $data['nametrue'] = post('nametrue',post('nickname',''));
+        $data['nickname'] = $data['nametrue'] = post('nametrue',post('nickname',''));
         $data['sex'] = post('sex',0,'%d');
         $data['city'] = post('city',$city);
         if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_field('id');
