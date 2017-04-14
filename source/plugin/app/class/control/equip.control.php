@@ -46,8 +46,8 @@ class equip extends base\e{
         $city = $this->userInfo['city'];
         $cityName = model('manager_organ')->find($city);
         $province = model('manager_organ')->find($cityName['bid']);
-        $province = $province['title'];
-        $cityName = $cityName['title'];
+        $province = $province['jgmc'];
+        $cityName = $cityName['jgmc'];
 
         $a = model('user_area')->mapping('a')->add_table(array(
             'manager_user'=>array('_on'=>'mid','_mapping'=>'u','phone')
