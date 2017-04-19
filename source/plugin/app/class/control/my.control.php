@@ -544,7 +544,7 @@ class my extends base\e{
     }
     function share(){
         $this->_check_phone();
-        if($this->type==0){
+        if($this->type==='0'){
             if($this->userInfo['vip']<TIME_NOW)$c = $this->_handle_score(100,'分享',-1);
             else $c = $this->_handle_score(150,'分享',-1);
         }elseif($this->type==1){
