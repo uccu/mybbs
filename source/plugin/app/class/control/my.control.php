@@ -365,12 +365,12 @@ class my extends base\e{
             if($u['sign_time']>$this->today)$this->errorCode(423);
             model('sign')->data(array('sign_time'=>TIME_NOW,'times'=>array('add',1)))->save($this->uid);
         }
-        if($this->type==0){
+        if($this->userInfo['type']==0){
             if($this->userInfo['vip']<TIME_NOW)$this->_handle_score(100,'签到');
             else $this->_handle_score(150,'签到');
-        }elseif($this->type==1){
+        }elseif($this->userInfo['type']==1){
             $this->_handle_score(100,'签到');
-        }elseif($this->type==2){
+        }elseif($this->userInfo['type']==2){
             $this->_handle_score(300,'签到');
             
         }
