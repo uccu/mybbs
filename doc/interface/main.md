@@ -1,6 +1,6 @@
 ## 接口
 
-所有的接口统一前缀http://121.199.8.244:5000/  
+所有的接口统一前缀http://www.yunweiweishi.com/  
 
 返回的数据格式为json的字典，有4个参数，`data（object）`,`desc(string)`,`url(string)`,`code(int)`；后续所有所说的返回参数都是指data对象。  
 

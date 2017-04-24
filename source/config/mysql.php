@@ -5,7 +5,7 @@ if(!defined('IN_PLAY')) {
 
 
  $config=array(
-	 'host'=>'121.199.8.244',
+	 'host'=>'www.yunweiweishi.com',
 	 'user'=>'sbgl',
 	 'password'=>'123456',
 	 'db'=>'sbgl',
