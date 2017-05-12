@@ -221,12 +221,12 @@ class inquiry extends base\e{
         if($f){
             if($i['zan'])model('inquiry_list')->data(array('zan'=>array('add',-1)))->save($id);
             model('inquiry_zan')->where($data)->remove();
-            $this->_handle_score(-100,'点赞被取消',0,$i->uid);
+            $this->_handle_score(-100,'点赞被取消',0,$i['uid']);
             $z['collected'] = '0';
         }else{
             model('inquiry_list')->data(array('zan'=>array('add',1)))->save($id);
             model('inquiry_zan')->data($data)->add();
-            $this->_handle_score(100,'回答被点赞',0,$i->uid);
+            $this->_handle_score(100,'回答被点赞',0,$i['uid']);
             $z['collected'] = '1';
         }
         $this->success($z);
