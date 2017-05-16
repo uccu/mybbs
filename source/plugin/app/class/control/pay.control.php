@@ -87,7 +87,11 @@ class pay extends base\e{
 
                 }
                 $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$log['uid']);
-                $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid']);
+                $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid'],array('type'=>array(
+                    "id"=>'0',
+                    'title'=>'',
+                    'key'=>3,
+                )));
 
                 echo "SUCCESS";die();
             }
@@ -149,7 +153,11 @@ class pay extends base\e{
     
         }
         $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$log['uid']);
-        $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid']);
+        $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$log['uid'],array('type'=>array(
+            "id"=>'0',
+            'title'=>'',
+            'key'=>3,
+        )));
             
 
         echo "SUCCESS";die();

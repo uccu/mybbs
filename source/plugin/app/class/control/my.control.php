@@ -313,11 +313,11 @@ class my extends base\e{
         model('inquiry')->data(array('finish'=>TIME_NOW))->save($r['bid']);
 
 
-        $this->_pusher('恭喜您！您的答案被作者采纳了，点击查看！',$r['uid'],array(
+        $this->_pusher('恭喜您！您的答案被作者采纳了，点击查看！',$r['uid'],array('type'=>array(
             "id"=>$r['bid'],
             'title'=>'',
             'key'=>1,
-        ));
+        )));
         $this->_handle_score(600,'回答被采纳',0,$r['uid']);
         $this->success($z);
     }
@@ -756,7 +756,11 @@ class my extends base\e{
             model('pay_log')->data($gd)->add();
 
             $this->_handle_score($score,'恭喜您！支付成功，并获得了'.$score.'积分！',0,$this->uid);
-            $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$this->uid);
+            $this->_pusher('恭喜您！支付成功，并获得了'.$score.'积分！',$this->uid,array('type'=>array(
+                "id"=>'0',
+                'title'=>'',
+                'key'=>3,
+            )));
 
             $this->success(['total_fee'=>$total_fee]);
 
