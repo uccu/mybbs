@@ -359,10 +359,9 @@ class inquiry extends base\e{
 
             $this->_handle_score(100,'咨询退款',0,$v['uid']);
 
-            $this->_pusher('很抱歉！您咨询的专家24小时内未回复您的问题，我们已经退款到您的积分账户。',$v['uid'],array('type'=>array(
+            $this->_pusher('很抱歉！您咨询的专家24小时内未回复您的问题，我们已经退款到您的积分账户。',$v['uid'],array('type1'=>array(
                 "id"=>'0',
-                'title'=>'',
-                'key'=>3,
+                
             )));
 
         }

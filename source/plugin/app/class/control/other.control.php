@@ -41,10 +41,9 @@ class other extends base\e{
 
     function test(){
 
-        $this->_pusher('test!!!',214,array('type'=>array(
+        $this->_pusher('test!!!',214,array('type1'=>array(
                 "id"=>'0',
-                'title'=>'',
-                'key'=>3,
+                
             )));
 
     }
