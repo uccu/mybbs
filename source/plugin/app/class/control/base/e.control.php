@@ -146,7 +146,7 @@ class e extends \control\ajax{
 
     }
     
-    function _pusher($content='测试~',$uid=0){
+    function _pusher($content='测试~',$uid=0,$extra = null){
         if(!$uid){
             $uid = $this->uid;
             if(!$uid)return false;
@@ -154,6 +154,7 @@ class e extends \control\ajax{
             $userInfo = model('user')->find($uid);
             if(!$userInfo)return false;
         }
+
         model('message')->data(array('uid'=>$uid,'ctime'=>TIME_NOW,'content'=>$content))->add();
         require_once(PLUGIN_ROOT."tool/class/control/JPush/JPush.php");
         $client = new \JPush('c25dce89f1d1dba569b745b5', '875cb64c0de30e1445152f1f');
@@ -162,7 +163,8 @@ class e extends \control\ajax{
             ->setPlatform('all')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
-            ->addIosNotification(null,'default','+1')
+            ->addAndroidNotification(null,null,null,$extra)
+            ->addIosNotification(null,'default','+1',null,null,$extra)
             ->send();
         $client = new \JPush('c25dce89f1d1dba569b745b5', '875cb64c0de30e1445152f1f');
         $result2 = $client->push()
@@ -170,7 +172,7 @@ class e extends \control\ajax{
             ->setPlatform('ios')
             ->addAlias('A'.$uid)
             ->setNotificationAlert($content)
-            ->addIosNotification(null,'default','+1')
+            ->addIosNotification(null,'default','+1',null,null,$extra)
             ->send();
         return [$result,$result2];
     }
