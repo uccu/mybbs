@@ -38,6 +38,16 @@ class other extends base\e{
 
         echo date('Y-m-d H:i:s');
     }
+
+    function test(){
+
+        $this->_pusher('test!!!',214,array('type'=>array(
+                "id"=>'0',
+                'title'=>'',
+                'key'=>3,
+            )));
+
+    }
     
 
 
