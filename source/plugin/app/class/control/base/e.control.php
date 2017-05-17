@@ -141,7 +141,7 @@ class e extends \control\ajax{
         }
 
         model('score_log')->data($data)->add();
-        model('user')->data($data2)->save($this->uid);
+        model('user')->data($data2)->save($uid);
         return true;
 
     }
