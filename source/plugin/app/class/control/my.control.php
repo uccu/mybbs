@@ -95,7 +95,7 @@ class my extends base\e{
         $id = post('id',$id,'%d');
         $info = model('goods')->find($id);
         if(!$info)$this->errorCode(443);
-
+        $info['datail'] = '<style>img{max-width:100%;display:block}</style>'.$info['datail'];
         $out['info'] = $info;
         $this->success($out);
 
