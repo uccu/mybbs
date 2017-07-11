@@ -8,6 +8,11 @@ class e extends \control\ajax{
     function errorCode($z){
         return control('code','error')->errorCode($z);
     }
+
+    function error($z, $object, $url = ''){
+        return control('code','error')->error('400',$z);
+    }
+
     function __construct(){
         $this->uid;
         $this->salt = $this->g->config['PASSWORD_SALT'];

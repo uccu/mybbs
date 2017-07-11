@@ -84,7 +84,10 @@ class core
 		model('cache')->replace('handleException',$array,'%s');
 		if(!defined('SHOW_ERROR'))$array = (object)array();
 		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
-		echo json_encode($error);
+		if(defined('SHOW_ERROR')){
+			echo $exception;
+		}
+		else echo json_encode($error);
 		die();
 	}
 	public static function handleError($errno, $errstr, $errfile, $errline) {
@@ -105,7 +108,7 @@ class core
 			}
 			model('cache')->replace('handleError',array($errno, $errstr, $errfile, $errline),'%s');
 			//if(defined('SHOW_ERROR'))var_dump($errno,$errstr,$errfile,$errline);
-			throw new Exception('handleError');
+			throw new Exception('handleError:'.$errstr);
 		}
 	}
 

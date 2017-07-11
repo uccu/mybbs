@@ -8,7 +8,7 @@ if(!defined('IN_PLAY')) {
 	 'host'=>'www.yunweiweishi.com',
 	 'user'=>'sbgl',
 	 'password'=>'123456',
-	 'db'=>'sbgl',
+	 'db'=>'sbgl_test',
 	 'prefix'=>'t_',
 	 'charset'=>'utf8mb4'
  );

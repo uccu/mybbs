@@ -184,5 +184,72 @@ class lession extends base\e{//运维
     }
 
 
+
+
+
+    # 二期
+
+    # 题目列表
+    function exam_question_list($id=0){
+
+        # 验证登录
+        // $this->_check_login();
+
+        # 验证手机号是否完善
+        // $this->_check_phone();
+
+        # 获取考卷
+        $id = post('id',$id,'%d');
+
+        $paper = model('paper')->find($id);
+
+        !$paper && $this->error('考卷不存在！');
+
+
+        # 如果是付费考卷，则判断是否付费
+        // if($paper['states']==3){
+        //     $p = model('paper_paid')->where(
+        //         [
+        //             'uid'=>$this->uid,
+        //             'pid'=>$id
+        //         ]
+        //     )->find();
+        // }
+
+        # 获取分类ID
+        $bid = $paper['lid1']?$paper['lid1']:$paper['lid'];
+        !$bid && $this->error('题库不存在！');
+
+
+        # 随机获取列表中的20个
+        $list = model('exam_question')->where(['bid'=>$bid])->order('rand()')->limit(20)->select();
+
+        $str = 'ABCDEFGHIJKLMN';
+
+        foreach($list as &$q){
+
+            $q['options'] = [];
+
+            # 如果是非填空题获取选项
+            if($q['type'] != 3){
+                $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('rand()')->limit(20)->select();
+                $num = 0;
+                foreach($q['options'] as &$o){
+                    $o['select'] = $str[$num];
+                    $num++;
+                }
+            }
+        }
+
+        $data['list'] = $list;
+
+        $this->success($data);
+
+    }
+
+
+
+
+
 }
 ?>
