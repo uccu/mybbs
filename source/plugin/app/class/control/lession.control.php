@@ -5,19 +5,30 @@ class lession extends base\e{//运维
     function _beginning(){
         //$this->_check_login();
     }
-    function lists($type=0){
+    function lists($type = 0,$lid = 0){
+
+
+        # 获取请求参数
         $type = post('type',$type,'%d');
+        $lid = post('lid',$lid,'%d');
+
+        if($lid)$course = model('course')->where(['lid'=>$lid]);
+        else $course = model('course');
+
         if($type==1)
-            $t = model('course')->where(array('open_time'=>array('logic',TIME_NOW,'>')))->order(array('open_time'))->limit(999)->select();
+            $t = $course->where(array('open_time'=>array('logic',TIME_NOW,'>')))->order(array('open_time'))->limit(999)->select();
         elseif($type==2)
-            $t = model('course')->where(array('open_time'=>array('logic',TIME_NOW,'<'),'etime'=>array('logic',TIME_NOW,'>')))->order(array('open_time'=>'DESC'))->limit(999)->select();
+            $t = $course->where(array('open_time'=>array('logic',TIME_NOW,'<'),'etime'=>array('logic',TIME_NOW,'>')))->order(array('open_time'=>'DESC'))->limit(999)->select();
         elseif($type==3)
-            $t = model('course')->where(array('etime'=>array('logic',TIME_NOW,'<')))->limit(999)->order(array('open_time'=>'DESC'))->select();
-        else $t = model('course')->limit(999)->select();
+            $t = $course->where(array('etime'=>array('logic',TIME_NOW,'<')))->limit(999)->order(array('open_time'=>'DESC'))->select();
+        else $t = $course->limit(999)->select();
 
         foreach($t as &$v)$v['now'] = TIME_NOW;
+
         $data['list'] = $t;
+
         $this->success($data);
+
     }
     function info($id=0){
         $id = post('id',$id,'%d');
@@ -248,7 +259,20 @@ class lession extends base\e{//运维
     }
 
 
+    function video_category(){
 
+        $list = model('course_list')->order('id')->limit(99)->select();
+
+        foreach($list as &$v){
+
+            $v['count'] = model('course')->where(['lid'=>$v['id']])->get_field();
+
+        }
+
+        $data['list'] = $list;
+        $this->success($data);
+
+    }
 
 
 }
