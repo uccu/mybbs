@@ -193,10 +193,10 @@ class lession extends base\e{//运维
     function exam_question_list($id=0){
 
         # 验证登录
-        // $this->_check_login();
+        $this->_check_login();
 
         # 验证手机号是否完善
-        // $this->_check_phone();
+        $this->_check_phone();
 
         # 获取考卷
         $id = post('id',$id,'%d');
@@ -204,7 +204,7 @@ class lession extends base\e{//运维
         $paper = model('paper')->find($id);
 
         !$paper && $this->error('考卷不存在！');
-
+        $data['paper'] = $paper;
 
         # 如果是付费考卷，则判断是否付费
         // if($paper['states']==3){
