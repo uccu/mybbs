@@ -266,6 +266,7 @@ class lession extends base\e{//运维
         foreach($list as &$v){
 
             $v['count'] = model('course')->where(['lid'=>$v['id']])->get_field();
+            $v['precount'] = model('course')->where(['lid'=>$v['id'],'open_time'=>['logic',TIME_NOW,'>']])->order('open_time')->get_field();
 
         }
 
