@@ -258,11 +258,12 @@ class lession extends base\e{//运维
 
     }
 
-
+    # 视频分类
     function video_category(){
 
         $list = model('course_list')->order('id')->limit(99)->select();
 
+        # 数量统计
         foreach($list as &$v){
 
             $v['count'] = model('course')->where(['lid'=>$v['id']])->get_field();
@@ -273,6 +274,43 @@ class lession extends base\e{//运维
         $data['list'] = $list;
         $this->success($data);
 
+    }
+
+
+    function submit_v2($pid,$result=0,$time='',$data = ''){
+        $this->_check_login();
+        $this->_check_phone();
+        $result = post('result',$result,'%d');
+        $time = post('time',$time);
+        $data = post('time',$data);
+
+        
+        
+        $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
+        $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
+        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
+        $data['id'] = $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
+
+
+        $json = json_decode($data);
+
+        !$json && $this->error('错误！');
+
+        $data2['rid'] = $id;
+        $data2['uid'] = $this->uid;
+        foreach($json as $q){
+
+            $data2['qid'] = $q->qid;
+            $data2['answer'] = $q->answer;
+            $data2['img'] = $q->img;
+            $data2['states'] = $q->states;
+            $data2['edit_time'] = TIME_NOW;
+
+            model('paper_result_detail')->data($data2)->add();
+
+        }
+
+        $this->success($data);
     }
 
 
