@@ -283,7 +283,7 @@ class lession extends base\e{//运维
         $result = post('result',$result,'%d');
         $pid = post('pid',$pid,'%d');
         $time = post('time',$time);
-        $data3 = post('data',$data);
+        $data3 = $_REQUEST['data']?$_REQUEST['data']:$data;
 
         $data = [];
         
@@ -303,6 +303,7 @@ class lession extends base\e{//运维
 
 
         $json = json_decode($data3);
+
 
         !$json && $this->error('错误！');
 

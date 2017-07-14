@@ -473,11 +473,24 @@ class my extends base\e{
         if(!$r)$this->errorCode(422);
         $result = $r['result'];
         $pid = $r['pid'];
-        $data['result'] = $r['result'];
+        $type = $r['type'];
         $data['time'] = $r['time'];
-        $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
-        $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
-        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
+        if($type){
+            $data['scoreS'] = $r['result_select'];
+            $data['scoreT'] = $r['result_blank'];
+            $data['scoreTotal'] = $data['result'];
+            $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
+            $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
+            $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
+        }else{
+            $data['scoreTotal'] = '?';
+            $data['scoreS'] = $r['result_select'];
+            $data['scoreT'] = '?';
+            $data['rank'] = '0';
+            $data['all'] = '0';
+            $data['percent'] = '0';
+        }
+        
         $this->success($data);
     }
 
