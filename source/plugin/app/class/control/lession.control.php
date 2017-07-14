@@ -287,10 +287,19 @@ class lession extends base\e{//运维
 
         $data = [];
         
-        $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
-        $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
-        $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
+        // $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
+        // $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
+        // $data['percent'] = floor((1 - $data['rank']/$data['all'])*100);
         $data['id'] = $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
+        
+        $data['rank'] = '0';
+        $data['all'] = '0';
+        $data['percent'] = '0';
+
+        $data['time'] = $time;
+        $data['scoreTotal'] = '?';
+        $data['scoreS'] = $result;
+        $data['scoreT'] = '?';
 
 
         $json = json_decode($data3);
