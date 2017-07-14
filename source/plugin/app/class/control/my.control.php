@@ -3,7 +3,7 @@ namespace plugin\app\control;
 defined('IN_PLAY') || exit('Access Denied');
 class my extends base\e{
     function _beginning(){
-        $this->_check_login();
+        // $this->_check_login();
     }
 
     function _change_info($info,$v){
@@ -496,11 +496,27 @@ class my extends base\e{
 
     function paper_detail($id=0){
         $id = post('id',$id,'%d');
-        $d = model('question')->add_table([
+        $d = model('exam_question')->add_table([
             'paper_result_detail'=>[
                 'id','uid','rid','answer','_on'=>'qid'
             ]
         ])->where(['rid'=>$id])->order(['id'])->limit(99)->select($id);
+
+        foreach($d as &$q){
+
+            $q['options'] = [];
+
+            # 如果是非填空题获取选项
+            if($q['type'] != 3){
+                $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('rand()')->limit(20)->select();
+                $num = 0;
+                foreach($q['options'] as &$o){
+                    $o['select'] = $str[$num];
+                    $num++;
+                }
+            }
+        }
+
         $data['list'] = $d;
 
         $this->success($data);
