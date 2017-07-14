@@ -278,9 +278,10 @@ class lession extends base\e{//运维
 
 
     function submit_v2($pid,$result=0,$time='',$data = ''){
-        $this->_check_login();
-        $this->_check_phone();
+        // $this->_check_login();
+        // $this->_check_phone();
         $result = post('result',$result,'%d');
+        $pid = post('pid',$pid,'%d');
         $time = post('time',$time);
         $data3 = post('time',$data);
 
