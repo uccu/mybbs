@@ -498,7 +498,7 @@ class my extends base\e{
         $id = post('id',$id,'%d');
         $d = model('exam_question')->add_table([
             'paper_result_detail'=>[
-                'id','uid','rid','answer','_on'=>'qid'
+                'id','uid','rid','answer','states'=>'is_right','_on'=>'qid'
             ]
         ])->where(['rid'=>$id])->order(['id'])->limit(99)->select($id);
 
