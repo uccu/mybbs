@@ -282,9 +282,9 @@ class lession extends base\e{//运维
         $this->_check_phone();
         $result = post('result',$result,'%d');
         $time = post('time',$time);
-        $data = post('time',$data);
+        $data3 = post('time',$data);
 
-        
+        $data = [];
         
         $data['rank'] = model('paper_result')->where(array('pid'=>$pid,'result'=>array('logic',$result,'>')))->get_field() + 1;
         $data['all'] = model('paper_result')->where(array('pid'=>$pid))->get_field() + 1;
@@ -292,7 +292,7 @@ class lession extends base\e{//运维
         $data['id'] = $id = model('paper_result')->data(array('pid'=>$pid,'result'=>$result,'uid'=>$this->uid,'ctime'=>TIME_NOW,'time'=>$time))->add();
 
 
-        $json = json_decode($data);
+        $json = json_decode($data3);
 
         !$json && $this->error('错误！');
 
