@@ -30,14 +30,13 @@
         padding:20px;
         color: #fff;
     }
-    .ad,.main{
-        padding: 0
-    }
+    
     .ad img{
         width: 100%;
     }
     .main{
         box-shadow: 0 0 1px #ccc; 
+        padding:0
     }
     .message-box{
         background-color: #f9f8f8;
@@ -161,21 +160,60 @@
     .block .avatar img{
         max-width: 100%;
     }
+    .user{
+        height:36px;
+        line-height: 36px;
+        font-size: 16px;
+        font-family: serif;
+        cursor: pointer;
+    }
+    .user:hover{
+        background-color: #f0f0f0
+    }
+    .user.active{
+        background-color: #45818e;
+        color: #fff
+    }
+    
+    .user .avatar img{
+        max-width: 200%;width:36px;position: relative;right: 0
+    }
 
     </style>
     <div class="container">
         <div class="row box">
             <div class="col-12 top">
-                <h3>涵予科技在线咨询</h3>
+                <h3>涵予科技在线客服</h3>
             </div>
-            <div class="col-sm-2 d-none d-md-block ad">
-                <img src="http://new.shuhuaty.com/templets/default/images/swt_right.jpg">
-            </div>
-            <div class="col-md-10 col-12 main">
-                <div class="message-box">
-                    <div class="block-top">
-                        123
+            <div class="col-sm-2 col-12 ad">
+                <div class="user row t">
+                    <div class="avatar col-3">
+                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
                     </div>
+                    <div class="name col-9">
+                        name
+                    </div>
+                </div>
+                <div class="user row t active">
+                    <div class="avatar col-3">
+                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
+                    </div>
+                    <div class="name col-9">
+                        name
+                    </div>
+                </div>
+                <div class="user row t">
+                    <div class="avatar col-3">
+                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
+                    </div>
+                    <div class="name col-9">
+                        name
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-10 col-12 main">
+                <div class="message-box">
+                    
                     
 
                 </div>
@@ -208,9 +246,8 @@
         }
 
         var user,pwd,uid,nickname;
-        var p = new URL(location);
-        adm = p.searchParams.get('adm');
-        if(adm && (pwd = prompt())){
+
+        if(pwd = prompt()){
             user = 'admin';
             nickname = '涵予科技';
         }

@@ -203,8 +203,40 @@ let server = ws.createServer({
 					if(!user)break;
 					if(!user.avatar)user.avatar = obj.avatar;
 					if(!user.nickname)user.nickname = obj.nickname;
-					if(!user.nickname)user.nickname = '用户'+user.UID.slice(0,6);
+
 					user.connectMap.set(conSymbol,con);
+					
+					if(user.UID != 'admin'){
+						user.nickname = '用户'+user.UID.slice(0,6);
+						z = {};
+						let u = UserMap.get('admin');
+						if(u){
+							z.uid = u.UID;
+							z.avatar = u.avatar;
+							z.nickname = u.nickname;
+							z.message = '你好，有什么可以帮您的吗？';
+							z.type = 'user_message';
+							user.sendObject(z);
+						}else{
+							z.uid = 'system';
+							z.avatar = '';
+							z.nickname = '系统消息';
+							z.message = '当前客服不在线！';
+							z.type = 'user_message';
+							user.sendObject(z);
+						}
+						
+					
+					}else{
+						z = {};
+						z.uid = 'system';
+						z.avatar = '';
+						z.nickname = '系统消息';
+						z.message = '客服已上线！';
+						z.type = 'user_message';
+						UserMap.forEach(g=>g.sendObject(z))
+					}
+					
 					user.sendObject({status:200,type:'user_login',uid:user.UID});
 					break;
 				}case 'user_logout':{
