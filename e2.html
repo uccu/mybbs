@@ -166,6 +166,7 @@
         font-size: 16px;
         font-family: serif;
         cursor: pointer;
+        font-size: 12px;
     }
     .user:hover{
         background-color: #f0f0f0
@@ -235,17 +236,41 @@
             return this<10?'0'+this:this;
         }
 
-        var addMessageContent = function(avatar,name,message){
+        var messageA = {};
+
+        var user,pwd,uid,nickname,touid;
+        
+
+        var addMessageContent = function(uid,avatar,name,message){
+            if(uid == 'system')return;
+            if(uid == window.uid)return;
+            if(!messageA[uid]){
+                messageA[uid] = {m:'',c:0};
+                var nu = $('<div uid="'+uid+'" class="user row t"><div class="avatar col-3"><img src="'+avatar+'" alt=""></div><div class="name col-9">'+name+'</div></div>');
+                $('.ad').prepend(nu);
+                nu.click(function(){
+                    $('.ad .user').removeClass('active');
+                    $(this).addClass('active');
+                    touid = $(this).attr('uid')
+                    messageA[touid].c = 0;
+                    messageA[touid].m
+                })
+
+            }
             var html = '<div class="block"><div class="avatar"><img></div><div class="content"><p class="text-muted"><small></small></p><p class="message"></p></div></div>';
             var html = $(html);
             var date = new Date;
             html.find('.avatar img')[0].src = avatar;
             html.find('small').text(name+' '+date.getHours().m2()+':'+date.getMinutes().m2()+':'+date.getSeconds().m2());
             html.find('.message').html(message.replace(/[\n]/g,"<br>"));
-            $('.message-box').append(html)
-        }
+            messageA[uid].m += html;
+            messageA[uid].c++;
+            
 
-        var user,pwd,uid,nickname;
+        }
+        
+
+        
 
         if(pwd = prompt()){
             user = 'admin';
@@ -279,7 +304,7 @@
                 }
                 
                 try {
-                    var e = JSON.stringify({type:'user_message',uid:'admin',message:msg})
+                    var e = JSON.stringify({type:'user_message',uid:touid,message:msg})
                     socket.send(e);
                     $('textarea').val('')
                     $('textarea').focus();
@@ -312,9 +337,13 @@
                             uid = obj.uid
                             print('login success');
                             break;
-                        case 'user_message':
-                            addMessageContent('http://new.shuhuaty.com/templets/default/images/tx_shuhua.png',obj.nickname,obj.message);
+                        case 'user_message':{
+
+                            addMessageContent(obj.uid,'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png',obj.nickname,obj.message);
                             break;
+
+                        }
+                            
                         case 'err':
                             alert(obj.message);
                             break;
