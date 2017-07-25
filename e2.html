@@ -167,12 +167,20 @@
         font-family: serif;
         cursor: pointer;
         font-size: 12px;
+        color: #888
     }
     .user:hover{
         background-color: #f0f0f0
     }
     .user.active{
         background-color: #45818e;
+
+    }
+    .user .count{
+        
+    }
+    .user.active .name,.user.active .count{
+
         color: #fff
     }
     
@@ -187,39 +195,16 @@
                 <h3>涵予科技在线客服</h3>
             </div>
             <div class="col-sm-2 col-12 ad">
-                <div class="user row t">
-                    <div class="avatar col-3">
-                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
-                    </div>
-                    <div class="name col-9">
-                        name
-                    </div>
-                </div>
-                <div class="user row t active">
-                    <div class="avatar col-3">
-                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
-                    </div>
-                    <div class="name col-9">
-                        name
-                    </div>
-                </div>
-                <div class="user row t">
-                    <div class="avatar col-3">
-                        <img src="http://new.shuhuaty.com/templets/default/images/tx_shuhua.png" alt="">
-                    </div>
-                    <div class="name col-9">
-                        name
-                    </div>
-                </div>
+                
             </div>
             <div class="col-sm-10 col-12 main">
                 <div class="message-box">
                     
-                    
+                    <div style="text-align: center;font-size: 50px;color: #ccc;margin-top: 200px;">当前无用户</div>
 
                 </div>
                 <div class="message-bar"></div>
-                <div class="message-send">
+                <div class="message-send" style="display:none">
                     <textarea name="" id="" cols="30" rows="10"></textarea>
                     <button class="button send t">发送</button>
                 </div>
@@ -240,32 +225,57 @@
 
         var user,pwd,uid,nickname,touid;
         
-
-        var addMessageContent = function(uid,avatar,name,message){
-            if(uid == 'system')return;
-            if(uid == window.uid)return;
+        var addLink = function(uid,avatar,name){
             if(!messageA[uid]){
-                messageA[uid] = {m:'',c:0};
-                var nu = $('<div uid="'+uid+'" class="user row t"><div class="avatar col-3"><img src="'+avatar+'" alt=""></div><div class="name col-9">'+name+'</div></div>');
+                if(window.uid == uid)return;
+                $('.message-send').show();
+                messageA[uid] = {m:[],c:0};
+                var nu = $('<div uid="'+uid+'" class="user row t"><div class="avatar col-3"><img src="'+avatar+'" alt=""></div><div class="name col-7">'+name+'</div><div class="count col-2">'+messageA[uid].c+'</div></div>');
+                var co = $('.ad').children().length;
                 $('.ad').prepend(nu);
                 nu.click(function(){
                     $('.ad .user').removeClass('active');
                     $(this).addClass('active');
                     touid = $(this).attr('uid')
                     messageA[touid].c = 0;
-                    messageA[touid].m
+                    $('.message-box').html(messageA[touid].m)
+                    fleshCount(uid);
                 })
+                if(!co)nu.click()
 
             }
-            var html = '<div class="block"><div class="avatar"><img></div><div class="content"><p class="text-muted"><small></small></p><p class="message"></p></div></div>';
-            var html = $(html);
+
+        }
+        var removeLink = function(uid){
+            $('[uid="'+uid+'"]').remove();
+            delete messageA[uid];
+        }
+
+        var fleshCount = function(uid){
+            if(uid != touid)
+                $('[uid="'+uid+'"] .count').text(messageA[uid].c)
+            else{
+                messageA[uid].c = 0
+                $('[uid="'+uid+'"] .count').text(messageA[uid].c)
+            }
+        }
+
+        var addMessageContent = function(uid,avatar,name,message){
+            if(uid == 'system')return;
+            if(uid == window.uid)uid = touid;
+            if(!uid)return;
+            addLink(uid,avatar,name);
+            
+            var html = $('<div class="block"><div class="avatar"><img></div><div class="content"><p class="text-muted"><small></small></p><p class="message"></p></div></div>');
             var date = new Date;
             html.find('.avatar img')[0].src = avatar;
             html.find('small').text(name+' '+date.getHours().m2()+':'+date.getMinutes().m2()+':'+date.getSeconds().m2());
             html.find('.message').html(message.replace(/[\n]/g,"<br>"));
-            messageA[uid].m += html;
+            messageA[uid].m.push(html);
             messageA[uid].c++;
-            
+            fleshCount(uid)
+            if(uid == touid)
+            $('.message-box').html(messageA[uid].m)
 
         }
         
@@ -277,7 +287,7 @@
             nickname = '涵予科技';
         }
 
-        var host   = 'ws://127.0.0.1:7777';
+        var host   = 'ws://'+location.host+':7777';
         var socket = null;
         var output = document.getElementById('output');
         var print  = function (message) {
@@ -321,7 +331,7 @@
                 print('connection is opened');
                 $('textarea').focus();
 
-                var e = JSON.stringify({type:'user_login',uid:user,password:pwd,nickname:nickname})
+                var e = JSON.stringify({type:'user_login',uid:user,password:pwd,nickname:nickname,avatar:'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png'})
                 socket.send(e);
 
                 return;
@@ -331,17 +341,30 @@
                     var obj = JSON.parse(msg.data);
                     switch(obj.type){
                         case 'connect':
-                            print('connection success');
+                            
                             break;
                         case 'user_login':
                             uid = obj.uid
-                            print('login success');
+                            for(u in obj.users){
+                                addLink(obj.users[u].uid,obj.users[u].avatar,obj.users[u].nickname);
+                            }
                             break;
                         case 'user_message':{
 
-                            addMessageContent(obj.uid,'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png',obj.nickname,obj.message);
+                            addMessageContent(obj.uid,obj.avatar,obj.nickname,obj.message);
                             break;
 
+                        }
+                        case 'user_link':{
+
+                            addLink(obj.uid,obj.avatar,obj.nickname);
+                            break;
+                        }
+                        
+                        case 'user_leave':{
+
+                            removeLink(obj.uid)
+                            break;
                         }
                             
                         case 'err':

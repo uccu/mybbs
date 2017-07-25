@@ -217,27 +217,46 @@ let server = ws.createServer({
 							z.message = '你好，有什么可以帮您的吗？';
 							z.type = 'user_message';
 							user.sendObject(z);
+							z2 = {};
+							z2.uid = user.UID;
+							z2.avatar = user.avatar;
+							z2.nickname = user.nickname;
+							z2.type = 'user_link';
+							u.sendObject(z2);
 						}else{
 							z.uid = 'system';
-							z.avatar = '';
+							z.avatar = 'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png';
 							z.nickname = '系统消息';
 							z.message = '当前客服不在线！';
 							z.type = 'user_message';
 							user.sendObject(z);
+							
 						}
 						
-					
+						user.sendObject({status:200,type:'user_login',uid:user.UID});
 					}else{
 						z = {};
 						z.uid = 'system';
-						z.avatar = '';
+						z.avatar = 'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png';
 						z.nickname = '系统消息';
 						z.message = '客服已上线！';
 						z.type = 'user_message';
-						UserMap.forEach(g=>g.sendObject(z))
+
+						z3 = [];
+						UserMap.forEach(g=>{
+							g.sendObject(z)
+							
+							z2 = {};
+							z2.uid = g.UID;
+							z2.avatar = g.avatar;
+							z2.nickname = g.nickname;
+							z3.push(z2);
+							
+						})
+						user.sendObject({status:200,type:'user_login',uid:user.UID,users:z3});
 					}
 					
-					user.sendObject({status:200,type:'user_login',uid:user.UID});
+					
 					break;
 				}case 'user_logout':{
 					if(!user)break;
@@ -301,6 +320,30 @@ let server = ws.createServer({
 	
 	con.on("close", function (code, reason) {
 		if(user)User.remove(user,conSymbol);
+
+		if(UserMap.get(user.UID))return;
+
+		if(user.UID == 'admin'){
+			z = {};
+			z.uid = 'system';
+			z.avatar = 'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png';
+			z.nickname = '系统消息';
+			z.message = '客服已离线！';
+			z.type = 'user_message';
+			UserMap.forEach(g=>{
+				g.sendObject(z)		
+			})
+		}else{
+			z = {};
+			z.uid = user.UID;
+			z.type = 'user_leave';
+			u = UserMap.get('admin');
+			if(u){
+				u.sendObject(z)
+			}
+
+		}
+
 		console.log("one connection closed")
 	});
 	con.on("error", function (code, reason) {

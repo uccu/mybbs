@@ -209,13 +209,17 @@
 
         var user,pwd,uid,nickname;
         var p = new URL(location);
-        adm = p.searchParams.get('adm');
-        if(adm && (pwd = prompt())){
-            user = 'admin';
-            nickname = '涵予科技';
+
+        if(localStorage.uid){
+            uid = localStorage.uid;
+        }else{
+            localStorage.pwd = pwd = Math.random();
+        }
+        if(localStorage.pwd){
+            pwd = localStorage.pwd
         }
 
-        var host   = 'ws://127.0.0.1:7777';
+        var host   = 'ws://'+location.host+':7777';
         var socket = null;
         var output = document.getElementById('output');
         var print  = function (message) {
@@ -229,7 +233,7 @@
 
         $('textarea').keyup(function(evt){
             if (13 === evt.keyCode) {
-
+                $('.send').click()
             }
         })
         $('.send').click(function (evt) {
@@ -259,7 +263,7 @@
                 print('connection is opened');
                 $('textarea').focus();
 
-                var e = JSON.stringify({type:'user_login',uid:user,password:pwd,nickname:nickname})
+                var e = JSON.stringify({type:'user_login',uid:uid,password:pwd,nickname:nickname,avatar:'http://new.shuhuaty.com/templets/default/images/tx_shuhua.png'})
                 socket.send(e);
 
                 return;
@@ -272,11 +276,11 @@
                             print('connection success');
                             break;
                         case 'user_login':
-                            uid = obj.uid
+                            localStorage.uid = uid = obj.uid
                             print('login success');
                             break;
                         case 'user_message':
-                            addMessageContent('http://new.shuhuaty.com/templets/default/images/tx_shuhua.png',obj.nickname,obj.message);
+                            addMessageContent(obj.avatar,obj.nickname,obj.message);
                             break;
                         case 'err':
                             alert(obj.message);
