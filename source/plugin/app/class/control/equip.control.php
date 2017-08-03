@@ -11,15 +11,47 @@ class equip extends base\e{
         $where['del'] = 1;
         $f['list'] = model('equipment_list')->where($where)->limit(99)->order(array('orders'))->select();
         foreach($f['list'] as &$v){
+
+            
             if($v['bid']){
-                $v['count'] = model('inquiry')->where(array('bid'=>$v['id']))->get_field();
-                $v['today_count'] = model('inquiry')->where(array('bid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
+
+                $bb = model('equipment_list')->find($bid);
+
+                if($bb['bid']){
+
+                    $v['count'] = model('inquiry')->where(array('bid'=>$v['id']))->get_field();
+                    $v['today_count'] = model('inquiry')->where(array('bid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
+
+                }else{
+                    $v['count'] = model('inquiry')->mapping('i')->add_table(array(
+                        'equipment_list'=>array(
+                            '_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid'
+                        )
+                    ))->where(array('kid'=>$v['id']))->get_field();
+                    $v['today_count'] = model('inquiry')->mapping('i')->add_table(array(
+                        'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
+                    ))->where(array('kid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
+                }
+
+                
             }else{
                 $v['count'] = model('inquiry')->mapping('i')->add_table(array(
-                    'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
+                    'equipment_list@1'=>array(
+                        '_on'=>'i.bid=e1.id','_mapping'=>'e1'
+                    ),
+                    'equipment_list@0'=>array(
+                        '_on'=>'e1.bid=e0.id','_mapping'=>'e0','bid'=>'kid'
+                    )
+                    
                 ))->where(array('kid'=>$v['id']))->get_field();
                 $v['today_count'] = model('inquiry')->mapping('i')->add_table(array(
-                    'equipment_list'=>array('_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid')
+                    'equipment_list@1'=>array(
+                        '_on'=>'i.bid=e1.id','_mapping'=>'e1','bid'=>'kid'
+                    ),
+                    'equipment_list@0'=>array(
+                        '_on'=>'e1.bid=e0.id','_mapping'=>'e0'
+                    )
+                    
                 ))->where(array('kid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
             }
 
