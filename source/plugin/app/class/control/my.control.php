@@ -21,7 +21,7 @@ class my extends base\e{
 
     function change_u_info($nickname,$sex,$city,$plant){
         //$this->_check_type(0);
-        $data['nickname'] = post('nickname',$nickname);
+        $data['nickname'] = $data['nametrue'] = post('nickname',$nickname);
         $data['sex'] = post('sex',$sex);
         $data['city'] = post('city',$city);
         if(!is_numeric($data['city']))$data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_field('id');
@@ -346,9 +346,19 @@ class my extends base\e{
             'user@2'=>array('_on'=>'u2.uid=i.uid','thumb'=>'ithumb','nickname'=>'inickname','type'=>'itype','_mapping'=>'u2'),
             
         ))->where(array('uid'=>$uid))->order(array('ctime'=>'DESC'))->page($page,$limit)->select();
-
+        foreach($t['list'] as &$v){
+            $v['quest'] = $this->quest_list($v['id']);
+        }
 
         $this->success($t);
+
+    }
+
+    private function quest_list($id){
+
+        return model('inquiry_reply')->mapping('r')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname','type')
+        ))->where(['reply_id'=>$id])->order('create_time')->limit(999)->select();
 
     }
 

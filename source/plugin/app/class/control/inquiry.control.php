@@ -9,8 +9,7 @@ class inquiry extends base\e{
 
     function info($id){
         $id = post('id',$id,'%d');
-        
-        
+ 
         model('inquiry')->data(array('read'=>array('add',1)))->save($id);
 
         $t['info'] = model('inquiry')->mapping('i')->add_table(array(
@@ -37,8 +36,10 @@ class inquiry extends base\e{
         foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
 
         $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
-        foreach($t['reply'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
-        
+        foreach($t['reply'] as &$v){
+            $v['iszan'] = $v['iszan']?'1':'0';
+            $v['quest'] = $this->quest_list($v['id']);
+        }
 
         
         $this->success($t);
@@ -71,9 +72,42 @@ class inquiry extends base\e{
         foreach($t['reply'] as &$v){
             $v['iszan'] = $v['iszan']?'1':'0';
             $v['ispaid'] = $v['ispaid']?'1':'0';
+            $v['quest'] = $this->quest_list($v['id']);
         }
 
         $this->success($t);
+    }
+
+
+    function quest($id,$content){
+
+        $this->_check_login();
+        $this->_check_phone();
+        $id = post('id',$id,'%d');
+        $content = post('content',$content);
+        $uid = $this->uid;
+
+        $reply = model('inquiry_list')->find($id);
+
+        if(!$reply)$thi->error('没毛病！');
+
+        $data['reply_id'] = $id;
+        $data['content'] = $content;
+        $data['create_time'] = TIME_NOW;
+        $data['uid'] = $uid;
+
+        model('inquiry_reply')->data($data)->add();
+        
+        $this->success();
+
+    }
+
+    private function quest_list($id){
+
+        return model('inquiry_reply')->mapping('r')->add_table(array(
+            'user'=>array('_on'=>'uid','thumb','nickname','type')
+        ))->where(['reply_id'=>$id])->order('create_time')->limit(999)->select();
+
     }
 
 
