@@ -816,5 +816,76 @@ class my extends base\e{
 
 
     }
+
+
+    # 获取部门列表
+    function getDepartment(){
+        $data['list'] = model('department')->limit(99)->select();
+        $data['list'] = array_merge([['id'=>'0','name'=>'全部']],$data['list']);
+        $this->success($data);
+    }
+    
+    /** 获取好友
+     * getFriends
+     * @param mixed $type 部门ID
+     * @return mixed 
+     */
+    function getFriends($type){
+
+        
+        $this->_check_login();
+        $type = post('type',$type,'%d');
+
+        $where['user_id'] = $this->uid;
+
+        $type && $where['did'] = $type;
+
+        $list = model('friends')->mapping('f')
+        ->add_table([
+            'user'=>[
+                '_join'=>'JOIN','_on'=>'f.friend_id=u.uid','_mapping'=>'u','uid','did','nickname','thumb','describe','type'
+            ]
+        ])->field(['uid','nickname','thumb','describe','type'])
+        
+        ->where($where)->order('update_time','desc')->limit(999)->select();
+
+        $out['list'] = $list;
+
+        $this->success($out);
+
+    }
+
+
+    function addFriend($uid){
+
+        $this->_check_login();
+        $uid = post('uid',$uid,'%d');
+
+        $where['user_id'] = $this->uid;
+        $where['friend_id'] = $uid;
+
+        model('friends')->where($where)->find() && $this->error('已经添加好友！');
+
+
+        $where['update_time'] = TIME_NOW;
+        $out['e'] = model('friends')->data($where)->add();
+
+        $this->success($out);
+
+    }
+
+    function delFriend($uid){
+
+        $this->_check_login();
+        $uid = post('uid',$uid,'%d');
+
+        $where['user_id'] = $this->uid;
+        $where['friend_id'] = $uid;
+
+        $out['e'] = model('friends')->where($where)->remove();
+
+        $this->success($out);
+
+    }
 }
 ?>
