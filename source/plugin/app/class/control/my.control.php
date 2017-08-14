@@ -848,6 +848,7 @@ class my extends base\e{
 
     function searchFriends($search){
 
+        $search = post('search',$search);
         if($search){
             $where['usercode'] = array('contain','%'.$search.'%','LIKE');
             $where['nickname'] = array('contain','%'.$search.'%','LIKE');
