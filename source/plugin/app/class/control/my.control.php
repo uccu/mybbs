@@ -842,7 +842,7 @@ class my extends base\e{
      */
     function getFriends($type){
 
-        $this->getFriends($type);
+        $this->my_follow($type);
 
     }
 
