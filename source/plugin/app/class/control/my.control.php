@@ -851,6 +851,7 @@ class my extends base\e{
         if($search){
             $where['usercode'] = array('contain','%'.$search.'%','LIKE');
             $where['nickname'] = array('contain','%'.$search.'%','LIKE');
+            $where['e_wx'] = array('contain','%'.$search.'%','LIKE');
         }else{
             $this->error('没有搜索内容！');
         }
