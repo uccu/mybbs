@@ -195,9 +195,9 @@ class coherent{
 		}
 		return $this;
 	}
-	public function where($w=false,$clean=false){
+	public function where($w=false,$clean=false,$type = 'AND'){
 		if($clean)$this->where = array();
-		if(is_array($w) && $ww = model('logic')->implode($w,'AND','=',$this->tableMap)){
+		if(is_array($w) && $ww = model('logic')->implode($w,$type,'=',$this->tableMap)){
 			$this->where[] = $ww;
 		}elseif(is_string($w))$this->where[] = $w;
 		return $this;

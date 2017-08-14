@@ -266,7 +266,7 @@ class my extends base\e{
 
 
 
-
+    # 我的粉丝
     function my_fans(){
         model('fans')->mapping('f');
         $t['fans'] = model('fans')->add_table(array(
@@ -276,11 +276,21 @@ class my extends base\e{
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
         $this->success($t);
     }
-    function my_follow(){
+
+    /** 我关注的人
+     * my_follow
+     * @param mixed $type 部门ID
+     * @return mixed 
+     */
+    function my_follow($type){
+        $type = post('type',$type,'%d');
+
+        $where['fans_id'] = $this->uid;
+        $type && $where['did'] = $type;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','nametrue','type','label','thumb'),
-        ))->where(array('fans_id'=>$this->uid))->limit(999)->select();
+            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','did','nametrue','type','label','thumb'),
+        ))->where($where)->limit(999)->select();
         foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
     }
@@ -832,59 +842,21 @@ class my extends base\e{
      */
     function getFriends($type){
 
-        
-        $this->_check_login();
-        $type = post('type',$type,'%d');
-
-        $where['user_id'] = $this->uid;
-
-        $type && $where['did'] = $type;
-
-        $list = model('friends')->mapping('f')
-        ->add_table([
-            'user'=>[
-                '_join'=>'JOIN','_on'=>'f.friend_id=u.uid','_mapping'=>'u','uid','did','nickname','thumb','describe','type'
-            ]
-        ])->field(['uid','nickname','thumb','describe','type'])
-        
-        ->where($where)->order('update_time','desc')->limit(999)->select();
-
-        $out['list'] = $list;
-
-        $this->success($out);
+        $this->getFriends($type);
 
     }
 
+    function searchFriends($search){
 
-    function addFriend($uid){
-
-        $this->_check_login();
-        $uid = post('uid',$uid,'%d');
-
-        $where['user_id'] = $this->uid;
-        $where['friend_id'] = $uid;
-
-        model('friends')->where($where)->find() && $this->error('已经添加好友！');
-
-
-        $where['update_time'] = TIME_NOW;
-        $out['e'] = model('friends')->data($where)->add();
-
-        $this->success($out);
-
-    }
-
-    function delFriend($uid){
-
-        $this->_check_login();
-        $uid = post('uid',$uid,'%d');
-
-        $where['user_id'] = $this->uid;
-        $where['friend_id'] = $uid;
-
-        $out['e'] = model('friends')->where($where)->remove();
-
-        $this->success($out);
+        if($search){
+            $where['usercode'] = array('contain','%'.$search.'%','LIKE');
+            $where['nickname'] = array('contain','%'.$search.'%','LIKE');
+        }else{
+            $this->error('没有搜索内容！');
+        }
+        $t['follow'] = model('user')->field(['uid'=>'fuid','nickname','did','nametrue','type','label','thumb'])->limit(30)->where($where,0,'OR')->select();
+        foreach($t['follow'] as &$v)$v['follow'] = '1';
+        $this->success($t);
 
     }
 }
