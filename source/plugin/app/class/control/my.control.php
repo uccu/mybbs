@@ -53,6 +53,7 @@ class my extends base\e{
         $data['post'] = post('post','');
         if($this->userInfo['type']<0)$data['type'] = 0;
         $data['apply'] = 1;
+        $data['apply_time'] = TIME_NOW;
         $data['complete'] = 1;
         if(!$data['thumb'])unset($data['thumb']);
         $this->_change_info($data);
