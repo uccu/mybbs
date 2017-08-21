@@ -138,6 +138,52 @@ class equip extends base\e{
     }
 
 
+    # 配件类型
+    function partsType($bid = 1){
+
+        $bid = post('bid',$bid,1);
+        $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1])->order('orders')->limit(999)->select();
+
+        foreach($list as &$v){
+
+            $id = $v['id'];
+            if($v['bid'] == 1){
+                $v['count'] = model('parts')->mapping('p')->add_table([
+                    'enterprise_equipment'=>[
+                        '_on'=>'e.id=p.bid','_mapping'=>'e','id','bid'=>'ebid'
+                    ]
+                ])->where(['ebid'=>$v['id']])->get_field();
+            }else{
+                $v['count'] = model('parts')->mapping('p')->where(['bid'=>$v['id']])->get_field();
+
+            }
+        }
+        $this->success($list);
+
+    }
+
+    # 配件类表
+    function partsList($bid = 0,$search = ''){
+        $bid = post('bid',$bid,1);
+        $search = post('search',$search);
+        $where['bid'] = $bid;
+        if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        $list = model('parts')->where($where)->order('locate')->limit(999)->select();
+
+        $this->success($list);
+    }
+
+
+    # 配件详情
+    function partsInfo($id){
+
+        $id = post('id',$id,1);
+        $info = model('parts')->find($id);
+
+        $this->success($info);
+
+    }
+
 
 }
 ?>
