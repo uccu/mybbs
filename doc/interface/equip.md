@@ -76,7 +76,7 @@
 
 ###### 返回参数：
 
-**list**  `数组`
+**list**  `数组，count 数量，title 标题`
 
 ***
 
@@ -96,7 +96,7 @@
 
 ###### 返回参数：
 
-**list**  `数组`
+**list**  `数组，bid 分类id	name 名称	stock 库存	version 型号	thumb 缩略图	content 详情	ctime 创建时间	locate 位置 升序ASC`
 
 ***
 
@@ -114,7 +114,7 @@
 
 ###### 返回参数：
 
-**info**  `详情`
+**info**  `详情 bid 分类id	name 名称	stock 库存	version 型号	thumb 缩略图	content 详情	ctime 创建时间	locate 位置 升序ASC`
 
 ***
 
