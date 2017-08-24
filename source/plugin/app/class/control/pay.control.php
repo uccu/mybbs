@@ -104,7 +104,7 @@ class pay extends base\e{
     }
     function alipay_c($nonce_str){
 
-        //file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
+        file_put_contents ('ALIPAY_SERVER.txt' ,json_encode($_POST) );
         $out_trade_no = $_POST ['out_trade_no'];
         if(post('trade_status')!='TRADE_SUCCESS')return;
         
