@@ -184,6 +184,7 @@ class pay extends base\e{
         $out_trade_no = date('YmdHis').rand ( 1000000, 9999999 );
         
         $uid = $this->uid;
+        $money = '0.01';
 
         $p['partner']           = '2088521069857975';       // 签约的支付宝账号对应的支付宝唯一用户号
         $p['seller_id']         = 'qingcesh@163.com';  // 签约卖家支付宝账号
