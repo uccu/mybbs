@@ -192,7 +192,7 @@ class pay extends base\e{
         $p['subject']           = '运维卫士支付';          // 商品名称
         $p['body']              = '运维卫士支付';             // 商品详情
         $p['total_fee']         = $money;             // 商品金额
-        $p['notify_url']        = 'http://www.yunweiweishi.com/app/pay/alipay_c/'.$nonce_str;// 服务器异步通知页面路径
+        $p['notify_url']        = 'http://121.199.8.244:5001/app/pay/alipay_c/'.$nonce_str;// 服务器异步通知页面路径
         $p['service']           = 'mobile.securitypay.pay'; // 服务接口名称， 固定值
         $p['payment_type']      = '1';                      // 支付类型， 固定值
         $p['_input_charset']    = 'utf-8';                  // 参数编码， 固定值
