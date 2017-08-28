@@ -9,29 +9,7 @@ class xj extends base\e{
         // $this->_check_login();
     }
 
-    function collect($id){
-        $id = post('id',$id,'%d');
-        $data['uid'] = $this->uid;
-        $data['type'] = 'w';
-
-
-        $i = model('inquiry')->find($id);
-        if(!$i)$this->errorCode(439);
-
-        $data['id'] = $id;
-        $f = model('collect')->where($data)->find();
-        if($f){
-            if($i['collect'])model('inquiry')->data(array('collect'=>array('add',-1)))->save($id);
-            model('collect')->where($data)->remove();
-            $z['collected'] = '0';
-        }else{
-            model('inquiry')->data(array('collect'=>array('add',1)))->save($id);
-            model('collect')->data($data)->add();
-            $z['collected'] = '1';
-        }
-        $this->success($z);
-    }
-
+    
 
     # 巡检首页
     function myxj(){
@@ -83,6 +61,64 @@ class xj extends base\e{
         $this->success($out);
 
     }
+
+
+    /** 填写工作记录
+     * final
+     * @param mixed $start_time 
+     * @param mixed $end_time 
+     * @param mixed $message 
+     * @return mixed 
+     */
+    function final($start_time,$end_time,$message){
+
+        $this->_check_login();
+
+        $data['message'] = post('message',$message);
+        $data['start_time'] = post('start_time',$start_time);
+        $data['end_time'] = post('end_time',$end_time);
+
+        $data['user_id'] = post('user_id',$this->uid);
+        $data['create_time'] = TIME_NOW;
+
+        model('enterprise_xuanjian_final_log')->data($data)->add();
+
+        $this->success();
+
+    }
+
+
+    function fillIn($area_id,$data){
+
+        $area_id = post('area_id',$area_id);
+        $data = post('data',$data);
+
+
+        $obj = json_decode($data,true);
+        if(!$obj)$this->error('json格式错误！');
+
+        $data2['area_id'] = $area_id;
+        $data2['user_id'] = $this->uid;
+        $data2['time'] = TIME_NOW;
+        $data2['date'] = date('Y-m-d',TIME_NOW);
+
+        $log_id = model('enterprise_xuanjian_log')->data($data2)->add();
+
+        foreach($obj as $o){
+
+            $o['parameters_id'] = $o['id'];
+            unset($o['id']);
+
+            $o['log_id'] = $log_id;
+
+            $o['create_time'] = TIME_NOW;
+            $o['user_id'] = $this->uid;
+            
+        }
+        
+
+    }
+
 
 }
 ?>

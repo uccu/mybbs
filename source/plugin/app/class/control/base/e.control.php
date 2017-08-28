@@ -221,5 +221,84 @@ class e extends \control\ajax{
 
         return $this->g->config['IMG_URL'];
     }
+
+
+    protected function uploadFiles($name = null,$width = 0,$height = 0,$cut = 0){
+        if(!$_FILES)return [];
+        
+        $paths = [];
+        $upn = $upa = [];
+        foreach($_FILES as $k=>$file){
+            $upn[] = $k;
+            if(!$name || $k==$name){
+                $upa[] = $k;
+                $paths[$k] = $this->uploadPic($file['tmp_name'],0,$width,$height,$cut);
+            }
+            
+        }
+        $data['upn'] = implode(',',$upn);
+        $data['upa'] = implode(',',$upa);
+        $data['succ'] = ($name?$paths[$name]:$paths) ? 1 : 0;
+        $data['ctime'] = TIME_NOW;
+        
+        // LogUploadModel::copyMutiInstance()->set($data)->add();
+        return $name?$paths[$name]:$paths;
+    }
+    /* 处理上传图片 */
+    protected function uploadPic($tmp_name,$type = 0,$width = 0,$height = 0,$cut = 0){
+        if(!$tmp_name)$this->error('上传失败,无法获取缓存路径');
+        $arr = getimagesize($tmp_name);
+        /* 判断图片格式 */
+        switch($arr[2]){
+            case 3:
+                $img = imagecreatefrompng($tmp_name);
+                imagesavealpha($img,true);
+                break;
+            case 2:
+                $img = imagecreatefromjpeg($tmp_name);
+                break;
+             case 1:
+                $img = imagecreatefromgif($tmp_name);
+                break;
+            default:
+                $this->error('解析图片失败');  //非jpg/png/gif 强制退出程序
+                break;
+        }
+        $picRoot = 'D:\wamp\www\sbgl_test\upload_all\head\news_img';
+        if($type === 'md5'){
+            $md5 = md5_file($tmp_name);
+            $folder = substr($md5,0,2);
+            $folderRoot = $picRoot.'/'.$folder;
+            if(!is_dir($folderRoot))
+                !mkdir($folderRoot,0777,true) && $this->error('文件夹权限不足，无法创建文件！');
+            $folderRoot .= '/';
+            $src = $folderRoot.$md5.'.jpg';
+            $path = $folder.'/'.$md5.'.jpg';
+        }else{
+            $folder = DATE_TODAY;
+            $folderRoot = $picRoot.'/'.$folder;
+            if(!is_dir($folderRoot))
+                !mkdir($folderRoot,0777,true) && $this->error('文件夹权限不足，无法创建文件！');
+            $folderRoot .= '/';
+            $time = date('H.i.s.').self::randWord(6,3);
+            $src = $folderRoot.$time.'.jpg';
+            $path = $folder.'/'.$time.'.jpg';
+        }
+        $width0 = $arr[0];
+        $height0 = $arr[1];
+        $width = $width?$width:$width0;
+        // var_dump($height);die();
+        $height = $height?$height:$height0;
+        
+        $image = imagecreatetruecolor($width, $height);
+        $color = imagecolorallocatealpha($image, 255, 255, 255,127);
+        imagefill($image, 0, 0, $color);
+        if($cut == 0)
+            imagecopyresampled($image, $img,0,0,0,0,$width,$height,$width0,$height0);
+        
+        imagejpeg($image,$src,75);
+        imagedestroy($image);
+        return $path;
+    }
 }
 ?>
