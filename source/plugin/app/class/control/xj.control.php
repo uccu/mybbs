@@ -49,14 +49,15 @@ class xj extends base\e{
 
         $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
 
-        foreach($qy as &$v){
+        foreach($qy as $k=>&$v){
 
             $v['params'] = model('device_parameters')->where(['bid'=>$v['id']])->limit(999)->select();
 
+            if(!$v['params'])usnet($qy[$k]);
 
         }
 
-        $out['qy'] = $qy;
+        $out['qy'] = array_value($qy);
 
         $this->success($out);
 
