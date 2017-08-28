@@ -88,6 +88,12 @@ class xj extends base\e{
     }
 
 
+    /** 填写记录
+     * fillIn
+     * @param mixed $area_id 
+     * @param mixed $data 
+     * @return mixed 
+     */
     function fillIn($area_id,$data){
 
         $area_id = post('area_id',$area_id);
@@ -113,8 +119,12 @@ class xj extends base\e{
 
             $o['create_time'] = TIME_NOW;
             $o['user_id'] = $this->uid;
+
+            model('enterprise_xuanjian_parameters_log')->data($o)->add();
             
         }
+
+        AJAX::success();
         
 
     }
