@@ -226,7 +226,7 @@
 
 ```
 {
-    "id":"1",
+    "parameters_id":"1",
     "value":"20",
     "bid":"3",
     "input_type":"0"

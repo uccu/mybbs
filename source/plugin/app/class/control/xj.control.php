@@ -112,7 +112,7 @@ class xj extends base\e{
 
         foreach($obj as $o){
 
-            $o['parameters_id'] = $o['id'];
+            $o['parameters_id'] = $o['parameters_id'];
             unset($o['id']);
 
             $o['log_id'] = $log_id;
