@@ -23,7 +23,7 @@ class defect extends base\e{
      * @param mixed $type 
      * @return mixed 
      */
-    function fillIn($explanation,$state,$type){
+    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0){
 
         $this->_check_login();
 
@@ -34,6 +34,8 @@ class defect extends base\e{
         $data['state'] = post('state',$state);
         $data['type'] = post('type',$type);
         $data['pic'] = post('pic',$pic);
+        $data['equip_id'] = post('equip_id',$equip_id);
+        $data['area_id'] = post('area_id',$area_id);
         $data['user_id'] = post('user_id',$this->uid);
         $data['create_time'] = TIME_NOW;
 
