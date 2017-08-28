@@ -204,9 +204,7 @@
 
 **area_id** `区域ID`
 
-**data** `json字符串,记录请求参数字段的数组
-id 参数的ID	value 参数填写的值	bid 巡检区域ID
-input_type 参数的类型，0填空1选择	type 套用模板`
+**data** `json字符串,记录请求参数字段的数组`
 
 **message_time** `特殊情况说明`
 
