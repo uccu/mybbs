@@ -64,13 +64,13 @@ class xj extends base\e{
 
 
     /** 填写工作记录
-     * final
+     * finals
      * @param mixed $start_time 
      * @param mixed $end_time 
      * @param mixed $message 
      * @return mixed 
      */
-    function final($start_time,$end_time,$message){
+    function finals($start_time,$end_time,$message){
 
         $this->_check_login();
 
