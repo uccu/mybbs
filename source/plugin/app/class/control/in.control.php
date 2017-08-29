@@ -176,6 +176,8 @@ class in extends base\e{
             'vip'=>$info['vip']?$info['vip']:"0",
             'isvip'=>$info['vip']>TIME_NOW?'1':"0",
             'qust'=>$info['qust']?$info['qust']:'3',
+            'bid'=>$info['bid']?$info['bid']:'0',
+            'gid'=>$info['gid']?$info['gid']:'0',
             //'huan'=>$o
         );
         
