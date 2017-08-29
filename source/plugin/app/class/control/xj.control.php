@@ -47,6 +47,15 @@ class xj extends base\e{
 
         $id = post('id',$id,'%d');
 
+        if(!is_numeric($id)){
+
+            $id = base64_decode($id);
+            $id = str_replace('sbgl_','',$id);
+
+        }
+
+        if(!$id)$this->error('id 不合法！');
+
         $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
 
         foreach($qy as $k=>&$v){
@@ -58,6 +67,7 @@ class xj extends base\e{
         }
 
         $out['qy'] = array_value($qy);
+        $out['time'] = TIME_NOW;
 
         $this->success($out);
 
@@ -71,18 +81,15 @@ class xj extends base\e{
      * @param mixed $message 
      * @return mixed 
      */
-    function finals($start_time,$end_time,$message){
+    function finals($end_time,$message,$id){
 
         $this->_check_login();
-
+        
         $data['message'] = post('message',$message);
-        $data['start_time'] = post('start_time',$start_time);
         $data['end_time'] = post('end_time',$end_time);
+        $data['state'] = 1;
 
-        $data['user_id'] = post('user_id',$this->uid);
-        $data['create_time'] = TIME_NOW;
-
-        model('enterprise_xuanjian_final_log')->data($data)->add();
+        model('enterprise_xuanjian_final_log')->data($data)->save($id);
 
         $this->success();
 
@@ -95,7 +102,9 @@ class xj extends base\e{
      * @param mixed $data 
      * @return mixed 
      */
-    function fillIn($area_id,$data){
+    function fillIn($area_id,$data,$id){
+
+        $this->_check_login();
 
         $area_id = post('area_id',$area_id);
         $data = post('data',$data);
@@ -108,6 +117,7 @@ class xj extends base\e{
         $data2['user_id'] = $this->uid;
         $data2['time'] = TIME_NOW;
         $data2['date'] = date('Y-m-d',TIME_NOW);
+        $data2['time_id'] = $id;
 
         $log_id = model('enterprise_xuanjian_log')->data($data2)->add();
 
@@ -117,7 +127,7 @@ class xj extends base\e{
             unset($o['id']);
 
             $o['log_id'] = $log_id;
-
+            $o['time_id'] = $id;
             $o['create_time'] = TIME_NOW;
             $o['user_id'] = $this->uid;
 
@@ -128,6 +138,26 @@ class xj extends base\e{
         AJAX::success();
         
 
+    }
+
+
+    /** 巡检开始
+     * start
+     * @return mixed 
+     */
+    function start(){
+
+        $this->_check_login();
+
+
+        $data['user_id'] = $this->uid;
+        $data['start_time'] = TIME_NOW;
+        $data['create_time'] = TIME_NOW;
+
+
+        $id = model('enterprise_xuanjian_final_log')->data($data)->add();
+
+        $this->success(['id'=>$id]);
     }
 
 
