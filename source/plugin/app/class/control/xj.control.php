@@ -16,10 +16,49 @@ class xj extends base\e{
 
         // $user_id = $this->uid;
         $user_id = 502;
-        # 获取巡检
-        $lx = model('inspection')->where(['uid'=>$user_id])->find();
 
+        # 获取巡检路线
+        $lx = model('inspection')->where(['uid'=>$user_id])->find();
         if(!$lx)$this->error('没有巡检路线！');
+
+        # 获取巡检路线的时间段
+        $time = model('inspection_time')->where(['bid'=>$lx['id']])->order(['start_time'])->limit(999)->select();
+        if(!$time)$this->error('没有巡检路线时间！');
+
+        # 获取最近一次巡检
+        $lxj = model('enterprise_xuanjian_final_log')->where(['user_id'=>$user_id])->order(['create_time'=>'desc'])->find();
+
+        # 检查当前时间
+        $time2 = [];
+        $now_d = '0';
+        $last = '0';
+        foreach($time as $t){
+            $start = strtotime($t['start_time']);
+            $time2[$start] = $t;
+        }
+        ksort($time2);
+        $time2 = array_values($time2);
+        foreach($time2 as $t){
+            $start = strtotime($t['start_time']);
+            $end = strtotime($t['end_time']);
+            if(TIME_NOW > $start - $t['effective_time'] && TIME_NOW < $start + $t['effective_time'])$now_d = $t['id'];
+            if(TIME_NOW > $end)$last = $t['id'];
+        }
+        if(!$now_d && !$last){
+            $now_d = $time2[0]['id'];
+        }elseif(!$now_d && $last){
+            $now_d = $last;
+        }
+
+        if($now_d != $lxj['inspection_time_id']){
+            $data['user_id'] = $user_id;
+            $data['create_time'] = TIME_NOW;
+            $data['inspection_time_id'] = $now_d;
+            $data['message'] = '';
+            $id = model('enterprise_xuanjian_final_log')->data($data)->add();
+            $lxj = model('enterprise_xuanjian_final_log')->find($id);
+        }
+
 
         $where['id'] = ['contain',explode(',',$lx['value']),'IN'];
         $where['del'] = 1;
@@ -29,13 +68,15 @@ class xj extends base\e{
 
         foreach($qy as &$qyv ){
 
-            $qyv['log'] = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'date'=>$date])->select();
-            $qyv['logCount'] = count($qyv['log']);
+            $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
+            $qyv['logCount'] = count($log);
         }
 
 
         $out['lx'] = $lx;
         $out['qy'] = $qy;
+        $out['time'] = $time2;
+        $out['final'] = $lxj;
         $out['count'] = count($out['qy']);
 
         $this->success($out);
@@ -62,11 +103,11 @@ class xj extends base\e{
 
             $v['params'] = model('device_parameters')->where(['bid'=>$v['id']])->limit(999)->select();
 
-            if(!$v['params'])usnet($qy[$k]);
+            if(!$v['params'])unset($qy[$k]);
 
         }
 
-        $out['qy'] = array_value($qy);
+        $out['qy'] = array_values($qy);
         $out['time'] = TIME_NOW;
 
         $this->success($out);
@@ -145,21 +186,22 @@ class xj extends base\e{
      * start
      * @return mixed 
      */
-    function start(){
+    function start($id){
 
         $this->_check_login();
-
-
-        $data['user_id'] = $this->uid;
         $data['start_time'] = TIME_NOW;
-        $data['create_time'] = TIME_NOW;
-
-
-        $id = model('enterprise_xuanjian_final_log')->data($data)->add();
-
+        $id = model('enterprise_xuanjian_final_log')->data($data)->save($id);
         $this->success(['id'=>$id]);
     }
 
+
+
+    function test(){
+
+        $a = strtotime('6:00') < strtotime('12:00');
+
+        var_dump($a);
+    }
 
 }
 ?>
