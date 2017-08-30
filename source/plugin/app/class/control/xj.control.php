@@ -163,6 +163,7 @@ class xj extends base\e{
         $this->_check_login();
 
         $area_id = post('area_id',$area_id);
+        $_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;',array('<','>','"',"'")),$_POST['data']);
         $data = $_POST['data']?$_POST['data']:$data;
 
 
