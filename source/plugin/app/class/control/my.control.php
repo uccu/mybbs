@@ -537,6 +537,7 @@ class my extends base\e{
             # 如果是非填空题获取选项
             if($q['type'] == 3){
                 $q['true_answer'] = $q['options'][0]['content'];
+                $q['true_img'] = $q['options'][0]['img'];
                 
             }
         }
