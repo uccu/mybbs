@@ -76,14 +76,18 @@ class xj extends base\e{
         $out['lx'] = $lx;
         $out['qy'] = $qy;
         $out['time'] = $time2;
-        $out['final'] = $lxj;
+        $out['finals'] = $lxj;
         $out['count'] = count($out['qy']);
 
         $this->success($out);
 
     }
 
-    # 获取区域的设备 以及参数
+    /** 获取区域的设备 以及参数
+     * getEquip
+     * @param mixed $id 当次巡检ID
+     * @return mixed 
+     */
     function getEquip($id){
 
         $id = post('id',$id,'%d');
@@ -117,22 +121,32 @@ class xj extends base\e{
 
     /** 填写工作记录
      * finals
-     * @param mixed $start_time 
-     * @param mixed $end_time 
      * @param mixed $message 
      * @return mixed 
      */
-    function finals($end_time,$message,$id){
+    function finals($message,$id){
 
         $this->_check_login();
-        
         $data['message'] = post('message',$message);
-        $data['end_time'] = post('end_time',$end_time);
         $data['state'] = 1;
-
         model('enterprise_xuanjian_final_log')->data($data)->save($id);
-
         $this->success();
+
+    }
+
+    /** 获取当次巡检结果
+     * getFinals
+     * @param mixed $id 
+     * @return mixed 
+     */
+    function getFinals($id){
+
+        // $this->_check_login();
+        $info = model('enterprise_xuanjian_final_log')->find($id);
+        $info['end_time'] = TIME_NOW;
+        model('enterprise_xuanjian_final_log')->data($info)->save($id);
+        $out['info'] = $info;
+        $this->success($out);
 
     }
 
@@ -140,7 +154,8 @@ class xj extends base\e{
     /** 填写记录
      * fillIn
      * @param mixed $area_id 
-     * @param mixed $data 
+     * @param mixed $data json字符串
+     * @param mixed $id 当次巡检ID 
      * @return mixed 
      */
     function fillIn($area_id,$data,$id){
@@ -148,7 +163,7 @@ class xj extends base\e{
         $this->_check_login();
 
         $area_id = post('area_id',$area_id);
-        $data = post('data',$data);
+        $data = $_POST['data']?$_POST['data']:$data;
 
 
         $obj = json_decode($data,true);
@@ -184,6 +199,7 @@ class xj extends base\e{
 
     /** 巡检开始
      * start
+     * @param mixed $id 当次巡检ID
      * @return mixed 
      */
     function start($id){
