@@ -165,7 +165,7 @@ class xj extends base\e{
 
         $area_id = post('area_id',$area_id);
         if($_POST['data'])$_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;',array('<','>','"',"'")),$_POST['data']);
-        echo $data = $_POST['data']?$_POST['data']:$data;
+        $data = $_POST['data']?$_POST['data']:$data;
 
 
         $obj = json_decode($data,true);
