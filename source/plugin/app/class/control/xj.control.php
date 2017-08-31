@@ -140,8 +140,8 @@ class xj extends base\e{
      * @return mixed 
      */
     function getFinals($id){
-
-        // $this->_check_login();
+        $id = post('id',$id);
+        $this->_check_login();
         $info = model('enterprise_xuanjian_final_log')->find($id);
         $info['end_time'] = TIME_NOW;
         model('enterprise_xuanjian_final_log')->data($info)->save($id);
