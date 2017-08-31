@@ -160,11 +160,12 @@ class xj extends base\e{
      */
     function fillIn($area_id,$data,$id){
 
+
         $this->_check_login();
 
         $area_id = post('area_id',$area_id);
-        $_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;',array('<','>','"',"'")),$_POST['data']);
-        $data = $_POST['data']?$_POST['data']:$data;
+        if($_POST['data'])$_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;',array('<','>','"',"'")),$_POST['data']);
+        echo $data = $_POST['data']?$_POST['data']:$data;
 
 
         $obj = json_decode($data,true);
@@ -192,7 +193,7 @@ class xj extends base\e{
             
         }
 
-        AJAX::success();
+        $this->success();
         
 
     }
