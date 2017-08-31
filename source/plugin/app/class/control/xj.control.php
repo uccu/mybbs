@@ -166,11 +166,10 @@ class xj extends base\e{
         $area_id = post('area_id',$area_id);
         if($_POST['data'])$_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;',array('<','>','"',"'")),$_POST['data']);
         $data = $_POST['data']?$_POST['data']:$data;
-
+        // $data = '[{"input_type":"0","value":"30","type":"3","bid":"3","parameters_id":"1"}]';
 
         $obj = json_decode($data,true);
-        if(!$obj)$this->error('json格式错误！');
-
+        if(!$obj)$obj = [];
         $data2['area_id'] = $area_id;
         $data2['user_id'] = $this->uid;
         $data2['time'] = TIME_NOW;
