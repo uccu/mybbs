@@ -243,7 +243,7 @@ class lession extends base\e{//运维
 
             # 如果是非填空题获取选项
             if($q['type'] != 3){
-                $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('rand()')->limit(20)->select();
+                $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('id')->limit(20)->select();
                 $num = 0;
                 foreach($q['options'] as &$o){
                     $o['select'] = $str[$num];
