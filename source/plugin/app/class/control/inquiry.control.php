@@ -33,8 +33,10 @@ class inquiry extends base\e{
             'user'=>array('_on'=>'uid','thumb','type','nametrue'=>'nickname'),
             'inquiry_zan'=>array('_join'=>'LEFT JOIN','_on'=>'r.id=z.id AND z.uid='.$this->uid,'_mapping'=>'z','uid'=>'iszan')
         ))->where(array('bid'=>$id,'adopt'=>1))->limit(999)->order(array('ctime'=>'DESC'))->select();
-        foreach($t['adopt'] as &$v)$v['iszan'] = $v['iszan']?'1':'0';
-
+        foreach($t['adopt'] as &$v){
+            $v['iszan'] = $v['iszan']?'1':'0';
+            $v['quest'] = $this->quest_list($v['id']);
+        }
         $t['reply'] = model('inquiry_list')->where(array('bid'=>$id,'adopt'=>0))->limit(3)->order(array('ctime'=>'DESC'))->select();
         foreach($t['reply'] as &$v){
             $v['iszan'] = $v['iszan']?'1':'0';
