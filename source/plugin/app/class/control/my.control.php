@@ -528,7 +528,7 @@ class my extends base\e{
         foreach($d as &$q){
 
             $q['options'] = [];
-            $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('rand()')->limit(20)->select();
+            $q['options'] = model('exam_question_option')->where(['qid'=>$q['qid']])->order('id')->limit(20)->select();
             $num = 0;
             foreach($q['options'] as &$o){
                 $o['select'] = $str[$num];
