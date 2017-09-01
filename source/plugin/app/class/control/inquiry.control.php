@@ -62,7 +62,7 @@ class inquiry extends base\e{
         $this->_check_phone();
         if($inquiry['uid'] != $this->uid){
 
-            if(!$p)$this->_check_access();
+            // if(!$p)$this->_check_access();
         }
         
 
