@@ -101,6 +101,10 @@ class xj extends base\e{
 
         if(!$id)$this->error('id 不合法！');
 
+        $area = model('enterprise_equipment')->find($id);
+        
+        !$area && $this->error('区域不存在！');
+
         $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
 
         foreach($qy as $k=>&$v){
@@ -113,6 +117,7 @@ class xj extends base\e{
 
         $out['qy'] = array_values($qy);
         $out['time'] = TIME_NOW;
+        $out['area'] = $area;
 
         $this->success($out);
 
