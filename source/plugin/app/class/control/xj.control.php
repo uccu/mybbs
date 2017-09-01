@@ -70,6 +70,7 @@ class xj extends base\e{
 
             $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
             $qyv['logCount'] = count($log);
+            $qyv['warning_times'] = '0';
         }
 
 
