@@ -174,7 +174,7 @@ class xj extends base\e{
         $data2['user_id'] = $this->uid;
         $data2['time'] = TIME_NOW;
         $data2['date'] = date('Y-m-d',TIME_NOW);
-        $data2['time_id'] = $id;
+        $data2['final_log_id'] = $id;
 
         $log_id = model('enterprise_xuanjian_log')->data($data2)->add();
 
