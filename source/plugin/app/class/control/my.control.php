@@ -917,6 +917,7 @@ class my extends base\e{
         foreach($t['follow'] as &$v)$v['follow'] = '1';
 
         $t['follow'] = $this->orderByName($t['follow']);
+        if(!$t['follow'])$t['follow'] = new \stdClass;
         $this->success($t);
     }
 }
