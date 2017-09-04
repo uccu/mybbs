@@ -185,7 +185,7 @@ class equip extends base\e{
         $info = model('parts')->find($id);
         $this->g->template['value'] = $info['content'];
         $this->g->template['title'] = $info['name'];
-        $this->g->template['time'] = '库存：'.$info['stock'].'   型号：'.$info['version'];
+        $this->g->template['time'] = '库存：'.$info['stock'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型号：'.$info['version'];
         T('tool:static');
 
     }
