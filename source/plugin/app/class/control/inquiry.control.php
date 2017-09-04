@@ -197,11 +197,12 @@ class inquiry extends base\e{
         $this->success($t);
     }
 
+    # 专家搜索
     function expert_search($search){
         $search = post('search',$search);
         $where['type'] = 2;
         if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
-        else $where['uid'] = '0';
+        // else $where['uid'] = '0';
         //else $where['is_login'] = '1';
         $page = post('page',1);
         $limit = post('limit',10);
@@ -268,7 +269,8 @@ class inquiry extends base\e{
         }
         $this->success($z);
     }
-    /* 专家列表 */
+
+    # 专家列表
     function expert_list($id = 0){
 
         $id = post('id',$id,'%d');
