@@ -908,7 +908,7 @@ class my extends base\e{
 
     function my_follow_sort($type){
         $type = post('type',$type,'%d');
-        $where['fans_id'] = $this->uid = 502;
+        $where['fans_id'] = $this->uid;
         $type && $where['did'] = $type;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
