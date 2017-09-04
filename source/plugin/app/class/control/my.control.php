@@ -852,6 +852,7 @@ class my extends base\e{
     function searchFriends($search){
 
         $search = post('search',$search);
+        $where['bid'] = 1;
         if($search){
             $where['usercode'] = array('contain','%'.$search.'%','LIKE');
             $where['nickname'] = array('contain','%'.$search.'%','LIKE');
@@ -869,6 +870,7 @@ class my extends base\e{
     function searchFriends_0($search){
 
         $search = post('search',$search);
+        $where['bid'] = 0;
         if($search){
             $where['usercode'] = $search;
             $where['nickname'] = $search;
