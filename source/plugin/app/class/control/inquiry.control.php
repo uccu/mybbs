@@ -201,6 +201,7 @@ class inquiry extends base\e{
         $search = post('search',$search);
         $where['type'] = 2;
         if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
+        else $where['uid'] = '0';
         //else $where['is_login'] = '1';
         $page = post('page',1);
         $limit = post('limit',10);
