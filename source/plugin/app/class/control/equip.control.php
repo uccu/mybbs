@@ -164,9 +164,9 @@ class equip extends base\e{
 
     # 配件类表
     function partsList($bid = 0,$search = ''){
-        $bid = post('bid',$bid,1);
+        $bid = post('bid',$bid,0);
         $search = post('search',$search);
-        $where['bid'] = $bid;
+        if($bid)$where['bid'] = $bid;
         if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
         $list = model('parts')->where($where)->order('locate')->limit(999)->select();
 
