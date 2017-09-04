@@ -177,10 +177,16 @@ class equip extends base\e{
     # 配件详情
     function partsInfo($id){
 
-        $id = post('id',$id,1);
-        $info = model('parts')->find($id);
+        // $id = post('id',$id,1);
+        // $info = model('parts')->find($id);
 
-        $this->success($info);
+        // $this->success($info);
+        $id = post('id',$id,'%d');
+        $info = model('parts')->find($id);
+        $this->g->template['value'] = $info['content'];
+        $this->g->template['title'] = $info['name'];
+        $this->g->template['time'] = date('Y-m-d H:i:s',$info['ctime']);
+        T('tool:static');
 
     }
 
