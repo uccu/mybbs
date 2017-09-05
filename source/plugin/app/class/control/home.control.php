@@ -132,7 +132,7 @@ class home extends base\e{
         $this->success($z);
     }
     function repository_type(){
-         $z['list'] = model('repository_list')->where(array('del'=>1))->limit(99)->order(array('rid'))->select();
+         $z['list'] = model('repository_list')->where(array('eid'=>0,'del'=>1))->limit(99)->order(array('rid'))->select();
          $this->success($z);
     }
     
