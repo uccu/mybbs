@@ -6,18 +6,20 @@ class home extends base\e{
     function _beginning(){
         //$this->_check_login();
     }
-    function banner(){
-        $z = model('banner')->limit(99)->order(array('location'))->select();
+    function banner($eid = 0){
+        $eid = post('eid',$eid);
+        $z = model('banner')->where(['eid'=>$eid])->limit(99)->order(array('location'))->select();
         foreach($z as &$v){
             $v['url'] = 'app/h5/banner/'.$v['bid'];
         }
         if($this->outter)$this->success($z);
         return $z;
     }
-    function top_line($page=1,$limit=10){
+    function top_line($page=1,$limit=10,$eid = 0){
+        $eid = post('eid',$eid);
         $limit = post('limit',$limit);
         $page = post('page',$page);
-        $z = model('top_line')->page($page,$limit)->order(array('location','tid'=>'desc'))->select();
+        $z = model('top_line')->page($page,$limit)->where(['eid'=>$eid])->order(array('location','tid'=>'desc'))->select();
         foreach($z as &$v){
             $v['url'] = 'app/h5/top/'.$v['tid'];
         }
