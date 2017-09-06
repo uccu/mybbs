@@ -852,11 +852,11 @@ class my extends base\e{
     function searchFriends($search){
 
         $search = post('search',$search);
-        $where['bid'] = 1;
+        
         if($search){
-            $where['usercode'] = array('contain','%'.$search.'%','LIKE');
-            $where['nickname'] = array('contain','%'.$search.'%','LIKE');
-            $where['e_wx'] = array('contain','%'.$search.'%','LIKE');
+            $where['usercode'] = $search;
+            $where['nickname'] = $search;
+            $where['e_wx'] = $search;
         }else{
             $this->error('没有搜索内容！');
         }
