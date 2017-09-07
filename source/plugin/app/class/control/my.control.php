@@ -849,6 +849,7 @@ class my extends base\e{
 
     }
 
+    /** 搜索好友 */
     function searchFriends($search){
 
         $search = post('search',$search);

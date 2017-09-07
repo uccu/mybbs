@@ -188,10 +188,8 @@ class xj extends base\e{
         foreach($obj as $o){
 
             $o['parameters_id'] = $o['parameters_id'];
-            unset($o['id']);
-
             $o['log_id'] = $log_id;
-            $o['time_id'] = $id;
+            $o['final_log_id'] = $id;
             $o['create_time'] = TIME_NOW;
             $o['user_id'] = $this->uid;
 
