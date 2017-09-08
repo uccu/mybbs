@@ -61,7 +61,7 @@ class my extends base\e{
     }
 
     function my_info(){
-        $this->uid = 526;
+        // $this->uid = 526;
         // $u = $this->userInfo;
         // unset($u['password']);
         $t['info'] = model('user')/*->field(array('uid','nickname','type','label','thumb','sex','score','vip'))*/->find($this->uid);
