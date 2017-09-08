@@ -46,10 +46,10 @@ class equip extends base\e{
                 ))->where(array('kid'=>$v['id']))->get_field();
                 $v['today_count'] = model('inquiry')->mapping('i')->add_table(array(
                     'equipment_list@1'=>array(
-                        '_on'=>'i.bid=e1.id','_mapping'=>'e1','bid'=>'kid'
+                        '_on'=>'i.bid=e1.id','_mapping'=>'e1'
                     ),
                     'equipment_list@0'=>array(
-                        '_on'=>'e1.bid=e0.id','_mapping'=>'e0'
+                        '_on'=>'e1.bid=e0.id','_mapping'=>'e0','bid'=>'kid'
                     )
                     
                 ))->where(array('kid'=>$v['id'],'ctime'=>array('logic',$this->today,'>')))->get_field();
