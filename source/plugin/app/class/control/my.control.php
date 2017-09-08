@@ -61,6 +61,7 @@ class my extends base\e{
     }
 
     function my_info(){
+        $this->uid = 526;
         // $u = $this->userInfo;
         // unset($u['password']);
         $t['info'] = model('user')/*->field(array('uid','nickname','type','label','thumb','sex','score','vip'))*/->find($this->uid);
@@ -70,12 +71,21 @@ class my extends base\e{
         $t['info']['plant_name'] = $this->_rtype_name($t['info']['plant']);
         $t['info']['field_name'] = $this->_equip_name_m($t['info']['field']);
         
+        # 部门名
         $t['info']['did_name'] = model('department')->find($t['info']['did']);
         if(!$t['info']['did_name']){
             $t['info']['did_name'] = '';
         }else{
             $t['info']['did_name'] = $t['info']['did_name']['name'];
         }
+        # 企业名
+        $t['info']['did_name'] = model('enterprise')->find($t['info']['bid']);
+        if(!$t['info']['enterprise']){
+            $t['info']['enterprise'] = '';
+        }else{
+            $t['info']['enterprise'] = $t['info']['enterprise']['name'];
+        }
+        
 
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('fans_id'=>$this->uid))->get_field();
