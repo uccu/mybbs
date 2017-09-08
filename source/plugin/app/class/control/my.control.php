@@ -69,6 +69,14 @@ class my extends base\e{
         $t['info']['city_name'] = $this->_city_name($t['info']['city']);
         $t['info']['plant_name'] = $this->_rtype_name($t['info']['plant']);
         $t['info']['field_name'] = $this->_equip_name_m($t['info']['field']);
+        
+        $t['info']['did_name'] = model('department')->find($t['info']['did']);
+        if(!$t['info']['did_name']){
+            $t['info']['did_name'] = '';
+        }else{
+            $t['info']['did_name'] = $t['info']['did_name']['name'];
+        }
+
         $t['fans'] = model('fans')->where(array('uid'=>$this->uid))->get_field();
         $t['follow'] = model('fans')->where(array('fans_id'=>$this->uid))->get_field();
         $t['collect'] = model('collect')->where(array('uid'=>$this->uid))->get_field();
