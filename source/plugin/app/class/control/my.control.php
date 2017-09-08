@@ -79,7 +79,7 @@ class my extends base\e{
             $t['info']['did_name'] = $t['info']['did_name']['name'];
         }
         # 企业名
-        $t['info']['did_name'] = model('enterprise')->find($t['info']['bid']);
+        $t['info']['enterprise'] = model('enterprise')->find($t['info']['bid']);
         if(!$t['info']['enterprise']){
             $t['info']['enterprise'] = '';
         }else{
