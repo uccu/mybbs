@@ -21,7 +21,7 @@ class my extends base\e{
 
     function change_u_info($nickname,$sex,$city,$plant){
         //$this->_check_type(0);
-        $data['nickname'] = $data['nametrue'] = post('nickname',$nickname);
+        $data['nickname'] && $data['nickname'] = $data['nametrue'] = post('nickname',$nickname);
         $data['sex'] && $data['sex'] = post('sex',$sex);
         $data['city'] && $data['city'] = post('city',$city);
         if(!is_numeric($data['city']))$data['city'] && $data['city'] = model('manager_organ')->where(array('jgmc'=>$data['city'],'bid'=>array('logic',0,'!=')))->get_field('id');
