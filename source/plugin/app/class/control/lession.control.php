@@ -5,7 +5,7 @@ class lession extends base\e{//运维
     function _beginning(){
         //$this->_check_login();
     }
-    function lists($type = 0,$lid = 0){
+    function lists($type = 0,$lid = 0,$search = ''){
 
 
         # 获取请求参数
@@ -14,6 +14,8 @@ class lession extends base\e{//运维
 
         if($lid)$course = model('course')->where(['lid'=>$lid]);
         else $course = model('course');
+
+        if($search)$course->where(['title'=>array('contain','%'.$search.'%','LIKE')]);
 
         if($type==1)
             $t = $course->where(array('open_time'=>array('logic',TIME_NOW,'>')))->order(array('open_time'))->limit(999)->select();
@@ -258,10 +260,33 @@ class lession extends base\e{//运维
 
     }
 
-    # 视频分类
-    function video_category(){
+    # 视频首页
+    function video_home(){
 
-        $list = model('course_list')->order('id')->limit(99)->select();
+        $list_yw = model('course')->mapping('c')->add_table([
+            'course_list'=>['_mapping'=>'l','_on'=>'l.id=c.lid','type']
+        ])->order('rand()')->limit(4)->where(['type'=>0])->select();
+
+        $list = model('course_list')->order('rand()')->limit(4)->where(['type'=>1])->select();
+        # 数量统计
+        foreach($list as &$v){
+
+            $v['count'] = model('course')->where(['lid'=>$v['id']])->get_field();
+            $v['precount'] = model('course')->where(['lid'=>$v['id'],'open_time'=>['logic',TIME_NOW,'>']])->order('open_time')->get_field();
+
+        }
+
+        $out['list_yw'] = $list_yw;
+        $out['list_dz'] = $list;
+
+
+        $this->success($out);
+    }
+
+    # 视频分类
+    function video_category($type = 0){
+
+        $list = model('course_list')->where(['type'=>$type])->order('id')->limit(99)->select();
 
         # 数量统计
         foreach($list as &$v){
