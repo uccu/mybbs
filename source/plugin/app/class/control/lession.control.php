@@ -11,6 +11,7 @@ class lession extends base\e{//运维
         # 获取请求参数
         $type = post('type',$type,'%d');
         $lid = post('lid',$lid,'%d');
+        $search = post('search',$search);
 
         if($lid)$course = model('course')->where(['lid'=>$lid]);
         else $course = model('course');
