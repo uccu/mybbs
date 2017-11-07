@@ -148,7 +148,7 @@ class equip extends base\e{
         foreach($list as &$v){
 
             $id = $v['id'];
-            if($v['bid'] == 1){
+            if($v['bid'] == 1 || $v['bid'] == 0){
                 $v['count'] = model('parts')->mapping('p')->add_table([
                     'enterprise_equipment'=>[
                         '_on'=>'e.id=p.bid','_mapping'=>'e','id','bid'=>'ebid'
