@@ -139,7 +139,7 @@ class equip extends base\e{
 
 
     # 配件类型
-    function partsType($bid = 1,$type = 0){
+    function partsType($bid = 1,$type = 1){
 
         $bid = post('bid',$bid,1);
         $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1])->order('orders')->limit(999)->select();
@@ -154,7 +154,7 @@ class equip extends base\e{
                     ]
                 ])->where(['ebid'=>$v['id'],'type'=>$type])->get_field();
             }else{
-                $v['count'] = model('parts')->mapping('p')->where(['bid'=>$v['id']])->get_field();
+                $v['count'] = model('parts')->mapping('p')->where(['bid'=>$v['id'],'type'=>$type])->get_field();
 
             }
         }
@@ -163,11 +163,12 @@ class equip extends base\e{
     }
 
     # 配件类表
-    function partsList($bid = 0,$search = ''){
+    function partsList($bid = 0,$search = '',$type = 1){
         $bid = post('bid',$bid,0);
         $search = post('search',$search);
         if($bid)$where['bid'] = $bid;
         if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        $where['type'] = $type;
         $list = model('parts')->where($where)->order('locate')->limit(999)->select();
 
         $this->success($list);
