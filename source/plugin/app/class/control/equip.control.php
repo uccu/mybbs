@@ -164,7 +164,7 @@ class equip extends base\e{
     }
 
     # 配件类表
-    function partsList($bid = 0,$search = '',$type = 1){
+    function partsList($bid = 0,$type = 1,$search = ''){
         $bid = post('bid',$bid,0);
         $type = post('type',$type,1);
         $search = post('search',$search);
