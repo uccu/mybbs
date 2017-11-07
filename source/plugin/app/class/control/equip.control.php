@@ -142,7 +142,7 @@ class equip extends base\e{
     function partsType($bid = 1,$type = 1){
 
         $bid = post('bid',$bid,1);
-        $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1])->order('orders')->limit(999)->select();
+        $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1,'eid'=>$type])->order('orders')->limit(999)->select();
 
         foreach($list as &$v){
 
