@@ -142,6 +142,7 @@ class equip extends base\e{
     function partsType($bid = 1,$type = 1){
 
         $bid = post('bid',$bid,1);
+        $type = post('type',$type,1);
         $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1,'eid'=>$type])->order('orders')->limit(999)->select();
 
         foreach($list as &$v){
@@ -165,6 +166,7 @@ class equip extends base\e{
     # 配件类表
     function partsList($bid = 0,$search = '',$type = 1){
         $bid = post('bid',$bid,0);
+        $type = post('type',$type,1);
         $search = post('search',$search);
         if($bid)$where['bid'] = $bid;
         if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
