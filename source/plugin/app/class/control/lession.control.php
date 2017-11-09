@@ -107,13 +107,13 @@ class lession extends base\e{//运维
         $bid = post('bid',$bid,'%d');
         $search = post('search',$search);
 
-        $where['states'] = $states;
-        $where['bid'] = $bid;
-        $where['name'] = ['contain','%'.$search.'%','LIKE'];
+        if($states)$where['states'] = $states;
+        if($bid)$where['bid'] = $bid;
+        if($search)$where['name'] = ['contain','%'.$search.'%','LIKE'];
 
         $z['list'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
-        ))->where(array('states'=>$states,'bid'=>$bid))->order(array('location'))->limit(9999)->select();
+        ))->where($where)->order(array('location'))->limit(9999)->select();
         foreach($z['list'] as &$v){
             $v['paid'] = $v['paid']?'1':'0';
         }
