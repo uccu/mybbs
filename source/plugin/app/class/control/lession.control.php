@@ -102,9 +102,15 @@ class lession extends base\e{//运维
         }
         $this->success($z);
     }
-    function test_list($states=0,$bid = 0){
+    function test_list($states=0,$bid = 0,$search = ''){
         $states = post('states',$states,'%d');
         $bid = post('bid',$bid,'%d');
+        $search = post('search',$search);
+
+        $where['states'] = $states;
+        $where['bid'] = $bid;
+        $where['name'] = ['contain','%'.$search.'%','LIKE'];
+
         $z['list'] = model('paper')->mapping('p')->add_table(array(
             'paper_paid'=>array('_join'=>'LEFT JOIN','_mapping'=>'i','_on'=>'i.pid=p.pid AND i.uid='.$this->uid,'ctime'=>'paid')
         ))->where(array('states'=>$states,'bid'=>$bid))->order(array('location'))->limit(9999)->select();
