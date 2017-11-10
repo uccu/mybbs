@@ -14,8 +14,8 @@ class xj extends base\e{
     # 巡检首页
     function myxj(){
 
-        // $user_id = $this->uid;
-        $user_id = 502;
+        $user_id = $this->uid;
+        // $user_id = 502;
 
         # 获取巡检路线
         $lx = model('inspection')->where(['uid'=>$user_id])->find();
