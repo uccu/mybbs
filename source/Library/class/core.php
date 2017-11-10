@@ -86,7 +86,7 @@ class core
 		if(!defined('SHOW_ERROR'))$array = (object)array();
 		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
 		if(defined('SHOW_ERROR')){
-			echo $exception;
+			echo json_encode($error);
 		}
 		else echo json_encode($error);
 		die();
