@@ -3,6 +3,7 @@ error_reporting(0);
 define('IN_PLAY', true);
 define('PLAY_ROOT', substr(__DIR__, 0, -20));
 define('TIME_NOW',time());
+define('DATE_TODAY',date('Ymd'));
 define('LIBRARY_ROOT', substr(__DIR__, 0, -6));
 define('PLUGIN_ROOT', substr(__DIR__, 0, -13).'plugin/');
 define('CACHE_ROOT', substr(__DIR__, 0, -13).'cache/');
