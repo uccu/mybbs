@@ -61,6 +61,18 @@ class equip extends base\e{
         $this->success($f);
     }
 
+    function types1(){
+        
+
+        $f['list'] = model('equipment_list')->field('*')->mapping('i1')->add_table([
+            'equipment_list'=>[
+                '_on'=>'i1.bid=i0.id','_mapping'=>'i0','bid'=>'kid'
+            ]
+        ])->limit(99)->order(array('orders'))->select();
+        
+        $this->success($f);
+    }
+
 
     function protect(){
         $this->_check_login();
