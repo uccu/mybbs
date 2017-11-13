@@ -132,7 +132,7 @@ class defect extends base\e{
         $type = post('type',$type);
 
         $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
-        $where['end_time'] = ['logic',TIME_NOW,'<'];
+        $where['end_time'] = ['logic',TIME_NOW,'>'];
 
         $list = model('master_equipment')->where($where)->field('uid')->limit(999)->select();
 
@@ -142,7 +142,7 @@ class defect extends base\e{
         }
 
         $where = [];
-        $where['uid'] = ['contain',$list,'IN'];
+        if($list)$where['uid'] = ['contain',$list,'IN'];
 
         $out['list'] = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(999)->select();
 
