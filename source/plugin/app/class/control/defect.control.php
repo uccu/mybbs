@@ -54,6 +54,12 @@ class defect extends base\e{
      */
     function lists($order = 0,$type = '',$page = 1,$limit = 10,$status = -1){
 
+        $order = post('order',$order);
+        $type = post('type',$type);
+        $limit = post('limit',$limit);
+        $page = post('page',$page);
+        $status = post('status',$status);
+
         switch($order){
             case '1':
                 $order = ['create_time'=>'0'];
@@ -90,6 +96,8 @@ class defect extends base\e{
     
     function info($id){
 
+        $id = post('id',$id);
+
         $v = model('defect')->find($id);
 
         if(!$v)$this->error('不存在！');
@@ -117,5 +125,40 @@ class defect extends base\e{
         $this->success(['list'=>$list]);
     }
 
+
+    function expert($equip_id,$type = ''){
+
+        $equip_id = post('equip_id',$equip_id,'%d');
+        $type = post('type',$type);
+
+        $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
+
+        $list = model('master_equipment')->where($where)->field('uid')->limit(999)->select();
+
+        foreach($list as &$v){
+
+            $v = $v['uid'];
+        }
+
+        $where = [];
+        $where['uid'] = ['contain',$list,'IN'];
+
+        $out['list'] = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(999)->select();
+
+        $where = [];
+        if($type){
+
+            $where['field'] = ['contain','%'.$type.'%','LIKE'];
+
+        }
+
+        $list = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(10)->select();
+
+        $out['list'] = array_merge($out['list'],$list);
+
+        $this->success($out);
+
+    }
 }
+
 ?>
