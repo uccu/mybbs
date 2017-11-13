@@ -48,5 +48,55 @@ class defect extends base\e{
     }
 
 
+    /** 列表
+     * lists
+     * @return mixed 
+     */
+    function lists($order = 0,$page = 1,$limit = 10){
+
+        switch($order){
+            case '1':
+                $order = ['create_time'=>'1'];
+                break;
+            case '2':
+                $order = ['type'=>'0'];
+                break;
+            case '3':
+                $order = ['type'=>'1'];
+                break;
+            default:
+                $order = ['create_time'=>'0'];
+                break;
+            }
+            
+            $list = model('defect')->page($page,$limit)->order($order)->select();
+
+            foreach($list as $k=>&$v){
+
+                $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
+                $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+
+                if(!$v['userInfo'] || !$v['areaInfo'])unset($list[$k]);
+            
+            }
+
+            $list = array_values($list);
+
+            $this->success(['list'=>$list]);
+    }
+
+
+    /** 缺陷状态
+     * type
+     * @return mixed 
+     */
+    function type(){
+
+
+        $list = model('defect_type')->limit(99)->select();
+
+        $this->success(['list'=>$list]);
+    }
+
 }
 ?>
