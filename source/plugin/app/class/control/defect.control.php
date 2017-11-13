@@ -52,42 +52,56 @@ class defect extends base\e{
      * lists
      * @return mixed 
      */
-    function lists($order = 0,$page = 1,$limit = 10,$status = -1){
+    function lists($order = 0,$type = '',$page = 1,$limit = 10,$status = -1){
 
         switch($order){
             case '1':
-                $order = ['create_time'=>'1'];
-                break;
-            case '2':
-                $order = ['type'=>'0'];
-                break;
-            case '3':
-                $order = ['type'=>'1'];
-                break;
-            default:
                 $order = ['create_time'=>'0'];
                 break;
+            default:
+                $order = ['create_time'=>'1'];
+                break;
         }
-            
+        
+        if($type){
+            $where['type'] = $type;
+        }
+
         if($status != -1){
             $where['status'] = $status;
         }
             
-            $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
+        $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
 
-            foreach($list as $k=>&$v){
+        foreach($list as $k=>&$v){
 
-                $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
-                $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
-                $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
+            $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
+            $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+            $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-                if(!$v['userInfo'] || !$v['areaInfo'])unset($list[$k]);
+            if(!$v['userInfo'] || !$v['areaInfo'])unset($list[$k]);
             
-            }
+        }
 
-            $list = array_values($list);
+        $list = array_values($list);
 
-            $this->success(['list'=>$list]);
+        $this->success(['list'=>$list]);
+    }
+    
+    function info($id){
+
+        $v = model('defect')->find($id);
+
+        if(!$v)$this->error('不存在！');
+
+        $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
+        $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+        $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
+
+        if(!$v['userInfo'] || !$v['areaInfo'])$this->error('错误！');
+            
+
+        $this->success(['info'=>$v]);
     }
 
 
