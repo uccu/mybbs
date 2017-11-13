@@ -52,7 +52,7 @@ class defect extends base\e{
      * lists
      * @return mixed 
      */
-    function lists($order = 0,$page = 1,$limit = 10){
+    function lists($order = 0,$page = 1,$limit = 10,$status = -1){
 
         switch($order){
             case '1':
@@ -67,14 +67,19 @@ class defect extends base\e{
             default:
                 $order = ['create_time'=>'0'];
                 break;
-            }
+        }
             
-            $list = model('defect')->page($page,$limit)->order($order)->select();
+        if($status != -1){
+            $where['status'] = $status;
+        }
+            
+            $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
 
             foreach($list as $k=>&$v){
 
                 $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
                 $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+                $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
                 if(!$v['userInfo'] || !$v['areaInfo'])unset($list[$k]);
             
