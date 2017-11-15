@@ -177,6 +177,9 @@ class defect extends base\e{
      */
     function answerList($id,$equip_id){
 
+        $id = post('id',$id);
+        $equip_id = post('equip_id',$equip_id);
+
         $this->uid;
         
         $where3['useful'] = $id;
@@ -209,6 +212,9 @@ class defect extends base\e{
      * @return mixed 
      */
     function useful($id,$answer_id){
+
+        $id = post('id',$id);
+        $answer_id = post('answer_id',$answer_id);
 
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);

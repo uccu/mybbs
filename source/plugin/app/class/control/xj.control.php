@@ -52,7 +52,8 @@ class xj extends base\e{
 
         if($now_d != $lxj['inspection_time_id']){
             $data['user_id'] = $user_id;
-            $data['create_time'] = TIME_NOW;
+            $data['create_time'] = TIME_NOW;  
+            $data['date'] = date('Y.m.d');  
             $data['inspection_time_id'] = $now_d;
             $data['message'] = '';
             $id = model('enterprise_xuanjian_final_log')->data($data)->add();
@@ -223,6 +224,27 @@ class xj extends base\e{
         $a = strtotime('6:00') < strtotime('12:00');
 
         var_dump($a);
+    }
+
+
+    function my_log_list(){
+
+        // $this->uid = 522;
+        $list = model('logic')->fetch_all('select date from '.model('logic')->quote_table('enterprise_xuanjian_final_log').' where user_id = '.model('logic')->quote($this->uid).' group by date order by date desc');
+
+        $this->success(['list'=>$list]);
+
+    }
+
+    function my_log($date){
+
+        $date = post('date',$date);
+        // $this->uid = 522;
+        // $date = '2017.01.01';
+        $list = model('enterprise_xuanjian_final_log')->where(['date'=>$date,'user_id'=>$this->uid])->limit(999)->select();
+
+        $this->success(['list'=>$list]);
+
     }
 
 }
