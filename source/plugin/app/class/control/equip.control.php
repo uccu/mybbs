@@ -64,11 +64,11 @@ class equip extends base\e{
     function types1(){
         
 
-        $f['list'] = model('equipment_list')->field('*')->mapping('i1')->add_table([
-            'equipment_list'=>[
-                '_on'=>'i1.bid=i0.id','_mapping'=>'i0','bid'=>'kid'
+        $f['list'] = model('equipment_list')->mapping('i')->add_table([
+            '_table'=>[
+                '_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid'
             ]
-        ])->limit(99)->order(array('orders'))->select();
+        ])->where('e.bid=0 and e.del = 1 and i.del = 1')->limit(99)->order(array('orders'))->select();
         
         $this->success($f);
     }
