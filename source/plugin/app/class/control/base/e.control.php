@@ -244,6 +244,19 @@ class e extends \control\ajax{
         // LogUploadModel::copyMutiInstance()->set($data)->add();
         return $name?$paths[$name]:$paths;
     }
+    protected function randWord($count = 1,$s = 0){
+        $rand = 'ABCDEFGJIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
+        $rand2 = '1234567890abcdefghijklmnopqrstuvwxyz';
+        $rand3 = '1234567890';
+        $o = '';
+        for($i=0;$i<$count;$i++){
+            if(!$s)$o .= $rand[rand(0,61)];
+            elseif($s==2)$o .= $rand2[rand(0,35)];
+            elseif($s==3)$o .= $rand3[rand(0,9)];
+        }
+        return $o;
+    }
+    
     /* 处理上传图片 */
     protected function uploadPic($tmp_name,$type = 0,$width = 0,$height = 0,$cut = 0){
         if(!$tmp_name)$this->error('上传失败,无法获取缓存路径');
@@ -280,7 +293,7 @@ class e extends \control\ajax{
             if(!is_dir($folderRoot))
                 !mkdir($folderRoot,0777,true) && $this->error('文件夹权限不足，无法创建文件！');
             $folderRoot .= '/';
-            $time = date('H.i.s.').self::randWord(6,3);
+            $time = date('H.i.s.').$this->randWord(6,3);
             $src = $folderRoot.$time.'.jpg';
             $path = $folder.'/'.$time.'.jpg';
         }
