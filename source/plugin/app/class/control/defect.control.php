@@ -83,9 +83,10 @@ class defect extends base\e{
 
             $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
             $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+            $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
             $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-            if(!$v['userInfo'] || !$v['areaInfo'])unset($list[$k]);
+            if(!$v['userInfo'])unset($list[$k]);
             
         }
 
@@ -126,6 +127,12 @@ class defect extends base\e{
     }
 
 
+    /** 推荐专家
+     * expert
+     * @param mixed $equip_id 
+     * @param mixed $type 
+     * @return mixed 
+     */
     function expert($equip_id,$type = ''){
 
         $equip_id = post('equip_id',$equip_id,'%d');
@@ -159,6 +166,60 @@ class defect extends base\e{
 
         $this->success($out);
 
+    }
+
+
+    /** 解决方案
+     * answerList
+     * @param mixed $id 
+     * @param mixed $equip_id 
+     * @return mixed 
+     */
+    function answerList($id,$equip_id){
+
+        $this->uid;
+        
+        $where3['useful'] = $id;
+        $list = model('defect_answer')->where($where3)->limit(99)->select();
+        
+        $where['bid'] = $id;
+        $list2 = model('defect_answer')->where($where)->limit(99)->select();
+        $list = array_merge($list,$list2);
+        $where2['equip_id'] = $equip_id;
+
+        $list3 = model('defect_answer')->where($where2)->limit(99)->select();
+        $list = array_merge($list,$list3);
+
+        $out['list'] = $list;
+
+        $out['canPlay'] = '0'; 
+        $defect = model('defect')->find($id);
+        if($defect->user_id == $this->uid){
+            $out['canPlay'] = '1'; 
+        }
+
+        $this->success($out);
+
+    }
+
+    /** 解决方案有效
+     * useful
+     * @param mixed $id 
+     * @param mixed $answer_id 
+     * @return mixed 
+     */
+    function useful($id,$answer_id){
+
+        $out['canPlay'] = '0'; 
+        $defect = model('defect')->find($id);
+        if($defect->user_id == $this->uid){
+            $out['canPlay'] = '1'; 
+        }else{
+            $this->error('不能操作！');
+        }
+
+        model('defect_answer')->data(['useful'=>$id])->save($answer_id);
+        $this->success();
     }
 }
 
