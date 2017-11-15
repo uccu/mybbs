@@ -241,7 +241,7 @@ class xj extends base\e{
         $date = post('date',$date);
         // $this->uid = 522;
         // $date = '2017.01.01';
-        $list = model('enterprise_xuanjian_final_log')->where(['date'=>$date,'user_id'=>$this->uid])->limit(999)->select();
+        $list = model('enterprise_xuanjian_final_log')->where(['date'=>$date,'user_id'=>$this->uid])->order(['start_time'=>'desc'])->limit(999)->select();
 
         $this->success(['list'=>$list]);
 
