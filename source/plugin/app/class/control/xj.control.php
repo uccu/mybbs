@@ -229,7 +229,7 @@ class xj extends base\e{
 
     function my_log_list(){
 
-        // $this->uid = 522;
+        // $this->uid = 525;
         $list = model('logic')->fetch_all('select date from '.model('logic')->quote_table('enterprise_xuanjian_final_log').' where user_id = '.model('logic')->quote($this->uid).' group by date order by date desc');
 
         $this->success(['list'=>$list]);
@@ -239,11 +239,11 @@ class xj extends base\e{
     function my_log($date){
 
         $date = post('date',$date);
-        // $this->uid = 522;
+        // $this->uid = 525;
         // $date = '2017.01.01';
         $list = model('enterprise_xuanjian_final_log')->where(['date'=>$date,'user_id'=>$this->uid])->order(['start_time'=>'desc'])->limit(999)->select();
 
-        $this->success(['list'=>$list]);
+        $this->success(['list'=>$list,'user_id'=>$this->uid]);
 
     }
 
