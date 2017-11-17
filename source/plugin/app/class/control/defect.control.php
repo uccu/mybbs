@@ -143,6 +143,7 @@ class defect extends base\e{
         $where['end_time'] = ['logic',TIME_NOW,'>'];
 
         $list = model('master_equipment')->where($where)->field('uid')->limit(999)->select();
+        $out['count'] = count($list);
 
         foreach($list as &$v){
 
@@ -151,7 +152,7 @@ class defect extends base\e{
 
         $where = [];
         if($list)$where['uid'] = ['contain',$list,'IN'];
-
+        else $where['uid'] = '-1';
         $out['list'] = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(999)->select();
 
         $where = [];
@@ -161,7 +162,7 @@ class defect extends base\e{
 
         }
 
-        $list = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(10)->select();
+        $list = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->order('rand()')->limit(10)->select();
 
         $out['list'] = array_merge($out['list'],$list);
 
