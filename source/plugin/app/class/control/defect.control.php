@@ -188,10 +188,11 @@ class defect extends base\e{
         $list = model('defect_answer')->where($where3)->limit(99)->select();
         
         $where['bid'] = $id;
+        $where['useful'] = ['logic',$id,'!='];
         $list2 = model('defect_answer')->where($where)->limit(99)->select();
         $list = array_merge($list,$list2);
         $where2['equip_id'] = $equip_id;
-
+        $where2['bid'] = ['logic',$id,'!='];
         $list3 = model('defect_answer')->where($where2)->limit(99)->select();
         $list = array_merge($list,$list3);
 
