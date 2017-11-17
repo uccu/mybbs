@@ -105,9 +105,10 @@ class defect extends base\e{
 
         $v['userInfo'] = model('user')->field(['uid','nickname'])->find($v['user_id']);
         $v['areaInfo'] = model('enterprise_equipment')->find($v['area_id']);
+        $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
         $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-        if(!$v['userInfo'] || !$v['areaInfo'])$this->error('错误！');
+        if(!$v['userInfo'])$this->error('错误！');
             
 
         $this->success(['info'=>$v]);
