@@ -200,7 +200,7 @@ class defect extends base\e{
 
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);
-        if($defect->user_id == $this->uid){
+        if($defect['user_id'] == $this->uid){
             $out['canPlay'] = '1'; 
         }
 
@@ -221,7 +221,7 @@ class defect extends base\e{
 
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);
-        if($defect->user_id == $this->uid){
+        if($defect['user_id'] == $this->uid){
             $out['canPlay'] = '1'; 
         }else{
             $this->error('不能操作！');
