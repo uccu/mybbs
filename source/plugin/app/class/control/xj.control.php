@@ -208,7 +208,7 @@ class xj extends base\e{
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
-                    $users = model('user_equipment')->where($where)->field('uid')->select();
+                    $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
                     
@@ -235,7 +235,7 @@ class xj extends base\e{
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
-                    $users = model('user_equipment')->where($where)->field('uid')->select();
+                    $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
                     
@@ -261,7 +261,7 @@ class xj extends base\e{
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
-                    $users = model('user_equipment')->where($where)->field('uid')->select();
+                    $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
                     
