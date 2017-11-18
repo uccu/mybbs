@@ -42,23 +42,29 @@ class defect extends base\e{
 
         model('defect')->data($data)->add();
 
-        $name = $this->userInfo['nametrue'];
-        $date = date('Y年m月d日 H:i:s');
-        $inspection = model('inspection')->find($inspection_id);
+        if($inspection_id){
 
-        $equip = model('enterprise_equipment')->find($equip_id);
-        $area = model('enterprise_equipment')->find($equip['bid']);
-        // $equip = 
+            $name = $this->userInfo['nametrue'];
+            $date = date('Y年m月d日 H:i:s');
+            $inspection = model('inspection')->find($inspection_id);
 
-        $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
-        $users = model('user_equipment')->where($where)->field('uid')->select();
+            $equip = model('enterprise_equipment')->find($equip_id);
+            $area = model('enterprise_equipment')->find($equip['bid']);
+            // $equip = 
 
-                    
+            $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
+            $users = model('user_equipment')->where($where)->field('uid')->select();
 
-        foreach($users as $user){
+                        
 
-            $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+            foreach($users as $user){
+
+                $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+            }
+
         }
+
+        
         
 
 
