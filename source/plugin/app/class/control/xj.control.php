@@ -395,6 +395,41 @@ class xj extends base\e{
     }
 
 
+    /** 昨日记录
+     * lastLog
+     * @param mixed $equip_id 
+     * @return mixed 
+     */
+    function lastLog($equip_id){
+
+        $equip_id = post('equip_id',$equip_id,'%d');
+
+        $date = date('Y.m.d', TIME_NOW - 24* 3600 );
+        $date2 = date('Y-m-d', TIME_NOW - 24* 3600 );
+
+        $final_log = model('enterprise_xuanjian_final_log')->where(['date'=>$date])->order('create_time','desc')->find();
+        if(!$final_log)$this->success(['list'=>[]]);
+
+        $where['final_log_id'] = $final_log['id'];
+
+        $equip = model('enterprise_equipment')->find($equip_id);
+
+        $log = model('enterprise_xuanjian_log')->where(['area_id'=>$equip['bid'],'date'=>$date2,'final_log_id'=>$final_log['id']])->order('time','desc')->find();
+
+        $where['bid'] = $equip_id;
+        $where['log_id'] = $log['id'];
+
+        $list = model('enterprise_xuanjian_parameters_log')->mapping('i')->add_table([
+            'device_parameters'=>[
+                'name','unit','input_type','DCS','bid','_mapping'=>'p','_on'=>'i.parameters_id=p.id'
+            ]
+        ])->where($where)->limit(999)->select();
+
+        $this->success(['list'=>$list]);
+
+    }
+
+
 
 }
 ?>
