@@ -23,7 +23,7 @@ class defect extends base\e{
      * @param mixed $type 
      * @return mixed 
      */
-    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0){
+    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0,$inspection_id = 0){
 
         $this->_check_login();
 
@@ -41,6 +41,16 @@ class defect extends base\e{
 
 
         model('defect')->data($data)->add();
+
+        $name = $this->userInfo['nametrue'];
+        $date = date('Y年m月d日 H:i:s');
+        $inspection = model('inspection')->find($inspection_id);
+        // $equip = 
+
+        '巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了新风机房-高效汽轮机的普通缺陷，请尽快与该设备负责人联系并尽快处理！';
+
+        
+
 
         $this->success();
 
@@ -89,7 +99,7 @@ class defect extends base\e{
             $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
             $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-            if(!$v['userInfo'])unset($list[$k]);
+            if(!$v['userInfo']|| !$v['areaInfo'] || $v['equipInfo'])unset($list[$k]);
             
         }
 
@@ -111,7 +121,7 @@ class defect extends base\e{
         $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
         $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-        if(!$v['userInfo'])$this->error('错误！');
+        if(!$v['userInfo']|| !$v['areaInfo'] || $v['equipInfo'])$this->error('错误！');
             
 
         $this->success(['info'=>$v]);

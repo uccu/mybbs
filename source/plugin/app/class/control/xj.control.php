@@ -201,10 +201,10 @@ class xj extends base\e{
             $o['user_id'] = $this->uid;
 
             model('enterprise_xuanjian_parameters_log')->data($o)->add();
-
+            $parameter = model('device_parameters')->find($o['parameters_id']);
             if($o['value'] === ''){
 
-                $parameter = model('device_parameters')->find($o['parameters_id']);
+                
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
@@ -215,12 +215,44 @@ class xj extends base\e{
 
                     foreach($users as $user){
 
-                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的设备实时温度数值未填写，请与巡检人员联系确认原因并尽快处理！',$user['uid']);
+                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！',$user['uid']);
                     }
 
                 }
 
                 
+            }elseif($o['value'] < $parameter['min_value']){
+
+                if($parameter['bid']){
+
+                    $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
+                    $users = model('user_equipment')->where($where)->field('uid')->select();
+
+                    $equip = model('enterprise_equipment')->find($parameter['bid']);
+                    
+
+                    foreach($users as $user){
+
+                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！',$user['uid']);
+                    }
+
+                }
+            }elseif($o['value'] > $parameter['max_value']){
+
+                if($parameter['bid']){
+
+                    $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
+                    $users = model('user_equipment')->where($where)->field('uid')->select();
+
+                    $equip = model('enterprise_equipment')->find($parameter['bid']);
+                    
+
+                    foreach($users as $user){
+
+                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！',$user['uid']);
+                    }
+
+                }
             }
 
             
