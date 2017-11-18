@@ -184,17 +184,45 @@ class xj extends base\e{
         $data2['date'] = date('Y-m-d',TIME_NOW);
         $data2['final_log_id'] = $id;
 
+        $final_log = model('enterprise_xuanjian_final_log')->find($id);
+
+        $inspection_time = model('inspection_time')->find($final_log['inspection_time_id']);
+        $inspection = model('inspection')->find($inspection_time['bid']);
+
+        $area = model('enterprise_equipment')->find($area_id);
+
         $log_id = model('enterprise_xuanjian_log')->data($data2)->add();
 
         foreach($obj as $o){
 
-            $o['parameters_id'] = $o['parameters_id'];
             $o['log_id'] = $log_id;
             $o['final_log_id'] = $id;
             $o['create_time'] = TIME_NOW;
             $o['user_id'] = $this->uid;
 
             model('enterprise_xuanjian_parameters_log')->data($o)->add();
+
+            if($o['value'] === ''){
+
+                $parameter = model('device_parameters')->find($o['parameters_id']);
+                if($parameter['bid']){
+
+                    $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
+                    $users = model('user_equipment')->where($where)->field('uid')->select();
+
+                    $equip = model('enterprise_equipment')->find($parameter['bid']);
+                    
+
+                    foreach($users as $user){
+
+                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的设备实时温度数值未填写，请与巡检人员联系确认原因并尽快处理！',$user['uid']);
+                    }
+
+                }
+
+                
+            }
+
             
         }
 

@@ -52,7 +52,7 @@ class defect extends base\e{
      * lists
      * @return mixed 
      */
-    function lists($order = 0,$type = '',$page = 1,$limit = 10,$status = -1){
+    function lists($status = -1,$order = 0,$type = '',$page = 1,$limit = 10){
 
         $order = post('order',$order);
         $type = post('type',$type);
@@ -156,6 +156,7 @@ class defect extends base\e{
         $where = [];
         if($list)$where['uid'] = ['contain',$list,'IN'];
         else $where['uid'] = '-1';
+        $where['type'] = 2;
         $out['list'] = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(999)->select();
 
         $where = [];
