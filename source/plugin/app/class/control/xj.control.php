@@ -212,11 +212,20 @@ class xj extends base\e{
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
                     
-
+                    $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！';
                     foreach($users as $user){
 
-                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！',$user['uid']);
+                        $z = $this->_pusher($msg,$user['uid']);
                     }
+
+                    $data = [];
+                    $data['bid'] = $equip->id;
+                    $data['type'] = 1;
+                    $data['states'] = 1;
+                    $data['value'] = $parameter['name'].'未填';
+                    $data['create_time'] = TIME_NOW;
+                    $data['final_log_id'] = $id;
+                    model('warning_log')->data($data)->add();
 
                 }
 
@@ -236,6 +245,15 @@ class xj extends base\e{
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                     }
 
+                    $data = [];
+                    $data['bid'] = $equip->id;
+                    $data['type'] = 1;
+                    $data['states'] = 1;
+                    $data['value'] = $parameter['name'].'过低';
+                    $data['create_time'] = TIME_NOW;
+                    $data['final_log_id'] = $id;
+                    model('warning_log')->data($data)->add();
+
                 }
             }elseif($o['value'] > $parameter['max_value']){
 
@@ -251,6 +269,15 @@ class xj extends base\e{
 
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                     }
+
+                    $data = [];
+                    $data['bid'] = $equip->id;
+                    $data['type'] = 1;
+                    $data['states'] = 1;
+                    $data['value'] = $parameter['name'].'过高';
+                    $data['create_time'] = TIME_NOW;
+                    $data['final_log_id'] = $id;
+                    model('warning_log')->data($data)->add();
 
                 }
             }
@@ -287,10 +314,16 @@ class xj extends base\e{
     }
 
 
-    function my_log_list(){
+    function my_log_list($page = 1,$limit = 10){
 
-        // $this->uid = 525;
-        $list = model('logic')->fetch_all('select date from '.model('logic')->quote_table('enterprise_xuanjian_final_log').' where user_id = '.model('logic')->quote($this->uid).' group by date order by date desc');
+        $page = post('page',$page,'%d');
+        $limit = post('limit',$limit,'%d');
+
+        if($page < 1)$page = 1;
+        if($limit < 1)$limit = 1;
+        $offset = ($page - 1) * $limit;
+
+        $list = model('logic')->fetch_all('select date from '.model('logic')->quote_table('enterprise_xuanjian_final_log').' where user_id = '.model('logic')->quote($this->uid).' group by date order by date desc limit '.$offset.','.$limit);
 
         $this->success(['list'=>$list]);
 
@@ -306,6 +339,31 @@ class xj extends base\e{
         $this->success(['list'=>$list,'user_id'=>$this->uid]);
 
     }
+
+
+    function warningLogList($page = 1,$limit = 10){
+
+        $page = post('page',$page);
+        $limit = post('limit',$limit);
+
+        $list = model('warning_log')->page($page,$limit)->order(['create_time'=>'desc'])->select();
+
+        foreach($list as &$v){
+
+            $v->equipInfo = model('enterprise_equipment')->find($v->bid);
+            $v->areaInfo = model('enterprise_equipment')->find($equip->bid);
+            $v->finalLogInfo = model('enterprise_xuanjian_final_log')->find($v->final_log_id);
+            $v->userInfo = model('user')->find($v->finalLogInfo->user_id);
+
+        }
+
+        $out['list'] = $list;
+
+        $this->success($out);
+
+    }
+
+
 
 }
 ?>
