@@ -183,27 +183,49 @@ class defect extends base\e{
         $equip_id = post('equip_id',$equip_id);
 
         $this->uid;
-        
-        $where3['useful'] = $id;
-        $list = model('defect_answer')->where($where3)->limit(99)->select();
-        
-        $where['bid'] = $id;
-        $where['useful'] = ['logic',$id,'!='];
-        $list2 = model('defect_answer')->where($where)->limit(99)->select();
-        $list = array_merge($list,$list2);
-        $where2['equip_id'] = $equip_id;
-        $where2['bid'] = ['logic',$id,'!='];
-        $where2['useful'] = ['logic',$id,'!='];
-        $list3 = model('defect_answer')->where($where2)->limit(99)->select();
-        $list = array_merge($list,$list3);
 
-        $out['list'] = $list;
-
+        # 是否有权限设置有用
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);
         if($defect['user_id'] == $this->uid){
             $out['canPlay'] = '1'; 
         }
+        
+        # 有用的解决方案
+        if($defect['status']){
+            $where3['id'] = $defect['status'];
+            $list = model('defect_answer')->where($where3)->limit(99)->select();
+            if($list){
+                $use = $list[0]['id'];
+                $list[0]['useful'] = '1';
+            }
+        }else{
+            $list = [];
+        }
+
+        # 该缺陷的解决方案
+        $where['bid'] = $id;
+        if($use)$where['id'] = ['logic',$use,'!='];
+        $list2 = model('defect_answer')->where($where)->limit(99)->select();
+        foreach($list2 as &$v){
+            $v['useful'] = '0';
+        }
+        $list = array_merge($list,$list2);
+
+        # 设备的其他解决方案
+        $where2['equip_id'] = $equip_id;
+        $where2['bid'] = ['logic',$id,'!='];
+        if($use)$where2['id'] = ['logic',$use,'!='];
+        $list3 = model('defect_answer')->where($where2)->limit(99)->select();
+        foreach($list3 as &$v){
+            $v['useful'] = '0';
+        }
+        $list = array_merge($list,$list3);
+
+        $out['list'] = $list;
+
+        
+        
 
         $this->success($out);
 
@@ -227,8 +249,7 @@ class defect extends base\e{
         }else{
             $this->error('不能操作！');
         }
-
-        model('defect_answer')->data(['useful'=>$id])->save($answer_id);
+        model('defect')->data(['status'=>$answer_id])->save($id);
         $this->success();
     }
 }
