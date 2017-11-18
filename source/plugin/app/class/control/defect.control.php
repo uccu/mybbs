@@ -99,7 +99,7 @@ class defect extends base\e{
             $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
             $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-            if(!$v['userInfo']|| !$v['areaInfo'] || $v['equipInfo'])unset($list[$k]);
+            if(!$v['userInfo']|| !$v['areaInfo'] || !$v['equipInfo'])unset($list[$k]);
             
         }
 
@@ -121,7 +121,7 @@ class defect extends base\e{
         $v['equipInfo'] = model('enterprise_equipment')->find($v['equip_id']);
         $v['date'] = date('Y.m.d H:i:s',$v['create_time']);
 
-        if(!$v['userInfo']|| !$v['areaInfo'] || $v['equipInfo'])$this->error('错误！');
+        if(!$v['userInfo']|| !$v['areaInfo'] || !$v['equipInfo'])$this->error('错误！');
             
 
         $this->success(['info'=>$v]);
