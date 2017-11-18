@@ -74,7 +74,7 @@ class defect extends base\e{
         }
 
         if($status != -1){
-            $where['status'] = $status;
+            $where['answer_id'] = ['logic',0,'!='];
         }
             
         $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
