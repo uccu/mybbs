@@ -187,13 +187,13 @@ class defect extends base\e{
         # 是否有权限设置有用
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);
-        if($defect['user_id'] == $this->uid && $defect['status'] == 0){
+        if($defect['user_id'] == $this->uid && $defect['answer_id'] == 0){
             $out['canPlay'] = '1'; 
         }
         
         # 有用的解决方案
-        if($defect['status']){
-            $where3['id'] = $defect['status'];
+        if($defect['answer_id']){
+            $where3['id'] = $defect['answer_id'];
             $list = model('defect_answer')->where($where3)->limit(99)->select();
             if($list){
                 $use = $list[0]['id'];
@@ -249,7 +249,7 @@ class defect extends base\e{
         }else{
             $this->error('不能操作！');
         }
-        model('defect')->data(['status'=>$answer_id])->save($id);
+        model('defect')->data(['answer_id'=>$answer_id])->save($id);
         $this->success();
     }
 }
