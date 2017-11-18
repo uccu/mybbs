@@ -45,10 +45,20 @@ class defect extends base\e{
         $name = $this->userInfo['nametrue'];
         $date = date('Y年m月d日 H:i:s');
         $inspection = model('inspection')->find($inspection_id);
+
+        $equip = model('enterprise_equipment')->find($equip_id);
+        $area = model('enterprise_equipment')->find($equip['bid']);
         // $equip = 
 
-        '巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了新风机房-高效汽轮机的普通缺陷，请尽快与该设备负责人联系并尽快处理！';
+        $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
+        $users = model('user_equipment')->where($where)->field('uid')->select();
 
+                    
+
+        foreach($users as $user){
+
+            $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+        }
         
 
 
@@ -166,7 +176,7 @@ class defect extends base\e{
         $where = [];
         if($list)$where['uid'] = ['contain',$list,'IN'];
         else $where['uid'] = '-1';
-        $where['type'] = 2;
+        
         $out['list'] = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->limit(999)->select();
 
         $where = [];
@@ -175,7 +185,7 @@ class defect extends base\e{
             $where['field'] = ['contain','%'.$type.'%','LIKE'];
 
         }
-
+        $where['type'] = 2;
         $list = model('user')->where($where)->field(['nickname','thumb','fans','follow','answer','uid','label','experience'])->order('rand()')->limit(10)->select();
 
         $out['list'] = array_merge($out['list'],$list);
