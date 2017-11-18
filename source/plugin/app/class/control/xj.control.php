@@ -248,6 +248,7 @@ class xj extends base\e{
                     $data = [];
                     $data['bid'] = $equip->id;
                     $data['type'] = 1;
+                    $data['user_id'] = $this->uid;
                     $data['states'] = 1;
                     $data['value'] = $parameter['name'].'过低';
                     $data['create_time'] = TIME_NOW;
@@ -341,23 +342,53 @@ class xj extends base\e{
     }
 
 
+    /** 预警列表
+     * warningLogList
+     * @param mixed $page 
+     * @param mixed $limit 
+     * @return mixed 
+     */
     function warningLogList($page = 1,$limit = 10){
+
+        $this->_check_login();
 
         $page = post('page',$page);
         $limit = post('limit',$limit);
 
-        $list = model('warning_log')->page($page,$limit)->order(['create_time'=>'desc'])->select();
+        if($this->userInfo['gid'] == 1){
+
+        }elseif($this->userInfo['gid'] == 2){
+
+            $where['user_id'] = $this->uid;
+        }elseif($this->userInfo['gid'] == 3){
+
+            $value = model('user_equipment')->where(['user_id'=>$this->uid])->get_field('value');
+            if(!$value)$this->error('无权限查看');
+
+            $value = implode(',',$value);
+
+            $where['bid'] = array('contain',$value,'IN');
+        }else{
+
+            $this->error('无权限查看');
+        }
+
+
+        $list = model('warning_log')->where($where)->page($page,$limit)->order(['create_time'=>'desc'])->select();
 
         foreach($list as &$v){
 
-            $v->equipInfo = model('enterprise_equipment')->find($v->bid);
-            $v->areaInfo = model('enterprise_equipment')->find($equip->bid);
-            $v->finalLogInfo = model('enterprise_xuanjian_final_log')->find($v->final_log_id);
-            $v->userInfo = model('user')->find($v->finalLogInfo->user_id);
+            $v['equipInfo'] = model('enterprise_equipment')->find($v['bid']);
+            $v['areaInfo'] = model('enterprise_equipment')->find($v['equipInfo']['bid']);
+            $finalLogInfo = model('enterprise_xuanjian_final_log')->find($v['final_log_id']);
+            $v['userInfo'] = model('user')->find($v['user_id']);
+            $inspection_time = model('inspection_time')->find($finalLogInfo['inspection_time_id']);
+            $v['inspection'] = model('inspection')->find($inspection_time['bid']);
 
         }
 
         $out['list'] = $list;
+
 
         $this->success($out);
 
