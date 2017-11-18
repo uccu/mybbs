@@ -187,7 +187,7 @@ class defect extends base\e{
         # 是否有权限设置有用
         $out['canPlay'] = '0'; 
         $defect = model('defect')->find($id);
-        if($defect['user_id'] == $this->uid){
+        if($defect['user_id'] == $this->uid && $defect['status'] == 0){
             $out['canPlay'] = '1'; 
         }
         
