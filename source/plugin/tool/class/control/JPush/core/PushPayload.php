@@ -283,11 +283,12 @@ class PushPayload {
             }
         }
 
-        if (count($android) <= 0) {
-            throw new InvalidArgumentException("Invalid android notification");
+        if (count($android) > 0) {
+            // throw new InvalidArgumentException("Invalid android notification");
+            $this->androidNotification = $android;
         }
 
-        $this->androidNotification = $android;
+        
         return $this;
     }
 
