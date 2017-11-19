@@ -11,7 +11,7 @@ class maintenance extends base\e{//运维
         $limit = post('limit',10);
         $search = post('search');
         if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
-        $z['list'] = model('install')->page($page,$limit)->order(array('location'))->select();
+        $z['list'] = model('install')->where($where)->page($page,$limit)->order(array('location'))->select();
         $this->success($z);
     }
 
@@ -20,7 +20,7 @@ class maintenance extends base\e{//运维
         $limit = post('limit',10);
         $search = post('search');
         if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
-        $z['list'] = model('sale')->page($page,$limit)->order(array('location'))->select();
+        $z['list'] = model('sale')->where($where)->page($page,$limit)->order(array('location'))->select();
 
         foreach($z['list'] as &$v){
             $v['url'] = 'app/h5/sale/'.$v['sid'];
