@@ -74,7 +74,7 @@ class xj extends base\e{
 
             // model('enterprise_xuanjian_final_log')->where->add();
             
-            $qyv['warning_times'] = '0';
+            // $qyv['warning_times'] = '0';
         }
 
 
