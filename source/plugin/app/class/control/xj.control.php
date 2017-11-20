@@ -368,7 +368,9 @@ class xj extends base\e{
      * @return mixed 
      */
     function warningLogList($page = 1,$limit = 10){
-
+        $this->uid = 13;
+        $this->userInfo = [];
+        $this->userInfo['gid'] = 3;
         $this->_check_login();
 
         $page = post('page',$page);
@@ -381,10 +383,11 @@ class xj extends base\e{
             $where['user_id'] = $this->uid;
         }elseif($this->userInfo['gid'] == 3){
 
-            $value = model('user_equipment')->where(['user_id'=>$this->uid])->get_field('value');
+            $value = model('user_equipment')->where(['uid'=>$this->uid])->get_field('value');
+
             if(!$value)$this->error('无权限查看');
 
-            $value = implode(',',$value);
+            $value = explode(',',$value);
 
             $where['bid'] = array('contain',$value,'IN');
         }else{
@@ -395,22 +398,23 @@ class xj extends base\e{
 
         $list = model('warning_log')->where($where)->page($page,$limit)->order(['create_time'=>'desc'])->select();
 
+
         foreach($list as &$v){
 
             $equip_id = $v['bid'];
 
-            $where2['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
+            $where2['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
             $users = model('user_equipment')->where($where2)->field(['uid'])->limit(999)->select();
 
             foreach($users as &$user){
 
-                $user = model('user_equipment')->field(['uid','nametrue','usercode'])->find($user['uid']);
+                $user = model('user')->field(['uid','nametrue','usercode'])->find($user['uid']);
             }
 
             $v['equip_users'] = $users;
 
-            $v['equipInfo'] = model('enterprise_equipment')->find($v['bid']);
-            $v['areaInfo'] = model('enterprise_equipment')->find($v['equipInfo']['bid']);
+            $v['equipInfo'] = model('enterprise_equipment')->field(['title','bid','id'])->find($v['bid']);
+            $v['areaInfo'] = model('enterprise_equipment')->field(['title','bid','id'])->find($v['equipInfo']['bid']);
             $finalLogInfo = model('enterprise_xuanjian_final_log')->find($v['final_log_id']);
             $userInfo = model('user')->find($v['user_id']);
             $v['user_name'] = $userInfo['nametrue'];
