@@ -229,7 +229,7 @@ class xj extends base\e{
                     }
 
                     $data = [];
-                    $data['bid'] = $equip->id;
+                    $data['bid'] = $equip['id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
                     $data['value'] = $parameter['name'].'未填';
@@ -258,7 +258,7 @@ class xj extends base\e{
                     }
 
                     $data = [];
-                    $data['bid'] = $equip->id;
+                    $data['bid'] = $equip['id'];
                     $data['type'] = 1;
                     $data['user_id'] = $this->uid;
                     $data['states'] = 1;
@@ -286,7 +286,7 @@ class xj extends base\e{
                     }
 
                     $data = [];
-                    $data['bid'] = $equip->id;
+                    $data['bid'] = $equip['id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
                     $data['value'] = $parameter['name'].'过高';
