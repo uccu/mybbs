@@ -202,6 +202,7 @@ class xj extends base\e{
 
             model('enterprise_xuanjian_parameters_log')->data($o)->add();
             $parameter = model('device_parameters')->find($o['parameters_id']);
+            !$parameter && $this->error('parameters_id 错误');
             if($o['value'] === ''){
 
                 
