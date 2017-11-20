@@ -400,7 +400,9 @@ class xj extends base\e{
             $v['equipInfo'] = model('enterprise_equipment')->find($v['bid']);
             $v['areaInfo'] = model('enterprise_equipment')->find($v['equipInfo']['bid']);
             $finalLogInfo = model('enterprise_xuanjian_final_log')->find($v['final_log_id']);
-            $v['userInfo'] = model('user')->find($v['user_id']);
+            $userInfo = model('user')->find($v['user_id']);
+            $v['user_name'] = $userInfo['nametrue'];
+            $v['user_phone'] = $userInfo['usercode'];
             $inspection_time = model('inspection_time')->find($finalLogInfo['inspection_time_id']);
             $v['inspection'] = model('inspection')->find($inspection_time['bid']);
 
