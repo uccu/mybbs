@@ -9,14 +9,18 @@ class maintenance extends base\e{//运维
     function company(){
         $page = post('page',1);
         $limit = post('limit',10);
-        $z['list'] = model('install')->page($page,$limit)->order(array('location'))->select();
+        $search = post('search');
+        if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        $z['list'] = model('install')->where($where)->page($page,$limit)->order(array('location'))->select();
         $this->success($z);
     }
 
     function sale(){
         $page = post('page',1);
         $limit = post('limit',10);
-        $z['list'] = model('sale')->page($page,$limit)->order(array('location'))->select();
+        $search = post('search');
+        if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        $z['list'] = model('sale')->where($where)->page($page,$limit)->order(array('location'))->select();
 
         foreach($z['list'] as &$v){
             $v['url'] = 'app/h5/sale/'.$v['sid'];

@@ -71,7 +71,10 @@ class xj extends base\e{
 
             $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
             $qyv['logCount'] = count($log);
-            $qyv['warning_times'] = '0';
+
+            // model('enterprise_xuanjian_final_log')->where->add();
+            
+            // $qyv['warning_times'] = '0';
         }
 
 
@@ -193,6 +196,8 @@ class xj extends base\e{
 
         $log_id = model('enterprise_xuanjian_log')->data($data2)->add();
 
+        $warns = 0;
+
         foreach($obj as $o){
 
             $o['log_id'] = $log_id;
@@ -204,7 +209,7 @@ class xj extends base\e{
             $parameter = model('device_parameters')->find($o['parameters_id']);
             !$parameter && $this->error('parameters_id 错误');
             if($o['value'] === ''){
-
+                $warns++;
                 
                 if($parameter['bid']){
 
@@ -212,6 +217,10 @@ class xj extends base\e{
                     $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
+
+                    if($equip){
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
+                    }
                     
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！';
                     foreach($users as $user){
@@ -232,14 +241,16 @@ class xj extends base\e{
 
                 
             }elseif($o['value'] < $parameter['min_value']){
-
+                $warns++;
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
                     $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
-                    
+                    if($equip){
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
+                    }
 
                     foreach($users as $user){
 
@@ -258,14 +269,16 @@ class xj extends base\e{
 
                 }
             }elseif($o['value'] > $parameter['max_value']){
-
+                $warns++;
                 if($parameter['bid']){
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
                     $users = model('user_equipment')->where($where)->field('uid')->limit(999)->select();
 
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
-                    
+                    if($equip){
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
+                    }
 
                     foreach($users as $user){
 
@@ -286,6 +299,11 @@ class xj extends base\e{
 
             
         }
+
+        $data = [];
+        $data['warning_times'] = ['add',$warns];
+
+        model('enterprise_xuanjian_final_log')->data($data)->save($id);
 
         $this->success();
         
