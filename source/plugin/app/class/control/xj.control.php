@@ -405,6 +405,7 @@ class xj extends base\e{
             $v['user_phone'] = $userInfo['usercode'];
             $inspection_time = model('inspection_time')->find($finalLogInfo['inspection_time_id']);
             $v['inspection'] = model('inspection')->find($inspection_time['bid']);
+            $v['start_time'] = $inspection_time['start_time'];
 
         }
 
