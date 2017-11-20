@@ -397,6 +397,18 @@ class xj extends base\e{
 
         foreach($list as &$v){
 
+            $equip_id = $v['bid'];
+
+            $where2['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
+            $users = model('user_equipment')->where($where2)->field(['uid'])->limit(999)->select();
+
+            foreach($users as &$user){
+
+                $user = model('user_equipment')->field(['uid','nametrue','usercode'])->find($user['uid']);
+            }
+
+            $v['equip_users'] = $users;
+
             $v['equipInfo'] = model('enterprise_equipment')->find($v['bid']);
             $v['areaInfo'] = model('enterprise_equipment')->find($v['equipInfo']['bid']);
             $finalLogInfo = model('enterprise_xuanjian_final_log')->find($v['final_log_id']);
