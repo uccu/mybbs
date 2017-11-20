@@ -68,7 +68,7 @@ class equip extends base\e{
             '_table'=>[
                 '_on'=>'i.bid=e.id','_mapping'=>'e','bid'=>'kid'
             ]
-        ])->where('e.bid=0 and e.del = 1 and i.del = 1')->limit(99)->order(array('orders'))->select();
+        ])->where('e.bid=0 and e.del = 1 and i.del = 1 and i.state = 1')->limit(99)->order(array('orders'))->select();
         
         $this->success($f);
     }
