@@ -257,12 +257,23 @@ class xj extends base\e{
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                     }
 
+
+                    $level = model('warning_level')->where([
+                        'bid'=>$parameter->id,
+                        'state'=>-1,
+                        'value_low'=>['logic',$o['value'],'>='],
+                        'value_height'=>['logic',$o['value'],'<']
+                        
+                        ])->find();
+
+                    
+
                     $data = [];
                     $data['bid'] = $equip['id'];
                     $data['type'] = 1;
                     $data['user_id'] = $this->uid;
                     $data['states'] = 1;
-                    $data['value'] = $parameter['name'].'过低';
+                    $data['value'] = $level?$level['name']:$parameter['name'].'过低';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     model('warning_log')->data($data)->add();
@@ -285,11 +296,19 @@ class xj extends base\e{
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                     }
 
+                    $level = model('warning_level')->where([
+                        'bid'=>$parameter->id,
+                        'state'=>1,
+                        'value_low'=>['logic',$o['value'],'>='],
+                        'value_height'=>['logic',$o['value'],'<']
+                        
+                        ])->find();
+
                     $data = [];
                     $data['bid'] = $equip['id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
-                    $data['value'] = $parameter['name'].'过高';
+                    $data['value'] = $level?$level['name']:$parameter['name'].'过高';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     model('warning_log')->data($data)->add();
