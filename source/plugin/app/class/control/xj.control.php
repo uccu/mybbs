@@ -227,7 +227,11 @@ class xj extends base\e{
 
                         $z = $this->_pusher($msg,$user['uid']);
                         model('user')->data(['has_warning'=>1])->save($user['uid']);
+                        $user = model('user')->find($user['uid']);
+                        if($user)$this->_message($user['usercode'],$msg);
+                        
                     }
+                    model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     $data = [];
                     $data['bid'] = $equip['id'];
@@ -257,8 +261,10 @@ class xj extends base\e{
 
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                         model('user')->data(['has_warning'=>1])->save($user['uid']);
+                        $user = model('user')->find($user['uid']);
+                        if($user)$this->_message($user['usercode'],'巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！');
                     }
-
+                    model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     $level = model('warning_level')->where([
                         'bid'=>$parameter->id,
@@ -294,10 +300,13 @@ class xj extends base\e{
                     }
 
                     foreach($users as $user){
-
+                        
                         $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！',$user['uid']);
                         model('user')->data(['has_warning'=>1])->save($user['uid']);
+                        $user = model('user')->find($user['uid']);
+                        if($user)$this->_message($user['usercode'],'巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！');
                     }
+                    model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     $level = model('warning_level')->where([
                         'bid'=>$parameter->id,
