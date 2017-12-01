@@ -32,14 +32,16 @@ class xj extends base\e{
     
 
     # 巡检首页
-    function myxj(){
+    function myxj($id){
+
+        $id = post('id',$id,'%d');
 
         $user_id = $this->uid;
         // $user_id = 502;
 
         # 获取巡检路线
-        $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->find();
-        if(!$lx)$this->error('没有巡检路线！');
+        $lx = model('inspection')->find($id);
+        if(!$id || !$lx)$this->error('没有巡检路线！');
 
         # 获取巡检路线的时间段
         $time = model('inspection_time')->where(['bid'=>$lx['id']])->order(['start_time'])->limit(999)->select();
