@@ -18,7 +18,7 @@ class xj extends base\e{
         // $user_id = 502;
 
         # 获取巡检路线
-        $lx = model('inspection')->where(['uid'=>$user_id])->find();
+        $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->find();
         if(!$lx)$this->error('没有巡检路线！');
 
         # 获取巡检路线的时间段
