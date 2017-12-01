@@ -207,10 +207,11 @@ class defect extends base\e{
      * @param mixed $equip_id 
      * @return mixed 
      */
-    function answerList($id,$equip_id){
+    function answerList($id,$equip_id,$type){
 
         $id = post('id',$id);
         $equip_id = post('equip_id',$equip_id);
+        $type = post('type',$type);
 
         $this->uid;
 
@@ -244,6 +245,7 @@ class defect extends base\e{
 
         # 设备的其他解决方案
         $where2['equip_id'] = $equip_id;
+        if($type)$where2['type'] = $type;
         $where2['bid'] = ['logic',$id,'!='];
         if($use)$where2['id'] = ['logic',$use,'!='];
         $list3 = model('defect_answer')->where($where2)->limit(99)->select();
