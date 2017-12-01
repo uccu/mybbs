@@ -93,9 +93,18 @@ class xj extends base\e{
      * @param mixed $id 当次巡检ID
      * @return mixed 
      */
-    function getEquip($id){
+    function getEquip($id,$lx_id){
 
         $id = post('id',$id,'%d');
+        $lx_id = post('lx_id',$lx_id,'%d');
+
+        $lx = model('inspection')->find($lx_id);
+        if(!$lx)$this->error('没有巡检路线！');
+        !$id && $this->error('区域参数错误');
+
+        if(!in_array($id,explode(',',$lx['value']))){
+            $this->error('该区域不在您的巡检爱你路线中！');
+        }
 
         if(!is_numeric($id)){
 
