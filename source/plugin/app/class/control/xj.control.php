@@ -389,6 +389,7 @@ class xj extends base\e{
      */
     function start($id){
 
+        $id = post('id',$id,'%d');
         $this->_check_login();
         $data['start_time'] = TIME_NOW;
         $id = model('enterprise_xuanjian_final_log')->data($data)->save($id);
