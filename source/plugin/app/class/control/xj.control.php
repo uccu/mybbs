@@ -9,6 +9,26 @@ class xj extends base\e{
         // $this->_check_login();
     }
 
+
+    /** 巡检路线选择
+     * choose
+     * @return mixed 
+     */
+    function choose(){
+
+        $user_id = $this->uid;
+        $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->limit(99)->select();
+        // if(!$lx)$this->error('没有巡检路线！');
+        foreach($lx as &$v){
+
+            $u = explode(',',$v->value);
+            $v['count'] = count($u);
+        }
+
+        $out['list'] = $lx;
+        $this->success($out);
+        
+    }
     
 
     # 巡检首页
@@ -67,10 +87,14 @@ class xj extends base\e{
 
         $date = date('Y-m-d');
 
+        $out['finished'] = '1';
+
         foreach($qy as &$qyv ){
 
             $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
             $qyv['logCount'] = count($log);
+
+            if(!$qyv['logCount'])$out['finished'] = '0';
 
             // model('enterprise_xuanjian_final_log')->where->add();
             
@@ -93,10 +117,14 @@ class xj extends base\e{
      * @param mixed $id 当次巡检ID
      * @return mixed 
      */
-    function getEquip($id,$lx_id){
+    function getEquip($id,$lx_id,$xj_id){
 
         $id = post('id',$id,'%d');
         $lx_id = post('lx_id',$lx_id,'%d');
+        $xj_id = post('xj_id',$xj_id,'%d');
+
+        $xj = model('enterprise_xuanjian_final_log')->find($xj_id);
+        if(!$xj['start_time'])$this->error('请先扫描开始码！');
 
         $lx = model('inspection')->find($lx_id);
         if(!$lx)$this->error('没有巡检路线！');
