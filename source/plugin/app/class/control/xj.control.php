@@ -17,7 +17,7 @@ class xj extends base\e{
     function choose(){
 
         $user_id = $this->uid;
-        $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->limit(99)->select();
+        $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->order(['id'])->limit(99)->select();
         // if(!$lx)$this->error('没有巡检路线！');
         foreach($lx as &$v){
 
@@ -40,8 +40,9 @@ class xj extends base\e{
         // $user_id = 502;
 
         # 获取巡检路线
-        $lx = model('inspection')->find($id);
-        if(!$id || !$lx)$this->error('没有巡检路线！');
+        if(!$id)$lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->order(['id'])->find();
+        else $lx = model('inspection')->find($id);
+        if(!$lx)$this->error('没有巡检路线！');
 
         # 获取巡检路线的时间段
         $time = model('inspection_time')->where(['bid'=>$lx['id']])->order(['start_time'])->limit(999)->select();
