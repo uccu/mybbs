@@ -212,7 +212,7 @@ class xj extends base\e{
         if($xj){
             $out['during'] = '1';
             if($xj['state'] == 0)$out['ifBeingXJ'] = '1';
-            $out['beingXJ'] = $xj;
+            $out['duringXJ'] = $xj;
         }
 
         # 获取路线
