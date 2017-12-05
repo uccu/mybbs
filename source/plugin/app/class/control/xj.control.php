@@ -442,9 +442,9 @@ class xj extends base\e{
      * @return mixed 
      */
     function warningLogList($page = 1,$limit = 10){
-        // $this->uid = 13;
+        // $this->uid = 532;
         // $this->userInfo = [];
-        // $this->userInfo['gid'] = 3;
+        // $this->userInfo['gid'] = 2;
         $this->_check_login();
 
         $page = post('page',$page);
