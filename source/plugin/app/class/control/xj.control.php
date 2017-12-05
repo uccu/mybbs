@@ -501,6 +501,8 @@ class xj extends base\e{
 
         $out['list'] = $list;
 
+        model('user')->data(['has_warning'=>0])->save($this->uid);
+
 
         $this->success($out);
 
