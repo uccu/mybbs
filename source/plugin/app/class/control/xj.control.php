@@ -37,7 +37,7 @@ class xj extends base\e{
         $id = post('id',$id,'%d');
 
         $user_id = $this->uid;
-        // $user_id = 502;
+        // $user_id = 525;
 
         # 获取巡检路线
         if(!$id)$lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->order(['id'])->find();
@@ -109,6 +109,148 @@ class xj extends base\e{
         $out['qy'] = $qy;
         $out['time'] = $time2;
         $out['finals'] = $lxj;
+        $out['count'] = count($out['qy']);
+
+        $this->success($out);
+
+    }
+
+
+    # 获取正在巡检的巡检信息
+    private function getDuringXJ($user_id){
+
+        # 用户不存在
+        if(!$user_id)return false;
+
+        $where['user_id'] = $user_id;
+        $final = model('enterprise_xuanjian_final_log')->where($where)->order(['create_time'=>'desc'])->find();
+
+        # 不是进行中
+        if(!$final || $final['state'] == -1)return false;
+
+        $time = model('inspection_time')->find($final['inspection_time_id']);
+        if(!$time)return false;
+
+        
+
+        $final['lx_id'] = $time['bid'];
+
+        # 是否过期
+        $date = date('Y.m.d',TIME_NOW);
+        if($date != $final['date'] || $time['end_time'] < date('H:i',TIME_NOW)){
+            model('enterprise_xuanjian_final_log')->data(['state'=>'-1'])->where($where)->save();
+            return false;
+        }
+        
+        return $final;
+
+    }
+
+
+    # 判断是否可以巡检
+    private function checkIfCanXJ($user_id,$lx_id){
+
+        if(!$lx_id || !$user_id){
+            return false;
+        }
+
+        
+
+        $inspection = model('inspection')->where(['id'=>$lx_id])->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->find();
+        if(!$inspection){
+            return false;
+        }
+
+        $time = model('inspection_time')->where(['bid'=>$inspection['id']])->limit(99)->select();
+
+
+        if($xj = $this->getDuringXJ($user_id)){
+            if($xj['lx_id'] != $inspection['id']){
+                return false;
+            }
+            if($xj['state'] == 1){
+                return false;
+            }
+        }
+
+        
+        foreach($time as $i){
+
+            if($i['start_time'] < date('H:i',TIME_NOW) && $i['end_time'] > date('H:i',TIME_NOW)){
+
+                return [
+
+                    'lx_id'=>$i['bid'],
+                    'time_id'=>$i['id'],
+
+                ];
+            }
+        }
+
+
+
+        return false;
+    }
+
+
+
+    /** 主页
+     * home
+     * @param mixed $id 
+     * @return mixed 
+     */
+    function home($id = 0){
+
+        $id = post('id',$id,'%d');
+        $user_id = $this->uid;
+        $user_id = 525;
+
+        $xj = $this->getDuringXJ($user_id);
+        $out['ifBeingXJ'] = '0';
+        $out['during'] = '0';
+        $out['other'] = '0';
+        if($xj){
+            $out['during'] = '1';
+            if($xj['state'] == 0)$out['ifBeingXJ'] = '1';
+            $out['beingXJ'] = $xj;
+        }
+
+        # 获取路线
+        if($id)$lx = model('inspection')->find($id);
+        elseif($out['during'])$lx = model('inspection')->find($xj['lx_id']);
+        else $lx = model('inspection')->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->order(['id'])->find();
+        if(!$lx)$this->error('没有巡检路线！');
+
+        $out['canXJ'] = $this->checkIfCanXJ($user_id,$lx['id']) ? '1' :'0';
+
+        if($out['during'] && $lx['id'] != $xj['lx_id']){
+            $out['other'] = '1';
+        }
+
+        # 获取路线的区域
+        $where['id'] = ['contain',explode(',',$lx['value']),'IN'];
+        $where['del'] = 1;
+        $qy = model('enterprise_equipment')->where($where)->limit(9999)->order(['orders'=>'ASC'])->select();
+
+
+        $out['finished'] = '1';
+
+        foreach($qy as &$qyv ){
+
+            if($out['during'] && !$out['other']){
+                $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$xj['id']])->select();
+                $qyv['logCount'] = count($log);
+            }else{
+                $qyv['logCount'] = '0';
+            }
+            
+            if(!$qyv['logCount'])$out['finished'] = '0';
+
+        }
+
+
+        $out['lx'] = $lx;
+        $out['qy'] = $qy;
         $out['count'] = count($out['qy']);
 
         $this->success($out);
@@ -386,15 +528,30 @@ class xj extends base\e{
 
     /** 巡检开始
      * start
-     * @param mixed $id 当次巡检ID
+     * @param mixed $id 路线id
      * @return mixed 
      */
     function start($id){
 
         $id = post('id',$id,'%d');
         $this->_check_login();
+
+        $user_id = $this->uid;
+        // $user_id = '525';
+
+        $xj = $this->getDuringXJ($user_id);
+        if($xj)$this->error('正在巡检中，请勿重复开始');
+        $xj = $this->checkIfCanXJ($user_id,$id);
+        
+        if(!$xj)$this->error('无法巡检');
+
         $data['start_time'] = TIME_NOW;
-        $id = model('enterprise_xuanjian_final_log')->data($data)->save($id);
+        $data['user_id'] = $user_id;
+        $data['create_time'] = TIME_NOW;  
+        $data['date'] = date('Y.m.d');  
+        $data['inspection_time_id'] = $xj['time_id'];
+        $data['message'] = '';
+        $id = model('enterprise_xuanjian_final_log')->data($data)->add();
         $this->success(['id'=>$id]);
     }
 
