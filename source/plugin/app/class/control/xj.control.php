@@ -193,8 +193,8 @@ class xj extends base\e{
         $id = post('id',$id);
         $this->_check_login();
         $info = model('enterprise_xuanjian_final_log')->find($id);
-        !$info && AJAX::error('巡检不存在');
-        !$info['start_time'] && AJAX::error('巡检未开始，请扫描开始巡检二维码');
+        !$info && $this->error('巡检不存在');
+        !$info['start_time'] && $this->error('巡检未开始，请扫描开始巡检二维码');
         $info['end_time'] = TIME_NOW;
         model('enterprise_xuanjian_final_log')->data($info)->save($id);
         $out['info'] = $info;
