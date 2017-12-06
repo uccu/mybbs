@@ -275,7 +275,7 @@ class xj extends base\e{
         !$id && $this->error('区域参数错误');
 
         if(!in_array($id,explode(',',$lx['value']))){
-            $this->error('该区域不在您的巡检爱你路线中！');
+            $this->error('该区域不在您的巡检路线中！');
         }
 
         if(!is_numeric($id)){
