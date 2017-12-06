@@ -334,8 +334,28 @@ class xj extends base\e{
         $id = post('id',$id);
         $this->_check_login();
         $info = model('enterprise_xuanjian_final_log')->find($id);
-        !$info && $this->error('巡检不存在');
+        
+        // !$info && $this->error('巡检不存在');
         !$info['start_time'] && $this->error('巡检未开始，请扫描开始巡检二维码');
+        $out['info'] = $info;
+        $info['end_time'] && $this->success($out);
+
+        $time = model('inspection_time')->find($info['inspection_time_id']);
+        $inspection = model('inspection')->find($time['bid']);
+
+
+        $where['id'] = ['contain',explode(',',$inspection['value']),'IN'];
+        $where['del'] = 1;
+        $qy = model('enterprise_equipment')->where($where)->limit(9999)->order(['orders'=>'ASC'])->select();
+
+        foreach($qy as &$qyv ){
+
+            $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$xj['id']])->select();
+            if(!$log)$this->error('还有区域未完成巡检');
+
+        }
+        
+        
         $info['end_time'] = TIME_NOW;
         model('enterprise_xuanjian_final_log')->data($info)->save($id);
         $out['info'] = $info;
