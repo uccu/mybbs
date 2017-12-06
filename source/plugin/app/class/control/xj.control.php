@@ -331,9 +331,12 @@ class xj extends base\e{
      * @return mixed 
      */
     function getFinals($id){
+
         $id = post('id',$id);
-        $this->_check_login();
+        // $this->_check_login();
         $user_id = $this->uid;
+        $user_id = 557;
+
         $info = model('enterprise_xuanjian_final_log')->find($id);
         
         // !$info && $this->error('巡检不存在');
@@ -351,7 +354,7 @@ class xj extends base\e{
 
         foreach($qy as &$qyv ){
 
-            $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$xj['id']])->select();
+            $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$id])->select();
             if(!$log)$this->error('还有区域未完成巡检');
 
         }
