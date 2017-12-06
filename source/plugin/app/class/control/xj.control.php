@@ -333,9 +333,9 @@ class xj extends base\e{
     function getFinals($id){
 
         $id = post('id',$id);
-        // $this->_check_login();
+        $this->_check_login();
         $user_id = $this->uid;
-        $user_id = 557;
+        // $user_id = 557;
 
         $info = model('enterprise_xuanjian_final_log')->find($id);
         
