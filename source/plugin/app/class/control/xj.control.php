@@ -321,6 +321,12 @@ class xj extends base\e{
         $this->_check_login();
         $data['message'] = post('message',$message);
         $data['state'] = 1;
+
+        $xj = model('enterprise_xuanjian_final_log')->find($id);
+        
+        !$xj && $this->error('巡检不存在');
+        if($xj['state'])$this->error('巡检已结束，请勿重复提交');
+
         model('enterprise_xuanjian_final_log')->data($data)->save($id);
         $this->success();
 
