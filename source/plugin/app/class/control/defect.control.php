@@ -40,7 +40,7 @@ class defect extends base\e{
         $data['create_time'] = TIME_NOW;
 
 
-        model('defect')->data($data)->add();
+        
 
         if($inspection_id){
 
@@ -52,19 +52,50 @@ class defect extends base\e{
             $area = model('enterprise_equipment')->find($equip['bid']);
             // $equip = 
 
-            $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
-            $users = model('user_equipment')->where($where)->field('uid')->select();
 
-                        
+            $type = model('defect_type')->where(['name'=>$data['type']])->find();
+            $type = $type['states'];
 
-            foreach($users as $user){
+            if($type == 1){
 
-                $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+                $where['gid'] = 1;
+                $users = model('user')->where($where)->field('uid')->select();
+                
+                foreach($users as &$user){
+
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+                    $user = $user['uid'];
+                }
+                $data['push'] = implode(',',$users);
+                
+            }elseif($type == 2){
+                
+                $where['gid'] = 1;
+                $users = explode(',',$inspection['uid']);
+                foreach($users as &$user){
+
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+                    $user = $user['uid'];
+                }
+                $data['push'] = implode(',',$users);
+                
+            }elseif($type == 3){
+
+                $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
+                $users = model('user_equipment')->where($where)->field('uid')->select();
+                foreach($users as &$user){
+
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+                    $user = $user['uid'];
+                }
+                $data['push'] = implode(',',$users);
             }
+
+            
 
         }
 
-        
+        model('defect')->data($data)->add();
         
 
 

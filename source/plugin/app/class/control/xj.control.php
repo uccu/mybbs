@@ -155,7 +155,6 @@ class xj extends base\e{
         }
 
         
-
         $inspection = model('inspection')->where(['id'=>$lx_id])->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->find();
         if(!$inspection){
             return false;
@@ -392,6 +391,7 @@ class xj extends base\e{
             model('enterprise_xuanjian_parameters_log')->data($o)->add();
             $parameter = model('device_parameters')->find($o['parameters_id']);
             !$parameter && $this->error('parameters_id 错误');
+            $users = [];
             if($o['value'] === ''){
                 $warns++;
                 
@@ -424,6 +424,13 @@ class xj extends base\e{
                     $data['value'] = $parameter['name'].'未填';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
+                    foreach($users as &$user){
+                        $user = $user['uid'];
+                    }
+                    if($users){
+
+                        $data['push_id'] = implode(',',$users);
+                    }
                     model('warning_log')->data($data)->add();
 
                 }
@@ -468,6 +475,13 @@ class xj extends base\e{
                     $data['value'] = $level?$level['name']:$parameter['name'].'过低';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
+                    foreach($users as &$user){
+                        $user = $user['uid'];
+                    }
+                    if($users){
+
+                        $data['push_id'] = implode(',',$users);
+                    }
                     model('warning_log')->data($data)->add();
 
                 }
@@ -507,10 +521,19 @@ class xj extends base\e{
                     $data['value'] = $level?$level['name']:$parameter['name'].'过高';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
+                    foreach($users as &$user){
+                        $user = $user['uid'];
+                    }
+                    if($users){
+
+                        $data['push_id'] = implode(',',$users);
+                    }
                     model('warning_log')->data($data)->add();
 
                 }
             }
+
+            
 
             
         }
@@ -537,7 +560,7 @@ class xj extends base\e{
         $this->_check_login();
 
         $user_id = $this->uid;
-        // $user_id = '525';
+        // $user_id = '557';
 
         $xj = $this->getDuringXJ($user_id);
         if($xj)$this->error('正在巡检中，请勿重复开始');

@@ -12,6 +12,15 @@ class ajax extends \control{
 		return $this->_out($object,$url,200);
 	}
 	protected function error($code,$object,$url='') {
+
+		$data['request'] = json_encode($_REQUEST);
+		$data['out_put'] = $object;
+		$data['date'] = date('Y-m-d H:i:s');
+		$data['path'] = !empty($_SERVER['PATH_INFO'])?substr($_SERVER['PATH_INFO'],1):($_SERVER['REQUEST_URI']?preg_replace('#\?.*$#','',substr($_SERVER['REQUEST_URI'],1)):'');
+
+		model('error_api')->data($data)->add();
+
+
 		return $this->_out($object,$url,$code);
 	}
 	private function _out($object,$url='',$code=1) {
