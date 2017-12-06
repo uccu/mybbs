@@ -317,6 +317,7 @@ class xj extends base\e{
      */
     function finals($message,$id){
 
+        $id = post('id',$id);
         $this->_check_login();
         $data['message'] = post('message',$message);
         $data['state'] = 1;
