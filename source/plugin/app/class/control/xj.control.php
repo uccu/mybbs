@@ -202,7 +202,7 @@ class xj extends base\e{
 
         $id = post('id',$id,'%d');
         $user_id = $this->uid;
-        // $user_id = 525;
+        // $user_id = 557;
 
         $xj = $this->getDuringXJ($user_id);
         $out['ifBeingXJ'] = '0';
@@ -333,6 +333,7 @@ class xj extends base\e{
     function getFinals($id){
         $id = post('id',$id);
         $this->_check_login();
+        $user_id = $this->uid;
         $info = model('enterprise_xuanjian_final_log')->find($id);
         
         // !$info && $this->error('巡检不存在');
