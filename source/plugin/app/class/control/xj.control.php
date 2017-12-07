@@ -148,7 +148,7 @@ class xj extends base\e{
 
 
     # 判断是否可以巡检
-    private function checkIfCanXJ($user_id,$lx_id){
+    private function checkIfCanXJ($user_id,$lx_id,$error = false){
 
         if(!$lx_id || !$user_id){
             return false;
@@ -157,6 +157,7 @@ class xj extends base\e{
         
         $inspection = model('inspection')->where(['id'=>$lx_id])->where(['uid'=>['contain','(^|,)'.$user_id.'($|,)','REGEXP']])->find();
         if(!$inspection){
+            if($error)$this->error('路线不存在');
             return false;
         }
 
@@ -165,9 +166,11 @@ class xj extends base\e{
 
         if($xj = $this->getDuringXJ($user_id)){
             if($xj['lx_id'] != $inspection['id']){
+                if($error)$this->error('您有正在巡检中的路线');
                 return false;
             }
             if($xj['state'] == 1){
+                if($error)$this->error('巡检已结束');
                 return false;
             }
         }
@@ -187,7 +190,7 @@ class xj extends base\e{
         }
 
 
-
+        if($error)$this->error('巡检未开始');
         return false;
     }
 
@@ -595,7 +598,7 @@ class xj extends base\e{
 
         $xj = $this->getDuringXJ($user_id);
         if($xj)$this->error('正在巡检中，请勿重复开始');
-        $xj = $this->checkIfCanXJ($user_id,$id);
+        $xj = $this->checkIfCanXJ($user_id,$id,true);
         
         if(!$xj)$this->error('无法巡检');
 
