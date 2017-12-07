@@ -151,6 +151,7 @@ class xj extends base\e{
     private function checkIfCanXJ($user_id,$lx_id,$error = false){
 
         if(!$lx_id || !$user_id){
+            if($error)$this->error('用户不存在/路线不存在');
             return false;
         }
 
@@ -600,7 +601,7 @@ class xj extends base\e{
         if($xj)$this->error('正在巡检中，请勿重复开始');
         $xj = $this->checkIfCanXJ($user_id,$id,true);
         
-        if(!$xj)$this->error('无法巡检');
+        // if(!$xj)$this->error('无法巡检');
 
         $data['start_time'] = TIME_NOW;
         $data['user_id'] = $user_id;
