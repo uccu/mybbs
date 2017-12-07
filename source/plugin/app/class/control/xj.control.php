@@ -695,10 +695,13 @@ class xj extends base\e{
             $where2['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
             $users = model('user_equipment')->where($where2)->field(['uid'])->limit(999)->select();
 
-            foreach($users as &$user){
+            foreach($users as $k=>&$user){
 
                 $user = model('user')->field(['uid','nametrue','usercode'])->find($user['uid']);
+                if(!$user)unset($users[$k]);
             }
+            $users = array_values($users);
+
 
             $v['equip_users'] = $users;
 
