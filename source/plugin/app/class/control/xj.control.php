@@ -467,7 +467,7 @@ class xj extends base\e{
                     $data['value'] = $parameter['name'].'未填';
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
-                    
+                    $data['user_id'] = $this->uid;
                     if($users){
 
                         $data['push_id'] = implode(',',$users);
@@ -680,7 +680,7 @@ class xj extends base\e{
             $where['user_id'] = $this->uid;
         }elseif($this->userInfo['gid'] == 3){
             $where2['uid'] = ['contain','(^|,)'.$this->uid.'($|,)','REGEXP'];
-            $value = model('enterprise_equipment')->where($where2)->select();
+            $value = model('enterprise_equipment')->where($where2)->limit(999)->select();
 
             foreach($value as &$k){
 
