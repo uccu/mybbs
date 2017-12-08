@@ -679,8 +679,8 @@ class xj extends base\e{
 
             $where['user_id'] = $this->uid;
         }elseif($this->userInfo['gid'] == 3){
-            $where['uid'] = ['contain','(^|,)'.$this->uid.'($|,)','REGEXP'];
-            $value = model('enterprise_equipment')->where(['uid'=>$this->uid])->select();
+            $where2['uid'] = ['contain','(^|,)'.$this->uid.'($|,)','REGEXP'];
+            $value = model('enterprise_equipment')->where($where2)->select();
 
             foreach($value as &$k){
 
