@@ -445,8 +445,8 @@ class xj extends base\e{
                     
 
                     if($equip){
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['bid']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
                     }
                     
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！';
@@ -487,8 +487,8 @@ class xj extends base\e{
 
                     
                     if($equip){
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['bid']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
                     }
 
                     foreach($users as $user){
@@ -536,8 +536,8 @@ class xj extends base\e{
 
                     
                     if($equip){
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['id']);
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1]])->save($equip['bid']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
                     }
 
                     foreach($users as $user){
