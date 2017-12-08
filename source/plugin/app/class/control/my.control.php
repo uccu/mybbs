@@ -879,7 +879,7 @@ class my extends base\e{
         }else{
             $this->error('没有搜索内容！');
         }
-        $t['follow'] = model('user')->mapping('uid','fuid')->field(['fuid','nickname','did','nametrue','type','label','thumb'])->limit(30)->where($where,0,'OR')->select();
+        $t['follow'] = model('user')->mapping('uid','fuid')->field(['bid','gid','fuid','nickname','did','nametrue','type','label','thumb'])->limit(30)->where($where,0,'OR')->select();
         foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
 
@@ -896,7 +896,7 @@ class my extends base\e{
         }else{
             $this->error('没有搜索内容！');
         }
-        $t['follow'] = model('user')->mapping('uid','fuid')->field(['fuid','nickname','did','nametrue','type','label','thumb'])->limit(999)->where($where,0,'OR')->select();
+        $t['follow'] = model('user')->mapping('uid','fuid')->field(['bid','gid','fuid','nickname','did','nametrue','type','label','thumb'])->limit(999)->where($where,0,'OR')->select();
         foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
 
