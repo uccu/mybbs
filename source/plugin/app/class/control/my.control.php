@@ -308,7 +308,7 @@ class my extends base\e{
         $type && $where['did'] = $type;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','did','nametrue','type','label','thumb'),
+            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','gid','bid','did','nametrue','type','label','thumb'),
         ))->where($where)->limit(999)->select();
         foreach($t['follow'] as &$v)$v['follow'] = '1';
         $this->success($t);
@@ -933,7 +933,7 @@ class my extends base\e{
         $type && $where['did'] = $type;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','did','nametrue','type','label','thumb'),
+            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','bid','gid','did','nametrue','type','label','thumb'),
         ))->where($where)->limit(999)->select();
         foreach($t['follow'] as &$v)$v['follow'] = '1';
 
