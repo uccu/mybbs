@@ -604,8 +604,10 @@ class xj extends base\e{
         // $user_id = '557';
 
         $xj = $this->getDuringXJ($user_id);
-        if($xj)$this->error('正在巡检中，请勿重复开始');
-        $xj = $this->checkIfCanXJ($user_id,$id,true);
+        if($xj){
+            if($xj['state'] != 1)$this->error('正在巡检中，请勿重复开始');
+        
+        }$xj = $this->checkIfCanXJ($user_id,$id,true);
         
         // if(!$xj)$this->error('无法巡检');
 
