@@ -166,11 +166,15 @@ class xj extends base\e{
 
 
         if($xj = $this->getDuringXJ($user_id)){
-            if($xj['lx_id'] != $inspection['id']){
+            if($xj['lx_id'] != $inspection['id'] && $xj['state'] != 1){
                 if($error)$this->error('您有正在巡检中的路线');
                 return false;
             }
-            if($xj['state'] == 1){
+            // if($xj['lx_id'] != $inspection['id'] && $xj['state'] == 1){
+            //     if($error)$this->error('巡检未开始');
+            //     return false;
+            // }
+            if($xj['lx_id'] == $inspection['id'] && $xj['state'] == 1){
                 if($error)$this->error('巡检已结束');
                 return false;
             }
