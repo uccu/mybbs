@@ -21,7 +21,7 @@ class xj extends base\e{
         // if(!$lx)$this->error('没有巡检路线！');
         foreach($lx as &$v){
 
-            $u = explode(',',$v->value);
+            $u = explode(',',$v['value']);
             $v['count'] = count($u);
         }
 
