@@ -175,7 +175,7 @@ class xj extends base\e{
             //     return false;
             // }
             if($xj['lx_id'] == $inspection['id'] && $xj['state'] == 1){
-                if($error)$this->error('巡检已结束');
+                if($error)$this->error('该线路巡检已结束');
                 return false;
             }
         }
@@ -195,7 +195,7 @@ class xj extends base\e{
         }
 
 
-        if($error)$this->error('巡检未开始');
+        if($error)$this->error('该线路未到巡检时间');
         return false;
     }
 
