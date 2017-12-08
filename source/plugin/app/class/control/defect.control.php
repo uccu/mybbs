@@ -82,11 +82,10 @@ class defect extends base\e{
             }elseif($type == 3){
 
                 $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
-                $users = model('user_equipment')->where($where)->field('uid')->select();
+                $users = $users = $equip['uid']?explode(',',$equip['uid']):[];
                 foreach($users as &$user){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
-                    $user = $user['uid'];
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
                 }
                 $data['push'] = implode(',',$users);
             }

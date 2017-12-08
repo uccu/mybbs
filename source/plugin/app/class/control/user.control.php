@@ -10,7 +10,7 @@ class user extends base\e{
         $user = $this->_check_uid($uid);
         model('fans')->mapping('f');
         $t['fans'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'f.fans_id=u.uid','uid'=>'fuid','_mapping'=>'u','nametrue','type','nickname','label','thumb'),
+            'user'=>array('_on'=>'f.fans_id=u.uid','uid'=>'fuid','_mapping'=>'u','nametrue','gid','bid','type','nickname','label','thumb'),
             '_table'=>array('_join'=>'LEFT JOIN','_on'=>'f.fans_id=f2.uid AND f2.fans_id='."'{$this->uid}'",'_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('uid'=>$uid))->limit(999)->select();
         foreach($t['fans'] as &$v)$v['follow'] = $v['follow']?'1':'0';
@@ -21,7 +21,7 @@ class user extends base\e{
         $user = $this->_check_uid($uid);
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
-            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','nametrue','type','label','thumb'),
+            'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','nametrue','gid','bid','type','label','thumb'),
             '_table'=>array('_join'=>'LEFT JOIN','_on'=>'f.uid=f2.uid AND f2.fans_id='."'{$this->uid}'",'_mapping'=>'f2','fans_id'=>'follow')
         ))->where(array('fans_id'=>$uid))->limit(999)->select();
         foreach($t['follow'] as &$v)$v['follow'] = $v['follow']?'1':'0';
