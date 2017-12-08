@@ -210,7 +210,7 @@ class xj extends base\e{
 
         $id = post('id',$id,'%d');
         $user_id = $this->uid;
-        $user_id = 557;
+        // $user_id = 557;
 
         $xj = $this->getDuringXJ($user_id);
         $out['ifBeingXJ'] = '0';
