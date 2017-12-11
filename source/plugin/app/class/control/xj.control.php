@@ -183,6 +183,7 @@ class xj extends base\e{
         
         foreach($time as $i){
 
+            if(str_len($i['start_time'] == 4))$i['start_time'] = '0'.$i['start_time'];
             if($i['start_time'] < date('H:i',TIME_NOW) && $i['end_time'] > date('H:i',TIME_NOW)){
 
                 return [
