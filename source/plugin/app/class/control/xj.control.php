@@ -463,6 +463,7 @@ class xj extends base\e{
             $parameter = model('device_parameters')->find($o['parameters_id']);
             !$parameter && $this->error('parameters_id 错误');
             $users = [];
+            if($o['input_type'])continue;
             if($o['value'] === ''){
                 $warns++;
                 
