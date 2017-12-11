@@ -783,14 +783,11 @@ class xj extends base\e{
         $date = date('Y.m.d', TIME_NOW - 24* 3600 );
         $date2 = date('Y-m-d', TIME_NOW - 24* 3600 );
 
-        $final_log = model('enterprise_xuanjian_final_log')->where(['date'=>$date])->order('create_time','desc')->find();
-        if(!$final_log)$this->success(['list'=>[]]);
-
-        // $where['final_log_id'] = $final_log['id'];
+        
 
         $equip = model('enterprise_equipment')->find($equip_id);
 
-        $log = model('enterprise_xuanjian_log')->where(['area_id'=>$equip['bid'],'date'=>$date2,'final_log_id'=>$final_log['id']])->order('time','desc')->find();
+        $log = model('enterprise_xuanjian_log')->where(['area_id'=>$equip['bid'],'date'=>$date2])->order('time','desc')->find();
 
         $where['equip_id'] = $equip_id;
         $where['log_id'] = $log['id'];
@@ -800,6 +797,8 @@ class xj extends base\e{
                 'name','unit','input_type','bid'=>'equip_id','DCS','_mapping'=>'p','_on'=>'i.parameters_id=p.id'
             ]
         ])->where($where)->limit(999)->select();
+
+        if(!$list)$this->error('昨日无巡检记录');
 
         $this->success(['list'=>$list]);
 
