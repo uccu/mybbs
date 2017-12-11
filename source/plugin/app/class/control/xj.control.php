@@ -203,7 +203,7 @@ class xj extends base\e{
         
         foreach($time as $i){
 
-            if(str_len($i['start_time'] == 4))$i['start_time'] = '0'.$i['start_time'];
+            if(strlen($i['start_time'] == 4))$i['start_time'] = '0'.$i['start_time'];
             if($i['start_time'] < date('H:i',TIME_NOW) && $i['end_time'] > date('H:i',TIME_NOW)){
 
                 return [
@@ -231,7 +231,7 @@ class xj extends base\e{
 
         $id = post('id',$id,'%d');
         $user_id = $this->uid;
-        // $user_id = 557;
+        // $user_id = 214;
 
         $xj = $this->getDuringXJ($user_id);
         $out['ifBeingXJ'] = '0';
@@ -262,10 +262,10 @@ class xj extends base\e{
 
 
         $out['finished'] = '1';
-
+        $lxj = $this->getLastFinal($lx['id']);
+        $out['hasXJ'] = $lxj ? '1' : '0';
+        if($lxj)$out['nowXJ'] = $lxj;
         foreach($qy as &$qyv ){
-
-            $lxj = $this->getLastFinal($lx['id']);
 
             if($lxj){
                 $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
