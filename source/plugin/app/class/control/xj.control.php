@@ -305,7 +305,7 @@ class xj extends base\e{
 
         if($log){
 
-            $this->error('该区域已巡检完成，请勿重复扫码');
+            $this->error('该区域已巡检，请勿重复巡检');
         }
 
         $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
