@@ -146,7 +146,7 @@ class xj extends base\e{
 
     }
 
-    private function getLastFinal($lx_id){
+    private function getLastFinal($user_id,$lx_id){
 
         $where['bid'] = $lx_id;
         $where['start_time'] = ['logic',date('H:i',TIME_NOW),'<'];
@@ -157,7 +157,7 @@ class xj extends base\e{
         
         $where2['date'] = date('Y.m.d',TIME_NOW);
         $where2['inspection_time_id'] = $time['id'];
-        $where2['user_id'] = $this->uid;
+        $where2['user_id'] = $user_id;
 
         $xj = model('enterprise_xuanjian_final_log')->where($where2)->find();
         if(!$xj)return false;
@@ -231,7 +231,7 @@ class xj extends base\e{
 
         $id = post('id',$id,'%d');
         $user_id = $this->uid;
-        // $user_id = 214;
+        $user_id = 214;
 
         $xj = $this->getDuringXJ($user_id);
         $out['ifBeingXJ'] = '0';
@@ -262,7 +262,7 @@ class xj extends base\e{
 
 
         $out['finished'] = '1';
-        $lxj = $this->getLastFinal($lx['id']);
+        $lxj = $this->getLastFinal($user_id,$lx['id']);
         $out['hasXJ'] = $lxj ? '1' : '0';
         if($lxj)$out['nowXJ'] = $lxj;
         foreach($qy as &$qyv ){
