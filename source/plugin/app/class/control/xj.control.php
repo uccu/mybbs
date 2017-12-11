@@ -275,6 +275,8 @@ class xj extends base\e{
         $lx_id = post('lx_id',$lx_id,'%d');
         $xj_id = post('xj_id',$xj_id,'%d');
 
+        $user_id = $this->uid;
+
         $xj = model('enterprise_xuanjian_final_log')->find($xj_id);
         if(!$xj['start_time'])$this->error('请先扫描开始码！');
 
@@ -298,6 +300,13 @@ class xj extends base\e{
         $area = model('enterprise_equipment')->find($id);
         
         !$area && $this->error('区域不存在！');
+
+        $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$id,'final_log_id'=>$xj_id])->find();
+
+        if($log){
+
+            $this->error('该区域已巡检完成，请勿重复扫码');
+        }
 
         $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
 
