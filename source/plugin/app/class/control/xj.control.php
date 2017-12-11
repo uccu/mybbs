@@ -146,6 +146,26 @@ class xj extends base\e{
 
     }
 
+    private function getLastFinal($lx_id){
+
+        $where['bid'] = $lx_id;
+        $where['start_time'] = ['logic',date('H:i',TIME_NOW),'<'];
+        $where['end_time'] = ['logic',date('H:i',TIME_NOW),'>'];
+
+        $time = model('inspection_time')->where($where)->find();
+        if(!$time)return false;
+        
+        $where2['date'] = date('Y.m.d',TIME_NOW);
+        $where2['inspection_time_id'] = $time->id;
+        $where2['user_id'] = $this->uid;
+
+        $xj = model('enterprise_xuanjian_final_log')->where($where2)->find();
+        if(!$xj)return false;
+
+        return $xj;
+
+    }
+
 
     # 判断是否可以巡检
     private function checkIfCanXJ($user_id,$lx_id,$error = false){
@@ -245,8 +265,10 @@ class xj extends base\e{
 
         foreach($qy as &$qyv ){
 
-            if($out['during'] && !$out['other']){
-                $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$xj['id']])->select();
+            $lxj = $this->getLastFinal($lx['id']);
+
+            if($lxj){
+                $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$lxj['id']])->select();
                 $qyv['logCount'] = count($log);
             }else{
                 $qyv['logCount'] = '0';
