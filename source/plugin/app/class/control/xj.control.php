@@ -156,7 +156,7 @@ class xj extends base\e{
         if(!$time)return false;
         
         $where2['date'] = date('Y.m.d',TIME_NOW);
-        $where2['inspection_time_id'] = $time->id;
+        $where2['inspection_time_id'] = $time['id'];
         $where2['user_id'] = $this->uid;
 
         $xj = model('enterprise_xuanjian_final_log')->where($where2)->find();
