@@ -794,7 +794,7 @@ class xj extends base\e{
 
         $list = model('enterprise_xuanjian_parameters_log')->mapping('i')->add_table([
             'device_parameters'=>[
-                'name','unit','input_type','bid'=>'equip_id','DCS','_mapping'=>'p','_on'=>'i.parameters_id=p.id'
+                'name','unit','input_type','bid'=>'equip_id','DCS','thumb','_mapping'=>'p','_on'=>'i.parameters_id=p.id'
             ]
         ])->where($where)->limit(999)->select();
 
