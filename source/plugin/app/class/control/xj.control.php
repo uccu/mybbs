@@ -149,10 +149,14 @@ class xj extends base\e{
     private function getLastFinal($user_id,$lx_id){
 
         $where['bid'] = $lx_id;
-        $where['start_time'] = ['logic',date('H:i',TIME_NOW),'<'];
+        // $where['start_time'] = ['raw',unix_timestamp(concat('1970-01-01 ',start_time)) date('H:i',TIME_NOW).'+','<'];
         $where['end_time'] = ['logic',date('H:i',TIME_NOW),'>'];
 
-        $time = model('inspection_time')->where($where)->find();
+        $time = strtotime( '1970-01-01 '.date('H:i') );
+
+        $time = model('inspection_time')->where($where)->where('unix_timestamp(concat("1970-01-01 ",start_time)) - effective_time < '.$time)->find();
+        
+        
         if(!$time)return false;
         
         $where2['date'] = date('Y.m.d',TIME_NOW);
