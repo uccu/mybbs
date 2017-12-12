@@ -498,7 +498,7 @@ class xj extends base\e{
                     model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     $data = [];
-                    $data['bid'] = $equip['id'];
+                    $data['bid'] = $o['parameters_id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
                     $data['value'] = $parameter['name'].'未填';
@@ -548,7 +548,7 @@ class xj extends base\e{
                     
 
                     $data = [];
-                    $data['bid'] = $equip['id'];
+                    $data['bid'] = $o['parameters_id'];
                     $data['type'] = 1;
                     $data['user_id'] = $this->uid;
                     $data['states'] = 1;
@@ -595,7 +595,7 @@ class xj extends base\e{
                         ])->find();
 
                     $data = [];
-                    $data['bid'] = $equip['id'];
+                    $data['bid'] = $o['parameters_id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
                     $data['value'] = $level?$level['name']:$parameter['name'].'过高';
