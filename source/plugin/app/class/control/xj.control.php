@@ -204,7 +204,7 @@ class xj extends base\e{
         foreach($time as $i){
 
             if(strlen($i['start_time'] == 4))$i['start_time'] = '0'.$i['start_time'];
-            if($i['start_time'] < date('H:i',TIME_NOW) && $i['end_time'] > date('H:i',TIME_NOW)){
+            if( strtotime($i['start_time'])-$i['effective_time'] < TIME_NOW && $i['end_time'] > date('H:i',TIME_NOW)){
 
                 return [
 
@@ -658,9 +658,9 @@ class xj extends base\e{
 
     function test(){
 
-        $a = strtotime('6:00') < strtotime('12:00');
+        $a = strtotime('06:00') < strtotime('12:00');
 
-        var_dump($a);
+        var_dump($a,strtotime('06:00'));
     }
 
 
