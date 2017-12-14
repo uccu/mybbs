@@ -151,7 +151,7 @@ class user extends base\e{
         $this->_check_phone();
         $uid = post('uid',$uid,'%d');
         if(!$uid)$this->errorCode(416);
-        $data['info'] = model('user')->field(array('uid','nametrue','type','nickname','label','thumb','is_free'))->find($uid);
+        $data['info'] = model('user')->field(array('gid','uid','nametrue','type','nickname','label','thumb','is_free'))->find($uid);
         if(!$data['info'])$this->errorCode(440);
 
         if($this->userInfo['qust']>0 && !$data['info']['is_free'])model('user')->data(array('qust'=>array('add',-1)))->save($this->uid);
