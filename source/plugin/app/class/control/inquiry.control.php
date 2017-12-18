@@ -408,13 +408,80 @@ class inquiry extends base\e{
         // ;
 
         // model('expert_paid')->where($where2)->data(array('answer'=>1))->save();
+        
+        $o1 = date('H',TIME_NOW + 300)+24 . ':'.date('i',TIME_NOW + 300);
+        $o2 = date('H',TIME_NOW)+24 . ':'.date('i',TIME_NOW );
+
+        $o3 = date('H',TIME_NOW + 300) . ':'.date('i',TIME_NOW + 300);
+        $o4 = date('H',TIME_NOW) . ':'.date('i',TIME_NOW );
+        $where = [];
+        $where['end_time@1'] = ['between',[$o1,$o2]];
+        $where['end_time@2'] = ['between',[$o3,$o4]];
+
+        $z = model('inspection_time')->where($where,false,'OR')->limit(99)->select();
+
+        foreach($z as $inspection_time){
+
+            $inspection_time_id = $inspection_time['id'];
+            $inspection_id = $inspection_time['bid'];/** 线路id */
+            $inspection = model('inspection')->find($inspection_id);
+
+            $xj_ids = [];
+            if($inspection['uid']){
+                $xj_ids = explode(',',$inspection['uid']);
+            }
+
+            $where = [];
+            $where['id'] = ['contain',explode(',',$inspection['value']),'IN'];
+            $where['del'] = 1;
+            $qy = model('enterprise_equipment')->where($where)->limit(9999)->select();
+            
+            $last_final_log = model('enterprise_xuanjian_final_log')->where(['inspection_time_id'=>$inspection_time_id])->find();
+
+            if(strtotime($last_final_log['create_time']) > strtotime($inspection_time['start_time']) - $inspection_time['effective_time']){
+                
+                if($last_final_log['state']!=1){
+                    // 巡检未及时完成
+                    $user = model('user')->find($last_final_log['user_id']);
+
+                    $msg = '巡检员'.$user['nametrue'].'于'.date('Y年m月d日H:i:s',$last_final_log['start_time']).'在巡检'.$inspection['title'].'时，未按时完成巡检，请尽快与巡检员联系并尽快处理！';
+
+                    foreach($qy as $qyv ){
+
+                        $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$qyv['id'],'final_log_id'=>$last_final_log['id']])->find();
+                        
+                        if(!$log){
+                            $ids = $qyv['uid']?explode(',',$qyv['uid']):[];
+                            foreach($ids as $v)$this->_pusher($msg,$v);
+                        }
+                    }
 
 
+                    $this->_pusher($msg,$last_final_log['user_id']);
 
+                }
 
+            }else{
+                // 未巡检
+                $msg = '巡检'.$inspection['title'].date('Y年m月d日').'的'.$inspection_time['start_time'].'～'.$inspection_time['end_time'].'的巡检时间段，没有巡检人员进行巡检，请尽快与巡检员联系并尽快处理！';
+
+                foreach($xj_ids as $v)$this->_pusher($msg,$v);
+
+                foreach($qy as $q){
+
+                    $ids = $q['uid']?explode(',',$q['uid']):[];
+                    foreach($ids as $v)$this->_pusher($msg,$v);
+                }
+
+            }
+            
+        }
+
+    }
+
+    function tet(){
 
         
-
     }
     
 

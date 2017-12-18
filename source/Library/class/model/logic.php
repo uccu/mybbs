@@ -69,6 +69,7 @@ class logic{
 		$glue = ' ' . trim($glue) . ' ';
 		$c = ' ' . trim($c) . ' ';
 		foreach ($array as $k => $v) {
+			$k = preg_replace('#@.*$#','',$k);
 			$d = $this->quote_field_in($k,$tablemap);
 			if(!$d)continue;
 			if($allowarray && is_array($v)){
