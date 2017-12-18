@@ -487,6 +487,7 @@ class xj extends base\e{
                     }
                     
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！';
+                    $z = $this->_pusher($msg,$this->uid);
                     foreach($users as $user){
 
                         $z = $this->_pusher($msg,$user);
@@ -520,22 +521,10 @@ class xj extends base\e{
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
-                    $users = $equip['uid']?explode(',',$equip['uid']):[];
+                    
 
                     
-                    if($equip){
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
-                    }
-
-                    foreach($users as $user){
-
-                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！',$user);
-                        model('user')->data(['has_warning'=>1])->save($user);
-                        $user = model('user')->find($user);
-                        if($user)$this->_message($user['usercode'],'巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！');
-                    }
-                    model('user')->data(['has_warning'=>1])->save($this->uid);
+                    
 
                     $level = model('warning_level')->where([
                         'bid'=>$parameter->id,
@@ -544,6 +533,53 @@ class xj extends base\e{
                         'value_height'=>['logic',$o['value'],'<']
                         
                         ])->find();
+                    $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！';
+
+                    if(!$level)continue;
+
+                    if($equip){
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
+                    }
+
+                    $allUser = [];
+
+                    if($level['push_type'] == 1){
+
+                        $users = model('user')->where(['gid'=>1])->field('uid')->select();
+                        foreach($users as $k=>$v){
+                            $users[$k] = $v['uid'];
+                            $allUser[] = $users[$k];
+                        }
+                        foreach($users as $user){
+
+                            $z = $this->_pusher($msg,$user);
+                            model('user')->data(['has_warning'=>1])->save($user);
+                            $user = model('user')->find($user);
+                            if($user)$this->_message($user['usercode'],$msg);
+                        }
+                    }
+
+
+                    if($level['push_type'] == 1 || $level['push_type'] == 3){
+                        $users = $equip['uid']?explode(',',$equip['uid']):[];
+                        foreach($users as $user){
+                            $allUser[] = $user;
+                            $z = $this->_pusher($msg,$user);
+                            model('user')->data(['has_warning'=>1])->save($user);
+                            $user = model('user')->find($user);
+                            if($user)$this->_message($user['usercode'],$msg);
+                        }
+                    }
+                    if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
+                            $allUser[] = $this->uid;
+                            $z = $this->_pusher($msg,$this->uid);
+                            model('user')->data(['has_warning'=>1])->save($this->uid);
+
+                    }
+                    model('user')->data(['has_warning'=>1])->save($this->uid);
+
+                    
 
                     
 
@@ -556,9 +592,9 @@ class xj extends base\e{
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     
-                    if($users){
+                    if($allUser){
 
-                        $data['push_id'] = implode(',',$users);
+                        $data['push_id'] = implode(',',$allUser);
                     }
                     model('warning_log')->data($data)->add();
 
@@ -569,22 +605,11 @@ class xj extends base\e{
 
                     $where['value'] = ['contain','(^|,)'.$parameter['bid'].'($|,)','REGEXP'];
                     $equip = model('enterprise_equipment')->find($parameter['bid']);
-                    $users = $equip['uid']?explode(',',$equip['uid']):[];
+                    
 
                     
-                    if($equip){
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
-                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
-                    }
-
-                    foreach($users as $user){
-                        
-                        $z = $this->_pusher('巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！',$user);
-                        model('user')->data(['has_warning'=>1])->save($user);
-                        $user = model('user')->find($user);
-                        if($user)$this->_message($user['usercode'],'巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！');
-                    }
-                    model('user')->data(['has_warning'=>1])->save($this->uid);
+                    
+                    $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！';
 
                     $level = model('warning_level')->where([
                         'bid'=>$parameter->id,
@@ -593,6 +618,52 @@ class xj extends base\e{
                         'value_height'=>['logic',$o['value'],'<']
                         
                         ])->find();
+                    
+                    if(!$level)continue;
+
+                    if($equip){
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
+                        model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
+                    }
+
+                    $allUser = [];
+
+                    if($level['push_type'] == 1){
+                        $users = model('user')->where(['gid'=>1])->field('uid')->select();
+                        foreach($users as $k=>$v){
+                            $users[$k] = $v['uid'];
+                            $allUser[] = $users[$k];
+                        }
+                        foreach($users as $user){
+                            
+                            $z = $this->_pusher($msg,$user);
+                            model('user')->data(['has_warning'=>1])->save($user);
+                            $user = model('user')->find($user);
+                            if($user)$this->_message($user['usercode'],$msg);
+                        }
+
+                    }
+
+                    if($level['push_type'] == 1 || $level['push_type'] == 3){
+                        $users = $equip['uid']?explode(',',$equip['uid']):[];
+                        foreach($users as $user){
+                            $allUser[] = $user;
+                            $z = $this->_pusher($msg,$user);
+                            model('user')->data(['has_warning'=>1])->save($user);
+                            $user = model('user')->find($user);
+                            if($user)$this->_message($user['usercode'],$msg);
+                        }
+                    }
+                    if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
+                            $allUser[] = $this->uid;
+                            $z = $this->_pusher($msg,$this->uid);
+                            model('user')->data(['has_warning'=>1])->save($this->uid);
+
+                    }
+
+                    model('user')->data(['has_warning'=>1])->save($this->uid);
+
+                    
 
                     $data = [];
                     $data['bid'] = $o['parameters_id'];
@@ -602,9 +673,9 @@ class xj extends base\e{
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     
-                    if($users){
+                    if($allUser){
 
-                        $data['push_id'] = implode(',',$users);
+                        $data['push_id'] = implode(',',$allUser);
                     }
                     model('warning_log')->data($data)->add();
 

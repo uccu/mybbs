@@ -68,9 +68,11 @@ class defect extends base\e{
                 }
                 $data['push'] = implode(',',$users);
                 
-            }elseif($type == 2){
+            }
+            
+            if($type == 2 || $type == 1 || $type == 3){
                 
-                $where['gid'] = 1;
+                
                 $users = explode(',',$inspection['uid']);
                 foreach($users as &$user){
 
@@ -81,6 +83,7 @@ class defect extends base\e{
                 
             }elseif($type == 3){
 
+                $where = [];
                 $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
                 $users = $users = $equip['uid']?explode(',',$equip['uid']):[];
                 foreach($users as &$user){
