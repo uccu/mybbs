@@ -527,7 +527,7 @@ class xj extends base\e{
                     
 
                     $level = model('warning_level')->where([
-                        'bid'=>$parameter->id,
+                        'bid'=>$parameter['id'],
                         'state'=>-1,
                         'value_low'=>['logic',$o['value'],'<'],
                         'value_height'=>['logic',$o['value'],'>=']
@@ -612,7 +612,7 @@ class xj extends base\e{
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值高于安全范围最高值，请尽快与巡检员联系并尽快处理！';
 
                     $level = model('warning_level')->where([
-                        'bid'=>$parameter->id,
+                        'bid'=>$parameter['id'],
                         'state'=>1,
                         'value_low'=>['logic',$o['value'],'<'],
                         'value_height'=>['logic',$o['value'],'>=']
