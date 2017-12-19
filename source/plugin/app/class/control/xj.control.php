@@ -535,7 +535,7 @@ class xj extends base\e{
                         ])->find();
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'填写的'.$parameter['name'].'数值低于安全范围最低值，请尽快与巡检员联系并尽快处理！';
 
-                    if(!$level)continue;
+                    // if(!$level)continue;
 
                     if($equip){
                         model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
@@ -619,7 +619,7 @@ class xj extends base\e{
                         
                         ])->find();
                     
-                    if(!$level)continue;
+                    // if(!$level)continue;
 
                     if($equip){
                         model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['id']);
