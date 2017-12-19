@@ -452,12 +452,12 @@ class inquiry extends base\e{
                         
                         if(!$log){
                             $ids = $qyv['uid']?explode(',',$qyv['uid']):[];
-                            foreach($ids as $v)$this->_pusher($msg,$v);
+                            foreach($ids as $v)$this->_pusher($msg,$v,['type'=>['key'=>76]]);
                         }
                     }
 
 
-                    $this->_pusher($msg,$last_final_log['user_id']);
+                    $this->_pusher($msg,$last_final_log['user_id'],['type'=>['key'=>76]]);
 
                 }
 
@@ -465,12 +465,12 @@ class inquiry extends base\e{
                 // 未巡检
                 $msg = '巡检'.$inspection['title'].date('Y年m月d日').'的'.$inspection_time['start_time'].'～'.$inspection_time['end_time'].'的巡检时间段，没有巡检人员进行巡检，请尽快与巡检员联系并尽快处理！';
 
-                foreach($xj_ids as $v)$this->_pusher($msg,$v);
+                foreach($xj_ids as $v)$this->_pusher($msg,$v,['type'=>['key'=>76]]);
 
                 foreach($qy as $q){
 
                     $ids = $q['uid']?explode(',',$q['uid']):[];
-                    foreach($ids as $v)$this->_pusher($msg,$v);
+                    foreach($ids as $v)$this->_pusher($msg,$v,['type'=>['key'=>76]]);
                 }
 
             }

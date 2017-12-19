@@ -487,10 +487,10 @@ class xj extends base\e{
                     }
                     
                     $msg = '巡检员'.$this->userInfo['nametrue'].'于'.date('Y年m月d日 H:i:s').'在巡检'.$inspection['title'].'时，'.$area['title'].'-'.$equip['title'].'的'.$parameter['name'].'数值未填写，请与巡检人员联系确认原因并尽快处理！';
-                    $z = $this->_pusher($msg,$this->uid);
+                    $z = $this->_pusher($msg,$this->uid,['type'=>['key'=>76]]);
                     foreach($users as $user){
 
-                        $z = $this->_pusher($msg,$user);
+                        $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
                         model('user')->data(['has_warning'=>1])->save($user);
                         $user = model('user')->find($user);
                         if($user)$this->_message($user['usercode'],$msg);
@@ -553,7 +553,7 @@ class xj extends base\e{
                         }
                         foreach($users as $user){
 
-                            $z = $this->_pusher($msg,$user);
+                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($user);
                             $user = model('user')->find($user);
                             if($user)$this->_message($user['usercode'],$msg);
@@ -565,7 +565,7 @@ class xj extends base\e{
                         $users = $equip['uid']?explode(',',$equip['uid']):[];
                         foreach($users as $user){
                             $allUser[] = $user;
-                            $z = $this->_pusher($msg,$user);
+                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($user);
                             $user = model('user')->find($user);
                             if($user)$this->_message($user['usercode'],$msg);
@@ -573,7 +573,7 @@ class xj extends base\e{
                     }
                     if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
                             $allUser[] = $this->uid;
-                            $z = $this->_pusher($msg,$this->uid);
+                            $z = $this->_pusher($msg,$this->uid,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     }
@@ -636,7 +636,7 @@ class xj extends base\e{
                         }
                         foreach($users as $user){
                             
-                            $z = $this->_pusher($msg,$user);
+                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($user);
                             $user = model('user')->find($user);
                             if($user)$this->_message($user['usercode'],$msg);
@@ -648,7 +648,7 @@ class xj extends base\e{
                         $users = $equip['uid']?explode(',',$equip['uid']):[];
                         foreach($users as $user){
                             $allUser[] = $user;
-                            $z = $this->_pusher($msg,$user);
+                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($user);
                             $user = model('user')->find($user);
                             if($user)$this->_message($user['usercode'],$msg);
@@ -656,7 +656,7 @@ class xj extends base\e{
                     }
                     if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
                             $allUser[] = $this->uid;
-                            $z = $this->_pusher($msg,$this->uid);
+                            $z = $this->_pusher($msg,$this->uid,['type'=>['key'=>76]]);
                             model('user')->data(['has_warning'=>1])->save($this->uid);
 
                     }
