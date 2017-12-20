@@ -502,7 +502,7 @@ class xj extends base\e{
                     $data['bid'] = $o['parameters_id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
-                    $data['value'] = $parameter['name'].'未填';
+                    $data['value'] = $msg;
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     $data['user_id'] = $this->uid;
@@ -588,7 +588,7 @@ class xj extends base\e{
                     $data['type'] = 1;
                     $data['user_id'] = $this->uid;
                     $data['states'] = 1;
-                    $data['value'] = $level?$level['name']:$parameter['name'].'过低';
+                    $data['value'] = $msg;
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     
@@ -669,7 +669,7 @@ class xj extends base\e{
                     $data['bid'] = $o['parameters_id'];
                     $data['type'] = 1;
                     $data['states'] = 1;
-                    $data['value'] = $level?$level['name']:$parameter['name'].'过高';
+                    $data['value'] = $msg;
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
                     
