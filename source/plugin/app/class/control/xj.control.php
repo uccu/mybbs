@@ -291,16 +291,32 @@ class xj extends base\e{
 
     }
 
+    private function getSDistance($lat1, $lng1, $lat2, $lng2){   
+        $earthRadius = 6367000; //approximate radius of earth in meters   
+        $lat1 = ($lat1 * pi() ) / 180;   
+        $lng1 = ($lng1 * pi() ) / 180;   
+        $lat2 = ($lat2 * pi() ) / 180;   
+        $lng2 = ($lng2 * pi() ) / 180;   
+        $calcLongitude = $lng2 - $lng1;   
+        $calcLatitude = $lat2 - $lat1;   
+        $stepOne = pow(sin($calcLatitude / 2), 2) + cos($lat1) * cos($lat2) * pow(sin($calcLongitude / 2), 2);   
+        $stepTwo = 2 * asin(min(1, sqrt($stepOne)));   
+        $calculatedDistance = $earthRadius * $stepTwo;   
+        return round($calculatedDistance);   
+    }
+
     /** 获取区域的设备 以及参数
      * getEquip
      * @param mixed $id 当次巡检ID
      * @return mixed 
      */
-    function getEquip($id,$lx_id,$xj_id){
+    function getEquip($id,$lx_id,$xj_id,$longitude = 0,$latitude = 0){
 
         $id = post('id',$id,'%d');
         $lx_id = post('lx_id',$lx_id,'%d');
         $xj_id = post('xj_id',$xj_id,'%d');
+        $longitude = post('longitude',$longitude);
+        $latitude = post('latitude',$latitude);
 
         $user_id = $this->uid;
 
@@ -327,6 +343,15 @@ class xj extends base\e{
         $area = model('enterprise_equipment')->find($id);
         
         !$area && $this->error('区域不存在！');
+
+        if($area['status']){
+            $dis = $this->getSDistance($latitude,$longitude,$area['latitude'],$area['longitude']);
+            if($dis > $area['ranges'] * 1000){
+                $this->error('您未在该区域的指定巡检范围内');
+            }
+        }
+        
+        
 
         $log = model('enterprise_xuanjian_log')->limit(999)->where(['user_id'=>$user_id,'area_id'=>$id,'final_log_id'=>$xj_id])->find();
 
