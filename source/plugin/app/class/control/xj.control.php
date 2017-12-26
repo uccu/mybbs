@@ -451,13 +451,15 @@ class xj extends base\e{
      * @param mixed $id 当次巡检ID 
      * @return mixed 
      */
-    function fillIn($area_id,$data,$id){
+    function fillIn($area_id,$data,$id,$longitude = 0,$latitude = 0){
 
 
         $this->_check_login();
 
         $area_id = post('area_id',$area_id);
         $id = post('id',$id);
+        $longitude = post('longitude',$idlongitude);
+        $latitude = post('latitude',$latitude);
         if($_POST['data'])$_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['data']);
         $data = $_POST['data']?$_POST['data']:$data;
         // $data = '[{"input_type":"0","value":"30","type":"3","bid":"3","parameters_id":"1"}]';
@@ -468,6 +470,8 @@ class xj extends base\e{
         $data2['user_id'] = $this->uid;
         $data2['time'] = TIME_NOW;
         $data2['date'] = date('Y-m-d',TIME_NOW);
+        $data2['longitude'] = $longitude;
+        $data2['latitude'] = $latitude;
         $data2['final_log_id'] = $id;
 
         $final_log = model('enterprise_xuanjian_final_log')->find($id);
