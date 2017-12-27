@@ -55,6 +55,8 @@ class defect extends base\e{
 
             $type = model('defect_type')->where(['name'=>$data['type']])->find();
             $type = $type['states'];
+            
+            $data['push'] = [];
 
             if($type == 1){
 
@@ -66,22 +68,19 @@ class defect extends base\e{
                     $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
                     $user = $user['uid'];
                 }
-                $data['push'] = implode(',',$users);
+                $data['push'] = $users;
                 
             }
             
             if($type == 2 || $type == 1 || $type == 3){
                 
                 
-                $users = explode(',',$inspection['uid']);
-                foreach($users as &$user){
-
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
-                    $user = $user['uid'];
-                }
-                $data['push'] = implode(',',$users);
                 
-            }elseif($type == 3){
+                $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
+                
+                $data['push'][] = $this->uid;
+                
+            }elseif($type == 3 || $type == 1){
 
                 $where = [];
                 $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
@@ -90,10 +89,10 @@ class defect extends base\e{
 
                     $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
                 }
-                $data['push'] = implode(',',$users);
+                $data['push'] = array_merge($users ,$data['push'] );
             }
 
-            
+            $data['push'] = implode(',',$data['push']);
 
         }
 
