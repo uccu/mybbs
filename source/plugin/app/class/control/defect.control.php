@@ -23,7 +23,9 @@ class defect extends base\e{
      * @param mixed $type 
      * @return mixed 
      */
-    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0,$inspection_id = 0){
+    function fillIn($explanation,$state,$type = '普通缺陷',$equip_id = 0,$area_id = 0,$inspection_id = 0){
+        
+        // $this->uid = 532;
 
         $this->_check_login();
 
@@ -57,7 +59,7 @@ class defect extends base\e{
             $type = $type['states'];
             
             $data['push'] = [];
-
+            
             if($type == 1){
 
                 $where['gid'] = 1;
@@ -78,7 +80,7 @@ class defect extends base\e{
                 
                 $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
                 
-                $data['push'][] = $this->uid;
+                $data['push'][] = $this->uid; 
                 
             }elseif($type == 3 || $type == 1){
 
