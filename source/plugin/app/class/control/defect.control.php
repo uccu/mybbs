@@ -42,11 +42,11 @@ class defect extends base\e{
 
         
 
-        if($inspection_id){
+        if(1){
 
             $name = $this->userInfo['nametrue'];
             $date = date('Y年m月d日 H:i:s');
-            $inspection = model('inspection')->find($inspection_id);
+            if($inspection_id)$inspection = model('inspection')->find($inspection_id);
 
             $equip = model('enterprise_equipment')->find($equip_id);
             $area = model('enterprise_equipment')->find($equip['bid']);
@@ -65,7 +65,7 @@ class defect extends base\e{
                 
                 foreach($users as &$user){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
                     $user = $user['uid'];
                 }
                 $data['push'] = $users;
@@ -76,7 +76,7 @@ class defect extends base\e{
                 
                 
                 
-                $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
+                $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
                 
                 $data['push'][] = $this->uid;
                 
@@ -87,7 +87,7 @@ class defect extends base\e{
                 $users = $users = $equip['uid']?explode(',',$equip['uid']):[];
                 foreach($users as &$user){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.'在巡检'.$inspection['title'].'时，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
                 }
                 $data['push'] = array_merge($users ,$data['push'] );
             }
