@@ -23,9 +23,9 @@ class defect extends base\e{
      * @param mixed $type 
      * @return mixed 
      */
-    function fillIn($explanation,$state,$type = '普通缺陷',$equip_id = 0,$area_id = 0,$inspection_id = 0){
+    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0,$inspection_id = 0){
         
-        // $this->uid = 532;
+        $this->uid = 532;
 
         $this->_check_login();
 
@@ -50,51 +50,53 @@ class defect extends base\e{
             $date = date('Y年m月d日 H:i:s');
             if($inspection_id)$inspection = model('inspection')->find($inspection_id);
 
-            $equip = model('enterprise_equipment')->find($equip_id);
+            $equip = model('enterprise_equipment')->find($data['equip_id']);
             $area = model('enterprise_equipment')->find($equip['bid']);
             // $equip = 
 
 
-            $type = model('defect_type')->where(['name'=>$data['type']])->find();
+            $type = model('defect_type')->where(['name'=>$data['state']])->find();
             $type = $type['states'];
             
-            $data['push'] = [];
-            
+            $data['push_id'] = [];
+            // $this->error($type.'.'.$data['type'].'.1');
             if($type == 1){
 
                 $where['gid'] = 1;
-                $users = model('user')->where($where)->field('uid')->select();
+                $users = model('user')->where($where)->field('uid')->limit(999)->select();
                 
-                foreach($users as &$user){
+                foreach($users as &$user2){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user['uid']);
-                    $user = $user['uid'];
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user2['uid']);
+                    $user2 = $user2['uid'];
                 }
-                $data['push'] = $users;
+                $data['push_id'] = $users;
                 
             }
             
             if($type == 2 || $type == 1 || $type == 3){
                 
-                
+                // $this->error($type.'_1');
                 
                 $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
                 
-                $data['push'][] = $this->uid; 
+                $data['push_id'][] = $this->uid; 
                 
-            }elseif($type == 3 || $type == 1){
+            }
+            
+            if($type == 3 || $type == 1){
 
                 $where = [];
-                $where['value'] = ['contain','(^|,)'.$equip_id.'($|,)','REGEXP'];
+                $where['value'] = ['contain','(^|,)'.$data['equip_id'].'($|,)','REGEXP'];
                 $users = $users = $equip['uid']?explode(',',$equip['uid']):[];
-                foreach($users as &$user){
+                foreach($users as $user){
 
                     $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
                 }
-                $data['push'] = array_merge($users ,$data['push'] );
+                $data['push_id'] = array_merge($users ,$data['push_id'] );
             }
 
-            $data['push'] = implode(',',$data['push']);
+            $data['push_id'] = implode(',',$data['push_id']);
 
         }
 

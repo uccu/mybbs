@@ -84,7 +84,7 @@ class core
 		$array['trace'] = $exception->getTraceAsString();
 		model('cache')->replace('handleException',$array,'%s');
 		if(!defined('SHOW_ERROR'))$array = (object)array();
-		$error = array('code'=>999,'desc'=>"handleException",url=>'',data=>$array);
+		$error = array('code'=>999,'desc'=>"handleException：".$exception->getMessage(),url=>'',data=>$array);
 		if(defined('SHOW_ERROR')){
 			echo json_encode($error);
 		}

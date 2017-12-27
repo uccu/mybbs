@@ -458,7 +458,7 @@ class xj extends base\e{
 
         $area_id = post('area_id',$area_id);
         $id = post('id',$id);
-        $longitude = post('longitude',$idlongitude);
+        $longitude = post('longitude',$longitude);
         $latitude = post('latitude',$latitude);
         if($_POST['data'])$_POST['data'] = str_ireplace(array('&lt;','&gt;','&quot;','&#39;'),array('<','>','"',"'"),$_POST['data']);
         $data = $_POST['data']?$_POST['data']:$data;
@@ -472,6 +472,8 @@ class xj extends base\e{
         $data2['date'] = date('Y-m-d',TIME_NOW);
         $data2['longitude'] = $longitude;
         $data2['latitude'] = $latitude;
+
+        // $this->error($latitude.','.$longitude);
         $data2['final_log_id'] = $id;
 
         $final_log = model('enterprise_xuanjian_final_log')->find($id);

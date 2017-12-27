@@ -9,7 +9,7 @@ function compress($buffer) {
 	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
 	return $buffer;
 }
-//define('SHOW_ERROR',1);
+define('SHOW_ERROR',1);
 define('TIMESTAT',1);
 require('source/Library/class/core.php');
 
