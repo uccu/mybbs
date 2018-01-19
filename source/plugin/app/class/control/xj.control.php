@@ -577,7 +577,7 @@ class xj extends base\e{
 
                     if($level['push_type'] == 1){
 
-                        $users = model('user')->where(['gid'=>1])->field('uid')->select();
+                        $users = model('user')->where(['gid'=>1,'bid'=>$this->userInfo['bid']])->field('uid')->limit(999)->select();
                         foreach($users as $k=>$v){
                             $users[$k] = $v['uid'];
                             $allUser[] = $users[$k];
@@ -660,7 +660,7 @@ class xj extends base\e{
                     $allUser = [];
 
                     if($level['push_type'] == 1){
-                        $users = model('user')->where(['gid'=>1])->field('uid')->select();
+                        $users = model('user')->where(['gid'=>1,'bid'=>$this->userInfo['bid']])->field('uid')->limit(999)->select();
                         foreach($users as $k=>$v){
                             $users[$k] = $v['uid'];
                             $allUser[] = $users[$k];
@@ -756,6 +756,7 @@ class xj extends base\e{
         $data['date'] = date('Y.m.d');  
         $data['inspection_time_id'] = $xj['time_id'];
         $data['message'] = '';
+        $data['gid'] = $this->userInfo['bid'];
         $id = model('enterprise_xuanjian_final_log')->data($data)->add();
         $this->success(['id'=>$id]);
     }

@@ -15,7 +15,7 @@ class home extends base\e{
         if($this->outter)$this->success($z);
         return $z;
     }
-    function top_line($page=1,$limit=10,$eid = 0){
+    function top_line($eid = 0,$page=1,$limit=10){
         $eid = post('eid',$eid);
         $limit = post('limit',$limit);
         $page = post('page',$page);
@@ -137,14 +137,14 @@ class home extends base\e{
     }
     
 
-    function all(){
+    function all($eid = 0){
         $this->outter = false;
-        $data['banner'] = $this->banner();
-        $data['top_line'] = $this->top_line();
+        $data['banner'] = $this->banner($eid);
+        $data['top_line'] = $this->top_line($eid);
         $data['expert'] = $this->expert();
         $data['repository'] = $this->repository();
         $data['inquiry'] = $this->inquiry();
-        $data['message'] = 0;
+        $data['message'] = model('message')->where(array('uid'=>$this->uid,'read'=>0))->get_field();;
         $this->success($data);
     }
 
@@ -183,6 +183,25 @@ class home extends base\e{
         $this->success($z);
     }
 
+    function homeDCS($gid){
+
+        $gid = post('gid',$gid,'%d');
+        $z = model('company_html')->where(['eid'=>$gid,'state'=>1])->find();
+        header('Location:'.$z['url']);
+        exit();
+
+    }
+
+    function homeNG($gid){
+
+        $gid = post('gid',$gid,'%d');
+        $z = model('company_html')->where(['eid'=>$gid,'state'=>2])->find();
+        if(!$z){
+            header('Location:/404.html');
+        }else header('Location:'.$z['url']);
+        exit();
+
+    }
 
 
 }

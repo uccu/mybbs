@@ -23,9 +23,8 @@ class defect extends base\e{
      * @param mixed $type 
      * @return mixed 
      */
-    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0,$inspection_id = 0){
+    function fillIn($explanation,$state,$type,$equip_id = 0,$area_id = 0,$inspection_id = 0,$gid){
         
-        $this->uid = 532;
 
         $this->_check_login();
 
@@ -40,6 +39,7 @@ class defect extends base\e{
         $data['area_id'] = post('area_id',$area_id);
         $data['user_id'] = post('user_id',$this->uid);
         $data['create_time'] = TIME_NOW;
+        $data['gid'] = post('gid',$gid);
 
 
         
@@ -63,6 +63,7 @@ class defect extends base\e{
             if($type == 1){
 
                 $where['gid'] = 1;
+                $where['bid'] = $this->userInfo['bid'];
                 $users = model('user')->where($where)->field('uid')->limit(999)->select();
                 
                 foreach($users as &$user2){
@@ -77,10 +78,14 @@ class defect extends base\e{
             if($type == 2 || $type == 1 || $type == 3){
                 
                 // $this->error($type.'_1');
+
+                if($this->userInfo['gid'] == 2){
+                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
                 
-                $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
+                    $data['push_id'][] = $this->uid; 
+                }
                 
-                $data['push_id'][] = $this->uid; 
+                
                 
             }
             
@@ -114,13 +119,14 @@ class defect extends base\e{
      * lists
      * @return mixed 
      */
-    function lists($status = -1,$order = 0,$type = '',$page = 1,$limit = 10){
+    function lists($status = -1,$order = 0,$type = '',$page = 1,$limit = 10,$gid = 0){
 
         $order = post('order',$order);
         $type = post('type',$type);
         $limit = post('limit',$limit);
         $page = post('page',$page);
         $status = post('status',$status);
+        $gid = post('gid',$gid);
 
         switch($order){
             case '1':
@@ -141,6 +147,7 @@ class defect extends base\e{
             $where['answer_id'] = 0;
 
         }
+        $where['gid'] = $gid;
             
         $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
 
@@ -160,6 +167,11 @@ class defect extends base\e{
         $this->success(['list'=>$list]);
     }
     
+    /** 详情
+     * info
+     * @param mixed $id 
+     * @return mixed 
+     */
     function info($id){
 
         $id = post('id',$id);
@@ -184,10 +196,13 @@ class defect extends base\e{
      * type
      * @return mixed 
      */
-    function type(){
+    function type($gid){
 
+        $gid = post('gid',$gid,'%d');
 
-        $list = model('defect_type')->limit(99)->select();
+        $where = [];
+        if($gid)$where['gid'] = $gid;
+        $list = model('defect_type')->where($where)->limit(99)->select();
 
         $this->success(['list'=>$list]);
     }

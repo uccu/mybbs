@@ -151,16 +151,26 @@ class equip extends base\e{
 
 
     # 配件类型
-    function partsType($bid = 1,$type = 1){
+    function partsType($bid = 1,$type = 1,$eid = 1){
 
         $bid = post('bid',$bid,1);
         $type = post('type',$type,1);
-        $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1,'eid'=>$type])->order('orders')->limit(999)->select();
+        $eid = post('eid',$eid,1);
+
+        $info = model('enterprise_equipment')->where(['eid'=>$eid,'bid'=>0])->find();
+
+        if($bid == 0 && $eid){
+            
+            $bid = $info['id'];
+        }
+        
+        if($type == 0)$eid = 0;
+        $list = model('enterprise_equipment')->where(['bid'=>$bid,'del'=>1,'eid'=>$eid])->order('orders')->limit(999)->select();
 
         foreach($list as &$v){
 
             $id = $v['id'];
-            if($v['bid'] == 1 || $v['bid'] == 0){
+            if($v['bid'] == $info['id'] || $v['bid'] == 0){
                 $v['count'] = model('parts')->mapping('p')->add_table([
                     'enterprise_equipment'=>[
                         '_on'=>'e.id=p.bid','_mapping'=>'e','id','bid'=>'ebid'
@@ -176,13 +186,16 @@ class equip extends base\e{
     }
 
     # 配件类表
-    function partsList($bid = 0,$type = 1,$search = ''){
+    function partsList($bid = 0,$eid = 0,$type = 1,$search = ''){
         $bid = post('bid',$bid,0);
         $type = post('type',$type,1);
         $search = post('search',$search);
+        $eid = post('eid',$eid);
         if($bid)$where['bid'] = $bid;
-        if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        if($type != 0)$where['eid'] = $eid;
         $where['type'] = $type;
+        if($search)$where['name'] = array('contain','%'.$search.'%','LIKE');
+        
         $list = model('parts')->where($where)->order('locate')->limit(999)->select();
 
         $this->success($list);

@@ -301,11 +301,13 @@ class my extends base\e{
      * @param mixed $type 部门ID
      * @return mixed 
      */
-    function my_follow($type){
+    function my_follow($type,$gid){
         $type = post('type',$type,'%d');
+        $gid = post('type',$gid,'%d');
 
         $where['fans_id'] = $this->uid;
         $type && $where['did'] = $type;
+        $gid && $where['gid'] = $gid;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
             'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','gid','bid','did','nametrue','type','label','thumb'),
@@ -850,8 +852,11 @@ class my extends base\e{
 
 
     # 获取部门列表
-    function getDepartment(){
-        $data['list'] = model('department')->limit(99)->select();
+    function getDepartment($gid){
+        $gid = post('gid',$gid,'%d');
+        $where = [];
+        if($gid)$where['eid'] = $gid;
+        $data['list'] = model('department')->where($where)->limit(99)->select();
         $data['list'] = array_merge([['id'=>'0','name'=>'全部']],$data['list']);
         $this->success($data);
     }
@@ -927,10 +932,12 @@ class my extends base\e{
     }
 
 
-    function my_follow_sort($type){
+    function my_follow_sort($type,$gid){
         $type = post('type',$type,'%d');
+        $gid = post('gid',$gid,'%d');
         $where['fans_id'] = $this->uid;
         $type && $where['did'] = $type;
+        $gid && $where['gid'] = $gid;
         model('fans')->mapping('f');
         $t['follow'] = model('fans')->add_table(array(
             'user'=>array('_on'=>'uid','_mapping'=>'u','uid'=>'fuid','nickname','bid','gid','did','nametrue','type','label','thumb'),

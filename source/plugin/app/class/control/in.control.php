@@ -165,6 +165,12 @@ class in extends base\e{
 
         $o = $this->_getCloudToken($info['uid']);
 
+        if($info['bid']){
+
+            $xx = model('enterprise_equipment')->where(['bid'=>0,'eid'=>$info['bid']])->find();
+            $info['garden_id'] = $xx['id'];
+        }
+
         $out = array(
             'user_token'=>$user_token,
             'uid'=>$info['uid'],
@@ -178,6 +184,7 @@ class in extends base\e{
             'qust'=>$info['qust']?$info['qust']:'3',
             'bid'=>$info['bid']?$info['bid']:'0',
             'gid'=>$info['gid']?$info['gid']:'0',
+            'garden_id'=>$info['garden_id']?$info['garden_id']:'0'
             //'huan'=>$o
         );
         
