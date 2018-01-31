@@ -57,10 +57,14 @@ class defect extends base\e{
 
             $type = model('defect_type')->where(['name'=>$data['state']])->find();
             $type = $type['states'];
+
+            $group = model('user_group')->find($type);
+            $state = $group['states'];
             
             $data['push_id'] = [];
+            $msg = '巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！';
             // $this->error($type.'.'.$data['type'].'.1');
-            if($type == 1){
+            if($state == 1){
 
                 $where['gid'] = 1;
                 $where['bid'] = $this->userInfo['bid'];
@@ -68,19 +72,17 @@ class defect extends base\e{
                 
                 foreach($users as &$user2){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user2['uid']);
+                    $z = $this->_pusher($msg,$user2['uid']);
                     $user2 = $user2['uid'];
                 }
                 $data['push_id'] = $users;
                 
             }
             
-            if($type == 2 || $type == 1 || $type == 3){
-                
-                // $this->error($type.'_1');
+            if($state == 2 || $state == 1 || $state == 3){
 
                 if($this->userInfo['gid'] == 2){
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$this->uid);
+                    $z = $this->_pusher($msg,$this->uid);
                 
                     $data['push_id'][] = $this->uid; 
                 }
@@ -89,16 +91,31 @@ class defect extends base\e{
                 
             }
             
-            if($type == 3 || $type == 1){
+            if($state == 3 || $state == 1){
 
                 $where = [];
                 $where['value'] = ['contain','(^|,)'.$data['equip_id'].'($|,)','REGEXP'];
                 $users = $users = $equip['uid']?explode(',',$equip['uid']):[];
                 foreach($users as $user){
 
-                    $z = $this->_pusher('巡检员'.$name.'与'.$date.($inspection_id?'在巡检'.$inspection['title'].'时':'').'，填写了'.$area['title'].'-'.$equip['title'].'的普通缺陷，请尽快与该设备负责人联系并尽快处理！',$user);
+                    $z = $this->_pusher($msg,$user);
                 }
                 $data['push_id'] = array_merge($users ,$data['push_id'] );
+            }
+
+            if($state == 4){
+
+                $where['gid'] = 4;
+                $where['bid'] = $this->userInfo['bid'];
+                $users = model('user')->where($where)->field('uid')->limit(999)->select();
+                
+                foreach($users as &$user2){
+
+                    $z = $this->_pusher($msg,$user2['uid']);
+                    $user2 = $user2['uid'];
+                }
+                $data['push_id'] = $users;
+
             }
 
             $data['push_id'] = implode(',',$data['push_id']);

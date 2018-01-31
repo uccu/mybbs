@@ -201,6 +201,7 @@ class inquiry extends base\e{
     function expert_search($search){
         $search = post('search',$search);
         $where['type'] = 2;
+		$where['status'] = 0;
         if($search)$where['nametrue'] = array('contain','%'.$search.'%','LIKE');
         // else $where['uid'] = '0';
         //else $where['is_login'] = '1';
@@ -282,6 +283,7 @@ class inquiry extends base\e{
         $d1 = model('equipment_list')->find($d2['bid']);
 
         $where['type'] = 2;
+		$where['status'] = 0;
         
         if($d1){
 

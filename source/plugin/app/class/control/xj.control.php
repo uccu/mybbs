@@ -573,46 +573,7 @@ class xj extends base\e{
                         model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
                     }
 
-                    $allUser = [];
-
-                    if($level['push_type'] == 1){
-
-                        $users = model('user')->where(['gid'=>1,'bid'=>$this->userInfo['bid']])->field('uid')->limit(999)->select();
-                        foreach($users as $k=>$v){
-                            $users[$k] = $v['uid'];
-                            $allUser[] = $users[$k];
-                        }
-                        foreach($users as $user){
-
-                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($user);
-                            $user = model('user')->find($user);
-                            if($user)$this->_message($user['usercode'],$msg);
-                        }
-                    }
-
-
-                    if($level['push_type'] == 1 || $level['push_type'] == 3){
-                        $users = $equip['uid']?explode(',',$equip['uid']):[];
-                        foreach($users as $user){
-                            $allUser[] = $user;
-                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($user);
-                            $user = model('user')->find($user);
-                            if($user)$this->_message($user['usercode'],$msg);
-                        }
-                    }
-                    if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
-                            $allUser[] = $this->uid;
-                            $z = $this->_pusher($msg,$this->uid,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($this->uid);
-
-                    }
-                    model('user')->data(['has_warning'=>1])->save($this->uid);
-
-                    
-
-                    
+                    $allUser = $this->_push($level['push_type'],$equip,$msg);
 
                     $data = [];
                     $data['bid'] = $o['parameters_id'];
@@ -622,6 +583,7 @@ class xj extends base\e{
                     $data['value'] = $msg;
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
+                    $data['level'] = $level ? $level['id']:'0';
                     
                     if($allUser){
 
@@ -657,43 +619,7 @@ class xj extends base\e{
                         model('enterprise_equipment')->data(['warning_times'=>['add',1],'warning'=>1])->save($equip['bid']);
                     }
 
-                    $allUser = [];
-
-                    if($level['push_type'] == 1){
-                        $users = model('user')->where(['gid'=>1,'bid'=>$this->userInfo['bid']])->field('uid')->limit(999)->select();
-                        foreach($users as $k=>$v){
-                            $users[$k] = $v['uid'];
-                            $allUser[] = $users[$k];
-                        }
-                        foreach($users as $user){
-                            
-                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($user);
-                            $user = model('user')->find($user);
-                            if($user)$this->_message($user['usercode'],$msg);
-                        }
-
-                    }
-
-                    if($level['push_type'] == 1 || $level['push_type'] == 3){
-                        $users = $equip['uid']?explode(',',$equip['uid']):[];
-                        foreach($users as $user){
-                            $allUser[] = $user;
-                            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($user);
-                            $user = model('user')->find($user);
-                            if($user)$this->_message($user['usercode'],$msg);
-                        }
-                    }
-                    if($level['push_type'] == 1 || $level['push_type'] == 3 || $level['push_type'] == 2){
-                            $allUser[] = $this->uid;
-                            $z = $this->_pusher($msg,$this->uid,['type'=>['key'=>76]]);
-                            model('user')->data(['has_warning'=>1])->save($this->uid);
-
-                    }
-
-                    model('user')->data(['has_warning'=>1])->save($this->uid);
-
+                    $allUser = $this->_push($level['push_type'],$equip,$msg);
                     
 
                     $data = [];
@@ -703,7 +629,8 @@ class xj extends base\e{
                     $data['value'] = $msg;
                     $data['create_time'] = TIME_NOW;
                     $data['final_log_id'] = $id;
-                    
+                    $data['user_id'] = $this->uid;
+                    $data['level'] = $level ? $level['id']:'0';
                     if($allUser){
 
                         $data['push_id'] = implode(',',$allUser);
@@ -725,6 +652,52 @@ class xj extends base\e{
 
         $this->success();
         
+
+    }
+
+
+
+    /** 推送
+     * push
+     * @param mixed $group_id 
+     * @param mixed $area_id 
+     * @param mixed $msg 
+     * @return mixed 
+     */
+    function _push($group_id,$equip,$msg){
+
+        $group = model('user_group')->find($group_id);
+
+        if(!$group)$this->error('角色不存在:'.$group_id);
+        $state = $group['states'];
+
+
+        if($state == 2){
+            $users = [$this->uid];
+        }elseif($state == 3){
+            
+            $users = $equip['uid']?explode(',',$equip['uid']):[];
+            $users[] = $this->uid;
+        }else{
+            $where['bid'] = $group['eid'];
+            $where['group_id'] = $group_id;
+            $users = model('user')->where($where)->field('uid')->limit(999)->select();
+            foreach($users as $k=>$v){
+                $users[$k] = $v['uid'];
+            }
+            $users[] = $this->uid;
+        }
+
+
+        foreach($users as $user){
+
+            $z = $this->_pusher($msg,$user,['type'=>['key'=>76]]);
+            model('user')->data(['has_warning'=>1])->save($user);
+            $user = model('user')->find($user);
+            if($user)$this->_message($user['usercode'],$msg);
+        }
+
+        return $users;
 
     }
 
@@ -830,7 +803,15 @@ class xj extends base\e{
             if(!$value)$this->error('无权限查看');
 
             $where['bid'] = array('contain',$value,'IN');
-        }else{
+        }elseif($this->userInfo['gid'] == 4){
+
+            model('warning_log')->mapping('o')->add_table([
+                'warning_level'=>[
+                    'push_type','_mapping'=>'l','_on'=>'o.level=l.id'
+                ]
+            ])->where(['push_type'=>$this->userInfo['group_id']]);
+
+        }elseif(!$this->userInfo['gid']){
 
             $this->error('无权限查看');
         }
