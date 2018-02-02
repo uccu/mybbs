@@ -136,9 +136,10 @@ class defect extends base\e{
      * lists
      * @return mixed 
      */
-    function lists($status = -1,$order = 0,$type = '',$page = 1,$limit = 10,$gid = 0){
+    function lists($gid = 0,$search = '',$status = -1,$order = 0,$type = '',$page = 1,$limit = 10){
 
         $order = post('order',$order);
+        $search = post('search',$search);
         $type = post('type',$type);
         $limit = post('limit',$limit);
         $page = post('page',$page);
@@ -153,10 +154,11 @@ class defect extends base\e{
                 $order = ['create_time'=>'1'];
                 break;
         }
-        
         if($type){
+
             $where['type'] = $type;
         }
+        
 
         if($status != -1 && $status != 0){
             $where['answer_id'] = ['logic',0,'!='];
@@ -165,8 +167,14 @@ class defect extends base\e{
 
         }
         $where['gid'] = $gid;
+
+        if($search){
+            $where2['type'] = ['contain','%'.$search.'%','LIKE'];
+            $where2['explanation'] = ['contain','%'.$search.'%','LIKE'];
+        }
             
-        $list = model('defect')->where($where)->page($page,$limit)->order($order)->select();
+        $list = model('defect')->where($where)->where($where2,false,'OR')->page($page,$limit)->order($order)->select();
+        // die();
 
         foreach($list as $k=>&$v){
 
