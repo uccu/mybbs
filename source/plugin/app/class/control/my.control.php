@@ -878,9 +878,9 @@ class my extends base\e{
         $search = post('search',$search);
         
         if($search){
-            $where['usercode'] = $search;
-            $where['nickname'] = $search;
-            $where['e_wx'] = $search;
+            $where['usercode'] = array('contain','%'.$search.'%','LIKE');;
+            $where['nickname'] = array('contain','%'.$search.'%','LIKE');;
+            $where['e_wx'] = array('contain','%'.$search.'%','LIKE');;
         }else{
             $this->error('没有搜索内容！');
         }
@@ -896,8 +896,8 @@ class my extends base\e{
         $search = post('search',$search);
         $where['bid'] = 0;
         if($search){
-            $where['usercode'] = $search;
-            $where['nickname'] = $search;
+            $where['usercode'] = array('contain','%'.$search.'%','LIKE');;
+            $where['nickname'] = array('contain','%'.$search.'%','LIKE');;
         }else{
             $this->error('没有搜索内容！');
         }
