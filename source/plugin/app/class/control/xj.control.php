@@ -360,7 +360,7 @@ class xj extends base\e{
             $this->error('该区域已巡检，请勿重复巡检');
         }
 
-        $qy = model('enterprise_equipment')->where(['bid'=>$id])->limit(9999)->order(['orders'=>'ASC'])->select();
+        $qy = model('enterprise_equipment')->where(['bid'=>$id,'del'=>1])->limit(9999)->order(['orders'=>'ASC'])->select();
 
         foreach($qy as $k=>&$v){
 
